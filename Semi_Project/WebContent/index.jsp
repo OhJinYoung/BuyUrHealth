@@ -7,6 +7,6 @@
 <title>BUH</title>
 </head>
 <body>
-	
+	<%@ include file="WEB-INF/views/common/mainView.jsp" %>
 </body>
 </html>
