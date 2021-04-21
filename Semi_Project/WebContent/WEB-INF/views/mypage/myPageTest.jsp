@@ -37,8 +37,8 @@
 	 #myInfo-head{text-align:left; margin-top:50px; margin-left:250px;}
 	 
 	 .outer{
-		width: 48%; height: 450px; background-color: rgba(255, 255, 255, 0.4); border: 5px solid white;
-		margin-left: auto; margin-right: auto; margin-top: 30%; display: inline-block; float: both; 
+		width: 50%; height: 450px; background-color: rgba(255, 255, 255, 0.4); border: 1px solid black;
+		margin-top: 300px; display: inline-block;
 	}
 	.updown { border: 1px solid black; width: 0.1px; height: 50xp; }
 
