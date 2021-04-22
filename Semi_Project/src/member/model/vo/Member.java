@@ -5,20 +5,21 @@ import java.sql.Date;
 public class Member {
 	private String userNo;
 	private String password;
-	private String gender;
+	private char gender;
 	private String userId;
 	private String userName;
 	private Date birth;
 	private String phone;
 	private String email;
 	private Date userDate;
-	private String authority;
+	private char authority;
 	private String status;
-	
-	public Member() {}
 
-	public Member(String userNo, String password, String gender, String userId, String userName, Date birth,
-			String phone, String email, Date userDate, String authority, String status) {
+	public Member() {
+	}
+
+	public Member(String userNo, String password, char gender, String userId, String userName, Date birth, String phone,
+			String email, Date userDate, char authority, String status) {
 		super();
 		this.userNo = userNo;
 		this.password = password;
@@ -45,15 +46,15 @@ public class Member {
 		return password;
 	}
 
-	public void setUserPwd(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public String getGender() {
+	public char getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(char gender) {
 		this.gender = gender;
 	}
 
@@ -105,11 +106,11 @@ public class Member {
 		this.userDate = userDate;
 	}
 
-	public String getAuthority() {
+	public char getAuthority() {
 		return authority;
 	}
 
-	public void setAuthority(String authority) {
+	public void setAuthority(char authority) {
 		this.authority = authority;
 	}
 
@@ -121,10 +122,4 @@ public class Member {
 		this.status = status;
 	}
 
-	@Override
-	public String toString() {
-		return "Member [userNo=" + userNo + ", password=" + password + ", gender=" + gender + ", userId=" + userId
-				+ ", userName=" + userName + ", birth=" + birth + ", phone=" + phone + ", email=" + email
-				+ ", userDate=" + userDate + ", authority=" + authority + ", status=" + status + "]";
-	}
 }

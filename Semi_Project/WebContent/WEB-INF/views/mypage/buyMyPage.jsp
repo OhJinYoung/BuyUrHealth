@@ -4,7 +4,7 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	Member member = (Member)request.getAttribute("userId");
 	String authority = null;
-	if(member.getAuthority().equals("Y")){
+	if(member.getAuthority() == 'Y'){
 		authority = "관리자";
 	} else {
 		authority = "회원";
