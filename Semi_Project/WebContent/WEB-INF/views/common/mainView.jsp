@@ -267,7 +267,7 @@
 			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
 		});
 		$('#goMypage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/myPage.me";
+			location.href="<%= request.getContextPath() %>/updateMyPage.me";
 		});
 		$('#goService').on('click', function(){
 			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
