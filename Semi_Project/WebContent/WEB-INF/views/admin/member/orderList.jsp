@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, member.model.vo.Member"%>
-<%
-ArrayList<Member> list = (ArrayList) request.getAttribute("list");
-%>
+	import="java.util.ArrayList, member.model.vo.Order"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,8 +30,6 @@ h3 {
 	width: 140px;
 	height: 30px;
 	font-size: 12px;
-	border: 1px solid #c3c3c3;
-	border-radius: 2px;
 }
 
 select {
@@ -172,22 +167,6 @@ li>a {
 	font-size: 12px;
 	color: #828282a6;
 }
-
-#Btns button {
-	width: 100px;
-	height: 40px;
-	font-size: 15px;
-	margin: 0 20px;
-	color: white;
-}
-
-#updateBtn {
-	background: orange;
-}
-
-#deleteBtn {
-	background: #666666;
-}
 </style>
 <body>
 	<%@include file="../header.jsp"%>
@@ -197,13 +176,14 @@ li>a {
 				<div id="contents-wrap">
 					<div id="top">
 						<div>
-							<h4>사용자 관리</h4>
+							<h4>주문 관리</h4>
 						</div>
 						<div id="top-right">
 							<div>
 								<select id="filter">
 									<option value="id">아이디</option>
 									<option value="name">이름</option>
+									<option value="state">상태</option>
 								</select>
 							</div>
 							<div id="searchBox">
@@ -215,34 +195,35 @@ li>a {
 					</div>
 					<div id="table">
 						<table>
-							<tr>
+							<tr id="firstTr">
 								<th>선택</th>
-								<th>사용자 ID</th>
-								<th>이름</th>
-								<th>가입일</th>
-								<th>글/댓글/문의</th>
+								<th>결제일</th>
+								<th>주문자명(ID)</th>
+								<th>상품명</th>
+								<th>결제금액</th>
+								<th>상태</th>
 							</tr>
 							<tbody id="tableBody">
 								<!-- for문 -->
 								<%
-								if (list != null && list.size() > 0) {
-									for (Member m : list) {
+								for (int i = 0; i < 10; i++) {
 								%>
 								<tr>
-									<td><input type="checkbox" name="checkbox"
-										value="<%=m.getUserNo()%>"></td>
-									<td><%=m.getUserId()%></td>
-									<td><%=m.getUserName()%></td>
-									<td><%=m.getUserDate()%></td>
-									<td>사용자 글수</td>
+									<td><input type="checkbox" name="checkbox" value=""></td>
+									<td>2021-03-03</td>
+									<td><div>
+											<p>이름</p>
+											<p id="id">아이디</p>
+										</div></td>
+									<td>밀크씨슬 외 2개</td>
+									<td>30,000원</td>
+									<td>발송완료</td>
 								</tr>
-								<%
-								}
-								} else {
-								%>
+								<!-- 
 								<tr>
-									<td colspan="5">등록된 회원이 없습니다.</td>
+									<td colspan="6">등록된 주문건이 없습니다.</td>
 								</tr>
+								 -->
 								<%
 								}
 								%>
@@ -250,20 +231,36 @@ li>a {
 						</table>
 					</div>
 					<div id="bottom">
+						<div id="update">
+							<p>선택한 주문건을</p>
+							<select>
+								<option>주문상태선택</option>
+								<option>결제완료</option>
+								<option>주문취소</option>
+								<option>배송준비중</option>
+								<option>배송중</option>
+								<option>배송완료</option>
+								<option>반품요청</option>
+								<option>반품진행중</option>
+								<option>반품완료</option>
+								<option>교환진행중</option>
+								<option>교환완료</option>
+							</select>
+							<p>으로</p>
+							<button>변경</button>
+						</div>
 						<div id="pagingBtns">
-							<button id="prePage">&lt;</button>
+							<button id="firstPage" value="">&lt;&lt;</button>
+							<button class="pageBtn" value="">&lt;</button>
 							<%
 							for (int i = 0; i < 9; i++) {
 							%>
-							<button value=<%=i + 1%>><%=i + 1%></button>
+							<button class="pageBtn" value=<%=i + 1%>><%=i + 1%></button>
 							<%
 							}
 							%>
-							<button id="nextPage">&gt;</button>
-						</div>
-						<div id="Btns">
-							<button id="updateBtn">수정</button>
-							<button id="deleteBtn">삭제</button>
+							<button value="nextPage">&gt;</button>
+							<button value="lastPage">&gt;&gt;</button>
 						</div>
 					</div>
 				</div>
