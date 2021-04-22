@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Member {
 	private String userNo;
-	private String userPwd;
+	private String password;
 <<<<<<< HEAD
 	private String gender;
 	private String userId;
