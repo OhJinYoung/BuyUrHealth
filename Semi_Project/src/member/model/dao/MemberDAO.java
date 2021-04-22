@@ -1,6 +1,6 @@
 package member.model.dao;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import member.model.vo.Member;
-import test.model.vo.Test;
+import member.model.vo.Order;
 
 public class MemberDAO {
 	private Properties prop = new Properties();
@@ -81,6 +81,57 @@ public class MemberDAO {
 			e.printStackTrace();
 		} finally {
 			close(stmt);
+		}
+		return list;
+	}
+
+	public ArrayList<Order> orderList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Order> list = new ArrayList<>();
+
+		String query = prop.getProperty("orderList");
+
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+
+			while (rset.next()) {
+				Order order = new Order(rset.getInt("order_no"), rset.getString("state"), rset.getDate("order_date"),
+						rset.getString("user_name"), rset.getString("user_id"), rset.getString("productlist"),
+						rset.getInt("price"));
+				list.add(order);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+		return list;
+	}
+
+	public ArrayList<Order> searchOrder(Connection conn, String filter, String input) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Order> list = new ArrayList<>();
+
+		String query = prop.getProperty("searchOrder"+filter);
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%"+input+"%");
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				Order order = new Order(rset.getInt("order_no"), rset.getString("state"), rset.getDate("order_date"),
+						rset.getString("user_name"), rset.getString("user_id"), rset.getString("productlist"),
+						rset.getInt("price"));
+				list.add(order);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return list;
 	}

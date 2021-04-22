@@ -9,20 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import member.model.service.MemberService;
 import member.model.vo.Order;
 
 /**
- * Servlet implementation class OrderListServlet
+ * Servlet implementation class SearchOrderServlet
  */
-@WebServlet("/orderList.do")
-public class OrderListServlet extends HttpServlet {
+@WebServlet("/searchOrder.do")
+public class SearchOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public OrderListServlet() {
+	public SearchOrderServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -33,9 +35,16 @@ public class OrderListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String filter = request.getParameter("filter");
+		String input = request.getParameter("inputSearch");
+		ArrayList<Order> list = null;
 
-		ArrayList<Order> list = new MemberService().orderList();
-
+		MemberService mService = new MemberService();
+		if (input == null || input.equals(""))
+			list = mService.orderList();
+		else
+			list = mService.searchOrder(filter, input);
+		
 		if (list != null && list.size() > 0) {
 			for (Order o : list) {
 				String[] products = o.getpList().split("&&");
@@ -43,8 +52,9 @@ public class OrderListServlet extends HttpServlet {
 					o.setpList(products[0] + " 외 " + (products.length - 1));
 			}
 		}
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("WEB-INF/views/admin/member/orderList.jsp").forward(request, response);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

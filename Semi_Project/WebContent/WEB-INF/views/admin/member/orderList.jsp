@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.util.ArrayList, member.model.vo.Order"%>
+<%
+ArrayList<Order> list = (ArrayList) request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +33,8 @@ h3 {
 	width: 140px;
 	height: 30px;
 	font-size: 12px;
+	border: 1px solid #c3c3c3;
+	border-radius: 2px;
 }
 
 select {
@@ -169,7 +174,7 @@ li>a {
 	<%@include file="../header.jsp"%>
 	<div id="container">
 		<div id="container-wrap">
-		<%@include file="memberNav.jsp" %>
+			<%@include file="memberNav.jsp"%>
 			<div id="contents">
 				<div id="contents-wrap">
 					<div id="top">
@@ -179,9 +184,9 @@ li>a {
 						<div id="top-right">
 							<div>
 								<select id="filter">
-									<option value="id">아이디</option>
-									<option value="name">이름</option>
-									<option value="state">상태</option>
+									<option value="Id">아이디</option>
+									<option value="Name">이름</option>
+									<option value="State">상태</option>
 								</select>
 							</div>
 							<div id="searchBox">
@@ -204,24 +209,28 @@ li>a {
 							<tbody id="tableBody">
 								<!-- for문 -->
 								<%
-								for (int i = 0; i < 10; i++) {
+								if (list != null) {
+									for (Order o : list) {
 								%>
 								<tr>
-									<td><input type="checkbox" name="checkbox" value=""></td>
-									<td>2021-03-03</td>
+									<td><input type="checkbox" name="checkbox"
+										value="<%=o.getNo()%>"></td>
+									<td><%=o.getOrderDate()%></td>
 									<td><div>
-											<p>이름</p>
-											<p id="id">아이디</p>
+											<p><%=o.getUserName()%></p>
+											<p id="id"><%=o.getUserId()%></p>
 										</div></td>
-									<td>밀크씨슬 외 2개</td>
-									<td>30,000원</td>
-									<td>발송완료</td>
+									<td><%=o.getpList()%></td>
+									<td><%=o.getPrice()%></td>
+									<td><%=o.getState()%></td>
 								</tr>
-								<!-- 
+								<%
+								}
+								} else {
+								%>
 								<tr>
 									<td colspan="6">등록된 주문건이 없습니다.</td>
 								</tr>
-								 -->
 								<%
 								}
 								%>
@@ -265,45 +274,34 @@ li>a {
 			</div>
 		</div>
 	</div>
-	<%@include file="../../common/footer.jsp" %>
+	<%@include file="../../common/footer.jsp"%>
 </body>
 <script>
-	$('#searchBtn').on(
-			'click',
-			function() {
-				$.ajax({
-					url : 'searchMember.do',
-					data : {
-						filter : $('#filter').val(),
-						input : $('#inputSearch').val()
-					},
-					success : function(data) {
-						var button = $('#btns').html();
-						var str = "";
+	$('#searchBtn').on('click', function() {
+		$.ajax({
+			url : 'searchOrder.do',
+			data : {
+				filter : $('#filter').val(),
+				inputSearch : $('#inputSearch').val().trim()
+			},
+			success : function(data) {
+				var str = "";
 
-						for ( var key in data) {
-							str = str + '<tr><td>' + data[key].id + '</td><td>'
-									+ data[key].name + '</td><td>'
-									+ data[key].grade_name + '</td><td>'
-									+ data[key].point + '</td><td id="btns">'
-									+ button + '</td></tr>';
-						}
-						$('#tableBody').html(str);
-					}
-				});
-			});
+				for ( var key in data) {
+					str += '<tr><td><input type="checkbox" name="checkbox" value="'+data[key].no
+					+'"></td><td>'+data[key].orderDate
+					+'</td><td><div><p>'+data[key].userName
+					+'</p><p id="id">'+data[key].userId
+					+'</p></div></td><td>'+data[key].pList
+					+'</td><td>'+data[key].price+'</td><td>'+data[key].state+'</td></tr>';
+				}
+				$('#tableBody').html(str);
+			}
+		});
+	});
 
 	$('.updateBtn').on('click', function() {
-		var url ='<%=request.getContextPath()%>
-	/updateMemberForm.do?id='
-								+ $(this).val();
-						window.open(url, 'update', 'width=300px, height=450px');
-					});
 
-	$('.deleteBtn').on('click', function() {
-		if (confirm('해당 회원을 삭제하시겠습니까?')) {
-
-		}
 	});
 </script>
 </html>
