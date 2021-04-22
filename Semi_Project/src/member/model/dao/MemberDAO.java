@@ -9,12 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Properties;
 
 import member.model.vo.Member;
-import test.model.vo.Test;
 
 public class MemberDAO {
 	private Properties prop = new Properties();
@@ -49,7 +46,7 @@ public class MemberDAO {
 			
 			if(rset.next()) {
 				member = new Member(rset.getString("USER_NO"),
-									rset.getString("USER_PWD"),
+									rset.getString("PASSWORD"),
 									rset.getString("GENDER"),
 									rset.getString("USER_ID"),
 									rset.getString("USER_NAME"),

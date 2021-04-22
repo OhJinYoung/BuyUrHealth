@@ -16,14 +16,14 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class MyPageServlet
  */
-@WebServlet("/myPage.me")
-public class MyPageServlet extends HttpServlet {
+@WebServlet("/updateMyPage.me")
+public class UpdateMyPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageServlet() {
+    public UpdateMyPageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,7 +44,7 @@ public class MyPageServlet extends HttpServlet {
 		
 		String page = null;
 		if(member != null) {
-			page = "WEB-INF/views/mypage/myPageTest.jsp";
+			page = "WEB-INF/views/mypage/updateMyPage.jsp";
 			request.setAttribute("userId", member);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";

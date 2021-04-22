@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Member {
 	private String userNo;
-	private String userPwd;
+	private String password;
 	private String gender;
 	private String userId;
 	private String userName;
@@ -17,11 +17,11 @@ public class Member {
 	
 	public Member() {}
 
-	public Member(String userNo, String userPwd, String gender, String userId, String userName, Date birth,
+	public Member(String userNo, String password, String gender, String userId, String userName, Date birth,
 			String phone, String email, Date userDate, String authority, String status) {
 		super();
 		this.userNo = userNo;
-		this.userPwd = userPwd;
+		this.password = password;
 		this.gender = gender;
 		this.userId = userId;
 		this.userName = userName;
@@ -41,12 +41,12 @@ public class Member {
 		this.userNo = userNo;
 	}
 
-	public String getUserPwd() {
-		return userPwd;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setUserPwd(String userPwd) {
-		this.userPwd = userPwd;
+	public void setUserPwd(String password) {
+		this.password = password;
 	}
 
 	public String getGender() {
@@ -123,7 +123,7 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [userNo=" + userNo + ", userPwd=" + userPwd + ", gender=" + gender + ", userId=" + userId
+		return "Member [userNo=" + userNo + ", password=" + password + ", gender=" + gender + ", userId=" + userId
 				+ ", userName=" + userName + ", birth=" + birth + ", phone=" + phone + ", email=" + email
 				+ ", userDate=" + userDate + ", authority=" + authority + ", status=" + status + "]";
 	}

@@ -3,6 +3,12 @@
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	Member member = (Member)request.getAttribute("userId");
+	String authority = null;
+	if(member.getAuthority().equals("Y")){
+		authority = "관리자";
+	} else {
+		authority = "회원";
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -11,6 +17,7 @@
 <title>기본 틀</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
+	body{min-width: 1000px; min-height: 1000px;}
 	.wrap{background: white; width: 100%; height: 50px;}
 	.mainMenu{
 			background: white; color: gray; text-align: center; font-weight: bold; 
@@ -30,38 +37,36 @@
         display: inline-block;
      }
      
-     #myPage-menubar-name { text-align: center; 
-					    font-size: 20px;}
-	 .myPage-menubar ul, li { list-style: none; 
-						  padding: 10px; margin: 0; text-align: center;}
-	 #myInfo-head{text-align:left; margin-top:50px; margin-left:250px;}
-	 
-	 .outer{
-		width: 50%; height: 450px; background-color: rgba(255, 255, 255, 0.4); border: 1px solid black;
-		margin-top: 300px; display: inline-block;
-	}
-	.updown { border: 1px solid black; width: 0.1px; height: 50xp; }
+     #myPage-menubar-name { text-align: center; font-size: 20px;}
+	 .myPage-menubar ul, li { list-style: none; padding: 10px; margin: 0; text-align: center;}
+	 .myPage-menubar li:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
+	 #myInfo-head {text-align:left; margin-top:50px; margin-left:250px;}
 
-	
-	.myPage-certification{position: absolute; width: 100%; max-width: 1100px; height: 200px;
-						  margin-top: 20xp; border: 1px solid black;
-						  padding: 50px; vertical-align: middle; display: inline-block; 
-						  float: right; 
+	.myPage-certification{position: absolute; width: 1100px; height: 200px;
+						  margin-top: 20xp; padding: 50px; vertical-align: middle; 
+						  display: inline-block; float: right; 
 	}
 	.myPage-certification button{width: 60px; height: 60px;}
 	.myPage-pwd{width: 400px; margin-top: -20px; float: left;}
 	.myPage-pwd input{width: 300px; height: 30px;}
 	.myPage-pwd button{float: right; position: relative; top: -30px;}
-	.myPage-email{width: 600px; margin-top: -20px; float: right; margin-left: 50px; visibility: visible;}
+	.myPage-email{width: 600px; margin-top: -20px; float: right; 
+				  margin-left: 50px; opacity: 0.5; pointer-events: none;}
 	.myPage-email input{width: 400px; height: 30px;}
 	.myPage-email button{float: right; position: relative; top: -30px; margin-left: 20px;}
 	
+	.outer{
+		width: 500px; height: 450px; background-color: rgba(255, 255, 255, 0.4);
+		margin-top:200px; margin-left: 300px; display: inline-block;  
+		position: absolute; opacity: 0.5; pointer-events: none;;
+	}
+	.myPageBtns{opacity: 0.5;}
 	#myForm td {text-align: center;}
 	#myForm>table{margin: auto;}
-	#updateBtn {background: #D1B2FF; color: white;}
+/*	#updateBtn {background: #D1B2FF; color: white;}
 	#updatePwdBtn {background: #FFD8D8; color: white;}
 	#deleteBtn {background: #D5D5D5; color: white;}
-	#goMain {background: #B2CCFF; color: white;}
+	#goMain {background: #B2CCFF; color: white;} */
 	
 </style>
 </head>
@@ -84,9 +89,9 @@
         <h2 id="myPage-menubar-name">마이페이지</h2>
     <hr>
         <ul>
-          <li>구매목록</li>
-          <li>개인 정보 조회</li>
-          <li>관심상품</li>
+          <li id="goBuy">구매목록</li>
+          <li id="goPage">개인 정보 조회</li>
+          <li id="goFavorite">관심상품</li>
         </ul>
         
     </div>
@@ -100,17 +105,17 @@
     <div class="myPage-certification">
     	<div class="myPage-pwd">
     		<h2>비밀번호 재확인</h2>
-	    	<input id="loginId" type="text" autocapitalize="none" class="input-text input-full" placeholder="아이디를 입력하세요." required="" data-parsley-required-message="아이디를 입력하세요."><br>
-	    	<input id="loginPw" type="password" class="input-text input-full" placeholder="비밀번호를 입력하세요." required="" data-parsley-required-message="비밀번호를 입력하세요." data-parsley-minlength="4" data-parsley-minlength-message="비밀번호는 4자 이상입니다." data-parsley-maxlength="30"/>
-	    	<button class="">확인</button>
+	    	<input id="loginId" type="text" value="<%= member.getUserId() %>" readonly><br>
+	    	<input id="loginPwdCheck" type="password"/>
+	    	<button class="pwdCheck">확인</button>
     	</div>
     	
     	<div class="myPage-email">
     		<h2>이메일 인증</h2>
-	    	<input id="loginId" type="text" autocapitalize="none" class="input-text input-full" placeholder="이메일을 입력하세요." required="" data-parsley-required-message="이메일을 입력하세요."><br>
-	    	<button class="">확인</button>
-	    	<input id="loginPw" type="password" class="input-text input-full" placeholder="인증번호를 입력하세요." required="" data-parsley-required-message="인증번호를 입력하세요." data-parsley-minlength="4" data-parsley-minlength-message="비밀번호는 4자 이상입니다." data-parsley-maxlength="30"/>
-    		<button class="">인증번호 발송</button>
+	    	<input id="emailCert" type="text"><br>
+	    	<button class="emailCheck">확인</button>
+	    	<input id="certNum" type="text" />
+    		<button class="numCheck">인증번호 발송</button>
     	</div>
     </div>
     	
@@ -138,7 +143,7 @@
 					<td><input type="hidden" maxlength="15" name="myNickName" required value="<%= member.getBirth() %>">
 						<%= member.getBirth() %>
 					</td>
-					<td><input type="hidden" maxlength="15" name="pwd" required value="<%= member.getUserPwd() %>">
+					<td><input type="hidden" maxlength="15" name="pwd" required value="<%= member.getPassword() %>">
 					</td>
 				</tr>
 				<tr>
@@ -156,8 +161,8 @@
 				</tr>
 				<tr>
 					<td>권한</td>
-					<td><input type="hidden" name="myAddress" value="<%= member.getAuthority() %>">
-						<%= member.getAuthority() %>
+					<td><input type="hidden" name="myAddress" value="<%= authority %>">
+						<%= authority %>
 					</td>
 				</tr>
 				<tr>
@@ -197,10 +202,40 @@
 			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
 		});
 		$('#goMypage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/myPage.me";
+			location.href="<%= request.getContextPath() %>/updateMyPage.me";
 		});
 		$('#goService').on('click', function(){
 			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
+		});
+		
+		
+		$('#goBuy').on('click', function(){
+			location.href="<%= request.getContextPath() %>/buyMyPage.me";
+		});
+		
+		$('#goPage').on('click', function(){
+			location.href="<%= request.getContextPath() %>/updateMyPage.me";
+		});
+		
+		$('#goFavorite').on('click', function(){
+			location.href="<%= request.getContextPath() %>/favoriteMyPage.me";
+		});
+		
+		
+		$('.pwdCheck').on('click', function(){
+			if($('#loginPwdCheck').val() == "<%= member.getPassword() %>"){
+				alert('회원정보와 일치합니다!');
+				$('.myPage-pwd').css("pointer-events", "none");
+				$('.myPage-email').css("opacity",  "1");
+				$('.myPage-email').css("pointer-events", "auto");
+				$('.myPageBtns').css("opacity", "0.5");
+				$('.outer').css("opacity", "1");
+			} else {
+				alert('회원정보와 일치하지 않습니다. 다시입력해주세요.');
+				$('.myPage-email').css("opacity", "0.3");
+				$('.myPageBtns').css("opacity", "0.3");
+				$('.outer').css("opacity", "0.3");
+			}
 		});
 		
 	</script>
