@@ -56,3 +56,8 @@ hr {
 		</nav>
 	</div>
 </div>
+<script>
+	$('.mainMenu').on('click', function() {
+		location.href='<%=request.getContextPath()%>/'+$(this).attr('id');
+	});
+</script>
