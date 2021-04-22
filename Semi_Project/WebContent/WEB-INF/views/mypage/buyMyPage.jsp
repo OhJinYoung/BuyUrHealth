@@ -52,9 +52,13 @@
 	 	width: auto; min-width: 770px; height: auto; margin: 10px; 
 	 	border: 1px solid black; display: inline-block;
 	 }
-	 .product-intro{width: 620px; height: 230px; border-right: 1px solid black; float: left; margin: 5px;}
-	 .product-request{width: 130px; height: auto; float: right; margin: 60px 5px; }
-	 .product-request button{width: 100px; margin: 5px;}
+	 .product-intro {width: 620px; height: 230px; border-right: 1px solid black; float: left; margin: 5px;}
+	 .product-status {margin: 5px;}
+	 div.product-content img {float: left;}
+	 div.product-content p {float: left;}
+	 div.product-content button {float: right; margin-right: 50px;}
+	 .product-request {width: 130px; height: auto; float: right; margin: 60px 5px;}
+	 .product-request button {width: 100px; margin: 5px;}
 	
 </style>
 </head>
@@ -105,9 +109,14 @@
 				<%		} 
 					} %> --%>
 			<div class="product-intro">
-				<label>상품상태</label>
-				<img>
-				<h1>주문하신 상품이 없습니다.</h1>
+				<div class="product-status">
+					<label>상품상태</label>
+				</div>
+				<div class="product-content">
+					<img src="<%= request.getContextPath() %>/images/vitamin_c.jpg" width="130px" height="100px" alt="My Image">
+					<h1>상품 설명</h1>
+					<p>가격</p> <button type="button">장바구니 담기</button>
+				</div>
 			</div>
 			
 			<div class="product-request">
