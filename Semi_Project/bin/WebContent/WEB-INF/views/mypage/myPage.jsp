@@ -45,7 +45,7 @@
 					<td><input type="hidden" maxlength="15" name="myNickName" required value="<%= member.getBirth() %>">
 						<%= member.getBirth() %>
 					</td>
-					<td><input type="hidden" maxlength="15" name="pwd" required value="<%= member.getUserPwd() %>">
+					<td><input type="hidden" maxlength="15" name="pwd" required value="<%= member.getPassword() %>">
 					</td>
 				</tr>
 				<tr>

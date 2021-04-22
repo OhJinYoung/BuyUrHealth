@@ -14,10 +14,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지|구매목록</title>
+<title>BUH</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
-	body{min-width: 1300px; min-height: 500px;}
+	body{min-width: 1000px; min-height: 1000px;}
 	.wrap{background: white; width: 100%; height: 50px;}
 	.mainMenu{
 			background: white; color: gray; text-align: center; font-weight: bold; 
@@ -40,21 +40,7 @@
      #myPage-menubar-name { text-align: center; font-size: 20px;}
 	 .myPage-menubar ul, li { list-style: none; padding: 10px; margin: 0; text-align: center;}
 	 .myPage-menubar li:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
-	 #myPage-head {text-align:left; margin-top:50px; margin-left:250px;}
-	 
-	 .buy-list {
-	  	width: 800px; height: 350px; margin-left: 50px; 
-	 	border: 1px solid black; display: inline-block;
-	 }
-	 .buy-list-head{margin: 10px;}
-	 #buy-detail{float: right;}
-	 .buy-product {
-	 	width: auto; min-width: 770px; height: auto; margin: 10px; 
-	 	border: 1px solid black; display: inline-block;
-	 }
-	 .product-intro{width: 620px; height: 230px; border-right: 1px solid black; float: left; margin: 5px;}
-	 .product-request{width: 130px; height: auto; float: right; margin: 60px 5px; }
-	 .product-request button{width: 100px; margin: 5px;}
+	 #myInfo-head {text-align:left; margin-top:50px; margin-left:250px;}
 	
 </style>
 </head>
@@ -78,47 +64,19 @@
     <hr>
         <ul>
           <li id="goBuy">구매목록</li>
-          <li id="goPage">개인정보조회</li>
+          <li id="goPage">개인 정보 조회</li>
           <li id="goFavorite">관심상품</li>
         </ul>
         
     </div>
-    
-    <h1 id="myPage-head">구매목록</h1>
-        
-    <hr>
-    
-    <div class="buy-list">
-    	<div class="buy-list-head">
-    		<label>주문하신 날짜</label>
-    		<label id="buy-detail"><a href="">주문 상세 보기 ></a></label>
-    	</div>
-    	
-    	<div class="buy-product">
-    		<%--  <% if(list.isEmpty()){ %>
-					
-					주문하신 상품이 없습니다.
-					
-				<% } else{
-						for(Notice n : list){ %>
-							
-				<%		} 
-					} %> --%>
-			<div class="product-intro">
-				<label>상품상태</label>
-				<img>
-				<h1>주문하신 상품이 없습니다.</h1>
-			</div>
-			
-			<div class="product-request">
-				<button type="button">교환/반품신청</button>
-				<button type="button">배송조회</button>
-				<button type="button">구매후기쓰기</button>
-			</div>
-    	</div>
-    	
+ 
+    <div class="myPage-myInfo">
+    	<h1 id="myInfo-head">관심상품</h1>
     </div>
     
+    <div>
+    <hr>
+    </div>
     
 	<script>
 		$('#goViewProduct').on('click', function(){
