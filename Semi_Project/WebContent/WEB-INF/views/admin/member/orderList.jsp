@@ -95,18 +95,15 @@ tr td:last-child {
 #contents {
 	display: inline-block;
 	border-left: 1px solid #9a9a9a;
+	width: 80%;
 }
 
 #contents-wrap {
-	padding: 30px 20px;
+	padding: 30px;
 }
 
 #container {
 	min-width: 930px;
-}
-
-#container-wrap {
-	padding: 0 50px 0 30px;
 }
 
 #top div:first-child h4 {
@@ -172,6 +169,7 @@ li>a {
 	<%@include file="../header.jsp"%>
 	<div id="container">
 		<div id="container-wrap">
+		<%@include file="memberNav.jsp" %>
 			<div id="contents">
 				<div id="contents-wrap">
 					<div id="top">

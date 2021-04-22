@@ -15,7 +15,7 @@
 	text-align: left;
 	padding: 20px 50px;
 	display: inline-block;
-	width: 100%;
+	float:left;
 }
 
 #footer-wrap>div {

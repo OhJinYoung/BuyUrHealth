@@ -110,6 +110,7 @@ tr td:last-child {
 	min-width: 930px;
 }
 
+a
 #container-wrap {
 	padding: 0 50px 0 30px;
 }
@@ -193,6 +194,7 @@ li>a {
 	<%@include file="../header.jsp"%>
 	<div id="container">
 		<div id="container-wrap">
+			<%@include file="memberNav.jsp"%>
 			<div id="contents">
 				<div id="contents-wrap">
 					<div id="top">
@@ -270,7 +272,7 @@ li>a {
 			</div>
 		</div>
 	</div>
-	<%@include file="../../common/footer.jsp" %>
+	<%@include file="../../common/footer.jsp"%>
 </body>
 <script>
 	$('#searchBtn').on(
