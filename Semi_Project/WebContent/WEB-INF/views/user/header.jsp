@@ -49,10 +49,14 @@ hr {
 					src="<%=request.getContextPath()%>/images/mainlogo.png"
 					width="100px" height="50px" alt="My Image">
 			</div>
-			<div class="mainMenu" id="memberList.do">사용자 관리</div>
-			<div class="mainMenu" id="orderList.do">주문 관리</div>
-			<div class="mainMenu" id="">제품 관리</div>
-			<div class="mainMenu" id="">고객센터</div>
+			<div class="mainMenu" id="goViewProduct">제품보기</div>
+			<div class="mainMenu" id="goCommunity">커뮤니티</div>
+			<div class="mainMenu" id="goCart">장바구니</div>
+			<div class="mainMenu" id="goMypage">마이페이지</div>
+			<!-- 로그인 했을 때랑 안했을 때 헤더 다른 건 ifelse문으로 헤더 처리 해주세요...-->
+			<div class="mainMenu" id="login">로그인</div>
+			<div class="mainMenu" id="goService">고객센터</div>
+			
 		</nav>
 	</div>
 </div>
