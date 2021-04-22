@@ -103,7 +103,7 @@ tr td:last-child {
 }
 
 #contents-wrap {
-	padding: 40px 20px 0 20px;
+	padding: 30px 20px;
 }
 
 #container {
@@ -270,6 +270,7 @@ li>a {
 			</div>
 		</div>
 	</div>
+	<%@include file="../../common/footer.jsp" %>
 </body>
 <script>
 	$('#searchBtn').on(

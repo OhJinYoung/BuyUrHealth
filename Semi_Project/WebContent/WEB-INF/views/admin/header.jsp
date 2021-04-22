@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style>
-#header
-{
-border-bottom: 1px solid #9a9a9a;
+#header {
+	border-bottom: 1px solid #9a9a9a;
 }
+
 .wrap {
 	background: white;
 	width: 100%;
@@ -45,9 +45,9 @@ hr {
 	<div class="wrap">
 		<nav>
 			<div>
-				<img class="mainLogo"
+				<a href="<%=request.getContextPath()%>"><img class="mainLogo"
 					src="<%=request.getContextPath()%>/images/mainlogo.png"
-					width="100px" height="50px" alt="My Image">
+					width="100px" height="50px" alt="My Image"></a>
 			</div>
 			<div class="mainMenu" id="memberList.do">사용자 관리</div>
 			<div class="mainMenu" id="orderList.do">주문 관리</div>

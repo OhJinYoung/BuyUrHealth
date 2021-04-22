@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style>
-#header
-{
-border-bottom: 1px solid #9a9a9a;
+#header {
+	border-bottom: 1px solid #9a9a9a;
 }
+
 .wrap {
 	background: white;
 	width: 100%;
@@ -45,9 +45,9 @@ hr {
 	<div class="wrap">
 		<nav>
 			<div>
-				<img class="mainLogo"
+				<a href="<%=request.getContextPath()%>"><img class="mainLogo"
 					src="<%=request.getContextPath()%>/images/mainlogo.png"
-					width="100px" height="50px" alt="My Image">
+					width="100px" height="50px" alt="My Image"></a>
 			</div>
 			<div class="mainMenu" id="goViewProduct">제품보기</div>
 			<div class="mainMenu" id="goCommunity">커뮤니티</div>
@@ -56,7 +56,7 @@ hr {
 			<!-- 로그인 했을 때랑 안했을 때 헤더 다른 건 ifelse문으로 헤더 처리 해주세요...-->
 			<div class="mainMenu" id="login">로그인</div>
 			<div class="mainMenu" id="goService">고객센터</div>
-			
+
 		</nav>
 	</div>
 </div>
