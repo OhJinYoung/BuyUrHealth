@@ -1,6 +1,6 @@
 package member.model.dao;
 
-import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import member.model.vo.Member;
 import member.model.vo.Order;
+import test.model.vo.Test;
 
 public class MemberDAO {
 	private Properties prop = new Properties();
@@ -30,6 +31,44 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public Member loginMember(Connection conn, Member member) {
+		  PreparedStatement pstmt = null;
+		  ResultSet rset = null; 
+		  Member loginUser=null;
+		  
+		  String query = prop.getProperty("loginMember");
+		  
+		  try { 
+			  pstmt = conn.prepareStatement(query); 
+			  pstmt.setString(1,member.getUserId()); 
+			  pstmt.setString(2, member.getPassword()); 
+			  rset = pstmt.executeQuery();
+		  
+		  if (rset.next()) {
+			  			System.out.println(rset);
+						loginUser = new Member(rset.getString("USER_NO"),
+											rset.getString("PASSWORD"),
+											rset.getString("GENDER").charAt(0), 
+											rset.getString("USER_ID"), 
+											rset.getString("USER_NAME"),
+											rset.getDate("BIRTH"), 
+											rset.getString("PHONE"), 
+											rset.getString("EMAIL"),
+											rset.getDate("USER_DATE"), 
+											rset.getString("AUTHORITY").charAt(0),
+											rset.getString("STATUS")); 
+						}
+		  }catch (SQLException e){ 
+			  e.printStackTrace();
+		  }finally { 
+			  close(rset); 
+			  close(pstmt); 
+		  }
+		  
+		  return loginUser;
+		 
 	}
 
 	public Member selectMember(Connection conn, String userId) {
@@ -58,6 +97,7 @@ public class MemberDAO {
 		}
 		return member;
 	}
+
 
 	public ArrayList<Member> memberList(Connection conn) {
 		Statement stmt = null;
@@ -97,7 +137,7 @@ public class MemberDAO {
 			rset = stmt.executeQuery(query);
 
 			while (rset.next()) {
-				Order order = new Order(rset.getInt("order_no"), rset.getString("state"), rset.getDate("order_date"),
+				Order order = new Order(rset.getInt("order_no"), rset.getString("state"), rset.getString("orderdate"),
 						rset.getString("user_name"), rset.getString("user_id"), rset.getString("productlist"),
 						rset.getInt("price"));
 				list.add(order);
@@ -123,7 +163,7 @@ public class MemberDAO {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				Order order = new Order(rset.getInt("order_no"), rset.getString("state"), rset.getDate("order_date"),
+				Order order = new Order(rset.getInt("order_no"), rset.getString("state"), rset.getString("orderdate"),
 						rset.getString("user_name"), rset.getString("user_id"), rset.getString("productlist"),
 						rset.getInt("price"));
 				list.add(order);
@@ -136,4 +176,23 @@ public class MemberDAO {
 		return list;
 	}
 
+	public int updateOrder(Connection conn, String select, String[] check) {
+		PreparedStatement pstmt= null;
+		int result = 0;
+		String query=prop.getProperty("updateOrder");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, select);
+			int i=0;
+			pstmt.setString(2, query);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }

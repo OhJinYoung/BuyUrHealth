@@ -40,7 +40,7 @@ public class OrderListServlet extends HttpServlet {
 			for (Order o : list) {
 				String[] products = o.getpList().split("&&");
 				if (products.length > 1)
-					o.setpList(products[0] + " 외 " + (products.length - 1));
+					o.setpList(products[0] + " 외 " + (products.length - 1)+"개");
 			}
 		}
 		request.setAttribute("list", list);

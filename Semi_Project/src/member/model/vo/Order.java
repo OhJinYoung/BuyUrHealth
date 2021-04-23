@@ -1,7 +1,5 @@
 package member.model.vo;
 
-import java.sql.Date;
-
 public class Order {
 	private int no;
 	private String name; // 받는사람 이름
@@ -10,7 +8,7 @@ public class Order {
 	private String request;
 	private String payment;
 	private String state;
-	private Date orderDate;
+	private String orderDate;
 	private String userName; // 구매한 회원 이름
 	private String userId;
 	private String pList; // 구매 상품 목록
@@ -19,7 +17,7 @@ public class Order {
 	public Order() {
 	}
 
-	public Order(int no, String state, Date orderDate, String userName, String userId, String pList, int price) {
+	public Order(int no, String state, String orderDate, String userName, String userId, String pList, int price) {
 		super();
 		this.no = no;
 		this.state = state;
@@ -31,7 +29,7 @@ public class Order {
 	}
 
 	public Order(int no, String name, String address, String phone, String request, String payment, String state,
-			Date orderDate, String userName, String userId, String pList, int price) {
+			String orderDate, String userName, String userId, String pList, int price) {
 		super();
 		this.no = no;
 		this.name = name;
@@ -103,11 +101,11 @@ public class Order {
 		this.state = state;
 	}
 
-	public Date getOrderDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
 

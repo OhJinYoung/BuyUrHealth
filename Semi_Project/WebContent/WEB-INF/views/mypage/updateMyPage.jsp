@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>기본 틀</title>
+<title>마이페이지|개인정보조회</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
 	body{min-width: 1000px; min-height: 1000px;}
@@ -40,7 +40,7 @@
      #myPage-menubar-name { text-align: center; font-size: 20px;}
 	 .myPage-menubar ul, li { list-style: none; padding: 10px; margin: 0; text-align: center;}
 	 .myPage-menubar li:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
-	 #myInfo-head {text-align:left; margin-top:50px; margin-left:250px;}
+	 #myPage-head {text-align:left; margin-top:50px; margin-left:250px;}
 
 	.myPage-certification{position: absolute; width: 1100px; height: 200px;
 						  margin-top: 20xp; padding: 50px; vertical-align: middle; 
@@ -90,17 +90,13 @@
     <hr>
         <ul>
           <li id="goBuy">구매목록</li>
-          <li id="goPage">개인 정보 조회</li>
+          <li id="goPage">개인정보조회</li>
           <li id="goFavorite">관심상품</li>
         </ul>
         
     </div>
     
-    
-    
-    <div class="myPage-myInfo">
-    	<h1 id="myInfo-head">개인 정보 조회</h1>
-    </div>
+    <h1 id="myPage-head">개인정보조회</h1>
     
     <div class="myPage-certification">
     	<div class="myPage-pwd">
