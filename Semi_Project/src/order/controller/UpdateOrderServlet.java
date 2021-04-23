@@ -1,7 +1,6 @@
-package member.controller;
+package order.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import member.model.service.MemberService;
-import member.model.vo.Order;
+import order.model.service.OrderService;
 
 /**
  * Servlet implementation class UpdateOrderServlet
@@ -38,9 +36,9 @@ public class UpdateOrderServlet extends HttpServlet {
 		String[] check = request.getParameterValues("check[]");
 		String select = request.getParameter("select");
 
-		MemberService mService = new MemberService();
+		OrderService oService = new OrderService();
 
-		int result = mService.updateOrder(select, check);
+		int result = oService.updateOrder(select, check);
 
 		String msg = "";
 		if (result > 0) {

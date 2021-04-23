@@ -1,4 +1,4 @@
-package member.model.vo;
+package order.model.vo;
 
 public class OrderDetail {
 	private int no;

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, member.model.vo.Order, java.text.DecimalFormat"%>
+	import="java.util.ArrayList,order.model.vo.Order, java.text.DecimalFormat"%>
 <%
 ArrayList<Order> list = (ArrayList) request.getAttribute("list");
 %>
@@ -344,7 +344,7 @@ li>a {
 	});
 
 	$('.requestBtn').on('click', function(){
-		var option='width=300px, height=200px';
+		var option='width=470px, height=330px';
 		var url = '<%=request.getContextPath()%>/requestOUForm.do?no=' + $(this).val();
 		window.open(url,'update',option);
 	});

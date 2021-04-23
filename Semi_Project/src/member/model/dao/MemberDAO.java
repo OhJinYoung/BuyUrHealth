@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import member.model.vo.Member;
-import member.model.vo.Order;
-import member.model.vo.RequestOrder;
+import order.model.vo.Order;
+import order.model.vo.RequestOrder;
 import test.model.vo.Test;
 
 public class MemberDAO {
@@ -118,111 +118,4 @@ public class MemberDAO {
 		return list;
 	}
 
-	public ArrayList<Order> orderList(Connection conn) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		ArrayList<Order> list = new ArrayList<>();
-
-		String query = prop.getProperty("orderList");
-
-		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
-
-			while (rset.next()) {
-				Order order = new Order(rset.getInt("order_no"), rset.getString("state"), rset.getString("orderdate"),
-						rset.getString("user_name"), rset.getString("user_id"), rset.getString("productlist"),
-						rset.getInt("price"));
-				list.add(order);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(stmt);
-		}
-		return list;
-	}
-
-	public ArrayList<Order> searchOrder(Connection conn, String filter, String input) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Order> list = new ArrayList<>();
-
-		String query = prop.getProperty("searchOrder" + filter);
-
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, "%" + input + "%");
-			rset = pstmt.executeQuery();
-
-			while (rset.next()) {
-				Order order = new Order(rset.getInt("order_no"), rset.getString("state"), rset.getString("orderdate"),
-						rset.getString("user_name"), rset.getString("user_id"), rset.getString("productlist"),
-						rset.getInt("price"));
-				list.add(order);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return list;
-	}
-
-	public int updateOrder(Connection conn, String select, String[] check) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		String query = prop.getProperty("updateOrder");
-
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, select);
-			int i = 2;
-			for (String s : check)
-				pstmt.setString(i++, s);
-
-			while (i < 12)
-				pstmt.setString(i++, check[0]);
-
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-
-		return result;
-	}
-
-	public RequestOrder selectRequest(Connection conn, int no) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		RequestOrder req = new RequestOrder();
-		String query = prop.getProperty("selectRequest");
-
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, no);
-
-			rset = pstmt.executeQuery();
-			if (rset.next()) {
-				req.setNo(rset.getInt("request_no"));
-				req.setOrderNo(no);
-				req.setPayment(rset.getString("payment"));
-				req.setState(rset.getString("state"));
-				req.setType(rset.getString("request_type"));
-				req.setInfo(rset.getString("request_info"));
-				req.setDate(rset.getString("requestdate"));
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-
-		return req;
-	}
 }
