@@ -37,7 +37,6 @@
 	<ul>
 		<li class="link" id="orderList.do">주문 관리</li>
 		<li class="link" id="memberList.do">회원 관리</li>
-		<li class="link" id="">관심상품</li>
 	</ul>
 </div>
 <script>
