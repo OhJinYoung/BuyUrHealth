@@ -35,9 +35,13 @@
 <div class="myPage-menubar">
 	<h2 id="myPage-menubar-name">마이페이지</h2>
 	<ul>
-		<li id="goBuy">구매목록</li>
-		<li id="goPage">개인 정보 조회</li>
-		<li id="goFavorite">관심상품</li>
+		<li class="link" id="orderList.do">구매목록</li>
+		<li class="link" id="memberList.do">개인 정보 조회</li>
+		<li class="link" id="">관심상품</li>
 	</ul>
-
 </div>
+<script>
+$('.link').on('click', function() {
+	location.href='<%=request.getContextPath()%>/'+$(this).attr('id');
+});
+</script>

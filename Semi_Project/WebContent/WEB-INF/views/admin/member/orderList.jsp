@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, member.model.vo.Order"%>
+	import="java.util.ArrayList, member.model.vo.Order, java.text.DecimalFormat"%>
 <%
 ArrayList<Order> list = (ArrayList) request.getAttribute("list");
 %>
@@ -211,6 +211,7 @@ li>a {
 								<%
 								if (list != null) {
 									for (Order o : list) {
+										String price = new DecimalFormat("###,###").format(o.getPrice());
 								%>
 								<tr>
 									<td><input type="checkbox" name="checkbox"
@@ -221,7 +222,7 @@ li>a {
 											<p id="id"><%=o.getUserId()%></p>
 										</div></td>
 									<td><%=o.getpList()%></td>
-									<td><%=o.getPrice()%></td>
+									<td><%=price%> 원</td>
 									<td><%=o.getState()%></td>
 								</tr>
 								<%
@@ -254,7 +255,7 @@ li>a {
 								<option>교환완료</option>
 							</select>
 							<p>으로</p>
-							<button>변경</button>
+							<button id="updateBtn">변경</button>
 						</div>
 						<div id="pagingBtns">
 							<button id="firstPage" value="">&lt;&lt;</button>
@@ -285,23 +286,32 @@ li>a {
 				inputSearch : $('#inputSearch').val().trim()
 			},
 			success : function(data) {
-				var str = "";
-
-				for ( var key in data) {
-					str += '<tr><td><input type="checkbox" name="checkbox" value="'+data[key].no
-					+'"></td><td>'+data[key].orderDate
-					+'</td><td><div><p>'+data[key].userName
-					+'</p><p id="id">'+data[key].userId
-					+'</p></div></td><td>'+data[key].pList
-					+'</td><td>'+data[key].price+'</td><td>'+data[key].state+'</td></tr>';
-				}
-				$('#tableBody').html(str);
+				writeTable(data);
 			}
 		});
 	});
 
-	$('.updateBtn').on('click', function() {
-
+	$('#updateBtn').on('click', function() {
+		if($('input[name=checkbox]:checked').length < 1){
+			alert('선택된 주문이 없습니다.')
+		}else{
+			var ff = $('input[name=checkbox]:checked').val();
+			console.log(ff);
+		}
 	});
+	
+	function writeTable(data){
+		var str = "";
+		for ( var key in data) {
+			var price = data[key].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			str += '<tr><td><input type="checkbox" name="checkbox" value="'+data[key].no
+			+'"></td><td>'+data[key].orderDate
+			+'</td><td><div><p>'+data[key].userName
+			+'</p><p id="id">'+data[key].userId
+			+'</p></div></td><td>'+data[key].pList
+			+'</td><td>'+price+' 원</td><td>'+data[key].state+'</td></tr>';
+		}
+		$('#tableBody').html(str);
+	}
 </script>
 </html>

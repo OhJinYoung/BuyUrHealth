@@ -97,7 +97,7 @@ public class MemberDAO {
 			rset = stmt.executeQuery(query);
 
 			while (rset.next()) {
-				Order order = new Order(rset.getInt("order_no"), rset.getString("state"), rset.getDate("order_date"),
+				Order order = new Order(rset.getInt("order_no"), rset.getString("state"), rset.getString("orderdate"),
 						rset.getString("user_name"), rset.getString("user_id"), rset.getString("productlist"),
 						rset.getInt("price"));
 				list.add(order);
@@ -123,7 +123,7 @@ public class MemberDAO {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				Order order = new Order(rset.getInt("order_no"), rset.getString("state"), rset.getDate("order_date"),
+				Order order = new Order(rset.getInt("order_no"), rset.getString("state"), rset.getString("orderdate"),
 						rset.getString("user_name"), rset.getString("user_id"), rset.getString("productlist"),
 						rset.getInt("price"));
 				list.add(order);
