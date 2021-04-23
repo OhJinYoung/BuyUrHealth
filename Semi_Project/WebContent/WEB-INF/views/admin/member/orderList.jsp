@@ -174,12 +174,12 @@ li>a {
 	color: #828282a6;
 }
 
-#requestBtn {
+.requestBtn {
 	font-size: 10px;
 	padding: 4px;
 }
 
-#requestBtn:hover {
+.requestBtn:hover {
 	background: lightgray;
 	cursor: pointer;
 }
@@ -244,7 +244,7 @@ li>a {
 											if (state.substring(state.length() - 2, state.length()).equals("요청")) {
 											%>
 											<p>
-												<button id="requestBtn" value="<%=o.getNo()%>">요청서
+												<button class="requestBtn" value="<%=o.getNo()%>">요청서
 													확인</button>
 											</p>
 											<%
@@ -342,6 +342,12 @@ li>a {
 		}
 	});
 
+	$('.requestBtn').on('click', function(){
+		var option='width=300px, height=200px';
+		var url = '<%=request.getContextPath()%>/requestOrder.do?no=' + $(this).val();
+		window.open(url,'update',option);
+	});
+	
 	function writeTable(data){
 		var str = "";
 		for ( var key in data) {
