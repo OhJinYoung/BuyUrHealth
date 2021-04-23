@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, member.model.vo.Member"%>
+	import="java.util.ArrayList, member.model.vo.Order, java.text.DecimalFormat"%>
 <%
-ArrayList<Member> list = (ArrayList) request.getAttribute("list");
+ArrayList<Order> list = (ArrayList) request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -100,19 +100,15 @@ tr td:last-child {
 #contents {
 	display: inline-block;
 	border-left: 1px solid #9a9a9a;
+	width: 80%;
 }
 
 #contents-wrap {
-	padding: 30px 20px;
+	padding: 30px;
 }
 
 #container {
 	min-width: 930px;
-}
-
-a
-#container-wrap {
-	padding: 0 50px 0 30px;
 }
 
 #top div:first-child h4 {
@@ -173,22 +169,6 @@ li>a {
 	font-size: 12px;
 	color: #828282a6;
 }
-
-#Btns button {
-	width: 100px;
-	height: 40px;
-	font-size: 15px;
-	margin: 0 20px;
-	color: white;
-}
-
-#updateBtn {
-	background: orange;
-}
-
-#deleteBtn {
-	background: #666666;
-}
 </style>
 <body>
 	<%@include file="../header.jsp"%>
@@ -199,13 +179,14 @@ li>a {
 				<div id="contents-wrap">
 					<div id="top">
 						<div>
-							<h4>사용자 관리</h4>
+							<h4>주문 관리</h4>
 						</div>
 						<div id="top-right">
 							<div>
 								<select id="filter">
-									<option value="id">아이디</option>
-									<option value="name">이름</option>
+									<option value="Id">아이디</option>
+									<option value="Name">이름</option>
+									<option value="State">상태</option>
 								</select>
 							</div>
 							<div id="searchBox">
@@ -217,33 +198,39 @@ li>a {
 					</div>
 					<div id="table">
 						<table>
-							<tr>
+							<tr id="firstTr">
 								<th>선택</th>
-								<th>사용자 ID</th>
-								<th>이름</th>
-								<th>가입일</th>
-								<th>글/댓글/문의</th>
+								<th>결제일</th>
+								<th>주문자명(ID)</th>
+								<th>상품명</th>
+								<th>결제금액</th>
+								<th>상태</th>
 							</tr>
 							<tbody id="tableBody">
 								<!-- for문 -->
 								<%
-								if (list != null && list.size() > 0) {
-									for (Member m : list) {
+								if (list != null) {
+									for (Order o : list) {
+										String price = new DecimalFormat("###,###").format(o.getPrice());
 								%>
 								<tr>
 									<td><input type="checkbox" name="checkbox"
-										value="<%=m.getUserNo()%>"></td>
-									<td><%=m.getUserId()%></td>
-									<td><%=m.getUserName()%></td>
-									<td><%=m.getUserDate()%></td>
-									<td>사용자 글수</td>
+										value="<%=o.getNo()%>"></td>
+									<td><%=o.getOrderDate()%></td>
+									<td><div>
+											<p><%=o.getUserName()%></p>
+											<p id="id"><%=o.getUserId()%></p>
+										</div></td>
+									<td><%=o.getpList()%></td>
+									<td><%=price%> 원</td>
+									<td><%=o.getState()%></td>
 								</tr>
 								<%
 								}
 								} else {
 								%>
 								<tr>
-									<td colspan="5">등록된 회원이 없습니다.</td>
+									<td colspan="6">등록된 주문건이 없습니다.</td>
 								</tr>
 								<%
 								}
@@ -252,20 +239,36 @@ li>a {
 						</table>
 					</div>
 					<div id="bottom">
+						<div id="update">
+							<p>선택한 주문건을</p>
+							<select id="selectUpdate">
+								<option>주문상태선택</option>
+								<option>결제완료</option>
+								<option>주문취소</option>
+								<option>배송준비중</option>
+								<option>배송중</option>
+								<option>배송완료</option>
+								<option>반품요청</option>
+								<option>반품진행중</option>
+								<option>반품완료</option>
+								<option>교환진행중</option>
+								<option>교환완료</option>
+							</select>
+							<p>으로</p>
+							<button id="updateBtn">변경</button>
+						</div>
 						<div id="pagingBtns">
-							<button id="prePage">&lt;</button>
+							<button id="firstPage" value="">&lt;&lt;</button>
+							<button class="pageBtn" value="">&lt;</button>
 							<%
 							for (int i = 0; i < 9; i++) {
 							%>
-							<button value=<%=i + 1%>><%=i + 1%></button>
+							<button class="pageBtn" value=<%=i + 1%>><%=i + 1%></button>
 							<%
 							}
 							%>
-							<button id="nextPage">&gt;</button>
-						</div>
-						<div id="Btns">
-							<button id="updateBtn">수정</button>
-							<button id="deleteBtn">삭제</button>
+							<button value="nextPage">&gt;</button>
+							<button value="lastPage">&gt;&gt;</button>
 						</div>
 					</div>
 				</div>
@@ -275,40 +278,57 @@ li>a {
 	<%@include file="../../common/footer.jsp"%>
 </body>
 <script>
-	$('#searchBtn').on(
-			'click',
-			function() {
-				$.ajax({
-					url : 'searchMember.do',
-					data : {
-						filter : $('#filter').val(),
-						input : $('#inputSearch').val()
-					},
-					success : function(data) {
-						var button = $('#btns').html();
-						var str = "";
-
-						for ( var key in data) {
-							str = str + '<tr><td>' + data[key].id + '</td><td>'
-									+ data[key].name + '</td><td>'
-									+ data[key].grade_name + '</td><td>'
-									+ data[key].point + '</td><td id="btns">'
-									+ button + '</td></tr>';
-						}
-						$('#tableBody').html(str);
-					}
-				});
-			});
+	$('#searchBtn').on('click', function() {
+		$.ajax({
+			url : 'searchOrder.do',
+			data : {
+				filter : $('#filter').val(),
+				inputSearch : $('#inputSearch').val().trim()
+			},
+			success : function(data) {
+				writeTable(data);
+			}
+		});
+	});
 
 	$('#updateBtn').on('click', function() {
-		var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='+ $(this).val();
-		window.open(url, 'update', 'width=300px, height=450px');
-		});
+		if ($('input[name=checkbox]:checked').length < 1) {
+			alert('선택된 주문이 없습니다.')
+		} else {
+			var checkArr = [];
+			$('input[name="checkbox"]:checked').each(function() {
+				checkArr.push($(this).val());
+			});
 
-	$('#deleteBtn').on('click', function() {
-		if (confirm('해당 회원을 삭제하시겠습니까?')) {
-
+			$.ajax({
+				type : 'post',
+				url : 'updateOrder.do',
+				data : {
+					check : checkArr,
+					select : $('#selectUpdate').val()
+				},
+				success : function(data) {
+					writeTable(data);
+				},error:function(){
+					console.log('주문 수정에 실패했습니다.');
+				}
+			});
 		}
 	});
+
+	function writeTable(data){
+		var str = "";
+		for ( var key in data) {
+			var price = data[key].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			str += '<tr><td><input type="checkbox" name="checkbox" value="'+data[key].no
+			+'"></td><td>'+data[key].orderDate
+			+'</td><td><div><p>'+data[key].userName
+			+'</p><p id="id">'+data[key].userId
+			+'</p></div></td><td>'+data[key].pList
+			+'</td><td>'+price+' 원</td><td>'+data[key].state+'</td></tr>';
+		}
+		$('#tableBody').html(str);
+	}
+	
 </script>
 </html>
