@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, member.model.vo.Order"%>
+	import="java.util.ArrayList, member.model.vo.Order, java.text.DecimalFormat"%>
 <%
 ArrayList<Order> list = (ArrayList) request.getAttribute("list");
 %>
@@ -141,6 +141,10 @@ tr td:last-child {
 	background: orange;
 }
 
+#updateBtn:hover{
+	background: #ffa500d9;
+	cursor: pointer;
+}
 #update p {
 	font-size: 15px;
 	font-weight: 600;
@@ -168,6 +172,16 @@ li>a {
 #id {
 	font-size: 12px;
 	color: #828282a6;
+}
+
+#requestBtn {
+	font-size: 10px;
+	padding: 4px;
+}
+
+#requestBtn:hover {
+	background: lightgray;
+	cursor: pointer;
 }
 </style>
 <body>
@@ -209,8 +223,9 @@ li>a {
 							<tbody id="tableBody">
 								<!-- for문 -->
 								<%
-								if (list != null) {
+								if (list != null && list.size() > 0) {
 									for (Order o : list) {
+										String price = new DecimalFormat("###,###").format(o.getPrice());
 								%>
 								<tr>
 									<td><input type="checkbox" name="checkbox"
@@ -221,8 +236,21 @@ li>a {
 											<p id="id"><%=o.getUserId()%></p>
 										</div></td>
 									<td><%=o.getpList()%></td>
-									<td><%=o.getPrice()%></td>
-									<td><%=o.getState()%></td>
+									<td><%=price%> 원</td>
+									<td><div>
+											<p><%=o.getState()%></p>
+											<%
+											String state = o.getState();
+											if (state.substring(state.length() - 2, state.length()).equals("요청")) {
+											%>
+											<p>
+												<button id="requestBtn" value="<%=o.getNo()%>">요청서
+													확인</button>
+											</p>
+											<%
+											}
+											%>
+										</div></td>
 								</tr>
 								<%
 								}
@@ -240,7 +268,7 @@ li>a {
 					<div id="bottom">
 						<div id="update">
 							<p>선택한 주문건을</p>
-							<select>
+							<select id="selectUpdate">
 								<option>주문상태선택</option>
 								<option>결제완료</option>
 								<option>주문취소</option>
@@ -248,13 +276,11 @@ li>a {
 								<option>배송중</option>
 								<option>배송완료</option>
 								<option>반품요청</option>
-								<option>반품진행중</option>
 								<option>반품완료</option>
-								<option>교환진행중</option>
 								<option>교환완료</option>
 							</select>
 							<p>으로</p>
-							<button>변경</button>
+							<button id="updateBtn">변경</button>
 						</div>
 						<div id="pagingBtns">
 							<button id="firstPage" value="">&lt;&lt;</button>
@@ -285,23 +311,49 @@ li>a {
 				inputSearch : $('#inputSearch').val().trim()
 			},
 			success : function(data) {
-				var str = "";
-
-				for ( var key in data) {
-					str += '<tr><td><input type="checkbox" name="checkbox" value="'+data[key].no
-					+'"></td><td>'+data[key].orderDate
-					+'</td><td><div><p>'+data[key].userName
-					+'</p><p id="id">'+data[key].userId
-					+'</p></div></td><td>'+data[key].pList
-					+'</td><td>'+data[key].price+'</td><td>'+data[key].state+'</td></tr>';
-				}
-				$('#tableBody').html(str);
+				writeTable(data);
 			}
 		});
 	});
 
-	$('.updateBtn').on('click', function() {
+	$('#updateBtn').on('click', function() {
+		if ($('input[name=checkbox]:checked').length < 1) {
+			alert('선택된 주문이 없습니다.')
+		} else {
+			var checkArr = [];
+			$('input[name="checkbox"]:checked').each(function() {
+				checkArr.push($(this).val());
+			});
 
+			$.ajax({
+				type : 'post',
+				url : 'updateOrder.do',
+				data : {
+					check : checkArr,
+					select : $('#selectUpdate').val()
+				},
+				success : function(data) {
+					writeTable(data);
+				},
+				error : function() {
+					console.log('주문 수정에 실패했습니다.');
+				}
+			});
+		}
 	});
+
+	function writeTable(data){
+		var str = "";
+		for ( var key in data) {
+			var price = data[key].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			str += '<tr><td><input type="checkbox" name="checkbox" value="'+data[key].no
+			+'"></td><td>'+data[key].orderDate
+			+'</td><td><div><p>'+data[key].userName
+			+'</p><p id="id">'+data[key].userId
+			+'</p></div></td><td>'+data[key].pList
+			+'</td><td>'+price+' 원</td><td>'+data[key].state+'</td></tr>';
+		}
+		$('#tableBody').html(str);
+	}
 </script>
 </html>

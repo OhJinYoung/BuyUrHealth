@@ -300,14 +300,12 @@ li>a {
 				});
 			});
 
-	$('.updateBtn').on('click', function() {
-		var url ='<%=request.getContextPath()%>
-	/updateMemberForm.do?id='
-								+ $(this).val();
-						window.open(url, 'update', 'width=300px, height=450px');
-					});
+	$('#updateBtn').on('click', function() {
+		var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='+ $(this).val();
+		window.open(url, 'update', 'width=300px, height=450px');
+		});
 
-	$('.deleteBtn').on('click', function() {
+	$('#deleteBtn').on('click', function() {
 		if (confirm('해당 회원을 삭제하시겠습니까?')) {
 
 		}

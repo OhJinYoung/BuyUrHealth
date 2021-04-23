@@ -15,16 +15,16 @@ import member.model.service.MemberService;
 import member.model.vo.Order;
 
 /**
- * Servlet implementation class SearchOrderServlet
+ * Servlet implementation class UpdateOrderServlet
  */
-@WebServlet("/searchOrder.do")
-public class SearchOrderServlet extends HttpServlet {
+@WebServlet("/updateOrder.do")
+public class UpdateOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SearchOrderServlet() {
+	public UpdateOrderServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,22 +35,16 @@ public class SearchOrderServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String filter = request.getParameter("filter");
-		String input = request.getParameter("inputSearch");
-		ArrayList<Order> list = null;
-
+		String[] check = request.getParameterValues("check[]");
+		String select = request.getParameter("select");
+		
 		MemberService mService = new MemberService();
-		if (input == null || input.equals(""))
-			list = mService.orderList();
-		else
-			list = mService.searchOrder(filter, input);
 
-		if (list != null && list.size() > 0) {
-			for (Order o : list) {
-				String[] products = o.getpList().split("&&");
-				if (products.length > 1)
-					o.setpList(products[0] + " 외 " + (products.length - 1) + "개");
-			}
+		int result = mService.updateOrder(select,check);
+		
+		ArrayList<Order> list = mService.orderList();
+		if(result>0) {
+			
 		}
 
 		response.setContentType("application/json; charset=UTF-8");
