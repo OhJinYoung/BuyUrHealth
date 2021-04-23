@@ -184,6 +184,8 @@ public class MemberDAO {
 		try {
 			pstmt=conn.prepareStatement(query);
 			pstmt.setString(1, select);
+			int i=0;
+			pstmt.setString(2, query);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
