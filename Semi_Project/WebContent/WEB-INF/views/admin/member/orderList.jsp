@@ -241,7 +241,7 @@ li>a {
 					<div id="bottom">
 						<div id="update">
 							<p>선택한 주문건을</p>
-							<select>
+							<select id="selectUpdate">
 								<option>주문상태선택</option>
 								<option>결제완료</option>
 								<option>주문취소</option>
@@ -292,14 +292,30 @@ li>a {
 	});
 
 	$('#updateBtn').on('click', function() {
-		if($('input[name=checkbox]:checked').length < 1){
+		if ($('input[name=checkbox]:checked').length < 1) {
 			alert('선택된 주문이 없습니다.')
-		}else{
-			var ff = $('input[name=checkbox]:checked').val();
-			console.log(ff);
+		} else {
+			var checkArr = [];
+			$('input[name="checkbox"]:checked').each(function() {
+				checkArr.push($(this).val());
+			});
+
+			$.ajax({
+				type : 'post',
+				url : 'updateOrder.do',
+				data : {
+					check : checkArr,
+					select : $('#selectUpdate').val()
+				},
+				success : function(data) {
+					writeTable(data);
+				},error:function(){
+					console.log('주문 수정에 실패했습니다.');
+				}
+			});
 		}
 	});
-	
+
 	function writeTable(data){
 		var str = "";
 		for ( var key in data) {
@@ -313,5 +329,6 @@ li>a {
 		}
 		$('#tableBody').html(str);
 	}
+	
 </script>
 </html>

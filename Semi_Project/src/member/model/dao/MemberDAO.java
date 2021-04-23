@@ -175,4 +175,22 @@ public class MemberDAO {
 		}
 		return list;
 	}
+
+	public int updateOrder(Connection conn, String select, String[] check) {
+		PreparedStatement pstmt= null;
+		int result = 0;
+		String query=prop.getProperty("updateOrder");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, select);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }
