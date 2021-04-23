@@ -35,8 +35,8 @@
 <div class="myPage-menubar">
 	<h2 id="myPage-menubar-name">마이페이지</h2>
 	<ul>
-		<li class="link" id="orderList.do">구매목록</li>
-		<li class="link" id="memberList.do">개인 정보 조회</li>
+		<li class="link" id="orderList.do">주문 관리</li>
+		<li class="link" id="memberList.do">회원 관리</li>
 		<li class="link" id="">관심상품</li>
 	</ul>
 </div>

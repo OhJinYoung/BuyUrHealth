@@ -1,30 +1,23 @@
 package member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
-import member.model.service.MemberService;
-import member.model.vo.Order;
-
 /**
- * Servlet implementation class SearchOrderServlet
+ * Servlet implementation class RequestOUForm
  */
-@WebServlet("/searchOrder.do")
-public class SearchOrderServlet extends HttpServlet {
+@WebServlet("/requestOUForm.do")
+public class RequestOUForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SearchOrderServlet() {
+	public RequestOUForm() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,26 +28,10 @@ public class SearchOrderServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String filter = request.getParameter("filter");
-		String input = request.getParameter("inputSearch");
-		ArrayList<Order> list = null;
+		int no = Integer.parseInt(request.getParameter("no"));
 
-		MemberService mService = new MemberService();
-		if (input == null || input.equals(""))
-			list = mService.orderList();
-		else
-			list = mService.searchOrder(filter, input);
-
-		if (list != null && list.size() > 0) {
-			for (Order o : list) {
-				String[] products = o.getpList().split("&&");
-				if (products.length > 1)
-					o.setpList(products[0] + " 외 " + (products.length - 1) + "개");
-			}
-		}
-
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(list, response.getWriter());
+		request.setAttribute("no", no);
+		request.getRequestDispatcher("WEB-INF/views/admin/member/requestOU.jsp");
 	}
 
 	/**
