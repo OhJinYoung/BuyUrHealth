@@ -120,9 +120,9 @@
 			</div>
 			
 			<div class="product-request">
-				<button type="button">교환/반품신청</button>
-				<button type="button">배송조회</button>
-				<button type="button">구매후기쓰기</button>
+				<button type="button" id="product-return">교환/반품신청</button>
+				<button type="button" id="delive-search">배송조회</button>
+				<button type="button" id="goBuy-review">구매후기쓰기</button>
 			</div>
     	</div>
     	
@@ -159,6 +159,19 @@
 			location.href="<%= request.getContextPath() %>/favoriteMyPage.me";
 		});
 		
+		
+		
+		$('#product-return').on('click', function(){
+			location.href="<%= request.getContextPath() %>/productReturnForm.me";
+		});
+		
+		$('#delive-search').on('click', function(){
+			location.href="<%= request.getContextPath() %>/deliveSearchForm.me";
+		});
+		
+		$('#goBuy-review').on('click', function(){
+		
+		});
 	</script>
 </body>
 </html>

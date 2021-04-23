@@ -20,6 +20,15 @@ public class MemberService {
 
 		return member;
 	}
+	
+	public Member loginMember(Member member) { 
+		Connection conn = getConnection();
+		Member loginUser = new MemberDAO().loginMember(conn, member);
+
+		close(conn);
+
+		return loginUser; 
+	}
 
 	public ArrayList<Member> memberList() {
 		Connection conn = getConnection();

@@ -17,6 +17,11 @@ public class Member {
 
 	public Member() {
 	}
+	
+	public Member(String userId, String password) {
+		this.userId = userId;
+		this.password = password;
+	}
 
 	public Member(String userNo, String password, char gender, String userId, String userName, Date birth, String phone,
 			String email, Date userDate, char authority, String status) {
