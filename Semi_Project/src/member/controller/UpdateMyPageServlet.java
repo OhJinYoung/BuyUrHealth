@@ -32,13 +32,12 @@ public class UpdateMyPageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		HttpSession session = request.getSession();
-//		Member loginUser = (Member)session.getAttribute("loginUser");
-//		String userId = loginUser.getUserId();
 		request.setCharacterEncoding("UTF-8");
-		String userId = request.getParameter("joinUserId");
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String userId = loginUser.getUserId();
 		
-		Member member = new MemberService().selectMember("admin");
+		Member member = new MemberService().selectMember(userId);
 		
 		System.out.println(member);
 		
