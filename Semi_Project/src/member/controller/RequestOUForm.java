@@ -1,11 +1,15 @@
 package member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import member.model.service.MemberService;
+import member.model.vo.RequestOrder;
 
 /**
  * Servlet implementation class RequestOUForm
@@ -30,8 +34,11 @@ public class RequestOUForm extends HttpServlet {
 			throws ServletException, IOException {
 		int no = Integer.parseInt(request.getParameter("no"));
 
+		RequestOrder req = new MemberService().selectRequest(no);
+		
+		request.setAttribute("req", req);
 		request.setAttribute("no", no);
-		request.getRequestDispatcher("WEB-INF/views/admin/member/requestOU.jsp");
+		request.getRequestDispatcher("WEB-INF/views/admin/member/requestOU.jsp").forward(request, response);
 	}
 
 	/**

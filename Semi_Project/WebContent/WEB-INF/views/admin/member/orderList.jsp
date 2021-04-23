@@ -333,7 +333,8 @@ li>a {
 					select : $('#selectUpdate').val()
 				},
 				success : function(data) {
-					writeTable(data);
+					alert(data);
+					window.location.reload();
 				},
 				error : function() {
 					console.log('주문 수정에 실패했습니다.');
@@ -344,7 +345,7 @@ li>a {
 
 	$('.requestBtn').on('click', function(){
 		var option='width=300px, height=200px';
-		var url = '<%=request.getContextPath()%>/requestOrder.do?no=' + $(this).val();
+		var url = '<%=request.getContextPath()%>/requestOUForm.do?no=' + $(this).val();
 		window.open(url,'update',option);
 	});
 	

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import member.model.dao.MemberDAO;
 import member.model.vo.Member;
 import member.model.vo.Order;
+import member.model.vo.RequestOrder;
 
 public class MemberService {
 
@@ -75,6 +76,16 @@ public class MemberService {
 		close(conn);
 
 		return result;
+	}
+
+	public RequestOrder selectRequest(int no) {
+		Connection conn = getConnection();
+
+		RequestOrder req = new MemberDAO().selectRequest(conn,no);
+		
+		close(conn);
+
+		return req;
 	}
 
 }

@@ -37,18 +37,20 @@ public class UpdateOrderServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String[] check = request.getParameterValues("check[]");
 		String select = request.getParameter("select");
-		
+
 		MemberService mService = new MemberService();
 
-		int result = mService.updateOrder(select,check);
-		
-		ArrayList<Order> list = mService.orderList();
-		if(result>0) {
-			
+		int result = mService.updateOrder(select, check);
+
+		String msg = "";
+		if (result > 0) {
+			msg = result + "개의 주문 상태를 수정했습니다.";
+		} else {
+			msg = "주문 상태 수정 중 오류가 발생했습니다.";
 		}
 
 		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(list, response.getWriter());
+		new Gson().toJson(msg, response.getWriter());
 	}
 
 	/**
