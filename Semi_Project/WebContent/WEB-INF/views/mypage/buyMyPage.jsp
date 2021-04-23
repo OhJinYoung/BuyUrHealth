@@ -111,7 +111,6 @@
 			<div class="product-intro">
 				<div class="product-status">
 					<label>상품상태</label>
-					<label>상품상태</label>
 				</div>
 				<div class="product-content">
 					<img src="<%= request.getContextPath() %>/images/vitamin_c.jpg" width="130px" height="100px" alt="My Image">
