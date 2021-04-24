@@ -1,4 +1,4 @@
-package member.controller;
+package order.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.service.MemberService;
-import member.model.vo.Order;
+import order.model.service.OrderService;
+import order.model.vo.Order;
 
 /**
  * Servlet implementation class OrderListServlet
@@ -34,13 +34,13 @@ public class OrderListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		ArrayList<Order> list = new MemberService().orderList();
+		ArrayList<Order> list = new OrderService().orderList();
 
 		if (list != null && list.size() > 0) {
 			for (Order o : list) {
 				String[] products = o.getpList().split("&&");
 				if (products.length > 1)
-					o.setpList(products[0] + " 외 " + (products.length - 1));
+					o.setpList(products[0] + " 외 " + (products.length - 1)+"개");
 			}
 		}
 		request.setAttribute("list", list);

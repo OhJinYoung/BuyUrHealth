@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, member.model.vo.Order, java.text.DecimalFormat"%>
+	import="java.util.ArrayList,order.model.vo.Order, java.text.DecimalFormat"%>
 <%
 ArrayList<Order> list = (ArrayList) request.getAttribute("list");
 %>
@@ -141,6 +141,10 @@ tr td:last-child {
 	background: orange;
 }
 
+#updateBtn:hover{
+	background: #ffa500d9;
+	cursor: pointer;
+}
 #update p {
 	font-size: 15px;
 	font-weight: 600;
@@ -168,6 +172,16 @@ li>a {
 #id {
 	font-size: 12px;
 	color: #828282a6;
+}
+
+.requestBtn {
+	font-size: 10px;
+	padding: 4px;
+}
+
+.requestBtn:hover {
+	background: lightgray;
+	cursor: pointer;
 }
 </style>
 <body>
@@ -209,7 +223,7 @@ li>a {
 							<tbody id="tableBody">
 								<!-- for문 -->
 								<%
-								if (list != null) {
+								if (list != null && list.size() > 0) {
 									for (Order o : list) {
 										String price = new DecimalFormat("###,###").format(o.getPrice());
 								%>
@@ -223,7 +237,20 @@ li>a {
 										</div></td>
 									<td><%=o.getpList()%></td>
 									<td><%=price%> 원</td>
-									<td><%=o.getState()%></td>
+									<td><div>
+											<p><%=o.getState()%></p>
+											<%
+											String state = o.getState();
+											if (state.substring(state.length() - 2, state.length()).equals("요청")) {
+											%>
+											<p>
+												<button class="requestBtn" value="<%=o.getNo()%>">요청서
+													확인</button>
+											</p>
+											<%
+											}
+											%>
+										</div></td>
 								</tr>
 								<%
 								}
@@ -249,9 +276,7 @@ li>a {
 								<option>배송중</option>
 								<option>배송완료</option>
 								<option>반품요청</option>
-								<option>반품진행중</option>
 								<option>반품완료</option>
-								<option>교환진행중</option>
 								<option>교환완료</option>
 							</select>
 							<p>으로</p>
@@ -308,14 +333,22 @@ li>a {
 					select : $('#selectUpdate').val()
 				},
 				success : function(data) {
-					writeTable(data);
-				},error:function(){
+					alert(data);
+					window.location.reload();
+				},
+				error : function() {
 					console.log('주문 수정에 실패했습니다.');
 				}
 			});
 		}
 	});
 
+	$('.requestBtn').on('click', function(){
+		var option='width=470px, height=330px';
+		var url = '<%=request.getContextPath()%>/requestOUForm.do?no=' + $(this).val();
+		window.open(url,'update',option);
+	});
+	
 	function writeTable(data){
 		var str = "";
 		for ( var key in data) {
@@ -329,6 +362,5 @@ li>a {
 		}
 		$('#tableBody').html(str);
 	}
-	
 </script>
 </html>
