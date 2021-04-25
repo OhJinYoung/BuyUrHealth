@@ -17,6 +17,7 @@
 			vertical-align: middle; width: 150px; height: 50px; display: table-cell;
 		}
 	.mainMenu:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
+	.mainMenu label {display: none;}
 	.mainLogo{float:left; margin-right:100px; margin-left:30px; clear:both;}
 	.humanBody{width: 100%; height: 30%; text-align: center; display: inline-block;}
 	.mainBody{width: 80%; height: 30%;}
@@ -52,8 +53,6 @@
 	.mainFoot:hover {background: gray; color:blue; font-weight:bold; cursor:pointer;}
 	
 	.mainBottom{margin-top: -70px;}
-	.buyurhealth{display: inline-block; vertical-align: top;}
-	.cs{margin-left: 50px; margin-top: 8px; display: inline-block; vertical-align: top;}
 	
 </style>
 </head>
@@ -61,12 +60,24 @@
 	<div class="wrap">
 		<nav>
 			<div><img class="mainLogo" src="<%= request.getContextPath() %>/images/mainlogo.png" width="100px" height="50px" alt="My Image"></div>
-			<div class="mainMenu" id="goViewProduct">제품보기</div>
-			<div class="mainMenu" id="goCommunity">커뮤니티</div>
-			<div class="mainMenu" id="goCart">장바구니</div>
-			<div class="mainMenu" id="goMypage">마이페이지</div>
-			<div class="mainMenu" id="login">로그인</div>
-			<div class="mainMenu" id="goService">고객센터</div>
+			
+			<% if(loginUser == null){ %>
+				<div class="mainMenu" id="goViewProduct">제품보기</div>
+				<div class="mainMenu" id="goCommunity">커뮤니티</div>
+				<div class="mainMenu" id="goCart">장바구니</div>
+				<div class="mainMenu" id="goMypage">마이페이지</div>
+				<div class="mainMenu" id="login">로그인</div>
+				<div class="mainMenu" id="goService">고객센터</div>
+				
+			<% } else { %>
+				<div class="mainMenu" id="goViewProduct">제품보기</div>
+				<div class="mainMenu" id="goCommunity">커뮤니티</div>
+				<div class="mainMenu" id="goCart">장바구니 <label id="link">/cart.me</label></div>
+				<div class="mainMenu" id="goMypage">마이페이지 <label id="link1">/updateMyPage.me</label></div>
+				<div class="mainMenu" id="logout">로그아웃</div>
+				<div class="mainMenu" id="goService">고객센터</div>
+				<div class="mainMenu" style='display:none;' id="checkLogin">Login</div>
+			<% } %>
 			<hr>
 		</nav>
 	</div>
@@ -223,58 +234,59 @@
 		  <div class="desc">구연산 마그네슘</div>
 		</div>	
 	</div>
+
 	<div class="mainFootWrap">
 		<nav>
 			<div class="mainFoot">이용약관</div>
 			<div class="mainFoot">개인정보처리방침</div>
 			<div class="mainFoot">고객센터</div>
-			<hr>
 		</nav>
 	</div>
 	
 	<div class="mainBottom">
-		<div class="buyurhealth">
-		<h4>BuyUrHealth</h4>
-			<p> 강건강 <em>|</em> <span>조원: 김도영, 김채원, 이새린</span><em>|</em> <span>조장: 오진영</span><br/><span>강사님: 박신우</span></p>
-			<p><span>서울특별시 강남구 선릉로 661, 3층 303호</span>
-				<em class="only-pc">|</em><br class="only-mobile"/>
-				<span>연구소: 서울 강남구 선릉로 661, 석영빌딩 303호</span>
-			</p>
-			<p><span>통신판매업신고: 제 2020-서울강남-03029 호 
-				<a class="link" href="http://www.ftc.go.kr/bizCommPop.do?wrkr_no=7598700821" target="_blank">사업자정보확인</a></span><br/>
-				<span>유통판매업신고: 제 2018-0107314 호</span><br/>
-				<span>건강기능식품판매업신고: 제 2018-0107318 호</span>
-			</p>
-		</div>
-		<div class="cs">
-		<h4>고객센터</h4>
-			<p><span>고객문의: <a href="mailto:cs@carewith.us">cs@carewith.us</a></span><em>|</em>
-				<span>전화: <a href="tel://02-6203-9810">02-6203-9810</a></span>
-			</p>
-			<p><span>제휴문의: <a href="mailto:marketing@carewith.us">marketing@carewith.us</a></span><em>|</em>
-				<span>전화: <a href="tel://02-6203-9811">02-6203-9811</a></span>
-			</p>
-		</div>
+		<%@include file="footer.jsp"%>
 	</div>
 	<script>
-		$('#goViewProduct').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goCommunity').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goCart').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goMypage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/updateMyPage.me";
-		});
 		$('#login').on('click', function() {
 			location.href="<%= request.getContextPath() %>/login.main";
 		});
-		$('#goService').on('click', function(){
+		
+		$('#logout').on('click', function() {
+			location.href="<%= request.getContextPath() %>/logout.main";
+		});
+		
+		$('#goViewProduct').on('click', function(){
+			location.href="<%= request.getContextPath() %>/login.main";
+		});
+		
+		$('#goCommunity').on('click', function(){
 			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
 		});
+		
+		$('#goCart').on('click', function(){
+			checkLogin(this);
+		});
+		
+		$('#goMypage').on('click', function(){
+			checkLogin(this);
+		});
+		
+		$('#goService').on('click', function(){
+			location.href="<%= request.getContextPath() %>/updateMyPage.me";
+		});
+		
+		function checkLogin(ip){
+			var login = $('#checkLogin').text();
+			var link = $(ip).children().text();
+			if(login != "Login"){
+				alert("로그인을 먼저 해주세요!");
+				location.href="<%= request.getContextPath() %>/login.main"; 
+			} else {
+				console.log(ip);
+				location.href="<%= request.getContextPath() %>" + link;
+				
+			}
+		}
 		
 	</script>
 </body>
