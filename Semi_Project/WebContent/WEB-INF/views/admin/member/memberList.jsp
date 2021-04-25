@@ -290,11 +290,11 @@ li>a {
 						var str = "";
 
 						for ( var key in data) {
-							str = str + '<tr><td>' + data[key].id + '</td><td>'
-									+ data[key].name + '</td><td>'
-									+ data[key].grade_name + '</td><td>'
-									+ data[key].point + '</td><td id="btns">'
-									+ button + '</td></tr>';
+							str += '<tr><td><input type="checkbox" name="checkbox" value="'+data[key].userNo
+							+'"></td><td>'+data[key].userId
+							+'</td><td>'+data[key].userName
+							+'</td><td>'+data[key].userDate
+							+'</td><td>사용자 글수'+'</td></tr>';
 						}
 						$('#tableBody').html(str);
 					}

@@ -128,7 +128,7 @@ public class MemberDAO {
 
 		try {
 			pstmt=conn.prepareStatement(query);
-			pstmt.setString(1, input);
+			pstmt.setString(1, "%"+input+"%");
 
 			rset=pstmt.executeQuery();
 			while (rset.next()) {
