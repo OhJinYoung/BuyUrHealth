@@ -43,4 +43,14 @@ public class MemberService {
 		return list;
 	}
 
+	public ArrayList<Member> searchMember(String filter, String input) {
+		Connection conn = getConnection();
+
+		ArrayList<Member> list = new MemberDAO().searchMember(conn,filter,input);
+
+		close(conn);
+
+		return list;
+	}
+
 }

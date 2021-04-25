@@ -205,8 +205,8 @@ li>a {
 						<div id="top-right">
 							<div>
 								<select id="filter">
-									<option value="id">아이디</option>
-									<option value="name">이름</option>
+									<option value="Id">아이디</option>
+									<option value="Name">이름</option>
 								</select>
 							</div>
 							<div id="searchBox">

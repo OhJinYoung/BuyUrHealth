@@ -319,6 +319,8 @@ li>a {
 	$('#updateBtn').on('click', function() {
 		if ($('input[name=checkbox]:checked').length < 1) {
 			alert('선택된 주문이 없습니다.')
+		} else if($('#selectUpdate').val()=='주문상태선택'){
+			alert('주문 상태를 선택해주세요.');
 		} else {
 			var checkArr = [];
 			$('input[name="checkbox"]:checked').each(function() {
