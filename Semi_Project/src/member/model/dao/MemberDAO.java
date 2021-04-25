@@ -124,13 +124,13 @@ public class MemberDAO {
 		ResultSet rset = null;
 		ArrayList<Member> list = new ArrayList<>();
 
-		String query = prop.getProperty("searchMember"+filter);
+		String query = prop.getProperty("searchMember" + filter);
 
 		try {
-			pstmt=conn.prepareStatement(query);
-			pstmt.setString(1, "%"+input+"%");
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + input + "%");
 
-			rset=pstmt.executeQuery();
+			rset = pstmt.executeQuery();
 			while (rset.next()) {
 				Member member = new Member(rset.getString("USER_NO"), rset.getString("password"),
 						rset.getString("GENDER").charAt(0), rset.getString("USER_ID"), rset.getString("USER_NAME"),
@@ -145,6 +145,28 @@ public class MemberDAO {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int deleteMembers(Connection conn, String[] members) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deleteMembers");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			int i = 1;
+			for (String s : members)
+				pstmt.setInt(i++, Integer.parseInt(s));
+			while (i < 11)
+				pstmt.setInt(i++, Integer.parseInt(members[0]));
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

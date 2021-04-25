@@ -23,14 +23,14 @@ public class MemberService {
 
 		return member;
 	}
-	
-	public Member loginMember(Member member) { 
+
+	public Member loginMember(Member member) {
 		Connection conn = getConnection();
 		Member loginUser = new MemberDAO().loginMember(conn, member);
 
 		close(conn);
 
-		return loginUser; 
+		return loginUser;
 	}
 
 	public ArrayList<Member> memberList() {
@@ -46,11 +46,25 @@ public class MemberService {
 	public ArrayList<Member> searchMember(String filter, String input) {
 		Connection conn = getConnection();
 
-		ArrayList<Member> list = new MemberDAO().searchMember(conn,filter,input);
+		ArrayList<Member> list = new MemberDAO().searchMember(conn, filter, input);
 
 		close(conn);
 
 		return list;
+	}
+
+	public int deleteMembers(String[] members) {
+		Connection conn = getConnection();
+
+		int result = new MemberDAO().deleteMembers(conn, members);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		
+		close(conn);
+
+		return result;
 	}
 
 }

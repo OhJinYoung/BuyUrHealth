@@ -175,7 +175,7 @@ li>a {
 	color: #828282a6;
 }
 
-#Btns button {
+#btns button {
 	width: 100px;
 	height: 40px;
 	font-size: 15px;
@@ -187,8 +187,18 @@ li>a {
 	background: orange;
 }
 
+#updateBtn:hover {
+	background: #ffa500d9;
+	cursor: pointer;
+}
+
 #deleteBtn {
 	background: #666666;
+}
+
+#deleteBtn:hover {
+	background: #666666d9;
+	cursor: pointer;
 }
 </style>
 <body>
@@ -264,7 +274,7 @@ li>a {
 							%>
 							<button id="nextPage">&gt;</button>
 						</div>
-						<div id="Btns">
+						<div id="btns">
 							<button id="updateBtn">수정</button>
 							<button id="deleteBtn">삭제</button>
 						</div>
@@ -302,13 +312,29 @@ li>a {
 			});
 
 	$('#updateBtn').on('click', function() {
-		var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='+ $(this).val();
+		var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='
+		+ $(this).val();
 		window.open(url, 'update', 'width=300px, height=450px');
 		});
 
 	$('#deleteBtn').on('click', function() {
-		if (confirm('해당 회원을 삭제하시겠습니까?')) {
-
+		var checkArr = [];
+		$('input[name="checkbox"]:checked').each(function() {
+			checkArr.push($(this).val());
+		});
+		
+		if (confirm('해당 회원들을 삭제하시겠습니까?')) {
+			$.ajax({
+				type: 'post',
+				url:'deleteMember.do',
+				data:{
+					check:checkArr
+				},
+				success:function(data){
+					alert(data);
+					window.location.reload();
+				}		
+			});
 		}
 	});
 </script>
