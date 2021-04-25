@@ -112,7 +112,7 @@ tr td:last-child {
 	padding: 30px;
 }
 
-#container-wrap {
+body{
 	min-width: 1200px;
 }
 
