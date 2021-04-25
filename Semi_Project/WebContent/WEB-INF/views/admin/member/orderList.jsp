@@ -107,8 +107,8 @@ tr td:last-child {
 	padding: 30px;
 }
 
-#container {
-	min-width: 930px;
+#container-wrap {
+min-width:1200px;
 }
 
 #top div:first-child h4 {

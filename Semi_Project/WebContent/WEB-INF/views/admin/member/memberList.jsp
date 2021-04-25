@@ -102,17 +102,18 @@ tr td:last-child {
 	border-left: 1px solid #9a9a9a;
 }
 
+#contents {
+	display: inline-block;
+	border-left: 1px solid #9a9a9a;
+	width: 80%;
+}
+
 #contents-wrap {
-	padding: 30px 20px;
+	padding: 30px;
 }
 
-#container {
-	min-width: 930px;
-}
-
-a
 #container-wrap {
-	padding: 0 50px 0 30px;
+	min-width: 1200px;
 }
 
 #top div:first-child h4 {
@@ -126,7 +127,7 @@ a
 }
 
 #bottom {
-	padding-top: 10px;
+	padding-top: 20px;
 	text-align: center;
 }
 
@@ -217,7 +218,7 @@ li>a {
 					</div>
 					<div id="table">
 						<table>
-							<tr>
+							<tr id="firstTr">
 								<th>선택</th>
 								<th>사용자 ID</th>
 								<th>이름</th>
@@ -301,9 +302,11 @@ li>a {
 			});
 
 	$('#updateBtn').on('click', function() {
-		var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='+ $(this).val();
-		window.open(url, 'update', 'width=300px, height=450px');
-		});
+		var url ='<%=request.getContextPath()%>
+	/updateMemberForm.do?id='
+								+ $(this).val();
+						window.open(url, 'update', 'width=300px, height=450px');
+					});
 
 	$('#deleteBtn').on('click', function() {
 		if (confirm('해당 회원을 삭제하시겠습니까?')) {
