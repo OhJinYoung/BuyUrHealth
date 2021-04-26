@@ -312,10 +312,15 @@ li>a {
 			});
 
 	$('#updateBtn').on('click', function() {
-		var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='
-		+ $(this).val();
-		window.open(url, 'update', 'width=300px, height=450px');
+		var checkArr = [];
+		$('input[name="checkbox"]:checked').each(function() {
+			checkArr.push($(this).val());
 		});
+		
+		for(var i=0; i<checkArr.length;i++){
+			
+		}
+	});
 
 	$('#deleteBtn').on('click', function() {
 		var checkArr = [];
