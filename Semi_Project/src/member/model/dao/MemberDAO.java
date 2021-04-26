@@ -87,6 +87,7 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rset);
 			close(pstmt);
 		}
 		return member;

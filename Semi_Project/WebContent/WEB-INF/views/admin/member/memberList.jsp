@@ -243,7 +243,7 @@ li>a {
 								%>
 								<tr>
 									<td><input type="checkbox" name="checkbox"
-										value="<%=m.getUserNo()%>"></td>
+										value="<%=m.getUserId()%>"></td>
 									<td><%=m.getUserId()%></td>
 									<td><%=m.getUserName()%></td>
 									<td><%=m.getUserDate()%></td>
@@ -300,7 +300,7 @@ li>a {
 						var str = "";
 
 						for ( var key in data) {
-							str += '<tr><td><input type="checkbox" name="checkbox" value="'+data[key].userNo
+							str += '<tr><td><input type="checkbox" name="checkbox" value="'+data[key].userId
 							+'"></td><td>'+data[key].userId
 							+'</td><td>'+data[key].userName
 							+'</td><td>'+data[key].userDate
@@ -319,8 +319,13 @@ li>a {
 			checkArr.push($(this).val());
 		});
 		
-		for(var i=0; i<checkArr.length;i++){
-			
+		if(checkArr.length<1){
+			alert('수정할 회원을 선택해주세요.');
+		} else if(checkArr.length>1){
+			alert('회원 수정은 한 명씩 가능합니다.');
+		} else{
+			var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='+ checkArr[0];
+			window.open(url, 'update', 'width=300px, height=450px');
 		}
 	});
 
