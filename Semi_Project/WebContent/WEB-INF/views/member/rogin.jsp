@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,26 +70,7 @@ input {
 <script src="../js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-	<div class="wrap">
-		<nav>
-			<div>
-				<img class="mainLogo"
-					src="<%= request.getContextPath() %>/images/mainlogo.png"
-					width="100px" height="50px" alt="My Image">
-			</div>
-			<div class="mainMenu" id="goViewProduct">제품보기</div>
-			<div class="mainMenu" id="goCommunity">커뮤니티</div>
-			<div class="mainMenu" id="goCart">장바구니</div>
-			<div class="mainMenu" id="goMypage">마이페이지</div>
-			<div class="mainMenu" id="login">로그인</div>
-			<div class="mainMenu" id="goService">고객센터</div>
-			<hr>
-		</nav>
-	</div>
-
-
-
-
+	<%@include file="../title_header.jsp"%>
 
 	<div class="log">
 		<section class="login-form">
@@ -121,32 +103,5 @@ input {
 		</section>
 	</div>
 
-	<script>
-		$('#goViewProduct').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; 
-		});
-		$('#goCommunity').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; 
-		});
-		$('#goCart').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; 
-		});
-		$('#goMypage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; 
-		});
-		$('#goService').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; 
-		});
-		$('#login').on('click', function(){
-			location.href="<%= request.getContextPath() %>/login.main"; 
-		});
-		$('#idFind').on('click', function(){// 아이디찾기
-			location.href="<%= request.getContextPath() %>/idfind"; 
-		});
-		
-		
-		
-		
-	</script>
 </body>
 </html>

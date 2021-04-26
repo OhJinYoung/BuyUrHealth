@@ -16,7 +16,7 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class MyPageServlet
  */
-@WebServlet("/updateMyPage.me")
+@WebServlet("/goMypage")
 public class UpdateMyPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,23 +34,24 @@ public class UpdateMyPageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String userId = loginUser.getUserId();
-		
-		Member member = new MemberService().selectMember(userId);
-		
-		System.out.println(member);
-		
 		String page = null;
-		if(member != null) {
-			page = "WEB-INF/views/mypage/updateMyPage.jsp";
-			request.setAttribute("userId", member);
-		} else {
-			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg", "회원 조회에 실패하였습니다.");
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		try {
+			String userId = loginUser.getUserId();
+			Member member = new MemberService().selectMember(userId);
+			
+			if(member != null) {
+				page = "WEB-INF/views/mypage/updateMyPage.jsp";
+				request.setAttribute("userId", member);
+			} else {
+				page = "WEB-INF/views/common/errorPage.jsp";
+				request.setAttribute("msg", "회원 조회에 실패하였습니다.");
+			}
+		} catch(Exception e){
+			page = "WEB-INF/views/member/rogin.jsp";
+		} finally {
+			request.getRequestDispatcher(page).forward(request, response);
 		}
-		
-		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**
