@@ -325,7 +325,7 @@ li>a {
 			alert('회원 수정은 한 명씩 가능합니다.');
 		} else{
 			var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='+ checkArr[0];
-			window.open(url, 'update', 'width=300px, height=450px');
+			window.open(url, 'update', 'width=300px, height=345px');
 		}
 	});
 

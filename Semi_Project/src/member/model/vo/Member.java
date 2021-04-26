@@ -36,6 +36,16 @@ public class Member {
 		this.countQna = countQna;
 	}
 
+	public Member(int userNo, char gender, String userName, String birth, String phone, String email) {
+		super();
+		this.userNo = userNo;
+		this.gender = gender;
+		this.userName = userName;
+		this.birth = birth;
+		this.phone = phone;
+		this.email = email;
+	}
+
 	public Member(int userNo, String password, char gender, String userId, String userName, String birth, String phone,
 			String email, String userDate, char authority, String status) {
 		super();
