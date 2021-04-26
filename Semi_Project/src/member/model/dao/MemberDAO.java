@@ -49,10 +49,10 @@ public class MemberDAO {
 
 			if (rset.next()) {
 				System.out.println(rset);
-				loginUser = new Member(rset.getString("USER_NO"), rset.getString("PASSWORD"),
+				loginUser = new Member(rset.getInt("USER_NO"), rset.getString("PASSWORD"),
 						rset.getString("GENDER").charAt(0), rset.getString("USER_ID"), rset.getString("USER_NAME"),
-						rset.getDate("BIRTH"), rset.getString("PHONE"), rset.getString("EMAIL"),
-						rset.getDate("USER_DATE"), rset.getString("AUTHORITY").charAt(0), rset.getString("STATUS"));
+						rset.getString("birthdate"), rset.getString("PHONE"), rset.getString("EMAIL"),
+						rset.getString("USERDATE"), rset.getString("AUTHORITY").charAt(0), rset.getString("STATUS"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -79,14 +79,15 @@ public class MemberDAO {
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
-				member = new Member(rset.getString("USER_NO"), rset.getString("password"),
+				member = new Member(rset.getInt("USER_NO"), rset.getString("password"),
 						rset.getString("GENDER").charAt(0), rset.getString("USER_ID"), rset.getString("USER_NAME"),
-						rset.getDate("BIRTH"), rset.getString("PHONE"), rset.getString("EMAIL"),
-						rset.getDate("USER_DATE"), rset.getString("AUTHORITY").charAt(0), rset.getString("STATUS"));
+						rset.getString("birthdate"), rset.getString("PHONE"), rset.getString("EMAIL"),
+						rset.getString("userdate"), rset.getString("AUTHORITY").charAt(0), rset.getString("STATUS"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rset);
 			close(pstmt);
 		}
 		return member;
@@ -104,18 +105,67 @@ public class MemberDAO {
 			rset = stmt.executeQuery(query);
 
 			while (rset.next()) {
-				Member member = new Member(rset.getString("USER_NO"), rset.getString("password"),
-						rset.getString("GENDER").charAt(0), rset.getString("USER_ID"), rset.getString("USER_NAME"),
-						rset.getDate("BIRTH"), rset.getString("PHONE"), rset.getString("EMAIL"),
-						rset.getDate("USER_DATE"), rset.getString("AUTHORITY").charAt(0), rset.getString("STATUS"));
+				Member member = new Member(rset.getInt("USER_NO"), rset.getString("USER_ID"),
+						rset.getString("USER_NAME"), rset.getString("userdate"), rset.getInt("comm"), rset.getInt("rp"),
+						rset.getInt("qa"));
 				list.add(member);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rset);
 			close(stmt);
 		}
 		return list;
+	}
+
+	public ArrayList<Member> searchMember(Connection conn, String filter, String input) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = new ArrayList<>();
+
+		String query = prop.getProperty("searchMember" + filter);
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + input + "%");
+
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				Member member = new Member(rset.getInt("USER_NO"), rset.getString("USER_ID"),
+						rset.getString("USER_NAME"), rset.getString("userdate"), rset.getInt("comm"), rset.getInt("rp"),
+						rset.getInt("qa"));
+				list.add(member);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int deleteMembers(Connection conn, String[] members) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deleteMembers");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			int i = 1;
+			for (String s : members)
+				pstmt.setInt(i++, Integer.parseInt(s));
+			while (i < 11)
+				pstmt.setInt(i++, Integer.parseInt(members[0]));
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

@@ -102,17 +102,18 @@ tr td:last-child {
 	border-left: 1px solid #9a9a9a;
 }
 
+#contents {
+	display: inline-block;
+	border-left: 1px solid #9a9a9a;
+	width: 80%;
+}
+
 #contents-wrap {
-	padding: 30px 20px;
+	padding: 30px;
 }
 
-#container {
-	min-width: 930px;
-}
-
-a
-#container-wrap {
-	padding: 0 50px 0 30px;
+body{
+	min-width: 1200px;
 }
 
 #top div:first-child h4 {
@@ -126,7 +127,7 @@ a
 }
 
 #bottom {
-	padding-top: 10px;
+	padding-top: 20px;
 	text-align: center;
 }
 
@@ -174,7 +175,7 @@ li>a {
 	color: #828282a6;
 }
 
-#Btns button {
+#btns button {
 	width: 100px;
 	height: 40px;
 	font-size: 15px;
@@ -186,8 +187,18 @@ li>a {
 	background: orange;
 }
 
+#updateBtn:hover {
+	background: #ffa500d9;
+	cursor: pointer;
+}
+
 #deleteBtn {
 	background: #666666;
+}
+
+#deleteBtn:hover {
+	background: #666666d9;
+	cursor: pointer;
 }
 </style>
 <body>
@@ -204,8 +215,8 @@ li>a {
 						<div id="top-right">
 							<div>
 								<select id="filter">
-									<option value="id">아이디</option>
-									<option value="name">이름</option>
+									<option value="Id">아이디</option>
+									<option value="Name">이름</option>
 								</select>
 							</div>
 							<div id="searchBox">
@@ -217,7 +228,7 @@ li>a {
 					</div>
 					<div id="table">
 						<table>
-							<tr>
+							<tr id="firstTr">
 								<th>선택</th>
 								<th>사용자 ID</th>
 								<th>이름</th>
@@ -232,11 +243,11 @@ li>a {
 								%>
 								<tr>
 									<td><input type="checkbox" name="checkbox"
-										value="<%=m.getUserNo()%>"></td>
+										value="<%=m.getUserId()%>"></td>
 									<td><%=m.getUserId()%></td>
 									<td><%=m.getUserName()%></td>
 									<td><%=m.getUserDate()%></td>
-									<td>사용자 글수</td>
+									<td><%=m.getCountComm() %>/<%=m.getCountReply() %>/<%=m.getCountQna() %></td>
 								</tr>
 								<%
 								}
@@ -263,7 +274,7 @@ li>a {
 							%>
 							<button id="nextPage">&gt;</button>
 						</div>
-						<div id="Btns">
+						<div id="btns">
 							<button id="updateBtn">수정</button>
 							<button id="deleteBtn">삭제</button>
 						</div>
@@ -289,11 +300,13 @@ li>a {
 						var str = "";
 
 						for ( var key in data) {
-							str = str + '<tr><td>' + data[key].id + '</td><td>'
-									+ data[key].name + '</td><td>'
-									+ data[key].grade_name + '</td><td>'
-									+ data[key].point + '</td><td id="btns">'
-									+ button + '</td></tr>';
+							str += '<tr><td><input type="checkbox" name="checkbox" value="'+data[key].userId
+							+'"></td><td>'+data[key].userId
+							+'</td><td>'+data[key].userName
+							+'</td><td>'+data[key].userDate
+							+'</td><td>'+data[key].countComm+'/'
+							+data[key].countReply+'/'
+							+data[key].countQna+'</td></tr>';
 						}
 						$('#tableBody').html(str);
 					}
@@ -301,13 +314,39 @@ li>a {
 			});
 
 	$('#updateBtn').on('click', function() {
-		var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='+ $(this).val();
-		window.open(url, 'update', 'width=300px, height=450px');
+		var checkArr = [];
+		$('input[name="checkbox"]:checked').each(function() {
+			checkArr.push($(this).val());
 		});
+		
+		if(checkArr.length<1){
+			alert('수정할 회원을 선택해주세요.');
+		} else if(checkArr.length>1){
+			alert('회원 수정은 한 명씩 가능합니다.');
+		} else{
+			var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='+ checkArr[0];
+			window.open(url, 'update', 'width=300px, height=450px');
+		}
+	});
 
 	$('#deleteBtn').on('click', function() {
-		if (confirm('해당 회원을 삭제하시겠습니까?')) {
-
+		var checkArr = [];
+		$('input[name="checkbox"]:checked').each(function() {
+			checkArr.push($(this).val());
+		});
+		
+		if (confirm('해당 회원들을 삭제하시겠습니까?')) {
+			$.ajax({
+				type: 'post',
+				url:'deleteMember.do',
+				data:{
+					check:checkArr
+				},
+				success:function(data){
+					alert(data);
+					window.location.reload();
+				}		
+			});
 		}
 	});
 </script>
