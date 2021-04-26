@@ -35,13 +35,13 @@ public class RequestOUServlet extends HttpServlet {
 		int no = Integer.parseInt(request.getParameter("no"));
 		String state = request.getParameter("state");
 
-		int result = new OrderService().updateRequest(no, state);
+		OrderService oService = new OrderService();
+		int result = oService.updateRequest(no, state);
 
 		String msg = null;
-		if (result > 0) {
-			msg = "주문번호 " + no + " " + state + " 되었습니다.";
-		}
-		
+		if (result > 0)
+			msg = "요청번호 " + no + " " + state + " 되었습니다.";
+
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(msg, response.getWriter());
 	}

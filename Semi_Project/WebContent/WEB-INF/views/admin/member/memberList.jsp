@@ -296,7 +296,6 @@ li>a {
 						input : $('#inputSearch').val()
 					},
 					success : function(data) {
-						var button = $('#btns').html();
 						var str = "";
 
 						for ( var key in data) {

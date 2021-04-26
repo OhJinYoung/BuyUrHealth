@@ -93,10 +93,11 @@ textarea {
 			</h3>
 		</div>
 		<div>
+		<input type="hidden" id="no" value="<%=req.getNo()%>">
 			<table>
 				<tr>
 					<td>주문번호</td>
-					<td id="no"><%=req.getOrderNo()%></td>
+					<td><%=req.getOrderNo()%></td>
 				</tr>
 				<tr>
 					<td>결제수단</td>
@@ -137,8 +138,9 @@ textarea {
 			type : 'post',
 			url : 'requestOU.do',
 			data : {
-				no : $('#no').text(),
-				state : state
+				no : $('#no').val(),
+				state : state,
+				reqNo : $('#reqNo').val()
 			},
 			success : function(data) {
 				if(data==null)
