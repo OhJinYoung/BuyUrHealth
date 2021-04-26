@@ -247,7 +247,7 @@ li>a {
 									<td><%=m.getUserId()%></td>
 									<td><%=m.getUserName()%></td>
 									<td><%=m.getUserDate()%></td>
-									<td>사용자 글수</td>
+									<td><%=m.getCountComm() %>/<%=m.getCountReply() %>/<%=m.getCountQna() %></td>
 								</tr>
 								<%
 								}
@@ -304,7 +304,9 @@ li>a {
 							+'"></td><td>'+data[key].userId
 							+'</td><td>'+data[key].userName
 							+'</td><td>'+data[key].userDate
-							+'</td><td>사용자 글수'+'</td></tr>';
+							+'</td><td>'+data[key].countComm+'/'
+							+data[key].countReply+'/'
+							+data[key].countQna+'</td></tr>';
 						}
 						$('#tableBody').html(str);
 					}
