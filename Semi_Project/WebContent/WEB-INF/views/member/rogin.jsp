@@ -6,6 +6,13 @@
 <meta charset="UTF-8">
 <title>로그인 | HUB</title>
 <style type="text/css">
+#loginForm{
+	
+	position: absolute;
+	top: 400px;
+	left: 600px;
+
+}
 #idFind {
 	color: black;
 }
@@ -65,6 +72,12 @@ input {
 	margin-left: 30px;
 	clear: both;
 }
+.mainLogo2 {
+	float: left;
+	margin-right: 150px;
+	margin-left: 30px;
+	clear: both;
+}
 </style>
 <script src="../js/jquery-3.6.0.min.js"></script>
 </head>
@@ -93,11 +106,10 @@ input {
 	<div class="log">
 		<section class="login-form">
 			<h1>
-				<img class="mainLogo" src="image/logo.png" width="180px"
+				<img class="mainLogo2" src="<%= request.getContextPath() %>/images/mainlogo.png" width="300px"
 					height="120px" alt="My Image">
 			</h1>
-			<form id="loginForm"
-				action="<%= request.getContextPath() %>/login.me" method="post">
+			<form id="loginForm" action="<%= request.getContextPath() %>/login.me" method="post">
 				<div class="int-area">
 					<input type="text" name="userId" id="userId" autocomplete="off"
 						placeholder="아이디를 입력해주세요."> <label class="id">USERNAME</label>
@@ -111,16 +123,15 @@ input {
 					<input type="submit" id="btn" value="로그인">
 				</div>
 				<div class="caption">
-					<!-- <input type="button" value="아이디 찾기">
-							<input type="button" value="비밀번호 찾기">
-							<input type="button" value="회원가입"> -->
-					<a href="">아이디 찾기</a> <a href="">비밀번호 찾기</a> <a href="">회원가입</a>
+					<input id="loginBtn"type="button" value="아이디 / 비밀번호 찾기">
+					<br>	
+					<input type="button" id="joinBtn" value="회원가입">
 				</div>
 
 			</form>
 		</section>
 	</div>
-
+	
 	<script>
 		$('#goViewProduct').on('click', function(){
 			location.href="<%= request.getContextPath() %>/test.no"; 
@@ -140,13 +151,18 @@ input {
 		$('#login').on('click', function(){
 			location.href="<%= request.getContextPath() %>/login.main"; 
 		});
-		$('#idFind').on('click', function(){// 아이디찾기
-			location.href="<%= request.getContextPath() %>/idfind"; 
+		
+		$('#joinBtn').on('click' , function(){
+			location.href="<%= request.getContextPath() %>/signUpForm.me";
 		});
 		
 		
 		
 		
+		
+		<%-- $('#idFind').on('click', function(){// 아이디찾기
+			location.href="<%= request.getContextPath() %>/idfind"; 
+		}); --%>
 	</script>
 </body>
 </html>
