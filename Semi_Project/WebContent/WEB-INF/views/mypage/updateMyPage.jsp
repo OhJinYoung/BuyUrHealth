@@ -16,20 +16,7 @@
 <title>마이페이지|개인정보조회</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
-	.myPage-menubar {
-        width: 20%;
-        max-width: 170px;
-        height: 1000px;
-        padding: 20px;
-        margin-top: 14px;
-        float: left;
-        border-right: 1px solid black;
-        display: inline-block;
-     }
-     
-     #myPage-menubar-name { text-align: center; font-size: 20px;}
-	 .myPage-menubar ul, li { list-style: none; padding: 10px; margin: 0; text-align: center;}
-	 .myPage-menubar li:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
+
 	 #myPage-head {text-align:left; margin-top:50px; margin-left:250px;}
 
 	.myPage-certification{position: absolute; width: 1100px; height: 200px;
@@ -62,19 +49,10 @@
 <body>
 	<%@include file="../title_header.jsp"%>
 	
-	<div class="myPage-menubar">
-	<hr>
-        <h2 id="myPage-menubar-name">마이페이지</h2>
-    <hr>
-        <ul>
-          <li id="goBuy">구매목록</li>
-          <li id="goPage">개인정보조회</li>
-          <li id="goFavorite">관심상품</li>
-        </ul>
-        
-    </div>
+		<%@include file="myPageNav.jsp"%>
     
     <h1 id="myPage-head">개인정보조회</h1>
+    <hr>
     
     <div class="myPage-certification">
     	<div class="myPage-pwd">
@@ -98,10 +76,13 @@
 		<br>
 		<h2>내 정보 보기</h2>
 		
-		<form action="<%= request.getContextPath() %>/updateMemberForm.do" method="post" id="myForm" name="myForm">
+		<form action="<%= request.getContextPath() %>/updateMyPageForm.do" method="post" id="myForm" name="myForm">
 			<table>
 				<tr>
-					<td width="200px">아이디</td>
+					<td width="200px">아이디
+						<input type="hidden" name="myNo" value="<%=member.getUserNo()%>">
+						<input type="hidden" name="myPwd" value="<%=member.getUserNo()%>">
+					</td>
 					<td width="200px"><input type="hidden" maxlength="13" name="id" required value="<%= member.getUserId() %>">
 									  <%= member.getUserId() %>
 					</td>
@@ -113,8 +94,14 @@
 					</td>
 				</tr>
 				<tr>
+					<td>성별</td>
+					<td><input type="hidden" name="myGender" required value="<%= member.getGender() %>">
+						<%= member.getGender() %>
+					</td>
+				</tr>
+				<tr>
 					<td>생일</td>
-					<td><input type="hidden" maxlength="15" name="myNickName" required value="<%= member.getBirth() %>">
+					<td><input type="hidden" maxlength="15" name="myBirth" required value="<%= member.getBirth() %>">
 						<%= member.getBirth() %>
 					</td>
 					<td><input type="hidden" maxlength="15" name="pwd" required value="<%= member.getPassword() %>">
@@ -141,7 +128,7 @@
 				</tr>
 				<tr>
 					<td>권한</td>
-					<td><input type="hidden" name="myAddress" value="<%= authority %>">
+					<td><input type="hidden" name="myAuthority" value="<%= authority %>">
 						<%= authority %>
 					</td>
 				</tr>

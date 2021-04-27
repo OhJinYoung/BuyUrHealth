@@ -6,22 +6,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import member.model.service.MemberService;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class FavoriteMyPageServlet
+ * Servlet implementation class UpdatePwdFormServlet
  */
-@WebServlet("/favoriteMyPage.me")
-public class FavoriteMyPageServlet extends HttpServlet {
+@WebServlet("/updatePwdForm.me")
+public class UpdatePwdFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FavoriteMyPageServlet() {
+    public UpdatePwdFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +29,13 @@ public class FavoriteMyPageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String id = loginUser.getUserId();
+		String pwd = request.getParameter("myPwd");
 		
-		Member member = new MemberService().selectMember(id);
+		Member myPwd = new Member();
+		myPwd.setPassword(pwd);
 		
-		String page = null;
-		if(member != null) {
-			page = "WEB-INF/views/mypage/favoriteMyPage.jsp";
-			request.setAttribute("userId", member);
-		} else {
-			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg", "회원 조회에 실패하였습니다.");
-		}
-		
-		request.getRequestDispatcher(page).forward(request, response);
+		request.setAttribute("myPwd", myPwd);
+		request.getRequestDispatcher("WEB-INF/views/member/updatePwdPage.jsp").forward(request, response);
 	}
 
 	/**

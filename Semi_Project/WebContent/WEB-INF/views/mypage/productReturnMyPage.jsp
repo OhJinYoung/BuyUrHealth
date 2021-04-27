@@ -9,20 +9,7 @@
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
 	body {width: 1500px; height: 800px;}
-	.myPage-menubar {
-        width: 20%;
-        max-width: 170px;
-        height: 1000px;
-        padding: 20px;
-        margin-top: 14px;
-        float: left;
-        border-right: 1px solid black;
-        display: inline-block;
-     }
-     
-     #myPage-menubar-name { text-align: center; font-size: 20px;}
-	 .myPage-menubar ul, li { list-style: none; padding: 10px; margin: 0; text-align: center;}
-	 .myPage-menubar li:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
+
 	 #myPage-head {text-align:left; margin-top:50px; margin-left:250px;}
 	 
 	 .returnBackground{
@@ -65,17 +52,8 @@
 <body>
 	<%@include file="../title_header.jsp"%>
 	
-	<div class="myPage-menubar">
-	<hr>
-        <h2 id="myPage-menubar-name">마이페이지</h2>
-    <hr>
-        <ul>
-          <li id="goBuy">구매목록</li>
-          <li id="goPage">개인정보조회</li>
-          <li id="goFavorite">관심상품</li>
-        </ul>
-        
-    </div>
+		<%@include file="../mypage/myPageNav.jsp"%>
+	
     
     <h1 id="myPage-head">취소/반품/교환 신청</h1>
         
