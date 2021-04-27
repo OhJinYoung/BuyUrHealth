@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList,order.model.vo.Order, java.text.DecimalFormat"%>
+	import="java.util.ArrayList,order.model.vo.Order, java.text.DecimalFormat, common.PageInfo"%>
 <%
 ArrayList<Order> list = (ArrayList) request.getAttribute("list");
+PageInfo paging = (PageInfo) request.getAttribute("page");
+String input = (String) request.getAttribute("input");
+String filter = (String) request.getAttribute("filter");
+if(input==null)
+	input="";
+if(filter==null)
+	filter="Id";
 %>
 <!DOCTYPE html>
 <html>
@@ -108,7 +115,7 @@ tr td:last-child {
 }
 
 body {
-min-width:1200px;
+	min-width: 1200px;
 }
 
 #top div:first-child h4 {
@@ -141,10 +148,11 @@ min-width:1200px;
 	background: orange;
 }
 
-#updateBtn:hover{
+#updateBtn:hover {
 	background: #ffa500d9;
 	cursor: pointer;
 }
+
 #update p {
 	font-size: 15px;
 	font-weight: 600;
@@ -165,6 +173,12 @@ min-width:1200px;
 	height: 30px;
 }
 
+#pagingBtns button:hover {
+	cursor: pointer;
+	background: #d6d6d6;
+}
+
+
 li>a {
 	color: black;
 }
@@ -182,6 +196,16 @@ li>a {
 .requestBtn:hover {
 	background: lightgray;
 	cursor: pointer;
+}
+
+#currentPage {
+	background: orange;
+	color: white;
+	cursor: default !important;
+}
+
+#currentPage:hover {
+	background: orange !important
 }
 </style>
 <body>
@@ -202,10 +226,13 @@ li>a {
 									<option value="Name">이름</option>
 									<option value="State">상태</option>
 								</select>
+								<script>
+								$('#filter').val('<%=filter%>').prop("selected", true);
+								</script>
 							</div>
 							<div id="searchBox">
 								<input type="search" id="inputSearch" name="inputSearch"
-									placeholder="검색어를 입력해주세요.">
+									placeholder="검색어를 입력해주세요." value="<%=input%>">
 								<button id="searchBtn">검색</button>
 							</div>
 						</div>
@@ -283,18 +310,30 @@ li>a {
 							<button id="updateBtn">변경</button>
 						</div>
 						<div id="pagingBtns">
-							<button id="firstPage" value="">&lt;&lt;</button>
-							<button class="pageBtn" value="">&lt;</button>
+							<button value="1">&lt;&lt;</button>
+							<button value="<%=paging.getCurrentPage() - 1%>">&lt;</button>
 							<%
-							for (int i = 0; i < 9; i++) {
+							for (int i = paging.getStartPage(); i <= paging.getEndPage(); i++) {
+								if (i == paging.getCurrentPage()) {
 							%>
-							<button class="pageBtn" value=<%=i + 1%>><%=i + 1%></button>
+							<button id="currentPage" disabled><%=i%></button>
+							<%
+							} else {
+							%>
+							<button value="<%=i%>"><%=i%></button>
 							<%
 							}
+							}
 							%>
-							<button value="nextPage">&gt;</button>
-							<button value="lastPage">&gt;&gt;</button>
+							<button value="<%=paging.getCurrentPage() + 1%>">&gt;</button>
+							<button value="<%=paging.getMaxPage()%>">&gt;&gt;</button>
 						</div>
+						<script>
+						if (<%=paging.getCurrentPage()%>== 1)
+							$('#beforeBtn').attr('disabled', true);
+						if (<%=paging.getCurrentPage()%>>=<%=paging.getMaxPage()%>)
+							$('#afterBtn').attr('disabled', true);
+						</script>
 					</div>
 				</div>
 			</div>
@@ -304,22 +343,13 @@ li>a {
 </body>
 <script>
 	$('#searchBtn').on('click', function() {
-		$.ajax({
-			url : 'searchOrder.do',
-			data : {
-				filter : $('#filter').val(),
-				inputSearch : $('#inputSearch').val().trim()
-			},
-			success : function(data) {
-				writeTable(data);
-			}
-		});
+		location.href = '<%=request.getContextPath()%>/searchOrder.do?filter=' + $('#filter').val() + '&&input=' + $('#inputSearch').val().trim(); 
 	});
 
 	$('#updateBtn').on('click', function() {
 		if ($('input[name=checkbox]:checked').length < 1) {
 			alert('선택된 주문이 없습니다.')
-		} else if($('#selectUpdate').val()=='주문상태선택'){
+		} else if ($('#selectUpdate').val() == '주문상태선택') {
 			alert('주문 상태를 선택해주세요.');
 		} else {
 			var checkArr = [];
@@ -344,25 +374,20 @@ li>a {
 			});
 		}
 	});
-
+	
 	$('.requestBtn').on('click', function(){
 		var option='width=470px, height=330px';
 		var url = '<%=request.getContextPath()%>/requestOUForm.do?no=' + $(this).val();
 		window.open(url,'update',option);
 	});
 	
-	function writeTable(data){
-		var str = "";
-		for ( var key in data) {
-			var price = data[key].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-			str += '<tr><td><input type="checkbox" name="checkbox" value="'+data[key].no
-			+'"></td><td>'+data[key].orderDate
-			+'</td><td><div><p>'+data[key].userName
-			+'</p><p id="id">'+data[key].userId
-			+'</p></div></td><td>'+data[key].pList
-			+'</td><td>'+price+' 원</td><td>'+data[key].state+'</td></tr>';
-		}
-		$('#tableBody').html(str);
-	}
+	$('#pagingBtns button').on('click', function(){
+		var page = $(this).val();
+		if('<%=input%>'!='')
+			location.href = '<%=request.getContextPath()%>/searchOrder.do?filter=<%=filter%>&&input=<%=input%>&&page='+page;
+		else
+			location.href = '<%=request.getContextPath()%>/orderList.do?page=' + page;
+	});
+	
 </script>
 </html>

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.PageInfo;
+import common.PagingTemplate;
 import order.model.service.OrderService;
 import order.model.vo.Order;
 
@@ -34,8 +36,14 @@ public class OrderListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		ArrayList<Order> list = new OrderService().orderList();
+		String page = request.getParameter("page");
+		
+		OrderService oService = new OrderService();
+		int listCount = oService.listCount("",null);
+		PageInfo pi = new PagingTemplate().getPageInfo(page,listCount);
 
+		ArrayList<Order> list = oService.orderList(pi);
+	
 		if (list != null && list.size() > 0) {
 			for (Order o : list) {
 				String[] products = o.getpList().split("&&");
@@ -43,6 +51,8 @@ public class OrderListServlet extends HttpServlet {
 					o.setpList(products[0] + " 외 " + (products.length - 1)+"");
 			}
 		}
+		
+		request.setAttribute("page",pi);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("WEB-INF/views/admin/member/orderList.jsp").forward(request, response);
 	}
