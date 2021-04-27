@@ -8,26 +8,27 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import common.PageInfo;
 import order.model.dao.OrderDAO;
 import order.model.vo.Order;
 import order.model.vo.RequestOrder;
 
 public class OrderService {
 
-	public ArrayList<Order> orderList() {
+	public ArrayList<Order> orderList(PageInfo pi) {
 		Connection conn = getConnection();
 
-		ArrayList<Order> list = new OrderDAO().orderList(conn);
+		ArrayList<Order> list = new OrderDAO().orderList(conn,pi);
 
 		close(conn);
 
 		return list;
 	}
 
-	public ArrayList<Order> searchOrder(String filter, String input) {
+	public ArrayList<Order> searchOrder(String filter, String input, PageInfo pi) {
 		Connection conn = getConnection();
 
-		ArrayList<Order> list = new OrderDAO().searchOrder(conn, filter, input);
+		ArrayList<Order> list = new OrderDAO().searchOrder(conn, filter, input, pi);
 
 		close(conn);
 
@@ -76,6 +77,16 @@ public class OrderService {
 		
 		close(conn);
 
+		return result;
+	}
+
+	public int listCount(String filter, String input) {
+		Connection conn =getConnection();
+		
+		int result = new OrderDAO().listCount(conn,filter,input);
+		
+		close(conn);
+		
 		return result;
 	}
 

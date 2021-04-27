@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import common.PageInfo;
+import common.PagingTemplate;
 import order.model.service.OrderService;
 import order.model.vo.Order;
 
@@ -36,25 +38,29 @@ public class SearchOrderServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String filter = request.getParameter("filter");
-		String input = request.getParameter("inputSearch");
-		ArrayList<Order> list = null;
+		String input = request.getParameter("input");
+		String page = request.getParameter("page");
 
 		OrderService oService = new OrderService();
-		if (input == null || input.equals(""))
-			list = oService.orderList();
-		else
-			list = oService.searchOrder(filter, input);
+		int listCount = oService.listCount(filter, input);
+		PageInfo pi = new PagingTemplate().getPageInfo(page, listCount);
 
+		ArrayList<Order> list = null;
+		list = oService.searchOrder(filter, input, pi);
 		if (list != null && list.size() > 0) {
 			for (Order o : list) {
 				String[] products = o.getpList().split("&&");
 				if (products.length > 1)
-					o.setpList(products[0] + " 외 " + (products.length - 1) + "건");
+					o.setpList(products[0] + " 외 " + (products.length - 1) + "");
 			}
 		}
 
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(list, response.getWriter());
+		request.setAttribute("input", input);
+		request.setAttribute("filter", filter);
+		request.setAttribute("page", pi);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("WEB-INF/views/admin/member/orderList.jsp?filter=" + filter + "&&input=" + input)
+				.forward(request, response);
 	}
 
 	/**

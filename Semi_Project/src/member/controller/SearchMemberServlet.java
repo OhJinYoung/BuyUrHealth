@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import common.PageInfo;
+import common.PagingTemplate;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 import order.model.vo.Order;
@@ -36,19 +38,24 @@ public class SearchMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		String page = request.getParameter("page");
 		String filter = request.getParameter("filter");
 		String input = request.getParameter("input");
 		ArrayList<Member> list = null;
-		
-		MemberService mService = new MemberService();
-		if (input == null || input.equals(""))
-			list = mService.memberList();
-		else
-			list = mService.searchMember(filter, input);
 
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(list, response.getWriter());
+		MemberService mService = new MemberService();
+		
+		int listCount = mService.listCount(filter,input);
+		
+		PageInfo pi = new PagingTemplate().getPageInfo(page,listCount);
+		
+		list = mService.searchMember(filter, input, pi);
+
+		request.setAttribute("filter", filter);
+		request.setAttribute("input", input);
+		request.setAttribute("page", pi);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("WEB-INF/views/admin/member/memberList.jsp").forward(request, response);
 	}
 
 	/**
