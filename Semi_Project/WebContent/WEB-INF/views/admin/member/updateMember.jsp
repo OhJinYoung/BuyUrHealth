@@ -192,9 +192,10 @@ select {
 			var phone = $('#phone').val().trim();
 			var gender = $('#gender').val();
 			var email = $('#email').val().trim();
-			
+
 			if (check()) {
 				$.ajax({
+					type : 'post',
 					url : 'updateMember.do',
 					data : {
 						no : $('#no').val(),

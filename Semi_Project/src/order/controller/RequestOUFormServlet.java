@@ -37,7 +37,6 @@ public class RequestOUFormServlet extends HttpServlet {
 		RequestOrder req = new OrderService().selectRequest(no);
 
 		request.setAttribute("req", req);
-		request.setAttribute("no", no);
 		request.getRequestDispatcher("WEB-INF/views/admin/member/requestOU.jsp").forward(request, response);
 	}
 

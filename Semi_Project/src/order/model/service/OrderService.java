@@ -62,8 +62,13 @@ public class OrderService {
 	public int updateRequest(int no, String state) {
 		Connection conn = getConnection();
 
-		int result = new OrderDAO().updateRequest(conn, no, state);
+		OrderDAO oDAO = new OrderDAO();
+		int result = oDAO.updateRequest(conn, no, state);
 
+		if(result>0) {
+			result=oDAO.updateDisposeDate(conn, no);
+		}
+		
 		if (result > 0)
 			commit(conn);
 		else
@@ -73,4 +78,5 @@ public class OrderService {
 
 		return result;
 	}
+
 }

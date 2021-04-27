@@ -175,13 +175,13 @@ public class MemberDAO {
 
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, member.getGender()+"");
+			pstmt.setString(1, member.getGender() + "");
 			pstmt.setString(2, member.getUserName());
 			pstmt.setString(3, member.getBirth());
 			pstmt.setString(4, member.getPhone());
 			pstmt.setString(5, member.getEmail());
 			pstmt.setInt(6, member.getUserNo());
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -52,6 +52,7 @@ public class OrderDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rset);
 			close(stmt);
 		}
 		return list;
@@ -78,6 +79,7 @@ public class OrderDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rset);
 			close(pstmt);
 		}
 		return list;
@@ -151,9 +153,30 @@ public class OrderDAO {
 			pstmt.setString(1, state);
 			pstmt.setInt(2, no);
 			result = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int updateDisposeDate(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateDisposeDate");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 
 		return result;

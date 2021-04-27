@@ -49,7 +49,7 @@ public class SearchOrderServlet extends HttpServlet {
 			for (Order o : list) {
 				String[] products = o.getpList().split("&&");
 				if (products.length > 1)
-					o.setpList(products[0] + " 외 " + (products.length - 1) + "개");
+					o.setpList(products[0] + " 외 " + (products.length - 1) + "건");
 			}
 		}
 
