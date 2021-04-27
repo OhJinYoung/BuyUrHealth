@@ -203,7 +203,8 @@ public class OrderDAO {
 
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, "%" + input + "%");
+			if(filter!="")
+				pstmt.setString(1, "%" + input + "%");
 			rset = pstmt.executeQuery();
 			if (rset.next())
 				result = rset.getInt(1);

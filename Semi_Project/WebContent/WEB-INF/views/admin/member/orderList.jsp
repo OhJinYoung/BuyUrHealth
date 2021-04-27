@@ -193,7 +193,7 @@ li>a {
 	padding: 4px;
 }
 
-.requestBtn:hover {
+.requestBtn:hover, #searchBtn:hover {
 	background: lightgray;
 	cursor: pointer;
 }
@@ -310,8 +310,8 @@ li>a {
 							<button id="updateBtn">변경</button>
 						</div>
 						<div id="pagingBtns">
-							<button value="1">&lt;&lt;</button>
-							<button value="<%=paging.getCurrentPage() - 1%>">&lt;</button>
+							<button value="1" class="beforeBtn">&lt;&lt;</button>
+							<button value="<%=paging.getCurrentPage() - 1%>" class="beforeBtn">&lt;</button>
 							<%
 							for (int i = paging.getStartPage(); i <= paging.getEndPage(); i++) {
 								if (i == paging.getCurrentPage()) {
@@ -325,14 +325,17 @@ li>a {
 							}
 							}
 							%>
-							<button value="<%=paging.getCurrentPage() + 1%>">&gt;</button>
-							<button value="<%=paging.getMaxPage()%>">&gt;&gt;</button>
+							<button value="<%=paging.getCurrentPage() + 1%>" class="afterBtn">&gt;</button>
+							<button value="<%=paging.getMaxPage()%>" class="afterBtn">&gt;&gt;</button>
 						</div>
 						<script>
-						if (<%=paging.getCurrentPage()%>== 1)
-							$('#beforeBtn').attr('disabled', true);
-						if (<%=paging.getCurrentPage()%>>=<%=paging.getMaxPage()%>)
-							$('#afterBtn').attr('disabled', true);
+						var currentPage = <%=paging.getCurrentPage() %>
+						var maxPage = <%=paging.getMaxPage() %>
+						
+						if (currentPage==1)
+							$('.beforeBtn').attr('disabled', true);
+						if (currentPage>=maxPage)
+							$('.afterBtn').attr('disabled', true);
 						</script>
 					</div>
 				</div>

@@ -1,16 +1,16 @@
 package member.model.service;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
-import java.sql.SQLTransactionRollbackException;
 import java.util.ArrayList;
 
+import common.PageInfo;
 import member.model.dao.MemberDAO;
 import member.model.vo.Member;
-import order.model.vo.Order;
-import order.model.vo.RequestOrder;
 
 public class MemberService {
 
@@ -33,20 +33,20 @@ public class MemberService {
 		return loginUser;
 	}
 
-	public ArrayList<Member> memberList() {
+	public ArrayList<Member> memberList(PageInfo pi) {
 		Connection conn = getConnection();
 
-		ArrayList<Member> list = new MemberDAO().memberList(conn);
+		ArrayList<Member> list = new MemberDAO().memberList(conn, pi);
 
 		close(conn);
 
 		return list;
 	}
 
-	public ArrayList<Member> searchMember(String filter, String input) {
+	public ArrayList<Member> searchMember(String filter, String input, PageInfo pi) {
 		Connection conn = getConnection();
 
-		ArrayList<Member> list = new MemberDAO().searchMember(conn, filter, input);
+		ArrayList<Member> list = new MemberDAO().searchMember(conn, filter, input, pi);
 
 		close(conn);
 
@@ -61,7 +61,7 @@ public class MemberService {
 			commit(conn);
 		else
 			rollback(conn);
-		
+
 		close(conn);
 
 		return result;
@@ -76,7 +76,7 @@ public class MemberService {
 			commit(conn);
 		else
 			rollback(conn);
-		
+
 		close(conn);
 
 		return result;
@@ -92,7 +92,7 @@ public class MemberService {
 			commit(conn);
 		else
 			rollback(conn);
-		
+
 		close(conn);
 
 		return result;
@@ -100,29 +100,43 @@ public class MemberService {
 
 	public int updatePwd(String userId, String userPwd, String newPwd) {
 		Connection conn = getConnection();
-		
+
 		int result = new MemberDAO().updatePwd(conn, userId, userPwd, newPwd);
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
-		
+
+		close(conn);
+
 		return result;
 	}
 
 	public int deleteMember(String userId) {
 		Connection conn = getConnection();
-		
+
 		int result = new MemberDAO().deleteMember(conn, userId);
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
-		
+
+		close(conn);
+
+		return result;
+	}
+
+	public int listCount(String filter, String input) {
+		Connection conn = getConnection();
+
+		int result = new MemberDAO().listCount(conn, filter, input);
+
+		close(conn);
+
 		return result;
 	}
 

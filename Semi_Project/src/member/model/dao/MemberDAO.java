@@ -9,12 +9,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import common.PageInfo;
 import member.model.vo.Member;
 
 public class MemberDAO {
@@ -93,16 +93,22 @@ public class MemberDAO {
 		return member;
 	}
 
-	public ArrayList<Member> memberList(Connection conn) {
-		Statement stmt = null;
+	public ArrayList<Member> memberList(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Member> list = new ArrayList<>();
 
 		String query = prop.getProperty("memberList");
 
 		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getPageLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
 				Member member = new Member(rset.getInt("USER_NO"), rset.getString("USER_ID"),
@@ -114,12 +120,12 @@ public class MemberDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		return list;
 	}
 
-	public ArrayList<Member> searchMember(Connection conn, String filter, String input) {
+	public ArrayList<Member> searchMember(Connection conn, String filter, String input, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Member> list = new ArrayList<>();
@@ -127,8 +133,13 @@ public class MemberDAO {
 		String query = prop.getProperty("searchMember" + filter);
 
 		try {
+			int startRow = (pi.getCurrentPage() - 1) * pi.getPageLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, "%" + input + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
@@ -251,6 +262,29 @@ public class MemberDAO {
 		} finally {
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public int listCount(Connection conn, String filter, String input) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = prop.getProperty("listCount" + filter);
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			if(filter!="")
+			pstmt.setString(1, "%" + input + "%");
+			rset = pstmt.executeQuery();
+			if (rset.next())
+				result = rset.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
 		return result;
 	}
 

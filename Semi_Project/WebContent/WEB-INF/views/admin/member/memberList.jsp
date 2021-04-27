@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, member.model.vo.Member"%>
+	import="java.util.ArrayList, member.model.vo.Member, common.PageInfo"%>
 <%
 ArrayList<Member> list = (ArrayList) request.getAttribute("list");
+PageInfo paging = (PageInfo) request.getAttribute("page");
+String input = (String) request.getAttribute("input");
+String filter = (String) request.getAttribute("filter");
+if(input==null)
+	input="";
+if(filter==null)
+	filter="Id";
 %>
 <!DOCTYPE html>
 <html>
@@ -166,6 +173,22 @@ body{
 	height: 30px;
 }
 
+#pagingBtns button:hover {
+	cursor: pointer;
+	background: #d6d6d6;
+}
+
+
+#currentPage {
+	background: orange;
+	color: white;
+	cursor: default !important;
+}
+
+#currentPage:hover {
+	background: orange !important
+}
+
 li>a {
 	color: black;
 }
@@ -218,10 +241,13 @@ li>a {
 									<option value="Id">아이디</option>
 									<option value="Name">이름</option>
 								</select>
+								<script>
+								$('#filter').val('<%=filter%>').prop("selected", true);
+								</script>
 							</div>
 							<div id="searchBox">
 								<input type="search" id="inputSearch" name="inputSearch"
-									placeholder="검색어를 입력해주세요.">
+									placeholder="검색어를 입력해주세요." value="<%=input%>">
 								<button id="searchBtn">검색</button>
 							</div>
 						</div>
@@ -236,7 +262,6 @@ li>a {
 								<th>글/댓글/문의</th>
 							</tr>
 							<tbody id="tableBody">
-								<!-- for문 -->
 								<%
 								if (list != null && list.size() > 0) {
 									for (Member m : list) {
@@ -264,16 +289,33 @@ li>a {
 					</div>
 					<div id="bottom">
 						<div id="pagingBtns">
-							<button id="prePage">&lt;</button>
+							<button value="1" class="beforeBtn">&lt;&lt;</button>
+							<button value="<%=paging.getCurrentPage() - 1%>" class="beforeBtn">&lt;</button>
 							<%
-							for (int i = 0; i < 9; i++) {
+							for (int i = paging.getStartPage(); i <= paging.getEndPage(); i++) {
+								if (i == paging.getCurrentPage()) {
 							%>
-							<button value=<%=i + 1%>><%=i + 1%></button>
+							<button id="currentPage" disabled><%=i%></button>
+							<%
+							} else {
+							%>
+							<button value="<%=i%>"><%=i%></button>
 							<%
 							}
+							}
 							%>
-							<button id="nextPage">&gt;</button>
+							<button value="<%=paging.getCurrentPage() + 1%>" class="afterBtn">&gt;</button>
+							<button value="<%=paging.getMaxPage()%>" class="afterBtn">&gt;&gt;</button>
 						</div>
+						<script>
+						var currentPage = <%=paging.getCurrentPage() %>
+						var maxPage = <%=paging.getMaxPage() %>
+						
+						if (currentPage==1)
+							$('.beforeBtn').attr('disabled', true);
+						if (currentPage>=maxPage)
+							$('.afterBtn').attr('disabled', true);
+						</script>
 						<div id="btns">
 							<button id="updateBtn">수정</button>
 							<button id="deleteBtn">삭제</button>
@@ -286,31 +328,9 @@ li>a {
 	<%@include file="../../common/footer.jsp"%>
 </body>
 <script>
-	$('#searchBtn').on(
-			'click',
-			function() {
-				$.ajax({
-					url : 'searchMember.do',
-					data : {
-						filter : $('#filter').val(),
-						input : $('#inputSearch').val()
-					},
-					success : function(data) {
-						var str = "";
-
-						for ( var key in data) {
-							str += '<tr><td><input type="checkbox" name="checkbox" value="'+data[key].userId
-							+'"></td><td>'+data[key].userId
-							+'</td><td>'+data[key].userName
-							+'</td><td>'+data[key].userDate
-							+'</td><td>'+data[key].countComm+'/'
-							+data[key].countReply+'/'
-							+data[key].countQna+'</td></tr>';
-						}
-						$('#tableBody').html(str);
-					}
-				});
-			});
+	$('#searchBtn').on('click', function() {
+		location.href = '<%=request.getContextPath()%>/searchMember.do?filter=' + $('#filter').val() + '&&input=' + $('#inputSearch').val().trim(); 
+	});
 
 	$('#updateBtn').on('click', function() {
 		var checkArr = [];
@@ -347,6 +367,14 @@ li>a {
 				}		
 			});
 		}
+	});
+	
+	$('#pagingBtns button').on('click', function(){
+		var page = $(this).val();
+		if('<%=input%>'!='')
+			location.href = '<%=request.getContextPath()%>/searchMember.do?filter=<%=filter%>&&input=<%=input%>&&page='+page;
+		else
+			location.href = '<%=request.getContextPath()%>/memberList.do?page=' + page;
 	});
 </script>
 </html>
