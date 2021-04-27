@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.Member" %>
 <%
-	Member loginUser = (Member)session.getAttribute("loginUser");
 	Member member = (Member)request.getAttribute("userId");
 	String authority = null;
 	if(member.getAuthority() == 'Y'){
@@ -45,18 +44,7 @@
 </style>
 </head>
 <body>
-	<div class="wrap">
-		<nav>
-			<div><img class="mainLogo" src="<%= request.getContextPath() %>/images/mainlogo.png" width="100px" height="50px" alt="My Image"></div>
-			<div class="mainMenu" id="goViewProduct">제품보기</div>
-			<div class="mainMenu" id="goCommunity">커뮤니티</div>
-			<div class="mainMenu" id="goCart">장바구니</div>
-			<div class="mainMenu" id="goMypage">마이페이지</div>
-			<div class="mainMenu" id="login">로그인</div>
-			<div class="mainMenu" id="goService">고객센터</div>
-			<hr>
-		</nav>
-	</div>
+	<%@include file="../title_header.jsp"%>
 	
 	<div class="myPage-menubar">
 	<hr>
@@ -79,35 +67,17 @@
     </div>
     
 	<script>
-		$('#goViewProduct').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goCommunity').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goCart').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goMypage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/updateMyPage.me";
-		});
-		$('#goService').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		
-		
 		$('#goBuy').on('click', function(){
 			location.href="<%= request.getContextPath() %>/buyMyPage.me";
 		});
 		
 		$('#goPage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/updateMyPage.me";
+			location.href="<%= request.getContextPath() %>/goMypage";
 		});
 		
 		$('#goFavorite').on('click', function(){
 			location.href="<%= request.getContextPath() %>/favoriteMyPage.me";
 		});
-		
 	</script>
 </body>
 </html>

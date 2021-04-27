@@ -1,15 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.Member" %>
-<%
-	Member loginUser = (Member)session.getAttribute("loginUser");
-	Member member = (Member)request.getAttribute("userId");
-	String authority = null;
-	if(member.getAuthority() == 'Y'){
-		authority = "관리자";
-	} else {
-		authority = "회원";
-	}
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,15 +8,7 @@
 <title>마이페이지|구매목록</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
-	body{min-width: 1300px; min-height: 500px;}
-	.wrap{background: white; width: 100%; height: 50px;}
-	.mainMenu{
-			background: white; color: gray; text-align: center; font-weight: bold; 
-			vertical-align: middle; width: 150px; height: 50px; display: table-cell;
-		}
-	.mainMenu:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
-	.mainLogo{float:left; margin-right:100px; margin-left:30px; clear:both;}
-	
+	body {width: 1500px; height: 800px;}
 	.myPage-menubar {
         width: 20%;
         max-width: 170px;
@@ -42,39 +25,45 @@
 	 .myPage-menubar li:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
 	 #myPage-head {text-align:left; margin-top:50px; margin-left:250px;}
 	 
-	 .buy-list {
-	  	width: 800px; height: 350px; margin-left: 50px; 
-	 	border: 1px solid black; display: inline-block;
+	 .returnBackground{
+	 	width: 100%; min-width: 1000px; height: 100%; border: 1px solid black; 
+	 	margin-left: 230px; background-color: lightgray;
 	 }
-	 .buy-list-head{margin: 10px;}
-	 #buy-detail{float: right;}
-	 .buy-product {
-	 	width: auto; min-width: 770px; height: auto; margin: 10px; 
-	 	border: 1px solid black; display: inline-block;
+	 
+	 .returnDetail{
+	 	width: 700px; height: 650px; border: 1px solid black; 
+	 	margin: 50px; background-color: white;
 	 }
-	 .product-intro {width: 620px; height: 230px; border-right: 1px solid black; float: left; margin: 5px;}
-	 .product-status {margin: 5px;}
-	 div.product-content img {float: left;}
-	 div.product-content p {float: left;}
-	 div.product-content button {float: right; margin-right: 50px;}
-	 .product-request {width: 130px; height: auto; float: right; margin: 60px 5px;}
-	 .product-request button {width: 100px; margin: 5px;}
-	
+	 
+	 .returnDetail h2{
+	 	text-align: center;
+	 }
+	 
+	 textarea{
+	 	margin-left: 50px; resize:none; display: none;
+	 }
+	 
+	 input[type=radio]{
+	 	font-size:17px; width:20px; height:20px;
+	    margin-left: 50px;
+	 }
+	 
+	 p{
+	 	font-size:17px; margin-left: 50px; font-weight: bold;
+	 }
+	 
+	 button{
+	 	width: 90px; height: 40px; margin-left: 50px; background-color: black; 
+	 	font-weight: bold; color: white;
+	 }
+	 
+	 button[type=submit]{
+	  	margin-left: 400px;
+	 }
 </style>
 </head>
 <body>
-	<div class="wrap">
-		<nav>
-			<div><img class="mainLogo" src="<%= request.getContextPath() %>/images/mainlogo.png" width="100px" height="50px" alt="My Image"></div>
-			<div class="mainMenu" id="goViewProduct">제품보기</div>
-			<div class="mainMenu" id="goCommunity">커뮤니티</div>
-			<div class="mainMenu" id="goCart">장바구니</div>
-			<div class="mainMenu" id="goMypage">마이페이지</div>
-			<div class="mainMenu" id="login">로그인</div>
-			<div class="mainMenu" id="goService">고객센터</div>
-			<hr>
-		</nav>
-	</div>
+	<%@include file="../title_header.jsp"%>
 	
 	<div class="myPage-menubar">
 	<hr>
@@ -88,77 +77,49 @@
         
     </div>
     
-    <h1 id="myPage-head">구매목록</h1>
+    <h1 id="myPage-head">취소/반품/교환 신청</h1>
         
     <hr>
     
-    <div class="buy-list">
-    	<div class="buy-list-head">
-    		<label>주문하신 날짜</label>
-    		<label id="buy-detail"><a href="">주문 상세 보기 ></a></label>
+    <div class="returnBackground">
+    	<div class="returnDetail">
+	    	<form action="<%= request.getContextPath() %>/subProductReturn.me" method="post">
+	    	<h2>사유 선택</h2>
+				<input type="radio" name="requestSelect" value="취소요청"><label>취소</label>
+				<input type="radio" name="requestSelect" value="반품요청"><label>반품</label>
+				<input type="radio" name="requestSelect" value="교환요청"><label>교환</label>
+				
+				<p>단순변심</p>
+				<input type="radio" name="requestResult" value="상품이 마음에 들지않음"><label>상품이 마음에 들지않음</label><br>
+				<textarea id="textarea" rows="6" cols="50" placeholder="상세 사유를 입력해주세요."></textarea>
+				<p>배송문제</p>
+				<input type="radio" name="requestResult" value="배송된 장소에 상품이 없음"><label>배송된 장소에 상품이 없음</label><br>
+				<input type="radio" name="requestResult" value="선택된 주소가 아닌 다른 주소로 배송됨"><label>선택된 주소가 아닌 다른 주소로 배송됨</label><br>
+				<input type="radio" name="requestResult" value="주문된 상품 중 일부 상품이 배송되지 않음"><label>주문된 상품 중 일부 상품이 배송되지 않음</label><br>
+				<p>상품문제</p>
+				<input type="radio" name="requestResult" value="상품이 설명과 다름<"><label>상품이 설명과 다름</label><br>
+				<input type="radio" name="requestResult" value="다른 상품이 배송됨"><label>다른 상품이 배송됨</label><br>
+				<input type="radio" name="requestResult" value="상품이 파손됨"><label>상품이 파손됨</label><br>
+				<br>
+				<button type="reset" onclick="backBuyMyPage();">취소</button>
+				<button type="submit">제출하기</button>
+				
+	    	</form>
     	</div>
-    	
-    	<div class="buy-product">
-    		<%--  <% if(list.isEmpty()){ %>
-					
-					주문하신 상품이 없습니다.
-					
-				<% } else{
-						for(Notice n : list){ %>
-							
-				<%		} 
-					} %> --%>
-			<div class="product-intro">
-				<div class="product-status">
-					<label>상품상태</label>
-				</div>
-				<div class="product-content">
-					<img src="<%= request.getContextPath() %>/images/vitamin_c.jpg" width="130px" height="100px" alt="My Image">
-					<h1>상품 설명</h1>
-					<p>가격</p> <button type="button">장바구니 담기</button>
-				</div>
-			</div>
-			
-			<div class="product-request">
-				<button type="button" id="product-return">교환/반품신청</button>
-				<button type="button" id="delive-search">배송조회</button>
-				<button type="button" id="goBuy-review">구매후기쓰기</button>
-			</div>
-    	</div>
-    	
     </div>
     
-    
 	<script>
-		$('#goViewProduct').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goCommunity').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goCart').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goMypage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/updateMyPage.me";
-		});
-		$('#goService').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		
-		
 		$('#goBuy').on('click', function(){
 			location.href="<%= request.getContextPath() %>/buyMyPage.me";
 		});
 		
 		$('#goPage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/updateMyPage.me";
+			location.href="<%= request.getContextPath() %>/goMypage";
 		});
 		
 		$('#goFavorite').on('click', function(){
 			location.href="<%= request.getContextPath() %>/favoriteMyPage.me";
 		});
-		
 		
 		
 		$('#product-return').on('click', function(){
@@ -172,6 +133,31 @@
 		$('#goBuy-review').on('click', function(){
 		
 		});
+		
+		
+		$('input:radio[name=requestResult]').click(function(){
+			if($(this).val() == "dislike"){
+		    	$('#textarea').css('display', 'inline-block'); 
+		    	
+		    }else{
+		    	$('#textarea').css('display', 'none');
+		    }
+		});
+		
+		function subProductReturn(){
+			console.log('hi');
+			
+			var requestType = $('input[name=requestSelect]:checked').val();
+			var requestResult = $('input[name=requestResult]:checked').children().text();
+			
+			if(requestResult == "dislike"){
+				var requestInfo = $('#textarea').text();
+			}
+		}
+		
+		function backBuyMyPage(){
+			location.href="<%= request.getContextPath() %>/buyMyPage.me";
+		}
 	</script>
 </body>
 </html>

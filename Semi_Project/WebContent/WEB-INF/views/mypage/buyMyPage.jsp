@@ -16,6 +16,7 @@
 <title>마이페이지|구매목록</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
+	body {width: 1500px; height: 800px;}
 
 	.myPage-menubar {
         width: 20%;
@@ -76,6 +77,7 @@
     	<div class="buy-list-head">
     		<label>주문하신 날짜</label>
     		<label id="buy-detail"><a href="">주문 상세 보기 ></a></label>
+    		<input type="hidden" name="id" required value="<%= member.getUserId() %>">
     	</div>
     	
     	<div class="buy-product">
@@ -110,29 +112,13 @@
     
     
 	<script>
-		$('#goViewProduct').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goCommunity').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goCart').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goMypage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/updateMyPage.me";
-		});
-		$('#goService').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		
 		
 		$('#goBuy').on('click', function(){
 			location.href="<%= request.getContextPath() %>/buyMyPage.me";
 		});
 		
 		$('#goPage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/updateMyPage.me";
+			location.href="<%= request.getContextPath() %>/goMypage";
 		});
 		
 		$('#goFavorite').on('click', function(){

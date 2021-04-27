@@ -6,22 +6,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import member.model.service.MemberService;
-import member.model.vo.Member;
+import order.model.vo.RequestOrder;
 
 /**
- * Servlet implementation class BuyMyPageServlet
+ * Servlet implementation class SubProductReturnServlet
  */
-@WebServlet("/buyMyPage.me")
-public class BuyMyPageServlet extends HttpServlet {
+@WebServlet("/subProductReturn.me")
+public class SubProductReturnServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BuyMyPageServlet() {
+    public SubProductReturnServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +29,17 @@ public class BuyMyPageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String id = loginUser.getUserId();
+		String requestType = request.getParameter("requestSelect");
+		String requestInfo = request.getParameter("requestResult");
 		
-		Member member = new MemberService().selectMember(id);
+		RequestOrder requestOrder = new RequestOrder();
+		requestOrder.setType(requestType);
+		requestOrder.setInfo(requestInfo);
 		
-		String page = null;
-		if(member != null) {
-			page = "WEB-INF/views/mypage/buyMyPage.jsp";
-			request.setAttribute("userId", member);
-		} else {
-			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg", "구매목록 조회에 실패하였습니다.");
-		}
-		
-		request.getRequestDispatcher(page).forward(request, response);
+//		int result = new BoardService().updateRequestType(requestOrder);
+//		
+//		request.setAttribute("myInfo", myInfo);
+		request.getRequestDispatcher("WEB-INF/views/member/memberUpdateForm.jsp").forward(request, response);
 	}
 
 	/**
