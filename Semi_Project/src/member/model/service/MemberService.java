@@ -71,6 +71,7 @@ public class MemberService {
 		Connection conn = getConnection();
 
 		int result = new MemberDAO().updateMember(conn, member);
+
 		if (result > 0)
 			commit(conn);
 		else
@@ -78,6 +79,50 @@ public class MemberService {
 		
 		close(conn);
 
+		return result;
+	}
+
+	public int updateMypageMember(Member myInfo) {
+		Connection conn = getConnection();
+
+		int result = new MemberDAO().updateMypageMember(conn, myInfo);
+		System.out.println(result);
+
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		
+		close(conn);
+
+		return result;
+	}
+
+	public int updatePwd(String userId, String userPwd, String newPwd) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().updatePwd(conn, userId, userPwd, newPwd);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	public int deleteMember(String userId) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().deleteMember(conn, userId);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
 		return result;
 	}
 

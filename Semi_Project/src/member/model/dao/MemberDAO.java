@@ -191,4 +191,67 @@ public class MemberDAO {
 		return result;
 	}
 
+	public int updateMypageMember(Connection conn, Member myInfo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateMypageMember");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, myInfo.getGender() + "");
+			pstmt.setString(2, myInfo.getUserId());
+			pstmt.setString(3, myInfo.getUserName());
+			pstmt.setString(4, myInfo.getPhone());
+			pstmt.setString(5, myInfo.getEmail());
+			pstmt.setInt(6, myInfo.getUserNo());
+			
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updatePwd(Connection conn, String userId, String userPwd, String newPwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, userPwd);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteMember(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member" %>
-<%
-	Member loginUser = (Member)session.getAttribute("loginUser");
-%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,15 +7,6 @@
 <title>기본 틀</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
-	h2{text-align:center;}
-	.wrap{background: white; width: 100%; height: 50px;}
-	.mainMenu{
-			background: white; color: gray; text-align: center; font-weight: bold; 
-			vertical-align: middle; width: 150px; height: 50px; display: table-cell;
-		}
-	.mainMenu:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
-	.mainMenu label {display: none;}
-	.mainLogo{float:left; margin-right:100px; margin-left:30px; clear:both;}
 	.humanBody{width: 100%; height: 30%; text-align: center; display: inline-block;}
 	.mainBody{width: 80%; height: 30%;}
 	.nutrientCalc{text-align: center;}
@@ -57,30 +45,8 @@
 </style>
 </head>
 <body>
-	<div class="wrap">
-		<nav>
-			<div><img class="mainLogo" src="<%= request.getContextPath() %>/images/mainlogo.png" width="100px" height="50px" alt="My Image"></div>
-			
-			<% if(loginUser == null){ %>
-				<div class="mainMenu" id="goViewProduct">제품보기</div>
-				<div class="mainMenu" id="goCommunity">커뮤니티</div>
-				<div class="mainMenu" id="goCart">장바구니</div>
-				<div class="mainMenu" id="goMypage">마이페이지</div>
-				<div class="mainMenu" id="login">로그인</div>
-				<div class="mainMenu" id="goService">고객센터</div>
-				
-			<% } else { %>
-				<div class="mainMenu" id="goViewProduct">제품보기</div>
-				<div class="mainMenu" id="goCommunity">커뮤니티</div>
-				<div class="mainMenu" id="goCart">장바구니 <label id="link">/cart.me</label></div>
-				<div class="mainMenu" id="goMypage">마이페이지 <label id="link1">/updateMyPage.me</label></div>
-				<div class="mainMenu" id="logout">로그아웃</div>
-				<div class="mainMenu" id="goService">고객센터</div>
-				<div class="mainMenu" style='display:none;' id="checkLogin">Login</div>
-			<% } %>
-			<hr>
-		</nav>
-	</div>
+	<%@include file="../title_header.jsp"%>
+	
 	
 	<div class="humanBody">
 		<h2>신체부위별 영양소 추천</h2>
@@ -246,48 +212,6 @@
 	<div class="mainBottom">
 		<%@include file="footer.jsp"%>
 	</div>
-	<script>
-		$('#login').on('click', function() {
-			location.href="<%= request.getContextPath() %>/login.main";
-		});
-		
-		$('#logout').on('click', function() {
-			location.href="<%= request.getContextPath() %>/logout.main";
-		});
-		
-		$('#goViewProduct').on('click', function(){
-			location.href="<%= request.getContextPath() %>/login.main";
-		});
-		
-		$('#goCommunity').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		
-		$('#goCart').on('click', function(){
-			checkLogin(this);
-		});
-		
-		$('#goMypage').on('click', function(){
-			checkLogin(this);
-		});
-		
-		$('#goService').on('click', function(){
-			location.href="<%= request.getContextPath() %>/updateMyPage.me";
-		});
-		
-		function checkLogin(ip){
-			var login = $('#checkLogin').text();
-			var link = $(ip).children().text();
-			if(login != "Login"){
-				alert("로그인을 먼저 해주세요!");
-				location.href="<%= request.getContextPath() %>/login.main"; 
-			} else {
-				console.log(ip);
-				location.href="<%= request.getContextPath() %>" + link;
-				
-			}
-		}
-		
-	</script>
+	
 </body>
 </html>
