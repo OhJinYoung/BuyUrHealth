@@ -52,18 +52,6 @@
 	<%@include file="../title_header.jsp"%>
 	
 	<%@include file="../mypage/myPageNav.jsp"%>
-	
-	<div class="myPage-menubar">
-	<hr>
-        <h2 id="myPage-menubar-name">마이페이지</h2>
-    <hr>
-        <ul>
-          <li id="goBuy">구매목록</li>
-          <li id="goPage">개인정보조회</li>
-          <li id="goFavorite">관심상품</li>
-        </ul>
-        
-    </div>
 
     <div class="outer">
 		<br>

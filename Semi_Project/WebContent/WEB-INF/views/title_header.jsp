@@ -72,6 +72,12 @@ hr {
 </div>
 <script>
 	$('.mainMenu').on('click', function() {
+		var id = $(this).attr('id');
+		if(<%=loginUser%> == null&&(id=='goMypage'||id=='goCart'))
+		{
+			alert('로그인을 먼저 해주세요.');
+			id='login';
+		}
 		location.href='<%=request.getContextPath()%>/'+$(this).attr('id');
 	});
 </script>
