@@ -16,7 +16,7 @@
 <title>마이페이지|개인정보조회</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
-
+	body {width: 1500px; height: 800px;}
 	 #myPage-head {text-align:left; margin-top:50px; margin-left:250px;}
 
 	.myPage-certification{position: absolute; width: 1100px; height: 200px;
@@ -58,7 +58,7 @@
     	<div class="myPage-pwd">
     		<h2>비밀번호 재확인</h2>
 	    	<input id="id" type="text" value="<%= member.getUserId() %>" readonly><br>
-	    	<input id="loginPwdCheck" type="password"/>
+	    	<input id="loginPwdCheck" onkeyup="loginEnterKey();" type="password">
 	    	<button class="pwdCheck">확인</button>
     	</div>
     	
@@ -66,8 +66,8 @@
     		<h2>이메일 인증</h2>
 	    	<input id="emailCert" type="text"><br>
 	    	<button class="emailCheck">확인</button>
-	    	<input id="certNum" type="text" />
-    		<button class="numCheck">인증번호 발송</button>
+	    	<input id="certNum" type="text">
+    		<button class="numCheck" onkeyup="emailEnterKey();">인증번호 발송</button>
     	</div>
     </div>
     	
@@ -81,7 +81,7 @@
 				<tr>
 					<td width="200px">아이디
 						<input type="hidden" name="myNo" value="<%=member.getUserNo()%>">
-						<input type="hidden" name="myPwd" value="<%=member.getUserNo()%>">
+						<input type="hidden" name="myPwd" value="<%=member.getPassword()%>">
 					</td>
 					<td width="200px"><input type="hidden" maxlength="13" name="id" required value="<%= member.getUserId() %>">
 									  <%= member.getUserId() %>
@@ -103,8 +103,6 @@
 					<td>생일</td>
 					<td><input type="hidden" maxlength="15" name="myBirth" required value="<%= member.getBirth() %>">
 						<%= member.getBirth() %>
-					</td>
-					<td><input type="hidden" maxlength="15" name="pwd" required value="<%= member.getPassword() %>">
 					</td>
 				</tr>
 				<tr>
@@ -155,6 +153,14 @@
 				location.href='<%= request.getContextPath() %>/delete.me';
 			}
 		}
+		
+		function loginEnterKey() {
+	        if (window.event.keyCode == 13) {
+	 
+	        	$('.pwdCheck').click();
+	        }
+		}
+		
 		
 		$('#goBuy').on('click', function(){
 			location.href="<%= request.getContextPath() %>/buyMyPage.me";

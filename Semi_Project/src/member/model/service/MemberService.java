@@ -86,7 +86,6 @@ public class MemberService {
 		Connection conn = getConnection();
 
 		int result = new MemberDAO().updateMypageMember(conn, myInfo);
-		System.out.println(result);
 
 		if (result > 0)
 			commit(conn);
