@@ -1,70 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member" %>
-<%
-	Member member = (Member)request.getAttribute("userId");
-	String authority = null;
-	if(member.getAuthority() == 'Y'){
-		authority = "관리자";
-	} else {
-		authority = "회원";
-	}
-%>
+    pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지|구매목록</title>
+<title>마이페이지|상품상세설명</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
 	body {width: 1500px; height: 800px;}
 	 #myPage-head {text-align:left; margin-top:50px; margin-left:250px;}
 	 
 	 .buy-list {
-	  	width: 800px; height: 350px; margin-left: 50px; 
+	  	width: 600px; height: 300px; margin-left: 50px; 
 	 	border: 1px solid black; display: inline-block;
 	 }
 	 .buy-list-head{margin: 10px;}
 	 #buy-detail{float: right;}
 	 .buy-product {
-	 	width: auto; min-width: 770px; height: auto; margin: 10px; 
+	 	width: auto; min-width: 550px; height: auto; margin: 10px; 
 	 	border: 1px solid black; display: inline-block;
 	 }
-	 .product-intro {width: 620px; height: 230px; border-right: 1px solid black; float: left; margin: 5px;}
+	 .product-intro {width: 400px; height: 150px; float: left; margin: 5px;}
 	 .product-status {margin: 5px;}
 	 div.product-content img {float: left;}
 	 div.product-content p {float: left;}
 	 div.product-content button {float: right; margin-right: 50px;}
-	 .product-request {width: 130px; height: auto; float: right; margin: 60px 5px;}
-	 .product-request button {width: 100px; margin: 5px;}
+	 
+	 .order-lnfo h3{margin-left:250px;}
+	 
 	
 </style>
 </head>
 <body>
 	<%@include file="../title_header.jsp"%>
 	
-		<%@include file="myPageNav.jsp"%>
+		<%@include file="../mypage/myPageNav.jsp"%>
     
-    <h1 id="myPage-head">구매목록</h1>
+    <h1 id="myPage-head">상세상품설명</h1>
         
     <hr>
     
     <div class="buy-list">
     	<div class="buy-list-head">
-    		<label>주문하신 날짜</label>
-    		<label id="buy-detail"><a href="<%= request.getContextPath() %>/detailMyProductForm.me">주문 상세 보기 ></a></label>
-    		<input type="hidden" name="id" required value="<%= member.getUserId() %>">
+    		<label>주문하신 날짜     </label><label>      주문번호:</label>
     	</div>
     	
     	<div class="buy-product">
-    		<%--  <% if(list.isEmpty()){ %>
-					
-					주문하신 상품이 없습니다.
-					
-				<% } else{
-						for(Notice n : list){ %>
-							
-				<%		} 
-					} %> --%>
 			<div class="product-intro">
 				<div class="product-status">
 					<label>상품상태</label>
@@ -72,19 +54,16 @@
 				<div class="product-content">
 					<img src="<%= request.getContextPath() %>/images/vitamin_c.jpg" width="130px" height="100px" alt="My Image">
 					<h1>상품 설명</h1>
-					<p>가격</p> <button type="button">장바구니 담기</button>
+					<p>가격</p>
 				</div>
 			</div>
-			
-			<div class="product-request">
-				<button type="button" id="product-return">교환/반품신청</button>
-				<button type="button" id="delive-search">배송조회</button>
-				<button type="button" id="goBuy-review">구매후기쓰기</button>
-			</div>
     	</div>
-    	
     </div>
     
+    <div class="order-lnfo">
+    <h3>받는 사람 정보</h3>
+    <hr>
+    </div>
     
 	<script>
 		

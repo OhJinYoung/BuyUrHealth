@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member" %>
+    pageEncoding="UTF-8" import="member.model.vo.Member" import="common.PageInfo"%>
 <%
 	Member member = (Member)request.getAttribute("userId");
+	PageInfo paging = (PageInfo) request.getAttribute("page");
 	String authority = null;
 	if(member.getAuthority() == 'Y'){
 		authority = "관리자";
@@ -13,42 +14,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>BUH</title>
+<title>마이페이지|관심상품</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
 	body{min-width: 1000px; min-height: 1000px;}
-	.myPage-menubar {
-        width: 20%;
-        max-width: 170px;
-        height: 1000px;
-        padding: 20px;
-        margin-top: 14px;
-        float: left;
-        border-right: 1px solid black;
-        display: inline-block;
-     }
-     
-     #myPage-menubar-name { text-align: center; font-size: 20px;}
-	 .myPage-menubar ul, li { list-style: none; padding: 10px; margin: 0; text-align: center;}
-	 .myPage-menubar li:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
-	 #myInfo-head {text-align:left; margin-top:50px; margin-left:250px;}
-	 
-	 li:hover {
-		background: beige; 
-		color:orangered; 
-		font-weight:bold; 
-		cursor:pointer;
-	}
 	
-	.likeitem.data{
+	.likeitem_data{
 		width: 85%;
         margin-top: 30px; 
 		position: absolute;
 		margin-left: 200px;
 	}
 
-	
-	.likeitem.head{
+	.likeitem_head{
 		min-width: 95%; 
 		float: left; 
 		margin-left: 30px; 
@@ -56,28 +34,23 @@
 		position: absolute;
 	}
 	
-  	.likeitem.body{
+  	.likeitem_body{
   		margin-top: 70px;
 		width: 95%; 
 		min-width: 1000px;
 		position: absolute;
 		padding-bottom: 10px; 
-	    text-align: center;
+	    text-align: left;
 	}
 	
 	.item {
 		margin-left: 20px;
 	    border: 1px solid #ccc;
 	    float: center;
-	    min-width: 21%;
+	    min-width: 30%;
 	    display: inline-block;
 	    text-align: center;
 	    overflow: hidden;
-	}
-
-	
-	.item.bottom{
-		margin-top: 10px;
 	}
 
 	
@@ -140,6 +113,31 @@
 		margin-top: 10px;
 		margin-bottom: 15px;
 		margin-left: 10px;
+	}
+	
+	#pagingBtns {
+	margin-top: 50px;
+	padding-bottom: 20px;
+	}
+
+	#pagingBtns button {
+		width: 30px;
+		height: 30px;
+	}
+	
+	#pagingBtns button:hover {
+		cursor: pointer;
+		background: #d6d6d6;
+	}
+	
+	#currentPage {
+		background: orange;
+		color: white;
+		cursor: default !important;
+	}
+	
+	#currentPage:hover {
+		background: orange !important
 	}	
 	
 </style>
@@ -149,129 +147,130 @@
 	
 		<%@include file="myPageNav.jsp"%>
  
-    <div class="likeitem data" >
+    <div class="likeitem_data" >
 	
-		<div class="likeitem head">
+		<div class="likeitem_head">
 			<div class="subdiv">
 				<h3>마이페이지>관심상품</h3>
 			</div>
 			
 			<div class="buttondiv">
 				<button class="button">장바구니 담기</button>
-				<button class="button">선택삭제</button>
-				<label>전체선택</label><input type="checkbox">
+				<button class="button" id="checkDelete">선택삭제</button>
+				<label>전체선택</label><input type="checkbox" id="allCheck">
 			</div>
 			<br>
 			<div class="line"></div>
 		</div>
 
-		<div class="likeitem body">
-			<div class="item top" id="item1">
-				<input type="checkbox"><br>
+		<div class="likeitem_body">
+		<%--  <% if(list.isEmpty()){ %>
+					
+					찜하신 상품이 없습니다.
+					
+				<% } else{
+						for(Product p : list){ %>
+							
+				<%		} 
+					} %> --%>
+			<div class="item" id="item1">
+				<input type="checkbox" id="check"><br>
 				<a href="https://www.naver.com">
-				<img src="images/13. 이뮨 시스템 서포트.png" width="200" height="200" alt="likeItem1">
+				
 				</a>
 				<div class="itemTitle">
 					<a href="https://www.naver.com">아이템1</a>
 				</div>
 			</div>
-			
-			<div class="item top" id="item2">
-				<input type="checkbox"><br>
+			<div class="item" id="item1">
+				<input type="checkbox" id="check"><br>
 				<a href="https://www.naver.com">
-				<img src="images/15. 나우푸드 세라펩타제.png" width="200" height="200" alt="likeItem2">
+				
 				</a>
 				<div class="itemTitle">
 					<a href="https://www.naver.com">아이템2</a>
 				</div>
 			</div>
-			
-			<div class="item top" id="item3">
-				<input type="checkbox"><br>
+			<div class="item" id="item1">
+				<input type="checkbox" id="check"><br>
 				<a href="https://www.naver.com">
-				<img src="images/2세라필업_대표.jpg" width="200" height="200" alt="likeItem3">
+				
 				</a>
 				<div class="itemTitle">
 					<a href="https://www.naver.com">아이템3</a>
 				</div>
 			</div>
-			
-			<div class="item top" id="item4">
-				<input type="checkbox"><br>
+			<div class="item" id="item1">
+				<input type="checkbox" id="check"><br>
 				<a href="https://www.naver.com">
-				<img src="images/3. 성인용 구미 멀티비타민.png" width="200" height="200" alt="likeItem4">
+				
 				</a>
 				<div class="itemTitle">
 					<a href="https://www.naver.com">아이템4</a>
 				</div>
 			</div>
-		
-			<div class="item bottom" id="item5">
-				<input type="checkbox"><br>
+			<div class="item" id="item1">
+				<input type="checkbox" id="check"><br>
 				<a href="https://www.naver.com">
-				<img src="images/4. 리제너레이션 멀티비타민.png" width="200" height="200" alt="likeItem5">
+				
 				</a>
 				<div class="itemTitle">
 					<a href="https://www.naver.com">아이템5</a>
 				</div>
 			</div>
 			
-			<div class="item bottom" id="item6">
-				<input type="checkbox"><br>
-				<a href="https://www.naver.com">
-				<img src="images/7. 오가닉 인증 스피루리나.png" width="200" height="200" alt="likeItem6">
-				</a>
-				<div class="itemTitle">
-					<a href="https://www.naver.com">아이템6</a>
-				</div>
-			</div>
 			
-			<div class="item bottom" id="item7">
-				<input type="checkbox"><br>
-				<a href="https://www.naver.com">
-				<img src="images/7. 오가닉 인증 스피루리나.png" width="200" height="200" alt="likeItem6">
-				</a>
-				<div class="itemTitle">
-					<a href="https://www.naver.com">아이템7</a>
-				</div>
-			</div>
 			
-			<div class="item bottom" id="item8">
-				<input type="checkbox"><br>
-				<a href="https://www.naver.com">
-				<img src="images/7. 오가닉 인증 스피루리나.png" width="200" height="200" alt="likeItem6">
-				</a>
-				<div class="itemTitle">
-					<a href="https://www.naver.com">아이템8</a>
-				</div>
+			<div id="pagingBtns" align="center"> <!-- 아직 구현 안됨 -->
+				<button value="1" class="beforeBtn">&lt;&lt;</button>
+				<button value="<%=paging.getCurrentPage() - 1%>" class="beforeBtn">&lt;</button>
+				<%
+					for (int i = paging.getStartPage(); i <= paging.getEndPage(); i++) {
+					if (i == paging.getCurrentPage()) {
+				%>
+				<button id="currentPage" disabled><%=i%></button>
+				<%
+					} else {
+				%>
+				<button value="<%=i%>"><%=i%></button>
+				<% }
+				}
+				%>
+				<button value="<%=paging.getCurrentPage() + 1%>" class="afterBtn">&gt;</button>
+				<button value="<%=paging.getMaxPage()%>" class="afterBtn">&gt;&gt;</button>
 			</div>
 		</div>
 	</div>
     
 	<script>
-		$('#goViewProduct').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
+	
+		var currentPage = <%=paging.getCurrentPage() %>
+		var maxPage = <%=paging.getMaxPage() %>
+						
+		if (currentPage==1)
+			$('.beforeBtn').attr('disabled', true);
+		if (currentPage>=maxPage)
+			$('.afterBtn').attr('disabled', true);
+		
+		
+		$('#allCheck').on('click', function(){
+			$('.likeitem_body input').each(function(){
+				if(this.checked == false){
+					this.checked = true;
+				} else {
+					this.checked = false;
+				}	
+			});
 		});
-		$('#goCommunity').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goCart').on('click', function(){
-			location.href="<%= request.getContextPath() %>/cart.me"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goMypage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/updateMyPage.me";
-		});
-		$('#goService').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goBuy').on('click', function(){
-			location.href="<%= request.getContextPath() %>/buyMyPage.me";
-		});
-		$('#goPage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/goMypage";
-		});
-		$('#goFavorite').on('click', function(){
-			location.href="<%= request.getContextPath() %>/favoriteMyPage.me";
+		 
+
+		$('#checkDelete').on('click', function(){
+			$('.likeitem_body input:checked').each(function(){
+				  var checked = $(this).attr("checked");
+				  if(checked==undefined){
+				   $(this).parent().remove();
+				  }
+			});
 		});
 	</script>
 </body>

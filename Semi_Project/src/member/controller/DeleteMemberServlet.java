@@ -35,7 +35,7 @@ public class DeleteMemberServlet extends HttpServlet {
 		int result = new MemberService().deleteMember(userId);
 		
 		if(result > 0) {
-			request.getSession().invalidate(); // 탈퇴 후 세션무효화
+			request.getSession().invalidate();
 			response.sendRedirect(request.getContextPath());
 		} else {
 			request.setAttribute("msg", "회원탈퇴에 실패했습니다.");

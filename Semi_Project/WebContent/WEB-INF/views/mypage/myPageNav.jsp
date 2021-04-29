@@ -3,10 +3,12 @@
 <style>
 .myPage-menubar {
 	width: 20%;
+	height: 100%;
 	max-width: 170px;
 	padding: 30px 20px;
 	float: left;
 	display: inline-block;
+	border-right: 1px solid black;
 }
 
 #myPage-menubar-name {

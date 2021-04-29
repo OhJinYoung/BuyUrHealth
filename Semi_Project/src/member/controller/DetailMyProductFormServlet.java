@@ -1,29 +1,23 @@
 package member.controller;
 
 import java.io.IOException;
-
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import member.model.service.MemberService;
-import member.model.vo.Member;
 
 /**
- * Servlet implementation class MyPageServlet
+ * Servlet implementation class DetailMyProductFormServlet
  */
-@WebServlet("/goMypage")
-public class DetailMyPageServlet extends HttpServlet {
+@WebServlet("/detailMyProductForm.me")
+public class DetailMyProductFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DetailMyPageServlet() {
+    public DetailMyProductFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,21 +27,9 @@ public class DetailMyPageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		String page = null;
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		
-		String userId = loginUser.getUserId();
-		Member member = new MemberService().selectMember(userId);
-			
-		if(member != null) {
-			page = "WEB-INF/views/mypage/updateMyPage.jsp";
-			request.setAttribute("userId", member);
-		} else {
-			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg", "회원 조회에 실패하였습니다.");
-		}
-		request.getRequestDispatcher(page).forward(request, response);
+		String myId = request.getParameter("id");
+		request.setAttribute("id", myId);
+		request.getRequestDispatcher("WEB-INF/views/member/buyMyProduct.jsp").forward(request, response);
 	}
 
 	/**
