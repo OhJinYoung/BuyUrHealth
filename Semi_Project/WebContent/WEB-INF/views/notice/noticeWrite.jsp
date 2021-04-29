@@ -62,7 +62,7 @@
 					<form action="<%= request.getContextPath() %>/noticeinsert.no" method="post">
 						<table class="product-upload2">
 							<tr>
-								<th>| 제목 test</th>
+								<th>| 제목 test  </th>
 								<td colspan="3"><input type="text" name="title"></td>
 							</tr>
 							
