@@ -6,13 +6,13 @@
 <style>
 #header {
 	border-bottom: 1px solid #9a9a9a;
+	padding:8px;
 }
 
 .wrap {
 	background: white;
 	width: 100%;
 	height: 50px;
-	margin: 8px;
 }
 
 .mainMenu {
