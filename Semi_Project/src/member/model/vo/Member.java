@@ -1,30 +1,53 @@
 package member.model.vo;
 
-import java.sql.Date;
-
 public class Member {
-	private String userNo;
+	private int userNo;
 	private String password;
 	private char gender;
 	private String userId;
 	private String userName;
-	private Date birth;
+	private String birth;
 	private String phone;
 	private String email;
-	private Date userDate;
+	private String userDate;
 	private char authority;
 	private String status;
+	private int countComm;
+	private int countReply;
+	private int countQna;
 
 	public Member() {
 	}
-	
+
 	public Member(String userId, String password) {
 		this.userId = userId;
 		this.password = password;
 	}
 
-	public Member(String userNo, String password, char gender, String userId, String userName, Date birth, String phone,
-			String email, Date userDate, char authority, String status) {
+	public Member(int userNo, String userId, String userName, String userDate, int countComm, int countReply,
+			int countQna) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userName = userName;
+		this.userDate = userDate;
+		this.countComm = countComm;
+		this.countReply = countReply;
+		this.countQna = countQna;
+	}
+
+	public Member(int userNo, char gender, String userName, String birth, String phone, String email) {
+		super();
+		this.userNo = userNo;
+		this.gender = gender;
+		this.userName = userName;
+		this.birth = birth;
+		this.phone = phone;
+		this.email = email;
+	}
+
+	public Member(int userNo, String password, char gender, String userId, String userName, String birth, String phone,
+			String email, String userDate, char authority, String status) {
 		super();
 		this.userNo = userNo;
 		this.password = password;
@@ -39,11 +62,30 @@ public class Member {
 		this.status = status;
 	}
 
-	public String getUserNo() {
+	public Member(int userNo, String password, char gender, String userId, String userName, String birth, String phone,
+			String email, String userDate, char authority, String status, int countComm, int countReply, int countQna) {
+		super();
+		this.userNo = userNo;
+		this.password = password;
+		this.gender = gender;
+		this.userId = userId;
+		this.userName = userName;
+		this.birth = birth;
+		this.phone = phone;
+		this.email = email;
+		this.userDate = userDate;
+		this.authority = authority;
+		this.status = status;
+		this.countComm = countComm;
+		this.countReply = countReply;
+		this.countQna = countQna;
+	}
+
+	public int getUserNo() {
 		return userNo;
 	}
 
-	public void setUserNo(String userNo) {
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
 
@@ -79,11 +121,11 @@ public class Member {
 		this.userName = userName;
 	}
 
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
 	}
 
-	public void setBirth(Date birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 
@@ -103,11 +145,11 @@ public class Member {
 		this.email = email;
 	}
 
-	public Date getUserDate() {
+	public String getUserDate() {
 		return userDate;
 	}
 
-	public void setUserDate(Date userDate) {
+	public void setUserDate(String userDate) {
 		this.userDate = userDate;
 	}
 
@@ -125,6 +167,30 @@ public class Member {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public int getCountComm() {
+		return countComm;
+	}
+
+	public void setCountComm(int countComm) {
+		this.countComm = countComm;
+	}
+
+	public int getCountReply() {
+		return countReply;
+	}
+
+	public void setCountReply(int countReply) {
+		this.countReply = countReply;
+	}
+
+	public int getCountQna() {
+		return countQna;
+	}
+
+	public void setCountQna(int countQna) {
+		this.countQna = countQna;
 	}
 
 }

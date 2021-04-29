@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.PageInfo;
+import common.PagingTemplate;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
@@ -31,9 +33,16 @@ public class MemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String page = request.getParameter("page");
+		MemberService mService = new MemberService();
 		
-		ArrayList<Member> list = new MemberService().memberList();
+		int listCount = mService.listCount("",null);
 		
+		PageInfo pi = new PagingTemplate().getPageInfo(page,listCount);
+		
+		ArrayList<Member> list = mService.memberList(pi);
+		
+		request.setAttribute("page", pi);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("WEB-INF/views/admin/member/memberList.jsp").forward(request, response);
 	}

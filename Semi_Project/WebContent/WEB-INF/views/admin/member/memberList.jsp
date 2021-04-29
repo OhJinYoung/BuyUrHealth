@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, member.model.vo.Member"%>
+	import="java.util.ArrayList, member.model.vo.Member, common.PageInfo"%>
 <%
 ArrayList<Member> list = (ArrayList) request.getAttribute("list");
+PageInfo paging = (PageInfo) request.getAttribute("page");
+String input = (String) request.getAttribute("input");
+String filter = (String) request.getAttribute("filter");
+if(input==null)
+	input="";
+if(filter==null)
+	filter="Id";
 %>
 <!DOCTYPE html>
 <html>
@@ -102,17 +109,18 @@ tr td:last-child {
 	border-left: 1px solid #9a9a9a;
 }
 
+#contents {
+	display: inline-block;
+	border-left: 1px solid #9a9a9a;
+	width: 80%;
+}
+
 #contents-wrap {
-	padding: 30px 20px;
+	padding: 30px;
 }
 
-#container {
-	min-width: 930px;
-}
-
-a
-#container-wrap {
-	padding: 0 50px 0 30px;
+body{
+	min-width: 1200px;
 }
 
 #top div:first-child h4 {
@@ -126,7 +134,7 @@ a
 }
 
 #bottom {
-	padding-top: 10px;
+	padding-top: 20px;
 	text-align: center;
 }
 
@@ -165,6 +173,22 @@ a
 	height: 30px;
 }
 
+#pagingBtns button:hover {
+	cursor: pointer;
+	background: #d6d6d6;
+}
+
+
+#currentPage {
+	background: orange;
+	color: white;
+	cursor: default !important;
+}
+
+#currentPage:hover {
+	background: orange !important
+}
+
 li>a {
 	color: black;
 }
@@ -174,7 +198,7 @@ li>a {
 	color: #828282a6;
 }
 
-#Btns button {
+#btns button {
 	width: 100px;
 	height: 40px;
 	font-size: 15px;
@@ -186,8 +210,18 @@ li>a {
 	background: orange;
 }
 
+#updateBtn:hover {
+	background: #ffa500d9;
+	cursor: pointer;
+}
+
 #deleteBtn {
 	background: #666666;
+}
+
+#deleteBtn:hover {
+	background: #666666d9;
+	cursor: pointer;
 }
 </style>
 <body>
@@ -204,20 +238,23 @@ li>a {
 						<div id="top-right">
 							<div>
 								<select id="filter">
-									<option value="id">아이디</option>
-									<option value="name">이름</option>
+									<option value="Id">아이디</option>
+									<option value="Name">이름</option>
 								</select>
+								<script>
+								$('#filter').val('<%=filter%>').prop("selected", true);
+								</script>
 							</div>
 							<div id="searchBox">
 								<input type="search" id="inputSearch" name="inputSearch"
-									placeholder="검색어를 입력해주세요.">
+									placeholder="검색어를 입력해주세요." value="<%=input%>">
 								<button id="searchBtn">검색</button>
 							</div>
 						</div>
 					</div>
 					<div id="table">
 						<table>
-							<tr>
+							<tr id="firstTr">
 								<th>선택</th>
 								<th>사용자 ID</th>
 								<th>이름</th>
@@ -225,18 +262,17 @@ li>a {
 								<th>글/댓글/문의</th>
 							</tr>
 							<tbody id="tableBody">
-								<!-- for문 -->
 								<%
 								if (list != null && list.size() > 0) {
 									for (Member m : list) {
 								%>
 								<tr>
 									<td><input type="checkbox" name="checkbox"
-										value="<%=m.getUserNo()%>"></td>
+										value="<%=m.getUserId()%>"></td>
 									<td><%=m.getUserId()%></td>
 									<td><%=m.getUserName()%></td>
 									<td><%=m.getUserDate()%></td>
-									<td>사용자 글수</td>
+									<td><%=m.getCountComm() %>/<%=m.getCountReply() %>/<%=m.getCountQna() %></td>
 								</tr>
 								<%
 								}
@@ -253,17 +289,34 @@ li>a {
 					</div>
 					<div id="bottom">
 						<div id="pagingBtns">
-							<button id="prePage">&lt;</button>
+							<button value="1" class="beforeBtn">&lt;&lt;</button>
+							<button value="<%=paging.getCurrentPage() - 1%>" class="beforeBtn">&lt;</button>
 							<%
-							for (int i = 0; i < 9; i++) {
+							for (int i = paging.getStartPage(); i <= paging.getEndPage(); i++) {
+								if (i == paging.getCurrentPage()) {
 							%>
-							<button value=<%=i + 1%>><%=i + 1%></button>
+							<button id="currentPage" disabled><%=i%></button>
+							<%
+							} else {
+							%>
+							<button value="<%=i%>"><%=i%></button>
 							<%
 							}
+							}
 							%>
-							<button id="nextPage">&gt;</button>
+							<button value="<%=paging.getCurrentPage() + 1%>" class="afterBtn">&gt;</button>
+							<button value="<%=paging.getMaxPage()%>" class="afterBtn">&gt;&gt;</button>
 						</div>
-						<div id="Btns">
+						<script>
+						var currentPage = <%=paging.getCurrentPage() %>
+						var maxPage = <%=paging.getMaxPage() %>
+						
+						if (currentPage==1)
+							$('.beforeBtn').attr('disabled', true);
+						if (currentPage>=maxPage)
+							$('.afterBtn').attr('disabled', true);
+						</script>
+						<div id="btns">
 							<button id="updateBtn">수정</button>
 							<button id="deleteBtn">삭제</button>
 						</div>
@@ -275,40 +328,53 @@ li>a {
 	<%@include file="../../common/footer.jsp"%>
 </body>
 <script>
-	$('#searchBtn').on(
-			'click',
-			function() {
-				$.ajax({
-					url : 'searchMember.do',
-					data : {
-						filter : $('#filter').val(),
-						input : $('#inputSearch').val()
-					},
-					success : function(data) {
-						var button = $('#btns').html();
-						var str = "";
-
-						for ( var key in data) {
-							str = str + '<tr><td>' + data[key].id + '</td><td>'
-									+ data[key].name + '</td><td>'
-									+ data[key].grade_name + '</td><td>'
-									+ data[key].point + '</td><td id="btns">'
-									+ button + '</td></tr>';
-						}
-						$('#tableBody').html(str);
-					}
-				});
-			});
+	$('#searchBtn').on('click', function() {
+		location.href = '<%=request.getContextPath()%>/searchMember.do?filter=' + $('#filter').val() + '&&input=' + $('#inputSearch').val().trim(); 
+	});
 
 	$('#updateBtn').on('click', function() {
-		var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='+ $(this).val();
-		window.open(url, 'update', 'width=300px, height=450px');
+		var checkArr = [];
+		$('input[name="checkbox"]:checked').each(function() {
+			checkArr.push($(this).val());
 		});
+		
+		if(checkArr.length<1){
+			alert('수정할 회원을 선택해주세요.');
+		} else if(checkArr.length>1){
+			alert('회원 수정은 한 명씩 가능합니다.');
+		} else{
+			var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='+ checkArr[0];
+			window.open(url, 'update', 'width=300px, height=345px');
+		}
+	});
 
 	$('#deleteBtn').on('click', function() {
-		if (confirm('해당 회원을 삭제하시겠습니까?')) {
-
+		var checkArr = [];
+		$('input[name="checkbox"]:checked').each(function() {
+			checkArr.push($(this).val());
+		});
+		
+		if (confirm('해당 회원들을 삭제하시겠습니까?')) {
+			$.ajax({
+				type: 'post',
+				url:'deleteMember.do',
+				data:{
+					check:checkArr
+				},
+				success:function(data){
+					alert(data);
+					window.location.reload();
+				}		
+			});
 		}
+	});
+	
+	$('#pagingBtns button').on('click', function(){
+		var page = $(this).val();
+		if('<%=input%>'!='')
+			location.href = '<%=request.getContextPath()%>/searchMember.do?filter=<%=filter%>&&input=<%=input%>&&page='+page;
+		else
+			location.href = '<%=request.getContextPath()%>/memberList.do?page=' + page;
 	});
 </script>
 </html>
