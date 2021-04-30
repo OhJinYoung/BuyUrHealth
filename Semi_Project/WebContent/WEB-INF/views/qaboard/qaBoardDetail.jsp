@@ -165,7 +165,7 @@
 		background: lightgray;
     }
     
-    #deleteBtn{
+    #deleteButton{
     	background-color: #FFC83D;
         border: 1px solid white;
         color: white;
@@ -278,7 +278,7 @@
 				<tr>
 					<td>
 						<div id="qaContent">
-						<input type="hidden" name="content" cols="60" rows="15" style="resize:none;" value="<%= qab.getQaContent() %>" readonly><%= qab.getQaContent() %></textarea>
+						<input type="hidden" name="content" cols="60" rows="15" style="resize:none;" value="<%= qab.getQaContent() %>" readonly><%= qab.getQaContent() %>
 						</div>
 					</td>
 				</tr>
@@ -292,8 +292,8 @@
 						<% } %>
 						<% if(qab.getQaAnswer() == null){ %>
 						<input type="submit" id="updateBtn" value="수정">
+						<input type="button" id="deleteButton" onclick="deleteQNA();" value="삭제">
 						<input type="button" id="goListBtn" onclick="location.href='<%= request.getContextPath() %>/qalist.bo'" value="목록">
-						<input type="button" id="deleteBtn" value="삭제">
 						<% } else { %>
 						<input type="button" id="goListBtn" onclick="location.href='<%= request.getContextPath() %>/qalist.bo'" value="목록">
 						<% } %>
@@ -321,20 +321,17 @@
 			</table>
 			<% } %> 
 		</div>
-		<script>
-			function goRules(){
-				location.href="<%= request.getContextPath() %>/goRules";
-			};
-			
-			$('#deleteBtn').on('click', function(){
-				var bool = confirm('정말 삭제하시겠습니까?');
-				
-				if(bool) {
-					location.href='<%= request.getContextPath() %>/delete.bo?bId=' + <%= qab.getQaNo() %>;
-				}
-			})
-		</script>
 	</div>
 	</form>
+	
+	<script>
+	function deleteQNA(){
+			var bool = confirm('정말 삭제하시겠습니까?');
+		
+			if(bool) {
+				location.href='<%= request.getContextPath() %>/QADelete.bo?bId=' + <%= qab.getQaNo() %>;
+			}
+	};
+	</script>
 </body>
 </html>

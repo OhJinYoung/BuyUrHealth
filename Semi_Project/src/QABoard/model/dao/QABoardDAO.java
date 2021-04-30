@@ -41,7 +41,7 @@ public class QABoardDAO {
 		int result = 0;
 		
 		String query = prop.getProperty("getListCount");
-		// getListCount=SELECT COUNT(*) FROM QNA 
+		// getListCount=SELECT COUNT(*) FROM QNA WHERE STATUS='Y' 
 		
 		
 		try {
@@ -137,6 +137,7 @@ public class QABoardDAO {
 								rset.getInt("QACATE_NO"),
 								rset.getString("QACATE_NAME"),
 								rset.getString("STATUS"));
+								
 				// QA_NO, QA_TITLE, QA_CONTENT, QA_QUESTION_DATE, QA_ANSWER, QA_ANSWER_DATE, USER_NO, USER_NAME, QACATE_NO, QACATE_NAME, Q.STATUS
 			}
 		} catch (SQLException e) {
