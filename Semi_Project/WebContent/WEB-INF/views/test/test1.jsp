@@ -7,11 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<<<<<<< HEAD
 
-hi
-=======
-test1
->>>>>>> refs/remotes/origin/chaewon_branch
 </body>
 </html>
