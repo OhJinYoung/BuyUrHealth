@@ -7,8 +7,6 @@
 <title>기본 틀</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
-	.humanBody{width: 100%; height: 30%; text-align: center; display: inline-block;}
-	.mainBody{width: 80%; height: 30%;}
 	.nutrientIntro{display: inline-block; margin-left: 70px;}
 	
 	div.nutrientImg {
@@ -32,12 +30,21 @@
 	    padding: 15px;
 	    text-align: center;
 	}
-	.mainFootWrap{background: white; width: 100%; height: 100px; text-align: center; margin-top: 100px;}
-	.mainFoot{background: white; text-align: center; font-weight: bold; 
-			 vertical-align: middle; width: 150px; height: 30px; display: table-cell;
-			 border: 1px inset black; border-radius: 2em 1em 4em / 0.5em 3em;
-		}
-	.mainFoot:hover {background: gray; color:blue; font-weight:bold; cursor:pointer;}
+	
+	.mainFootWrap{background: white; width: 100%; height: 100px; 
+		text-align: center; margin-top: 100px;
+	}
+	
+	.mainFoot{
+		background: white; text-align: center; font-weight: bold; 
+		vertical-align: middle; width: 150px; height: 30px; 
+		display: table-cell; border: 1px inset black; border-radius: 2em 1em 4em / 0.5em 3em;
+	}
+	
+	.mainFoot:hover {
+		background: gray; color:blue; font-weight:bold; 
+		cursor:pointer;
+	}
 	
 	.mainBottom{margin-top: -70px;}
 	
@@ -46,15 +53,11 @@
 <body>
 	<%@include file="../title_header.jsp"%>
 	
-	
-	<div class="humanBody">
-		<h2>신체부위별 영양소 추천</h2>
-		<img class="mainBody" src="<%= request.getContextPath() %>/images/sample.png" alt="My Image">
-	</div>
+	<%@include file="humanBody.jsp"%>
 	
 	<%@include file="nutrientCalc.jsp"%>
 	
-	<h2 align="center">영양소 소개</h2>
+	<h2 align="center" style="margin-top: 100px;">영양소 소개</h2>
 	<div class="nutrientIntro">
 		
 		<div class="nutrientImg">
