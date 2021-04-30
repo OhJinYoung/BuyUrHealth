@@ -52,7 +52,7 @@ input {
 }
 
 #contents-wrap div:first-child {
-	padding-bottom: 10px;
+	padding-bottom: 2px;
 }
 
 input[type=email], input[type=text] {
@@ -99,9 +99,6 @@ select {
 <body>
 	<div id="contents">
 		<div id="contents-wrap">
-			<div>
-				<h3>회원 정보 수정</h3>
-			</div>
 			<div id="table">
 				<input type="hidden" id="no" value="<%=member.getUserNo()%>">
 				<table>

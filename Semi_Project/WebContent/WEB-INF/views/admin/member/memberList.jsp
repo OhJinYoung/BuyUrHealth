@@ -20,10 +20,6 @@ if(filter==null)
 	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <style>
-* {
-	padding: 0px;
-	margin: 0px;
-}
 
 button {
 	border: 0px;
@@ -223,6 +219,10 @@ li>a {
 	background: #666666d9;
 	cursor: pointer;
 }
+
+td a:hover{
+	cursor: pointer;
+}
 </style>
 <body>
 	<%@include file="../header.jsp"%>
@@ -269,7 +269,7 @@ li>a {
 								<tr>
 									<td><input type="checkbox" name="checkbox"
 										value="<%=m.getUserId()%>"></td>
-									<td><%=m.getUserId()%></td>
+									<td class="memberInfo"><a><%=m.getUserId()%></a></td>
 									<td><%=m.getUserName()%></td>
 									<td><%=m.getUserDate()%></td>
 									<td><%=m.getCountComm() %>/<%=m.getCountReply() %>/<%=m.getCountQna() %></td>
@@ -344,7 +344,7 @@ li>a {
 			alert('회원 수정은 한 명씩 가능합니다.');
 		} else{
 			var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='+ checkArr[0];
-			window.open(url, 'update', 'width=300px, height=345px');
+			window.open(url, 'update', 'width=300px, height=320px');
 		}
 	});
 
@@ -367,6 +367,11 @@ li>a {
 				}		
 			});
 		}
+	});
+	
+	$('.memberInfo>a').on('click', function(){
+		var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='+ $(this).text();
+		window.open(url, 'update', 'width=300px, height=320px');
 	});
 	
 	$('#pagingBtns button').on('click', function(){
