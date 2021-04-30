@@ -68,6 +68,7 @@ public class InsertQABoardServlet extends HttpServlet {
 		int category = Integer.parseInt(multipartRequest.getParameter("category"));
 		String qaTitle = multipartRequest.getParameter("qaTitle");
 		String qaContent = multipartRequest.getParameter("qaContent");
+		qaContent = qaContent.replace("\r\n", "<br>");
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo(); // import해야함
 		
 		QABoard b = new QABoard();
@@ -88,10 +89,14 @@ public class InsertQABoardServlet extends HttpServlet {
 			fileList.add(qaf);
 		}
 		
+		int result1 = 0;
+		int result2 = 0;
 		
-
-		int result1 = new QABoardService().insertBoard(b);
-		int result2 = new QABoardService().insertBoard(b, fileList);
+		if(fileList.isEmpty()) {
+			result1 = new QABoardService().insertBoard(b);
+		} else {
+			result2 = new QABoardService().insertBoard(b, fileList);
+		}
 		
 		if(result1 > 0 || result2 > 0) {
 			response.sendRedirect("qalist.bo");
