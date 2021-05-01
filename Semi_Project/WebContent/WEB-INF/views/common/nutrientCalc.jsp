@@ -53,16 +53,113 @@
 				var oldSelect = old.options[old.selectedIndex].text;
 				var height = document.getElementById('height');
 				var heightSelect = height.options[height.selectedIndex].text;
+				var subHeight = heightSelect.substring(0,3);
 				var weight = document.getElementById('weight');
 				var weightSelect = weight.options[weight.selectedIndex].text;
+				var subWeight = weightSelect.substring(0,2);
 				var gender = document.getElementById('gender');
 				var genderSelect = gender.options[gender.selectedIndex].text;
 				
 				var nutrient = "비타민C"
 				
-				if(oldSelect == '10대' && genderSelect == '남'){
-					var nutrient = "칼슘"
+				switch(genderSelect){
+				
+				case '남': 
+					switch(oldSelect){
+					case "10대":
+						if(Number(subHeight) < 160 && Number(subWeight) < 70){
+							var nutrient = "칼슘";
+						} else {
+							var nutrient = "비타민A, 비타민D"
+						}
+						break;
+					case "20대":
+						if(Number(subHeight) < 160 && Number(subWeight) < 70){
+							var nutrient = "비타민A, 엽산"; 
+						} else if((Number(subHeight) - Number(subWeight)) >= 90){
+							var nutrient = "비타민C, 나이아신";
+						} else if((Number(subHeight) - Number(subWeight)) < 90){
+							var nutrient = "마그네슘";
+						}
+						break;
+					case "30대":
+						if(Number(subHeight) < 160 && Number(subWeight) < 70){
+							var nutrient = "유산균, 엽산"; 
+						} else if((Number(subHeight) - Number(subWeight)) >= 90){
+							var nutrient = "마그네슘, 나이아신";
+						} else if((Number(subHeight) - Number(subWeight)) < 90){
+							var nutrient = "오메가3 지방산";
+						}
+						break;
+					case "40대":
+						if(Number(subHeight) < 160 && Number(subWeight) < 70){
+							var nutrient = "나이아신, 엽산"; 
+						} else if((Number(subHeight) - Number(subWeight)) >= 90){
+							var nutrient = "오메가3 지방산, 비타민C";
+						} else if((Number(subHeight) - Number(subWeight)) < 90){
+							var nutrient = "비타민A";
+						}
+						break;
+					case "50대":
+						if(Number(subHeight) < 160 && Number(subWeight) < 70){
+							var nutrient = "비타민A, 엽산"; 
+						} else if((Number(subHeight) - Number(subWeight)) >= 90){
+							var nutrient = "비타민C, 나이아신";
+						} else if((Number(subHeight) - Number(subWeight)) < 90){
+							var nutrient = "마그네슘";
+						}
+						break;
+					}
+					break;
+				case '여': 
+					switch(oldSelect){
+					case "10대":
+						if(Number(subHeight) < 160 && Number(subWeight) < 60){
+							var nutrient = "칼슘";
+						} else {
+							var nutrient = "비타민A, 비타민D"
+						}
+						break;
+					case "20대":
+						if(Number(subHeight) < 150 && Number(subWeight) < 60){
+							var nutrient = "비타민C, 엽산"; 
+						} else if((Number(subHeight) - Number(subWeight)) >= 90){
+							var nutrient = "비타민D, 핀토텐산";
+						} else if((Number(subHeight) - Number(subWeight)) < 90){
+							var nutrient = "마그네슘";
+						}
+						break;
+					case "30대":
+						if(Number(subHeight) < 150 && Number(subWeight) < 60){
+							var nutrient = "유산균, 엽산"; 
+						} else if((Number(subHeight) - Number(subWeight)) >= 90){
+							var nutrient = "이노시톨, 콜린";
+						} else if((Number(subHeight) - Number(subWeight)) < 90){
+							var nutrient = "바이오틴";
+						}
+						break;
+					case "40대":
+						if(Number(subHeight) < 150 && Number(subWeight) < 60){
+							var nutrient = "나이아신, 엽산"; 
+						} else if((Number(subHeight) - Number(subWeight)) >= 90){
+							var nutrient = "오메가3 지방산, 시스테인";
+						} else if((Number(subHeight) - Number(subWeight)) < 90){
+							var nutrient = "비타민A";
+						}
+						break;
+					case "50대":
+						if(Number(subHeight) < 150 && Number(subWeight) < 60){
+							var nutrient = "칼슘, 엽산"; 
+						} else if((Number(subHeight) - Number(subWeight)) >= 90){
+							var nutrient = "비타민C, 나이아신";
+						} else if((Number(subHeight) - Number(subWeight)) < 90){
+							var nutrient = "마그네슘";
+						}
+						break;
+					}
+					break;
 				}
+				
 				document.getElementById('calcResult1').innerHTML = heightSelect;
 				document.getElementById('calcResult2').innerHTML = weightSelect;
 				document.getElementById('calcResult3').innerHTML = oldSelect;
