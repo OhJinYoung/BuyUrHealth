@@ -18,6 +18,9 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
+html{
+	min-width: 1000px;
+}
 	html, body {
 	    height: 100%; 
 	    overflow-y: auto;
@@ -113,7 +116,13 @@
     }
     
 	th{
-		border-bottom: 1px solid grey;
+		border-bottom: 5px solid grey;
+		padding-bottom: 5px;
+	}
+	
+	td{
+		padding-top: 7px;
+		padding-bottom: 7px;
 	}
 	
 	#listArea{
@@ -134,16 +143,26 @@
 	    margin-left: 10px;
 	}
 	
-	th{border-bottom: 1px solid grey;}
 	
 	li:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
 	
-	.pagingArea button{border-radius: 5px; background: lightyellow; border: 3px solid lightgray;}
+	.pagingArea button{width: 30px; height: 30px;}
+	#pagingArea button:hover {
+		cursor: pointer;
+		background: #d6d6d6;
+	}
 	.buttonArea{margin-right: 50px;}
 	.buttonArea button{background: #D1B2FF; border-radius: 5px; color: white; width: 80px; heigth: 25px; text-align: center;}
 	button:hover{cursor: pointer;}
 	#numBtn{background: lightgray;}
-	#choosen{background: lightpink;}
+	#choosen{
+		background: orange;
+		color: white;
+		cursor: default !important;
+	}
+	#choosen:hover {
+	background: orange !important
+	}
 	#listArea{margin: auto;}
 	
 	.none{

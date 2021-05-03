@@ -238,8 +238,7 @@
 				<tr>
 					<td class="td1">
 						<label>첨부파일</label>
-						 <input type="file" name="upfile"><br/>
-						 <br/>
+						 <input type="file" name="upfile">
 
 						<input type="submit" id="enterBtn" value="등록">
 						<button id="cancelBtn" onclick="location.href='<%= request.getContextPath() %>/qalist.bo'" >취소</button>
@@ -249,9 +248,8 @@
 		</div>
 		
 		<script>
-			function goRules(){
-				location.href="<%= request.getContextPath() %>/goRules";
-			}
+			
+
 		</script>
 	</div>
 		</form>

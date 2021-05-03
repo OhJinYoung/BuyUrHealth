@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="QABoard.model.vo.QABoard"%>
-<% QABoard qab = (QABoard)request.getAttribute("b"); %>
+    pageEncoding="UTF-8" import="QABoard.model.vo.QABoard, QABoard.model.vo.QAFile, java.util.ArrayList, java.io.*" %>
+<% 
+	QABoard qab = (QABoard)request.getAttribute("b"); 
+	ArrayList<QAFile> qaf = (ArrayList<QAFile>)request.getAttribute("qafile"); 
+%>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -239,7 +245,12 @@
 				<tr>
 					<td class="td1">
 						<label>첨부파일</label>
+						<% if(qaf.isEmpty()) {%>
 						<input type="file" id="uploadFile" name="uploadFile" multiple accept=".jpg, .png, .jpeg">
+						<% } else { %>
+						<a href="<%= request.getContextPath() %>/uploadFiles/qafile_uploadFiles/<%= qaf.get(0).getFileChangeName() %>" target='_blank'><%= qaf.get(0).getFileChangeName() %></a>
+						<input type="button" id="deleteFile" onclick="deleteQAFile();" value="첨부파일 삭제">
+						<% } %>
 						<input type="submit" id="enterBtn" value="등록">
 						<input type="button" onclick="location.href='javascript:history.go(-1);'" id="cancelBtn" value="취소">
 					</td>
@@ -248,9 +259,19 @@
 		</div>
 		
 		<script>
-			function goRules(){
-				location.href="<%= request.getContextPath() %>/goRules";
-			}
+			$("#deleteFile").on("click", function(){
+			   if (confirm("첨부파일을 삭제하시겠습니까?")) {
+				   
+					String fileName = qaf.get(0).getFileChangeName(); 
+					String root = request.getSession().getServletContext().getRealPath("/");
+					String savePath = root + "uploadFiles/qafile_uploadFiles/";
+					
+					File f = new File(savePath); 
+						if(f.exists()) {
+							f.remove(); 
+						}
+			   }
+			});
 		</script>
 	</div>
 		</form>
