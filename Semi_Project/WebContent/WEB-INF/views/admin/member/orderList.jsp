@@ -68,6 +68,10 @@ td {
 	padding-top: 18px !important;
 }
 
+td a:hover{
+	cursor: pointer;
+}
+
 th {
 	padding: 15px 25px;
 	color: #828282;
@@ -262,7 +266,7 @@ li>a {
 											<p><%=o.getUserName()%></p>
 											<p id="id"><%=o.getUserId()%></p>
 										</div></td>
-									<td><%=o.getpList()%></td>
+									<td><a onclick="orderDetail(<%=o.getNo()%>)"><%=o.getpList()%></a></td>
 									<td><%=price%> 원</td>
 									<td><div>
 											<p><%=o.getState()%></p>
@@ -381,7 +385,7 @@ li>a {
 	$('.requestBtn').on('click', function(){
 		var option='width=470px, height=330px';
 		var url = '<%=request.getContextPath()%>/requestOUForm.do?no=' + $(this).val();
-		window.open(url,'update',option);
+		window.open(url,'request',option);
 	});
 	
 	$('#pagingBtns button').on('click', function(){
@@ -392,5 +396,10 @@ li>a {
 			location.href = '<%=request.getContextPath()%>/orderList.do?page=' + page;
 	});
 	
+	function orderDetail(order_no){
+		var option='width=470px, height=330px';
+		var url = '<%=request.getContextPath()%>/orderDetail.do?no=' + order_no;
+		window.open(url,'orderDetail',option);
+	}
 </script>
 </html>

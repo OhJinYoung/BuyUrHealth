@@ -5,8 +5,18 @@ public class OrderDetail {
 	private int volume;
 	private int productNo;
 	private int orderNo;
+	private String productName;
+	private int price;
 
 	public OrderDetail() {
+	}
+
+	public OrderDetail(int no, int volume, String productName, int price) {
+		super();
+		this.no = no;
+		this.volume = volume;
+		this.productName = productName;
+		this.price = price;
 	}
 
 	public OrderDetail(int no, int volume, int productNo, int orderNo) {
@@ -15,6 +25,16 @@ public class OrderDetail {
 		this.volume = volume;
 		this.productNo = productNo;
 		this.orderNo = orderNo;
+	}
+
+	public OrderDetail(int no, int volume, int productNo, int orderNo, String productName, int price) {
+		super();
+		this.no = no;
+		this.volume = volume;
+		this.productNo = productNo;
+		this.orderNo = orderNo;
+		this.productName = productName;
+		this.price = price;
 	}
 
 	public int getNo() {
@@ -47,6 +67,22 @@ public class OrderDetail {
 
 	public void setOrderNo(int orderNo) {
 		this.orderNo = orderNo;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 }

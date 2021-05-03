@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import common.PageInfo;
 import order.model.vo.Order;
+import order.model.vo.OrderDetail;
 import order.model.vo.RequestOrder;
 
 public class OrderDAO {
@@ -203,7 +204,7 @@ public class OrderDAO {
 
 		try {
 			pstmt = conn.prepareStatement(query);
-			if(filter!="")
+			if (filter != "")
 				pstmt.setString(1, "%" + input + "%");
 			rset = pstmt.executeQuery();
 			if (rset.next())
@@ -216,6 +217,58 @@ public class OrderDAO {
 		}
 
 		return result;
+	}
+
+	public Order selectOrder(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Order order = null;
+		String query = prop.getProperty("selectOrder");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				order = new Order(rset.getInt("order_no"), rset.getString("r_name"), rset.getString("r_address"),
+						rset.getString("r_phone"), rset.getString("request"), rset.getString("payment"),
+						rset.getString("state"), rset.getString("orderdate"), rset.getString("user_name"),
+						rset.getString("user_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return order;
+	}
+
+	public ArrayList<OrderDetail> selectOrderDetail(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<OrderDetail> olist = new ArrayList<OrderDetail>();
+		String query = prop.getProperty("selectOrderDetail");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				OrderDetail od = new OrderDetail(rset.getInt("od_no"), rset.getInt("od_volume"),
+						rset.getString("product_name"), rset.getInt("product_price"));
+				
+				olist.add(od);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return olist;
 	}
 
 }
