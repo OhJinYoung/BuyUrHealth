@@ -325,13 +325,7 @@
 	</form>
 	
 	<script>
-	function deleteQNA(){
-			var bool = confirm('정말 삭제하시겠습니까?');
 		
-			if(bool) {
-				location.href='<%= request.getContextPath() %>/QADelete.bo?bId=' + <%= qab.getQaNo() %>;
-			}
-	};
 	</script>
 </body>
 </html>

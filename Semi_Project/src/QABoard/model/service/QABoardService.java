@@ -107,7 +107,10 @@ public class QABoardService {
 	public int updateBoard(QABoard b) {
 		Connection conn = getConnection();
 		
-		int result = new QABoardDAO().updateBoard(conn, b);
+		QABoardDAO dao = new QABoardDAO();
+		
+		int result = dao.updateBoard(conn, b); 
+
 		
 		if(result > 0) {
 			commit(conn);
@@ -119,6 +122,25 @@ public class QABoardService {
 		
 		return result;
 
+	}
+	
+	
+	public int updateBoard(QABoard b, ArrayList<QAFile> fileList) {
+		Connection conn = getConnection();
+		
+		QABoardDAO dao = new QABoardDAO();
+		
+		int result1 = dao.updateBoard(conn, b); 
+		int result2 = dao.insertFile(conn, fileList);
+
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result1;
 	}
 
 	public int deleteBoard(int bId) {
@@ -133,6 +155,8 @@ public class QABoardService {
 		}
 		return result;
 	}
+
+	
 
 	
 

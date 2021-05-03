@@ -243,7 +243,7 @@
 </style>
 </head>
 <body>
-	<%@ include file="../user/header.jsp" %>
+	<%@ include file="../title_header.jsp" %>
 	
 	<h3 id=cartTitle>장바구니</h3>
     <form name="cartform" id="cartform" method="post" class="cartform" action="<%= request.getContextPath() %>/orderPage">
