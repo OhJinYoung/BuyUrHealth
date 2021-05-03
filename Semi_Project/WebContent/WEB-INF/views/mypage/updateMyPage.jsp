@@ -48,14 +48,10 @@
 </style>
 </head>
 <body>
-	<% if(member.getAuthority() == 'Y') {%>
-		<%@include file="../admin/header.jsp"%>
-	<% } else {%>
-		<%@include file="../title_header.jsp"%>
-	<% } %>
 	
+	<%@include file="../title_header.jsp"%>
 	
-		<%@include file="myPageNav.jsp"%>
+	<%@include file="myPageNav.jsp"%>
     
     <h1 id="myPage-head">개인정보조회</h1>
     <hr>
