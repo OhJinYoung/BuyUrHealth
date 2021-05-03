@@ -77,7 +77,7 @@ hr {
 			<%
 			}
 			%>
-			<div class="mainMenu" id="goService">고객센터</div>
+			<div class="mainMenu" id="qalist.bo">고객센터</div>
 
 		</nav>
 	</div>

@@ -87,27 +87,12 @@
     
     
 	<script>
-		
-		$('#goBuy').on('click', function(){
-			location.href="<%= request.getContextPath() %>/buyMyPage.me";
-		});
-		
-		$('#goPage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/goMypage";
-		});
-		
-		$('#goFavorite').on('click', function(){
-			location.href="<%= request.getContextPath() %>/favoriteMyPage.me";
-		});
-		
-		
-		
 		$('#product-return').on('click', function(){
 			location.href="<%= request.getContextPath() %>/productReturnForm.me";
 		});
 		
 		$('#delive-search').on('click', function(){
-			location.href="<%= request.getContextPath() %>/deliveSearchForm.me";
+			location.href="<%= request.getContextPath() %>/deliverySearchForm.me";
 		});
 		
 		$('#goBuy-review').on('click', function(){

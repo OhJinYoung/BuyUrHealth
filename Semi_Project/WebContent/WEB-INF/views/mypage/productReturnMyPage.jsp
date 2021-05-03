@@ -114,7 +114,7 @@
 		
 		
 		$('input:radio[name=requestResult]').click(function(){
-			if($(this).val() == "dislike"){
+			if($(this).val() == "상품이 마음에 들지않음"){
 		    	$('#textarea').css('display', 'inline-block'); 
 		    	
 		    }else{

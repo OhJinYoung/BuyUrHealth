@@ -17,6 +17,21 @@ public class Order {
 	public Order() {
 	}
 
+	public Order(int no, String name, String address, String phone, String request, String payment, String state,
+			String orderDate, String userName, String userId) {
+		super();
+		this.no = no;
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+		this.request = request;
+		this.payment = payment;
+		this.state = state;
+		this.orderDate = orderDate;
+		this.userName = userName;
+		this.userId = userId;
+	}
+
 	public Order(int no, String state, String orderDate, String userName, String userId, String pList, int price) {
 		super();
 		this.no = no;
