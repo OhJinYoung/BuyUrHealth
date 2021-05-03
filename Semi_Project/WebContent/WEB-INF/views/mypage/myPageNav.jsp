@@ -15,8 +15,6 @@
 	text-align: center;
 	font-size: 20px;
 	padding:10px 0;
-	border-top: 1px solid #9a9a9a;
-	border-bottom: 1px solid #9a9a9a;
 }
 
 .myPage-menubar ul, li {

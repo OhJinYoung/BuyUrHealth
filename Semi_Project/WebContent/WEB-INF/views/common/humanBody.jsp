@@ -5,6 +5,9 @@
 <html>
 <head>
 <style>
+	body{
+		min-width: 1500px;
+	}
 	.humanBody{
 		width: 100%; min-width: 1400px; height: 30%; text-align: center; 
 		display: inline-block; position: relative;
