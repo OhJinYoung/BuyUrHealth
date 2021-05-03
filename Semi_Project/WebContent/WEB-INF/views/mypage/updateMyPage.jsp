@@ -19,9 +19,10 @@
 	body {width: 1500px; height: 800px;}
 	 #myPage-head {text-align:left; margin-top:50px; margin-left:250px;}
 
-	.myPage-certification{position: absolute; width: 1100px; height: 200px;
-						  margin-top: 20xp; padding: 50px; vertical-align: middle; 
-						  display: inline-block; float: right; 
+	.myPage-certification{
+		position: absolute; width: 1100px; height: 200px;
+		margin-top: 20xp; padding: 50px; vertical-align: middle; 
+		display: inline-block; float: right; 
 	}
 	.myPage-certification button{width: 60px; height: 60px;}
 	.myPage-pwd{width: 400px; margin-top: -20px; float: left;}
