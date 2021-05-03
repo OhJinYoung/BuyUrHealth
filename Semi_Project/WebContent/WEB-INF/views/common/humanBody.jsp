@@ -21,25 +21,25 @@
 	
 	.mainBody{width: 900px; height: 900px; display: block;}
 	
-	.supplementsImg1 {position: relative; left: 150px; top: -900px;}
+	.supplementsImg1 {position: relative; left: 150px; top: -850px;}
 	
-	.supplementsImg2 {position: relative; left: -150px; top: -670px;}
+	.supplementsImg2 {position: relative; left: -50px; top: -650px;}
 	
-	.supplementsImg3 {position: relative; left: -400px; top: -440px;}
+	.supplementsImg3 {position: relative; left: -190px; top: -400px;}
 	
-	.supplementsImg4 {position: relative; left: -650px; top: -210px;}
+	.supplementsImg4 {position: relative; left: -360px; top: -200px;}
 	
 	.supplements1 img {width: 150px; height: 100px;}
 	
-	.supplementsImg5 {position: relative; left: 150px; top: -900px;}
+	.supplementsImg5 {position: relative; left: 450px; top: -870px;}
 	
-	.supplementsImg6 {position: relative; left: -70px; top: -650px;}
+	.supplementsImg6 {position: relative; left: 300px; top: -650px;}
 	
-	.supplementsImg7 {position: relative; left: 850px; top: -540px;}
+	.supplementsImg7 {position: relative; left: 200px; top: -450px;}
 	
-	.supplementsImg8 {position: relative; left: 600px; top: -350px;}
+	.supplementsImg8 {position: relative; left: 70px; top: -250px;}
 	
-	.supplementsImg9 {position: relative; left: 350px; top: -200px;}
+	.supplementsImg9 {position: relative; left: -100px; top: -100px;}
 	
 	.supplements2 img {width: 150px; height: 100px;}
 	
@@ -58,42 +58,42 @@
 		<div class="supplements1">
 			<div class="supplementsImg1">
 				<img src="<%= request.getContextPath() %>/images/vitamin_c.jpg" alt="My Image">
-		  		<div class="desc1">영양소이름</div>
+		  		<div class="desc1"></div>
 			</div>
 			<div class="supplementsImg2">
 				<img src="<%= request.getContextPath() %>/images/vitamin_c.jpg" alt="My Image">
-			  	<div class="desc1">영양소이름</div>
+			  	<div class="desc1"></div>
 			</div>
 			<div class="supplementsImg3">
 				<img src="<%= request.getContextPath() %>/images/vitamin_c.jpg"  alt="My Image">
-			  	<div class="desc1">영양소이름</div>
+			  	<div class="desc1"></div>
 			</div>
 			<div class="supplementsImg4">
 				<img src="<%= request.getContextPath() %>/images/vitamin_c.jpg"  alt="My Image">
-			  	<div class="desc1">영양소이름</div>
+			  	<div class="desc1"></div>
 			</div>
 		</div>
 		
 		<div class="supplements2">
 			<div class="supplementsImg5">
 				<img src="<%= request.getContextPath() %>/images/vitamin_c.jpg"  alt="My Image">
-		  		<div class="desc1">영양소이름</div>
+		  		<div class="desc1"></div>
 			</div>
 			<div class="supplementsImg6">
 				<img src="<%= request.getContextPath() %>/images/vitamin_c.jpg"  alt="My Image">
-			  	<div class="desc1">영양소이름</div>
+			  	<div class="desc1"></div>
 			</div>
 			<div class="supplementsImg7">
 				<img src="<%= request.getContextPath() %>/images/vitamin_c.jpg"  alt="My Image">
-			  	<div class="desc1">영양소이름</div>
+			  	<div class="desc1"></div>
 			</div>
 			<div class="supplementsImg8">
 				<img src="<%= request.getContextPath() %>/images/vitamin_c.jpg"  alt="My Image">
-			  	<div class="desc1">영양소이름</div>
+			  	<div class="desc1"></div>
 			</div>
 			<div class="supplementsImg9">
 				<img src="<%= request.getContextPath() %>/images/vitamin_c.jpg"  alt="My Image">
-			  	<div class="desc1">영양소이름</div>
+			  	<div class="desc1"></div>
 			</div>
 		</div>
 	</div>
@@ -101,23 +101,23 @@
 		$(function(){
 			var hairRandn = Math.floor(Math.random() * 2);
 			var brainRandn = Math.floor(Math.random() * 3);
-			var eyesRandn = Math.floor(Math.random() * 2);
+			var eyesRandn = Math.floor(Math.random() * 3);
 			var skinRandn = Math.floor(Math.random() * 3);
-			var heartRandn = Math.floor(Math.random() * 4);
+			var heartRandn = Math.floor(Math.random() * 3);
 			var muscleRandn = Math.floor(Math.random() * 3);
 			var lungsRandn = Math.floor(Math.random() * 2);
 			var stomachRandn = Math.floor(Math.random() * 3);
 			var boneRandn = Math.floor(Math.random() * 2);
 			
-			var hairArr = ["<%= request.getContextPath() %>/images/niacin.jpg", "<%= request.getContextPath() %>/images/vitamin_a.jpg"];
-			var brainArr = ["<%= request.getContextPath() %>/images/choline.jpg", "<%= request.getContextPath() %>/images/niacin.jpg", "<%= request.getContextPath() %>/images/folic_acid.jpg"];
-			var eyesArr = ["<%= request.getContextPath() %>/images/niacin.jpg", "<%= request.getContextPath() %>/images/vitamin_a.jpg"];
-			var skinArr = ["<%= request.getContextPath() %>/images/cysteine.jpg", "<%= request.getContextPath() %>/images/vitamin_c.jpg", "<%= request.getContextPath() %>/images/niacin.jpg"];
-			var muscleArr = ["<%= request.getContextPath() %>/images/vitamin_a.jpg", "<%= request.getContextPath() %>/images/pyritinol.jpg", "<%= request.getContextPath() %>/images/choline.jpg"];
-			var lungsArr = ["<%= request.getContextPath() %>/images/cysteine.jpg", "<%= request.getContextPath() %>/images/pyritinol.jpg"];
-			var heartArr = ["<%= request.getContextPath() %>/images/pantothenic_acid.jpg", "<%= request.getContextPath() %>/images/folic_acid.jpg", "<%= request.getContextPath() %>/images/omega-3_acid.jpg", "<%= request.getContextPath() %>/images/pyritinol.jpg"];
-			var stomachArr = ["<%= request.getContextPath() %>/images/lactobacillus.jpg", "<%= request.getContextPath() %>/images/niacin.jpg", "<%= request.getContextPath() %>/images/magnesium_citrate.jpg"];
-			var boneArr = ["<%= request.getContextPath() %>/images/vitamin_d.jpg", "<%= request.getContextPath() %>/images/biotin.jpg"];
+			var hairArr = ["<%= request.getContextPath() %>/uploadFiles/productUpload/1.png", "<%= request.getContextPath() %>/uploadFiles/productUpload/3.png"];
+			var brainArr = ["<%= request.getContextPath() %>/uploadFiles/productUpload/7.png", "<%= request.getContextPath() %>/uploadFiles/productUpload/13.png", "<%= request.getContextPath() %>/uploadFiles/productUpload/19.png"];
+			var eyesArr = ["<%= request.getContextPath() %>/uploadFiles/productUpload/31.jpeg", "<%= request.getContextPath() %>/uploadFiles/productUpload/33.jpeg", "<%= request.getContextPath() %>/uploadFiles/productUpload/27.png"];
+			var skinArr = ["<%= request.getContextPath() %>/uploadFiles/productUpload/43.jpeg", "<%= request.getContextPath() %>/uploadFiles/productUpload/45.jpg", "<%= request.getContextPath() %>/uploadFiles/productUpload/47.jpg"];
+			var muscleArr = ["<%= request.getContextPath() %>/uploadFiles/productUpload/15.png", "<%= request.getContextPath() %>/uploadFiles/productUpload/17.png", "<%= request.getContextPath() %>/uploadFiles/productUpload/19.png"];
+			var lungsArr = ["<%= request.getContextPath() %>/uploadFiles/productUpload/29.png", "<%= request.getContextPath() %>/uploadFiles/productUpload/9.png", "<%= request.getContextPath() %>/uploadFiles/productUpload/23.png"];
+			var heartArr = ["<%= request.getContextPath() %>/uploadFiles/productUpload/9.png", "<%= request.getContextPath() %>/uploadFiles/productUpload/11.png", "<%= request.getContextPath() %>/uploadFiles/productUpload/13.png"];
+			var stomachArr = ["<%= request.getContextPath() %>/uploadFiles/productUpload/37.jpeg", "<%= request.getContextPath() %>/uploadFiles/productUpload/39.jpeg", "<%= request.getContextPath() %>/uploadFiles/productUpload/41.jpeg"];
+			var boneArr = ["<%= request.getContextPath() %>/uploadFiles/productUpload/21.png", "<%= request.getContextPath() %>/uploadFiles/productUpload/7.png"];
 			
 			$(".supplementsImg1 img").attr("src", eyesArr[eyesRandn]);
 			$(".supplementsImg2 img").attr("src", skinArr[skinRandn]);

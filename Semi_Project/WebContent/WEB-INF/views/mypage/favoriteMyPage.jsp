@@ -17,7 +17,7 @@
 <title>마이페이지|관심상품</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
-	body{min-width: 1000px; min-height: 1000px;}
+	body {width: 1500px; height: 800px;}
 	
 	.likeitem_data{
 		width: 85%;
@@ -257,9 +257,7 @@
 			$('.likeitem_body input').each(function(){
 				if(this.checked == false){
 					this.checked = true;
-				} else {
-					this.checked = false;
-				}	
+				}
 			});
 		});
 		 
