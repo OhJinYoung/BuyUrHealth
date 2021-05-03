@@ -101,7 +101,6 @@ public class QABoardService {
 		}
 		
 		return result1;
-
 	}
 	
 	

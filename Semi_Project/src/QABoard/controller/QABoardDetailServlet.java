@@ -47,7 +47,6 @@ public class QABoardDetailServlet extends HttpServlet {
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시글 조회에 실패했습니다.");
-			
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);

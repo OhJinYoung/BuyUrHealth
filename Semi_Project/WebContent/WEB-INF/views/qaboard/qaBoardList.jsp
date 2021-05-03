@@ -274,7 +274,6 @@ html{
 		</div>
 		
 		
-		
 		<script>
 			$(function(){
 				$('#listArea td').on({'mouseenter':function(){ 

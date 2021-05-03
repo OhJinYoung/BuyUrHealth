@@ -40,7 +40,6 @@ public class QABoardListServlet extends HttpServlet {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
 
-		
 		int listCount;
 		int currentPage;
 		int pageLimit;

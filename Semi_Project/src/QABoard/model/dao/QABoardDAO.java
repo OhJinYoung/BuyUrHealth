@@ -269,35 +269,7 @@ public class QABoardDAO {
 		return result;
 
 	}
-	
-	public int updateFile(Connection conn, ArrayList<QAFile> fileList) {
-        PreparedStatement pstmt = null;
-        int result = 0;
- 
-        String query = prop.getProperty("updateFile");
-        // updateFile=INSERT INTO ADDFILE VALUES(addfile_seq.nextval, ?, ?, ?, sysdate, 'n', null, null, ?)
-        
-        try {
-        	for(int i = 0; i < fileList.size(); i++) {
-				QAFile qaf = fileList.get(i);
-				
-				pstmt = conn.prepareStatement(query);
-				
-				pstmt.setString(1, qaf.getFileName());
-				pstmt.setString(2, qaf.getFileChangeName());
-				pstmt.setString(3, qaf.getFilePath());
-				pstmt.setInt(4, qaf.getQaNo());
-				
-				result += pstmt.executeUpdate();
 
-        	}
-        } catch (SQLException e) {
-        	e.printStackTrace();
-        } finally {
-        	close(pstmt);
-        } 
-        return result;
-	}
 
 	public int deleteBoard(Connection conn, int bId) {
 		PreparedStatement pstmt = null;

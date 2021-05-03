@@ -52,7 +52,6 @@ public class UpdateQABoardServlet extends HttpServlet {
 			request.setAttribute("msg", "게시글 수정에 실패하였습니다.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
-
 	}
 
 	/**

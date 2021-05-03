@@ -4,9 +4,6 @@
 	QABoard qab = (QABoard)request.getAttribute("b"); 
 	ArrayList<QAFile> qaf = (ArrayList<QAFile>)request.getAttribute("qafile"); 
 %>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>

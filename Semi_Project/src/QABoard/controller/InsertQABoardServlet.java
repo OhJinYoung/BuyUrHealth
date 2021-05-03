@@ -109,7 +109,6 @@ public class InsertQABoardServlet extends HttpServlet {
 				File fail = new File(savePath + saveFiles.get(i));
 				fail.delete();
 			}
-
 		}
 		}
 	}
