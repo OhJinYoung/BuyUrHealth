@@ -47,7 +47,12 @@
 </style>
 </head>
 <body>
-	<%@include file="../title_header.jsp"%>
+	<% if(member.getAuthority() == 'Y') {%>
+		<%@include file="../admin/header.jsp"%>
+	<% } else {%>
+		<%@include file="../title_header.jsp"%>
+	<% } %>
+	
 	
 		<%@include file="myPageNav.jsp"%>
     
