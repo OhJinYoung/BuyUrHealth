@@ -12,6 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
 	html, body {
 	    height: 100%; 
@@ -39,7 +40,6 @@
         padding: 20px;
         margin-top: 14px; 
         float: left;
-        border-right: 1px solid;
         position: absolute;
         height: 100%;
         overflow: auto;
@@ -195,10 +195,10 @@
 		<h2 id="qaboard-menubar-name">Q&A</h2>
 	<hr>
 		<ul>
-		<li>공지사항</li>
-		<li>자주묻는질문</li>
-		<li><b>Q&A</b></li>
-		<li>약관 및 방침</li>
+			<li class="servicemenu" id="">공지사항</li>
+			<li class="servicemenu" id="">자주묻는질문</li>
+			<li><b>Q&A</b></li>
+			<li class="servicemenu" id="goRules">약관 및 방침</li>
 		</ul>
 	</div>
 	
@@ -258,7 +258,10 @@
 		</div>
 		
 		<script>
-
+			$('.servicemenu').on('click', function() {
+				var id = $(this).attr('id');
+				location.href='<%=request.getContextPath()%>/' + id;
+			});
 		</script>
 	</div>
 		</form>

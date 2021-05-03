@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class RulesServlet
  */
-@WebServlet("/goRules")
-public class RulesServlet extends HttpServlet {
+@WebServlet("/goRules2")
+public class RulesServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RulesServlet() {
+    public RulesServlet2() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class RulesServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/views/rules/rules_1.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/views/rules/rules_2.jsp").forward(request, response);
 	}
 
 	/**

@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="QABoard.model.dao.QABoardDAO" %>
+<%@ page import="QABoard.model.dao.QABoardDAO, QABoard.model.vo.QAFile, java.util.ArrayList" %>
 <%@ page import="java.io.File" %>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
 	html, body {
 	    height: 100%; 
@@ -18,27 +20,24 @@
 	    letter-spacing: -1px;
 	}	
 	
-	#qaboard-menubar-name { 
+	#service-menubar-name { 
 		text-align: center; 
 		font-size: 20px;
 	}
 	
-	.qaboard-menubar ul, li {
+	.service-menubar ul, li {
 		list-style: none; 
-		padding: 10px; 
-		margin: 0; 
-		text-align: center;
+		padding: 10px; margin: 0; text-align: center;
 	}
 	
-	.qaboard-menubar {
+	.service-menubar {
         width: 170px;
-        max-width:170px;
+        max-width: 170px;
         padding: 20px;
         margin-top: 14px; 
         float: left;
-        border-right: 1px solid;
         position: absolute;
-        height: 100%;
+        min-height: 100%;
         overflow: auto;
 	}
 	
@@ -179,21 +178,23 @@
     
     li:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
     
+    img { display: block; margin: 0px auto; }
+    
     
 </style>
 </head>
 <body>
-	<%@ include file="../title_header.jsp" %>
+	<%@include file="../title_header.jsp" %>
 	
-	<div class="qaboard-menubar">
+	<div class="service-menubar">
 	<hr>
-		<h2 id="qaboard-menubar-name">Q&A</h2>
+		<h2 id="service-menubar-name">Q&A</h2>
 	<hr>
 		<ul>
-		<li>공지사항</li>
-		<li>자주묻는질문</li>
-		<li><b>Q&A</b></li>
-		<li>약관 및 방침</li>
+			<li class="servicemenu" id="">공지사항</li>
+			<li class="servicemenu" id="">자주묻는질문</li>
+			<li><b>Q&A</b></li>
+			<li class="servicemenu" id="goRules">약관 및 방침</li>
 		</ul>
 	</div>
 	
@@ -237,10 +238,12 @@
 				</tr>
 				<tr>
 					<td class="td1">
-						<label>첨부파일</label>
-						 <input type="file" name="upfile">
-
-						<input type="submit" id="enterBtn" value="등록">
+						<div class="image-container">
+						<h3>첨부파일</h3>
+						    <input style="display: block;" type="file" id="input-image" name="upfile">
+						    <img style="width: 500px;" id="preview-image">
+						</div>
+						<input type="submit" id="enterBtn" onclick="checkConfirm();" value="등록">
 						<button id="cancelBtn" onclick="location.href='<%= request.getContextPath() %>/qalist.bo'" >취소</button>
 					</td>
 				</tr>
@@ -248,7 +251,35 @@
 		</div>
 		
 		<script>
-			
+		function readImage(input) {
+		    // 인풋 태그에 파일이 있는 경우
+		    if(input.files && input.files[0]) {
+		        // 이미지 파일인지 검사 (생략)
+		        // FileReader 인스턴스 생성
+		        const reader = new FileReader()
+		        // 이미지가 로드가 된 경우
+		        reader.onload = function(e){
+		            const previewImage = document.getElementById("preview-image");
+		            previewImage.src = e.target.result;
+		        }
+		        // reader가 이미지 읽도록 하기
+		        reader.readAsDataURL(input.files[0])
+		    }
+		}
+		// input file에 change 이벤트 부여
+		const inputImage = document.getElementById("input-image")
+		inputImage.addEventListener("change", function(e){
+		    readImage(e.target)
+		});
+		
+		function checkConfirm(){
+			var result = confirm('글 등록 후에는 첨부파일 추가와 수정이 불가합니다.'); 
+		};
+		
+		$('.servicemenu').on('click', function() {
+			var id = $(this).attr('id');
+			location.href='<%=request.getContextPath()%>/' + id;
+		});
 
 		</script>
 	</div>
