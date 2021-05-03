@@ -100,6 +100,7 @@ public class InsertQABoardServlet extends HttpServlet {
 		
 		if(result1 > 0 || result2 > 0) {
 			response.sendRedirect("qalist.bo");
+			request.setAttribute("fileList", fileList);
 		} else {
 			request.setAttribute("msg", "게시물 등록에 실패했습니다.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
