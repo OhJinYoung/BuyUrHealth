@@ -260,7 +260,7 @@
 		});
 		
 		$('#goCommunity').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
+			location.href="<%= request.getContextPath() %>/test.no"; 
 		});
 		
 		$('#goCart').on('click', function(){

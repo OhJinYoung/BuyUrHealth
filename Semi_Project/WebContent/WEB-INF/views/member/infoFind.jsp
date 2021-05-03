@@ -4,43 +4,53 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인 | HUB</title>
+<title>아이디 | 비밀번호 찾기</title>
 <style type="text/css">
-#loginForm{
+
+#h22{
+	top: 100px;
+
+}
+
+#UserFind{
+	width: 200px;
+  	height: 200px;
+  	text-align: center;
+  	align-items: center;
+	margin: 10px;
 	
-	position: absolute;
-	top: 400px;
-	left: 600px;
-
-}
-#idFind {
+	text-align: center;
 	color: black;
-}
-
-input {
-	width: 265px;
-	height: 30px;
-	text-align: center;
-}
-
-.int-area {
-	width: 265px;
-}
-
-#btn {
-	background-color: #e4a127;
-	text-align: center;
-	color: white;
 	font-size: 20px;
-	width: 273px;
+}
+#UserFind2{
+	visibility: hidden;
+	width: 200px;
 }
 
-.log {
+.center{
+  	position: absolute;
+  	bottom: 120px;
+  	
+  	
+	width: 600px;
+ 	text-align: center;
+ 	justify-content: center;
+ 	display: flex;
+}
+
+.logFind{
+	background-color: #e4a127;
 	display: flex;
 	justify-content: center;
-	border: 100px solid white;
 	color: white;
-	background-position: center bottom;
+	height: 500px;
+	width: 1200px;
+	position: absolute;
+	left: 410px;
+	top: 200px;
+	
+	
 }
 
 .wrap {
@@ -101,46 +111,25 @@ input {
 
 
 
+ 
+ 
 
-
-	<div class="log">
-		<section class="login-form">
-			<h1>
-				<img class="mainLogo2" src="<%= request.getContextPath() %>/images/mainlogo.png" width="300px"
-					height="120px" alt="My Image">
-			</h1>
-			<form id="loginForm" action="<%= request.getContextPath() %>/login.me" method="post">
-				<div class="int-area">
-					<input type="text" name="userId" id="userId" autocomplete="off"
-						placeholder="아이디를 입력해주세요."> <label class="id">USERNAME</label>
-				</div>
-				<div class="int-area">
-					<input type="password" name="userPwd" id="userPwd"
-						autocomplete="off" placeholder="비밀번호를 입력해주세요."> <label
-						class="id">PASSWORD</label>
-				</div>
-				<div class="btn-area">
-					<input type="submit" id="btn" value="로그인">
-				</div>
-				<div class="caption">
-					<input type="button" id="InfoFind" onclick="infoFind();" value="아이디 / 비밀번호 찾기">
-					<br>	
-					<input type="button" id="JoinBtn"  onclick="joinBtn();"  value="회원가입">
-				</div>
-
-			</form>
-		</section>
+	<div class="logFind">
+		<h2 id="h22">계정 찾기</h2>
+		<div class="center">
+			<input type="button" id="UserFind" onclick="userIdFind();" value="아이디 찾기 ">
+			<input type="button" id="UserFind2">
+			<input type="button" id="UserFind"  onclick="userPwFind();"  value="비밀번호 찾기">
+		</div>
 	</div>
 	
 	<script>
-	
-		function infoFind(){
-			location.href='<%= request.getContextPath() %>/infoFind.me';
+		function userIdFind(){
+			location.href='<%= request.getContextPath() %>/find.id';
 		}
-		function joinBtn(){
-			location.href='<%= request.getContextPath() %>/signUpForm.me';
+		function userPwFind(){
+			location.href='<%= request.getContextPath() %>/find.pw';
 		}
-		
 		
 		$('#goViewProduct').on('click', function(){
 			location.href="<%= request.getContextPath() %>/test.no"; 

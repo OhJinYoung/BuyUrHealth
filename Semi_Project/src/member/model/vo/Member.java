@@ -3,7 +3,7 @@ package member.model.vo;
 import java.sql.Date;
 
 public class Member {
-	private String userNo;
+	private int userNo;
 	private String password;
 	private char gender;
 	private String userId;
@@ -14,17 +14,18 @@ public class Member {
 	private Date userDate;
 	private char authority;
 	private String status;
+	private String Birthyy;
+	private String Birthmm;
+	private String Birthdd;
 
-	public Member() {
-	}
 	
 	public Member(String userId, String password) {
 		this.userId = userId;
 		this.password = password;
 	}
-
-	public Member(String userNo, String password, char gender, String userId, String userName, Date birth, String phone,
-			String email, Date userDate, char authority, String status) {
+	
+	public Member(int userNo, String password, char gender, String userId, String userName, Date birth,
+			String phone,String email, Date userDate, char authority, String status) {
 		super();
 		this.userNo = userNo;
 		this.password = password;
@@ -38,12 +39,41 @@ public class Member {
 		this.authority = authority;
 		this.status = status;
 	}
+	public Member(String password, char gender, String userId, String userName, Date birth,
+			String phone,String email, Date userDate, char authority, String status) {
+		super();
+		this.password = password;
+		this.gender = gender;
+		this.userId = userId;
+		this.userName = userName;
+		this.birth = birth;
+		this.phone = phone;
+		this.email = email;
+		this.userDate = userDate;
+		this.authority = authority;
+		this.status = status;
+	}
+	public Member(String password, char gender, String userId, String userName, Date birth,
+			String phone,String email, Date userDate) {
+		super();
+		this.password = password;
+		this.gender = gender;
+		this.userId = userId;
+		this.userName = userName;
+		this.birth = birth;
+		this.phone = phone;
+		this.email = email;
+		this.userDate = userDate;
+	}
+	
 
-	public String getUserNo() {
+
+
+	public int getUserNo() {
 		return userNo;
 	}
 
-	public void setUserNo(String userNo) {
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
 
@@ -126,5 +156,33 @@ public class Member {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public String getBirthyy() {
+		return Birthyy;
+	}
+
+	public void setBirthyy(String birthyy) {
+		Birthyy = birthyy;
+	}
+
+	public String getBirthmm() {
+		return Birthmm;
+	}
+
+	public void setBirthmm(String birthmm) {
+		Birthmm = birthmm;
+	}
+
+	public String getBirthdd() {
+		return Birthdd;
+	}
+
+	public void setBirthdd(String birthdd) {
+		Birthdd = birthdd;
+	}
+
+	
+
+	
 
 }

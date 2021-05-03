@@ -10,30 +10,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class loginmain
+ * Servlet implementation class InfoFindPwServlet
  */
-@WebServlet("/login.main")
-public class loginmainServlet extends HttpServlet {
+@WebServlet("/find.pw")
+public class InfoFindPwServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public loginmainServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public InfoFindPwServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
-		RequestDispatcher view =request.getRequestDispatcher("WEB-INF/views/member/rogin.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/pwFInd.jsp");
 		view.forward(request, response);
-		
-
 	}
 
 	/**
