@@ -51,7 +51,7 @@
 </style>
 </head>
 <body>
-	<%@ include file="../user/header.jsp" %>
+	<%@ include file="../title_header.jsp" %>
 	
 		<h1 align="center">주문이 완료 되었습니다!</h1>
 	<form>

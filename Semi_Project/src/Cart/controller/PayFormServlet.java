@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class OrderServlet
+ * Servlet implementation class PayFormServlet
  */
-@WebServlet("/order.or")
-public class OrderServlet extends HttpServlet {
+@WebServlet("/pay.or")
+public class PayFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderServlet() {
+    public PayFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,14 +26,7 @@ public class OrderServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
-		String orderName = request.getParameter("orderName");
-		String getName = request.getParameter("getName");
-		String address = request.getParameter("sample4_postcode") + request.getParameter("sample4_roadAddress") + request.getParameter("sample4_detailAddress") + request.getParameter("sample4_extraAddress");
-		String phone = request.getParameter("phone");
-		
-		
+		request.getRequestDispatcher("WEB-INF/views/cart/payView.jsp").forward(request, response);
 	}
 
 	/**
