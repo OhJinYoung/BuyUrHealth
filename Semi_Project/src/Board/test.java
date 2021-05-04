@@ -1,4 +1,4 @@
-package QABoard.controller;
+package Board;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class QABoardWriteFormServlet
+ * Servlet implementation class test
  */
-@WebServlet("/QABoardWriteForm.bo")
-public class QABoardWriteFormServlet extends HttpServlet {
+@WebServlet("/test")
+public class test extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QABoardWriteFormServlet() {
+    public test() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +26,8 @@ public class QABoardWriteFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/views/qaboard/qaBoardWrite.jsp").forward(request, response);
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

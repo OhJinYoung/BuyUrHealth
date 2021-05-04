@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="QABoard.model.vo.QABoard, QABoard.model.vo.QAFile, java.util.ArrayList" %>
-    
 <% 
 	QABoard qab = (QABoard)request.getAttribute("qaboard");
 	ArrayList<QAFile> qaf = (ArrayList<QAFile>)request.getAttribute("qafile"); 
@@ -11,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
 	body {
 	    min-height: 1000px; 
@@ -37,9 +37,8 @@
         padding: 20px;
         margin-top: 14px; 
         float: left;
-        border-right: 1px solid black;
         position: absolute;
-        height: 100%;
+        min-height: 100%;
         overflow: auto;
 	}
 	
@@ -233,17 +232,17 @@
 </style>
 </head>
 <body>
-	<%@ include file="../user/header.jsp" %>
+	<%@ include file="../title_header.jsp" %>
 	
 	<div class="service-menubar">
 	<hr>
-		<h2 id="service-menubar-name">Q&A</h2>
+		<h2 id="service-menubar-name">약관 및 방침</h2>
 	<hr>
 		<ul>
-			<li>공지사항</li>
-			<li>자주묻는질문</li>
+			<li class="servicemenu" id="">공지사항</li>
+			<li class="servicemenu" id="">자주묻는질문</li>
 			<li><b>Q&A</b></li>
-			<li onclick="goRules">약관 및 방침</li>
+			<li class="servicemenu" id="goRules">약관 및 방침</li>
 		</ul>
 	</div>
 	<form action="<%= request.getContextPath() %>/updateQABoardForm.bo" id="detailForm" method="post">
@@ -325,7 +324,20 @@
 	</form>
 	
 	<script>
+	$('.servicemenu').on('click', function() {
+		var id = $(this).attr('id');
+		location.href='<%=request.getContextPath()%>/' + id;
+	});
+	
+	function deleteQNA(){
+		var bool = confirm("정말로 삭제하시겠습니까?");
 		
+		if(bool){
+			location.href='<%= request.getContextPath() %>/QADelete.bo?bId=' + <%= qab.getQaNo() %>;
+		}
+	};
+	
+
 	</script>
 </body>
 </html>

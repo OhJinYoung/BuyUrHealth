@@ -47,7 +47,6 @@ html{
         padding: 20px;
         margin-top: 14px; 
         float: left;
-        border-right: 1px solid;
         position: absolute;
         height: 100%;
         overflow: auto;
@@ -179,10 +178,10 @@ html{
 		<h2 id="qaboard-menubar-name">Q&A</h2>
 	<hr>
 		<ul>
-		<li>공지사항</li>
-		<li>자주묻는질문</li>
-		<li><b>Q&A</b></li>
-		<li href="views/qa/rules.jsp">약관 및 방침</li>
+			<li class="servicemenu" id="">공지사항</li>
+			<li class="servicemenu" id="">자주묻는질문</li>
+			<li><b>Q&A</b></li>
+			<li class="servicemenu" id="goRules">약관 및 방침</li>
 		</ul>
 	</div>
 	
@@ -275,7 +274,6 @@ html{
 		</div>
 		
 		
-		
 		<script>
 			$(function(){
 				$('#listArea td').on({'mouseenter':function(){ 
@@ -286,6 +284,11 @@ html{
 					var num = $(this).parent().children().eq(0).text();
 					location.href='<%= request.getContextPath() %>/QADetail.bo?bId=' +  num; 
 				}}); 
+			});
+			
+			$('.servicemenu').on('click', function() {
+				var id = $(this).attr('id');
+				location.href='<%=request.getContextPath()%>/' + id;
 			});
 		</script>
 	</div>
