@@ -32,7 +32,7 @@
 	}
 	
 	.payspan{
-		padding: 10px;
+		padding: 5px;
 	}
 	
 	.cartdiv{
@@ -362,9 +362,12 @@
 		            		<tr>
 		            			<td class="orderli needed">* 주소</td>
 		            			<td class="orderan">
-		            				<input type="text" name="addressForm" id="orderName" placeholder="우편번호" required><button id="addressSearch" onclick="">주소 검색</button><br>
-		            				<input type="text" name="addressForm" id="orderName" size="80px" required><br>
-		            				<input type="text" name="addressForm" id="orderName" size="100px" placeholder="나머지 주소를 입력해주세요" required>
+		            				<input type="text" name="addressForm" id="sample4_postcode" placeholder="우편번호" required>
+									<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+									<input type="text" name="addressForm" id="sample4_roadAddress" size="80px" placeholder="도로명주소" required><br>
+									<span id="guide" style="color:#999;display:none"></span>
+									<input type="text" name="addressForm" id="sample4_detailAddress" size="80px" placeholder="상세주소" required><br>
+									<input type="text" name="addressForm" id="sample4_extraAddress" size="50px" placeholder="참고항목"><br>
 		            			</td>
 		            		</tr>
 		            		<tr>
@@ -392,15 +395,12 @@
 								<b>결제 수단 선택</b>
 							</div>
 							<div class="subdiv">
-								<span class="payspan">
-									<input type="radio" name="payMethod" value="신용카드" onclick="">신용카드
-								</span>
-								<span class="payspan">
+								<div class="payspan">
+									<input type="radio" name="payMethod" value="신용카드" onclick="">신용카드(카카오페이, 네이버페이, 페이코 및 토스 이용 가능)
+								</div>
+								<div class="payspan">
 									<input type="radio" name="payMethod" value="무통장입금" onclick="">무통장입금
-								</span>
-								<span class="payspan">
-									<input type="radio" name="payMethod" value="카카오페이" onclick="">카카오페이
-								</span>
+								</div>
 							</div>
 						</div>
 						
@@ -438,17 +438,13 @@
 	    </form>	
 	    
 	    <script>
-	    
-		    var IMP = window.IMP; 
-		    IMP.init("imp43623305");
-		    
-			$("#check_module").click(function () {
-				var IMP = window.IMP; // 생략가능
-				IMP.init('가맹점식별코드를 넣어주세요');
+	    	$("#payBtn").click(function () {
+				var IMP = window.IMP; 
+				IMP.init('imp43623305');
 				// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 				// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
 			IMP.request_pay({
-				pg: 'inicis', // version 1.1.0부터 지원.
+				pg: 'html5_inicis', // version 1.1.0부터 지원.
 				/*
 				'kakao':카카오페이,
 				html5_inicis':이니시스(웹표준결제)
@@ -480,8 +476,8 @@
 				//결제창에서 보여질 이름
 				amount: 1000,
 				//가격
-				buyer_email: 'iamport@siot.do',
-				buyer_name: '구매자이름',
+				buyer_email: 'buyourhealth@gmail.com',
+				buyer_name: '강건강',
 				buyer_tel: '010-1234-5678',
 				buyer_addr: '서울특별시 강남구 삼성동',
 				buyer_postcode: '123-456',
@@ -494,11 +490,12 @@
 			}, function (rsp) {
 				console.log(rsp);
 				if (rsp.success) {
-					var msg = '결제가 완료되었습니다.';
+					/*var msg = '결제가 완료되었습니다.';
 					msg += '고유ID : ' + rsp.imp_uid;
 					msg += '상점 거래ID : ' + rsp.merchant_uid;
 					msg += '결제 금액 : ' + rsp.paid_amount;
-					msg += '카드 승인번호 : ' + rsp.apply_num;
+					msg += '카드 승인번호 : ' + rsp.apply_num;*/
+					location.href='<%=request.getContextPath()%>/com.or';
 				} else {
 					var msg = '결제에 실패하였습니다.';
 					msg += '에러내용 : ' + rsp.error_msg;
@@ -506,7 +503,66 @@
 					alert(msg);
 				});
 			});
-		    </script>
+			</script>
+			
+			
+			
+			
+			
+			
+			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById("sample4_roadAddress").value = roadAddr;
+                
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                }  else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }
+</script>
 
         
 </body>
