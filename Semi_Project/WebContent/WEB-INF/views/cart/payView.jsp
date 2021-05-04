@@ -259,8 +259,6 @@
 					<div class="paymentdiv" id="paymentdiv">
 						<h3>결제 정보</h3>
 						
-						
-						
 						<div class="pay head">
 							<div class="infodiv">
 								<b>결제 수단 선택</b>

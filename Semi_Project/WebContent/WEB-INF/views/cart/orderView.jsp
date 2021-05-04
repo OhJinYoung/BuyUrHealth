@@ -378,11 +378,11 @@
 		            		</tr>
 		            		<tr>
 		            			<td class="orderli needed">* 이메일</td>
-		            			<td class="orderan"><input type="email" name="addressForm" id="getEmail" placeholder="주문하시는 분의 이메일을 입력해주세요" size="80px" required></td>
+		            			<td class="orderan"><input type="email" name="addressForm" id="email" placeholder="주문하시는 분의 이메일을 입력해주세요" size="80px" required></td>
 		            		</tr>
 		            		<tr>
 		            			<td class="orderli notNeeded">배송시 요청사항</td>
-		            			<td class="orderan"><textarea type="text" name="addressForm" id="request" style="resize:none;" cols="40" rows="5" placeholder="선택사항"></textarea></td>
+		            			<td class="orderan"><input type="text" name="addressForm" id="forrequest" size="80px" placeholder="선택사항"></td>
 		            		</tr>
 		            	</table>
 					</div>

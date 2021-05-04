@@ -199,7 +199,7 @@
 		</ul>
 	</div>
 	
-	<form action="<%= request.getContextPath() %>/QAUpdate.bo" method="post">
+	<form action="<%= request.getContextPath() %>/QAUpdate.bo" method="post" >
 	
 	<div class="qa data">
 	

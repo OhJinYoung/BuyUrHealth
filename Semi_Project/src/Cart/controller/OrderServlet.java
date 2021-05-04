@@ -32,6 +32,8 @@ public class OrderServlet extends HttpServlet {
 		String getName = request.getParameter("getName");
 		String address = request.getParameter("sample4_postcode") + request.getParameter("sample4_roadAddress") + request.getParameter("sample4_detailAddress") + request.getParameter("sample4_extraAddress");
 		String phone = request.getParameter("phone");
+		String email = request.getParameter("email");
+		String forrequest = request.getParameter("forrequest");
 		
 		
 	}

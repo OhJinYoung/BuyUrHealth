@@ -1,6 +1,8 @@
 package QABoard.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import QABoard.model.service.QABoardService;
 import QABoard.model.vo.QABoard;
+import QABoard.model.vo.QAFile;
 
 /**
  * Servlet implementation class UpdateQABoardServlet
