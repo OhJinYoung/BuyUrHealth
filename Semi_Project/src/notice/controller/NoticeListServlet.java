@@ -80,7 +80,7 @@ public class NoticeListServlet extends HttpServlet {
 			//page = "WEB-INF/views/notice/noticeList원래 내꺼.jsp";
 			//request.setAttribute("list",  list);
 			
-			page = "WEB-INF/views/common/errorPage.jsp";
+			page = "WEB-INF/views/common/errorPage.jsp"; 
 			request.setAttribute("msg",  "공지사항 조회에 실패했습니다");
 			
 		}
