@@ -36,22 +36,18 @@ public class DetailMyPageServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String page = null;
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		try {
-			String userId = loginUser.getUserId();
-			Member member = new MemberService().selectMember(userId);
+		
+		String userId = loginUser.getUserId();
+		Member member = new MemberService().selectMember(userId);
 			
-			if(member != null) {
-				page = "WEB-INF/views/mypage/updateMyPage.jsp";
-				request.setAttribute("userId", member);
-			} else {
-				page = "WEB-INF/views/common/errorPage.jsp";
-				request.setAttribute("msg", "회원 조회에 실패하였습니다.");
-			}
-		} catch(Exception e){
-			page = "WEB-INF/views/member/rogin.jsp";
-		} finally {
-			request.getRequestDispatcher(page).forward(request, response);
+		if(member != null) {
+			page = "WEB-INF/views/mypage/updateMyPage.jsp";
+			request.setAttribute("userId", member);
+		} else {
+			page = "WEB-INF/views/common/errorPage.jsp";
+			request.setAttribute("msg", "회원 조회에 실패하였습니다.");
 		}
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

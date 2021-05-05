@@ -30,13 +30,13 @@
 	font-size: large;
 }
 
-a {
+p a {
 	text-decoration: none;
 	color: #0e0e0ea6;
 	font-size: 15px;
 }
 
-a:hover {
+p a:hover {
 	color: orange;
 }
 

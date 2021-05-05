@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style>
+
+* {
+	padding: 0px;
+	margin: 0px;
+}
+
 #header {
 	border-bottom: 1px solid #9a9a9a;
 	padding: 8px;

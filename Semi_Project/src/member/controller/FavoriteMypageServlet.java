@@ -1,6 +1,8 @@
 package member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import common.PageInfo;
+import common.PagingTemplate;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
@@ -34,19 +38,29 @@ public class FavoriteMypageServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String id = loginUser.getUserId();
+		String page = request.getParameter("page");
+		MemberService mService = new MemberService();
+		
+		int listCount = mService.listCount("",null);
+		
+		PageInfo pi = new PagingTemplate().getPageInfo(page,listCount);
+		
+//		ArrayList<Member> list = mService.memberList(pi);
 		
 		Member member = new MemberService().selectMember(id);
 		
-		String page = null;
+		String form = null;
 		if(member != null) {
-			page = "WEB-INF/views/mypage/favoriteMyPage.jsp";
+			form = "WEB-INF/views/mypage/favoriteMyPage.jsp";
 			request.setAttribute("userId", member);
+			request.setAttribute("page", pi);
+//			request.setAttribute("list", list);
 		} else {
-			page = "WEB-INF/views/common/errorPage.jsp";
+			form = "WEB-INF/views/common/errorPage.jsp";
 			request.setAttribute("msg", "회원 조회에 실패하였습니다.");
 		}
 		
-		request.getRequestDispatcher(page).forward(request, response);
+		request.getRequestDispatcher(form).forward(request, response);
 	}
 
 	/**

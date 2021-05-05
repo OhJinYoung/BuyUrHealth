@@ -3,18 +3,18 @@
 <style>
 .myPage-menubar {
 	width: 20%;
+	height: 100%;
 	max-width: 170px;
 	padding: 30px 20px;
 	float: left;
 	display: inline-block;
+	border-right: 1px solid black;
 }
 
 #myPage-menubar-name {
 	text-align: center;
 	font-size: 20px;
 	padding:10px 0;
-	border-top: 1px solid #9a9a9a;
-	border-bottom: 1px solid #9a9a9a;
 }
 
 .myPage-menubar ul, li {
