@@ -423,7 +423,7 @@
 				</div>
 				<div class="subdiv">
 					<div class="payspan">
-						<input type="radio" name="payMethod" value="신용카드" checked>신용카드(카카오페이, 네이버페이, 페이코 및 토스 이용 가능)
+						<input type="radio" name="payMethod" id="payMethod" value="신용카드" checked>신용카드(카카오페이, 네이버페이, 페이코 및 토스 이용 가능)
 					</div>
 				</div>
 			</div>
@@ -475,6 +475,7 @@
 								+ $("#detailAddress").val() + " " + $("#extraAddress").val();
 				var forrequest = $("#forrequest").val();
 				var price = 1000;
+				var payment = $('input[name=payMethod]:checked').val();
 				
 				var IMP = window.IMP; // 생략가능
 				IMP.init('imp43623305');
@@ -505,6 +506,7 @@
 			        			phone : phone,
 			        			email : email,
 			        			forrequest : forrequest,
+			        			payment : payment,
 			        			address : address,
 			        			price : price
 			        		},

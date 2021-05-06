@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="Cart.model.vo.Order" %>
-<% Order order = (Order)request.getAttribute("order"); %>
+    pageEncoding="UTF-8" import="Cart.model.vo.UserOrder" %>
+<%
+	UserOrder order = (UserOrder)request.getAttribute("order");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,10 +101,20 @@
 
 						
 		<div align="center" class="pay button">
-			<button onclick="" id="goOrderDetail">주문 상세보기</button>
-			<button onclick="" id="goMain">홈으로 가기</button>
+			<button onclick="goDetail();" id="goOrderDetail">주문 상세보기</button>
+			<button onclick="goMain();" id="goMain">홈으로 가기</button>
 		</div>
 	</form>
+	
+	<script>
+		function goMain() {
+			location.href="<%= request.getContextPath() %>";
+		}
+		
+		function goDetail() {
+			location.href="<%= request.getContextPath() %>";
+		}
+	</script>
 	
 </body>
 </html>

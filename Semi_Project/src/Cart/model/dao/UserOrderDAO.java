@@ -11,13 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import Cart.model.vo.Order;
+import Cart.model.vo.UserOrder;
 
-public class OrderDAO {
+public class UserOrderDAO {
 	private Properties prop = new Properties();
 
-	public OrderDAO() {
-		String fileName = OrderDAO.class.getResource("/sql/cart/cart-query.properties").getPath();
+	public UserOrderDAO() {
+		String fileName = UserOrderDAO.class.getResource("/sql/cart/cart-query.properties").getPath();
 
 		try {
 			prop.load(new FileReader(fileName));
@@ -30,7 +30,7 @@ public class OrderDAO {
 	}
 	
 	
-	public int insertOrderInfo(Connection conn, Order o) {
+	public int insertOrderInfo(Connection conn, UserOrder o) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -63,10 +63,10 @@ public class OrderDAO {
 	}
 
 
-	public Order detailOrder(Connection conn, int no) {
+	public UserOrder detailOrder(Connection conn, int no) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		Order order = null;
+		UserOrder order = null;
 		
 		String query = prop.getProperty("detailOrder");
 		// detailOrder=SELECT USER_NAME, R_NAME, R_ADDRESS, R_PHONE, R_EMAIL, PAYMENT 
@@ -78,7 +78,7 @@ public class OrderDAO {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				order = new Order(rset.getString("R_NAME"),
+				order = new UserOrder(rset.getString("R_NAME"),
 									rset.getString("R_ADDRESS"),
 									rset.getString("R_PHONE"),
 									rset.getString("PAYMENT"),

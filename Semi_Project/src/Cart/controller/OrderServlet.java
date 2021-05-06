@@ -11,8 +11,8 @@ import javax.servlet.http.HttpSession;
 import Cart.model.service.CartService;
 
 import member.model.vo.Member;
-import Cart.model.service.OrderService;
-import Cart.model.vo.Order;
+import Cart.model.service.UserOrderService;
+import Cart.model.vo.UserOrder;
 
 /**
  * Servlet implementation class OrderServlet
@@ -53,6 +53,9 @@ public class OrderServlet extends HttpServlet {
 		String email = request.getParameter("email").trim();
 		System.out.println("이메일 : " + email);
 		
+		String payment = request.getParameter("payment").trim();
+		System.out.println("결제 수단 : " + payment);
+		
 		String forrequest = "";
 		if(request.getParameter("forrequest") == "") {
 			forrequest += "요청사항이 없습니다.";
@@ -67,7 +70,7 @@ public class OrderServlet extends HttpServlet {
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		System.out.println("유저번호 : " + userNo);
 		
-		Order o = new Order();
+		UserOrder o = new UserOrder();
 		o.setName(name);
 		o.setAddress(address);
 		o.setPhone(phone);
@@ -78,7 +81,7 @@ public class OrderServlet extends HttpServlet {
 		o.setNo(orderNo);
 		
 		
-		int result = new OrderService().insertOrderInfo(o);
+		int result = new UserOrderService().insertOrderInfo(o);
 		
 		if(result > 0) {
 			request.getRequestDispatcher("WEB-INF/views/cart/orderCompleteView.jsp").forward(request, response);

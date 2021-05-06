@@ -4,15 +4,15 @@ import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 
-import Cart.model.dao.OrderDAO;
-import Cart.model.vo.Order;
+import Cart.model.dao.UserOrderDAO;
+import Cart.model.vo.UserOrder;
 
-public class OrderService {
+public class UserOrderService {
 	
-	public int insertOrderInfo(Order o) {
+	public int insertOrderInfo(UserOrder o) {
 		Connection conn = getConnection();
 
-		int result = new OrderDAO().insertOrderInfo(conn, o);
+		int result = new UserOrderDAO().insertOrderInfo(conn, o);
 		
 		if(result > 0) {
 			commit(conn);
@@ -25,11 +25,11 @@ public class OrderService {
 		return result;
 	}
 
-	public Order detailOrder(int no) {
+	public UserOrder detailOrder(int no) {
 		Connection conn = getConnection();
 		
 		
-		Order order = new OrderDAO().detailOrder(conn, no);
+		UserOrder order = new UserOrderDAO().detailOrder(conn, no);
 		
 		if(order == null) {
 			rollback(conn);
