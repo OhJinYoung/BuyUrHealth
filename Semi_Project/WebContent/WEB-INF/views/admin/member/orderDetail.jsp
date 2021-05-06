@@ -39,13 +39,13 @@ table {
 
 #top {
 	padding: 10px;
-	border: 1px solid red;
+	border: 1px solid #a2a2a2;
 	width: 618px;
 }
 
 #top>div:first-child {
 	padding-right: 15px;
-	border-right: 1px solid red;
+	border-right: 1px solid #a2a2a2;
 }
 
 #top>div:first-child p {
@@ -62,12 +62,12 @@ p {
 
 #product {
 	margin-top: 15px;
-	border: 1px solid red;
+	border: 1px solid #a2a2a2;
 	margin-right: 10px;
 }
 
 #product tr:first-child {
-	border-bottom: 1px solid red;
+	border-bottom: 1px solid #a2a2a2;
 }
 
 #product tr:first-child td {
@@ -107,6 +107,9 @@ td {
 	padding-top: 10px;
 }
 
+#product tr:first-child td{
+	background: lightgray;
+}
 h3 {
 	padding-bottom: 5px;
 }
@@ -122,21 +125,16 @@ th {
 }
 
 .plist {
-	border-bottom: 1px solid blue;
+	border-bottom: 1px solid #a2a2a2;;
 }
 
-.plist td {
-	border-right: 1px dotted blue;
+#product td {
 	text-align: center;
 }
 
 .plist td:nth-child(3) {
 	font-size: 15px;
 	text-align: left;
-}
-
-.plist td:last-child {
-	border-right: none;
 }
 
 #delivery {
@@ -170,7 +168,7 @@ th>p:last-child {
 }
 
 #delivery td {
-	border: 1px solid red;
+	border: 1px solid #a2a2a2;
 	padding: 10px;
 }
 
@@ -179,14 +177,31 @@ th>p:last-child {
 	width: 200px;
 }
 
-#delivery td button {
+#userInfo {
+	padding-bottom: 162px !important;
+}
+
+.title{
+	background: lightgray;
+}
+
+button {
 	padding: 5px;
 	margin-left: 5px;
 	width: 50px;
+	color: white;
+	border: 0px;
+	border-radius: 2px;
+	cursor: pointer;
+	background: orange;
 }
 
-#userInfo {
-	padding-bottom: 162px !important;
+button:hover {
+	background: #ffa500d9;
+}
+
+button:disabled:hover {
+	background: orange;
 }
 </style>
 </head>
@@ -238,32 +253,32 @@ th>p:last-child {
 		<h3>배송지 정보</h3>
 		<table>
 			<tr>
-				<td>수령인</td>
+				<td class="title">수령인</td>
 				<td><%=order.getName()%></td>
-				<td>주문자 정보</td>
+				<td class="title">주문자 정보</td>
 			</tr>
 			<tr>
-				<td>연락처</td>
+				<td class="title">연락처</td>
 				<td><%=order.getPhone()%></td>
 				<td rowspan="5" id="userInfo"><%=order.getUserName()%><br><%=order.getUserId()%></td>
 			</tr>
 			<tr>
-				<td>이메일</td>
+				<td class="title">이메일</td>
 				<td><%=order.getEmail()%></td>
 			</tr>
 			<tr>
-				<td>배송지</td>
+				<td class="title">배송지</td>
 				<td><%=order.getAddress()%></td>
 			</tr>
 			<tr>
-				<td>요청사항</td>
+				<td class="title">요청사항</td>
 				<td><%=order.getRequest()%></td>
 			</tr>
 			<tr>
-				<td>운송장번호</td>
+				<td class="title">운송장번호</td>
 				<td><input type="number" placeholder="숫자만 입력해주세요."
 					value="<%=order.getTrackingNo()%>" id="trackingNo">
-					<button id="updateTrackingNo">저장</button></td>
+					<button id="updateTrackingNo" disabled="disabled">저장</button></td>
 			</tr>
 		</table>
 	</div>
@@ -296,6 +311,13 @@ th>p:last-child {
 				});
 			}
 		}
+	});
+	
+	$('#trackingNo').on('change keyup paste', function(){
+		if($(this).val()!='<%=order.getTrackingNo()%>')
+			$('#updateTrackingNo').attr('disabled', false);
+		else
+			$('#updateTrackingNo').attr('disabled', true);
 	});
 </script>
 </html>
