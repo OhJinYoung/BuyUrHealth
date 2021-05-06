@@ -234,7 +234,7 @@ public class OrderDAO {
 				order = new Order(rset.getInt("order_no"), rset.getString("r_name"), rset.getString("r_address"),
 						rset.getString("r_phone"), rset.getString("request"), rset.getString("payment"),
 						rset.getString("state"), rset.getString("orderdate"), rset.getString("user_name"),
-						rset.getString("user_id"));
+						rset.getString("user_id"),rset.getString("tracking_no"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

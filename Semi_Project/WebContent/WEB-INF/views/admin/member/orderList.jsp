@@ -211,6 +211,7 @@ li>a {
 #currentPage:hover {
 	background: orange !important
 }
+
 </style>
 <body>
 	<%@include file="../header.jsp"%>
@@ -262,11 +263,11 @@ li>a {
 									<td><input type="checkbox" name="checkbox"
 										value="<%=o.getNo()%>"></td>
 									<td><%=o.getOrderDate()%></td>
-									<td><div>
+									<td class="click" onclick="orderDetail(<%=o.getNo()%>)"><div>
 											<p><%=o.getUserName()%></p>
 											<p id="id"><%=o.getUserId()%></p>
 										</div></td>
-									<td><a onclick="orderDetail(<%=o.getNo()%>)"><%=o.getpList()%></a></td>
+									<td class="click" onclick="orderDetail(<%=o.getNo()%>)"><%=o.getpList()%></td>
 									<td><%=price%> 원</td>
 									<td><div>
 											<p><%=o.getState()%></p>
@@ -396,8 +397,14 @@ li>a {
 			location.href = '<%=request.getContextPath()%>/orderList.do?page=' + page;
 	});
 	
+	$('.click').on('mouseover',function(){
+		$(this).closest('tr').css({"background":"beige","color":"orangered","cursor":"pointer"});
+	}).on('mouseout',function(){
+		$(this).closest('tr').css({"background":"","color":"","cursor":""});
+	});
+	
 	function orderDetail(order_no){
-		var option='width=470px, height=330px';
+		var option='width=670px, height=330px';
 		var url = '<%=request.getContextPath()%>/orderDetail.do?no=' + order_no;
 		window.open(url,'orderDetail',option);
 	}
