@@ -33,7 +33,9 @@
 }
 
 .mainMenu:hover {
-	background: beige;
+	border: 1px solid black; 
+	border-radius: 80px 40px;
+	background-color: rgb(250, 213, 204);
 	color: orangered;
 	font-weight: bold;
 	cursor: pointer;
