@@ -398,7 +398,7 @@
 		            		</tr>
 		            		<tr>
 		            			<td class="orderli needed">* 이메일</td>
-		            			<td class="orderan"><input type="email" name="email" id="email" placeholder="주문하시는 분의 이메일을 입력해주세요" size="80px" required></td>
+		            			<td class="orderan"><input type="email" name="email" id="email" placeholder="이메일을 입력해주세요" size="80px" required></td>
 		            		</tr>
 		            		<tr>
 		            			<td class="orderli notNeeded">배송시 요청사항</td>

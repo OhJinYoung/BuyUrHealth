@@ -243,7 +243,7 @@
 					<td class="td1">
 						<label>첨부파일</label>
 						<% if(qaf.isEmpty()) {%>
-						<input type="file" id="uploadFile" name="uploadFile" multiple accept=".jpg, .png, .jpeg">
+						첨부파일이 없습니다.
 						<% } else { %>
 						<a href="<%= request.getContextPath() %>/uploadFiles/qafile_uploadFiles/<%= qaf.get(0).getFileChangeName() %>" target='_blank'><%= qaf.get(0).getFileChangeName() %></a>
 						<% } %>
