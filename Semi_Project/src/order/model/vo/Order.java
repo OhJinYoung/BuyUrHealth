@@ -13,12 +13,13 @@ public class Order {
 	private String userId;
 	private String pList; // 구매 상품 목록
 	private int price;
+	private String trackingNo; // 운송장번호
 
 	public Order() {
 	}
 
 	public Order(int no, String name, String address, String phone, String request, String payment, String state,
-			String orderDate, String userName, String userId) {
+			String orderDate, String userName, String userId, String trackingNo) {
 		super();
 		this.no = no;
 		this.name = name;
@@ -30,6 +31,7 @@ public class Order {
 		this.orderDate = orderDate;
 		this.userName = userName;
 		this.userId = userId;
+		this.trackingNo = trackingNo;
 	}
 
 	public Order(int no, String state, String orderDate, String userName, String userId, String pList, int price) {
@@ -54,6 +56,24 @@ public class Order {
 		this.payment = payment;
 		this.state = state;
 		this.orderDate = orderDate;
+		this.userName = userName;
+		this.userId = userId;
+		this.pList = pList;
+		this.price = price;
+	}
+
+	public Order(int no, String name, String address, String phone, String request, String payment, String state,
+			String orderDate, String trackingNo, String userName, String userId, String pList, int price) {
+		super();
+		this.no = no;
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+		this.request = request;
+		this.payment = payment;
+		this.state = state;
+		this.orderDate = orderDate;
+		this.trackingNo = trackingNo;
 		this.userName = userName;
 		this.userId = userId;
 		this.pList = pList;
@@ -154,6 +174,14 @@ public class Order {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public String getTrackingNo() {
+		return trackingNo;
+	}
+
+	public void setTrackingNo(String trackingNo) {
+		this.trackingNo = trackingNo;
 	}
 
 }

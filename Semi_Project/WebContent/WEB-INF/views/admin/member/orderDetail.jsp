@@ -5,6 +5,9 @@
 Order order = (Order) request.getAttribute("order");
 ArrayList<OrderDetail> olist = (ArrayList) request.getAttribute("olist");
 int total = 0;
+
+if (order.getTrackingNo() == null)
+	order.setTrackingNo("");
 %>
 <!DOCTYPE html>
 <html>
@@ -252,10 +255,15 @@ th>p:last-child {
 			</tr>
 			<tr>
 				<td>운송장번호</td>
-				<td><input type="text" placeholder="운송장 번호를 입력해주세요." value="">
+				<td><input type="text" placeholder="운송장 번호를 입력해주세요."
+					value="<%=order.getTrackingNo()%>">
 					<button id="updateTrakingNo">저장</button></td>
 			</tr>
 		</table>
 	</div>
 </body>
+<script>
+
+
+</script>
 </html>
