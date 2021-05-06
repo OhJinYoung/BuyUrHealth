@@ -1,8 +1,6 @@
 package QABoard.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import QABoard.model.service.QABoardService;
 import QABoard.model.vo.QABoard;
-import QABoard.model.vo.QAFile;
 
 /**
  * Servlet implementation class UpdateQABoardServlet
@@ -32,6 +29,8 @@ public class UpdateQABoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		int bId = Integer.parseInt(request.getParameter("bId"));
 		
 		int category = Integer.parseInt(request.getParameter("category"));
