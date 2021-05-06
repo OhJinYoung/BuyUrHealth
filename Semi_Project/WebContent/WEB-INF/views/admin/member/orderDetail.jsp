@@ -14,6 +14,8 @@ if (order.getTrackingNo() == null)
 <head>
 <meta charset="UTF-8">
 <title>주문 상세정보</title>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 * {
 	margin: 0px;
@@ -256,14 +258,15 @@ th>p:last-child {
 			<tr>
 				<td>운송장번호</td>
 				<td><input type="text" placeholder="운송장 번호를 입력해주세요."
-					value="<%=order.getTrackingNo()%>">
+					value="<%=order.getTrackingNo()%>" id="trackingNo">
 					<button id="updateTrakingNo">저장</button></td>
 			</tr>
 		</table>
 	</div>
 </body>
 <script>
-
-
+	$('#updateTrackingNo').on('click', function() {
+		if($('trackingNo'))
+	});
 </script>
 </html>
