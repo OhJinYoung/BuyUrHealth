@@ -37,7 +37,7 @@ public class NoticeInsertServlet extends HttpServlet {
 		
 		// 데이터 받아오귕
 		String title = request.getParameter("title");
-		String userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserName();
+		String userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		String date = request.getParameter("date");
 		String content = request.getParameter("content");
 		
