@@ -54,7 +54,7 @@ public class OrderDAO {
 			while (rset.next()) {
 				Order order = new Order(rset.getInt("order_no"), rset.getString("state"), rset.getString("orderdate"),
 						rset.getString("user_name"), rset.getString("user_id"), rset.getString("productlist"),
-						rset.getInt("price"));
+						rset.getInt("price"), rset.getString("tracking_no"));
 				list.add(order);
 			}
 		} catch (SQLException e) {
@@ -87,7 +87,7 @@ public class OrderDAO {
 			while (rset.next()) {
 				Order order = new Order(rset.getInt("order_no"), rset.getString("state"), rset.getString("orderdate"),
 						rset.getString("user_name"), rset.getString("user_id"), rset.getString("productlist"),
-						rset.getInt("price"));
+						rset.getInt("price"), rset.getString("tracking_no"));
 				list.add(order);
 			}
 		} catch (SQLException e) {
@@ -234,7 +234,7 @@ public class OrderDAO {
 				order = new Order(rset.getInt("order_no"), rset.getString("r_name"), rset.getString("r_address"),
 						rset.getString("r_phone"), rset.getString("request"), rset.getString("payment"),
 						rset.getString("state"), rset.getString("orderdate"), rset.getString("user_name"),
-						rset.getString("user_id"),rset.getString("tracking_no"));
+						rset.getString("user_id"),rset.getString("tracking_no"),rset.getString("r_email"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -269,6 +269,26 @@ public class OrderDAO {
 			close(pstmt);
 		}
 		return olist;
+	}
+
+	public int updateTrackingNo(Connection conn, int orderNo, String trackingNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateTrackingNo");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, trackingNo);
+			pstmt.setInt(2, orderNo);
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 }
