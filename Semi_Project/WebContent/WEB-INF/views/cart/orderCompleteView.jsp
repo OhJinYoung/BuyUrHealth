@@ -1,11 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="Cart.model.vo.Order" %>
+<%  
+	Order order = (Order)request.getAttribute("order");
+	int orderNo = order.getOrderNo();
+	String phone = order.getPhone();
+	String name = order.getName();
+	String email = order.getEmail();
+	String address = order.getAddress();
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
+	html, body {
+	    height: 100%; 
+	    overflow: auto;
+	    margin: 0px auto;
+	    letter-spacing: -1px;
+	    min-width: 1500px;
+	}	
+	
 	h1{
 		color: red;
 		padding-top: 50px;
@@ -17,6 +34,7 @@
   		border-collapse : collapse;
   		cellpadding: 10px;
   		margin-bottom: 50px;
+  		align: center;
 	}
 	
 	th{
@@ -55,32 +73,25 @@
 	
 		<h1 align="center">주문이 완료 되었습니다!</h1>
 	<form>
-		<table border="1" align="center">
+		
+		<%-- <table border="1" align="center">
 			<tr>
-				<th>주문번호</th>
-				<td></td>
+				<th>주문하신 분</th>
+				<td><%= order.getName() %></td>
 			</tr>
 			<tr>
-				<th>주문 접수일</th>
-				<td></td>
+				<th>주소</th>
+				<td><%= order.getAddress() %></td>
 			</tr>
 			<tr>
-				<th>수령 예상일</th>
-				<td></td>
+				<th>핸드폰 번호</th>
+				<td><%= order.getPhone() %></td>
 			</tr>
 			<tr>
 				<th>결제 수단</th>
-				<td></td>
+				<td><%= o.getPayment() %></td>
 			</tr>
-			<tr>
-				<th>결제 금액</th>
-				<td></td>
-			</tr>
-			<tr>
-				<th>결제 상태</th>
-				<td></td>
-			</tr>
-		</table>
+		</table> --%>
 
 						
 		<div align="center" class="pay button">

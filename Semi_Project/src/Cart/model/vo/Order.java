@@ -1,80 +1,52 @@
 package Cart.model.vo;
 
 public class Order {
-	private String itemName;
-	private int itemNo;
-	private int itemNumber;
-	private int total;
-	private String orderName;
-	private String getName;
+	private int orderNo;
+	private String name; // 받는사람 이름
 	private String address;
 	private String phone;
+	private String request;
 	private String email;
-	private String forrequest;
+	private String payment;
+	private String state;
+	private String orderDate;
+	private int userNo;
+	private String pList; // 구매 상품 목록
+	private int price;
 	
 	public Order() {}
 
-	public Order(String itemName, int itemNo, int itemNumber, int total, String orderName, String getName,
-			String address, String phone, String email, String forrequest) {
+	public Order(int orderNo, String name, String address, String phone, String request, String email, String payment,
+			String state, String orderDate, int userNo, String pList, int price) {
 		super();
-		this.itemName = itemName;
-		this.itemNo = itemNo;
-		this.itemNumber = itemNumber;
-		this.total = total;
-		this.orderName = orderName;
-		this.getName = getName;
+		this.orderNo = orderNo;
+		this.name = name;
 		this.address = address;
 		this.phone = phone;
+		this.request = request;
 		this.email = email;
-		this.forrequest = forrequest;
+		this.payment = payment;
+		this.state = state;
+		this.orderDate = orderDate;
+		this.userNo = userNo;
+		this.pList = pList;
+		this.price = price;
 	}
 
-	public String getItemName() {
-		return itemName;
+	public int getOrderNo() {
+		return orderNo;
 	}
 
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
 	}
 
-	public int getItemNo() {
-		return itemNo;
+	public String getName() {
+		return name;
 	}
 
-	public void setItemNo(int itemNo) {
-		this.itemNo = itemNo;
-	}
-
-	public int getItemNumber() {
-		return itemNumber;
-	}
-
-	public void setItemNumber(int itemNumber) {
-		this.itemNumber = itemNumber;
-	}
-
-	public int getTotal() {
-		return total;
-	}
-
-	public void setTotal(int total) {
-		this.total = total;
-	}
-
-	public String getOrderName() {
-		return orderName;
-	}
-
-	public void setOrderName(String orderName) {
-		this.orderName = orderName;
-	}
-
-	public String getGetName() {
-		return getName;
-	}
-
-	public void setGetName(String getName) {
-		this.getName = getName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getAddress() {
@@ -93,6 +65,14 @@ public class Order {
 		this.phone = phone;
 	}
 
+	public String getRequest() {
+		return request;
+	}
+
+	public void setRequest(String request) {
+		this.request = request;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -101,20 +81,61 @@ public class Order {
 		this.email = email;
 	}
 
-	public String getForrequest() {
-		return forrequest;
+	public String getPayment() {
+		return payment;
 	}
 
-	public void setForrequest(String forrequest) {
-		this.forrequest = forrequest;
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+	public String getpList() {
+		return pList;
+	}
+
+	public void setpList(String pList) {
+		this.pList = pList;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	@Override
 	public String toString() {
-		return "Order [itemName=" + itemName + ", itemNo=" + itemNo + ", itemNumber=" + itemNumber + ", total=" + total
-				+ ", orderName=" + orderName + ", getName=" + getName + ", address=" + address + ", phone=" + phone
-				+ ", email=" + email + ", forrequest=" + forrequest + "]";
+		return "Order [orderNo=" + orderNo + ", name=" + name + ", address=" + address + ", phone=" + phone
+				+ ", request=" + request + ", email=" + email + ", payment=" + payment + ", state=" + state
+				+ ", orderDate=" + orderDate + ", userNo=" + userNo + ", pList=" + pList + ", price=" + price + "]";
 	}
+	
 	
 	
 }
