@@ -14,6 +14,8 @@ if (order.getTrackingNo() == null)
 <head>
 <meta charset="UTF-8">
 <title>주문 상세정보</title>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 * {
 	margin: 0px;
@@ -172,7 +174,7 @@ th>p:last-child {
 	padding: 10px;
 }
 
-#delivery td input {
+#delivery td input, #delivery td textarea{
 	padding: 5px;
 	width: 200px;
 }
@@ -184,7 +186,7 @@ th>p:last-child {
 }
 
 #userInfo {
-	padding-bottom: 122px !important;
+	padding-bottom: 162px !important;
 }
 </style>
 </head>
@@ -198,7 +200,7 @@ th>p:last-child {
 			</div>
 			<div>
 				<p>주문번호</p>
-				<p><%=order.getNo()%></p>
+				<p id="orderNo"><%=order.getNo()%></p>
 			</div>
 		</div>
 		<table id="product">
@@ -243,7 +245,11 @@ th>p:last-child {
 			<tr>
 				<td>연락처</td>
 				<td><%=order.getPhone()%></td>
-				<td rowspan="4" id="userInfo"><%=order.getUserName()%><br><%=order.getUserId()%></td>
+				<td rowspan="5" id="userInfo"><%=order.getUserName()%><br><%=order.getUserId()%></td>
+			</tr>
+			<tr>
+				<td>이메일</td>
+				<td><%=order.getEmail()%></td>
 			</tr>
 			<tr>
 				<td>배송지</td>
@@ -255,15 +261,41 @@ th>p:last-child {
 			</tr>
 			<tr>
 				<td>운송장번호</td>
-				<td><input type="text" placeholder="운송장 번호를 입력해주세요."
-					value="<%=order.getTrackingNo()%>">
-					<button id="updateTrakingNo">저장</button></td>
+				<td><input type="number" placeholder="숫자만 입력해주세요."
+					value="<%=order.getTrackingNo()%>" id="trackingNo">
+					<button id="updateTrackingNo">저장</button></td>
 			</tr>
 		</table>
 	</div>
 </body>
 <script>
-
-
+	$('#updateTrackingNo').on('click', function() {
+		var trackingNo = $('#trackingNo').val().trim();
+		var regex = /^[0-9]/g;
+		if (trackingNo == '') {
+			alert('운송장번호를 입력해주세요.');
+		} else {
+			if (!regex.test(trackingNo)) {
+				alert('숫자만 입력해주세요.');
+				$('#trackingNo').val('');
+				$('#trackingNo').focus();
+			} else {
+				$.ajax({
+					url : 'updateTrackingNo.do',
+					data : {
+						orderNo : $('#orderNo').text(),
+						trackingNo : trackingNo
+					},
+					success : function(data) {
+						alert(data);
+						if (data != '')
+							window.location.reload();
+						else
+							$('#trackingNo').focus();
+					}
+				});
+			}
+		}
+	});
 </script>
 </html>

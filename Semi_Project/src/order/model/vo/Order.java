@@ -36,7 +36,7 @@ public class Order {
 		this.email = email;
 	}
 
-	public Order(int no, String state, String orderDate, String userName, String userId, String pList, int price) {
+	public Order(int no, String state, String orderDate, String userName, String userId, String pList, int price, String trackingNo) {
 		super();
 		this.no = no;
 		this.state = state;
@@ -45,6 +45,7 @@ public class Order {
 		this.userId = userId;
 		this.pList = pList;
 		this.price = price;
+		this.trackingNo = trackingNo;
 	}
 
 	public Order(int no, String name, String address, String phone, String request, String payment, String state,

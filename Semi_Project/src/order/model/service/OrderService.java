@@ -111,4 +111,19 @@ public class OrderService {
 		return olist;
 	}
 
+	public int updateTrackingNo(int orderNo, String trackingNo) {
+		Connection conn = getConnection();
+
+		int result = new OrderDAO().updateTrackingNo(conn, orderNo, trackingNo);
+
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+
+		close(conn);
+
+		return result;
+	}
+
 }
