@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Cart.model.service.CartService;
+import Cart.model.service.OrderService;
+import Cart.model.vo.Order;
 
 
 /**
@@ -29,8 +31,20 @@ public class OrderCompleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		request.getRequestDispatcher("WEB-INF/views/cart/orderCompleteView.jsp").forward(request, response);
+		int no = Integer.parseInt(request.getParameter("no"));
+		
+		Order order = new OrderService().detailOrder(no);
+		
+		String page = null;
+		if(order != null) {
+			page = "WEB-INF/views/cart/orderCompleteView.jsp";
+			request.setAttribute("order", order);
+		} else {
+			page = "WEB-INF/views/common/errorPage.jsp";
+			request.setAttribute("msg", "공지사항 수정에 실패했습니다.");
+		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

@@ -1,16 +1,16 @@
 package Cart.model.dao;
 
-import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import Cart.model.service.OrderService;
 import Cart.model.vo.Order;
 
 public class OrderDAO {
@@ -61,6 +61,41 @@ public class OrderDAO {
 		return result;
 
 	}
+
+
+	public Order detailOrder(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Order order = null;
+		
+		String query = prop.getProperty("detailOrder");
+		// detailOrder=SELECT USER_NAME, R_NAME, R_ADDRESS, R_PHONE, R_EMAIL, PAYMENT 
+		// FROM ORDERLIST JOIN MEMBERLIST USING (USER_NO) WHERE ORDER_NO=?
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				order = new Order(rset.getString("R_NAME"),
+									rset.getString("R_ADDRESS"),
+									rset.getString("R_PHONE"),
+									rset.getString("PAYMENT"),
+									rset.getString("USER_NAME"),
+									rset.getString("R_EMAIL"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return order;
+	}
+
+
+
 
 	
 }

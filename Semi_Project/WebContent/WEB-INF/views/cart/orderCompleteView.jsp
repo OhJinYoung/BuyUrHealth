@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="Cart.model.vo.Order" %>
-
+<% Order order = (Order)request.getAttribute("order"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +14,8 @@
 	    margin: 0px auto;
 	    letter-spacing: -1px;
 	    min-width: 1500px;
+  		align: center;
+  		margin: auto;
 	}	
 	
 	h1{
@@ -22,6 +24,7 @@
 	}
 	
 	table{
+  		margin: auto;
 		width: 80%;
 		border : 1px solid black;
   		border-collapse : collapse;
@@ -67,9 +70,13 @@
 		<h1 align="center">주문이 완료 되었습니다!</h1>
 	<form>
 		
-		<%-- <table border="1" align="center">
+		<table border="1" align="center">
 			<tr>
 				<th>주문하신 분</th>
+				<td><%= order.getUserName() %></td>
+			</tr>
+			<tr>
+				<th>받는분</th>
 				<td><%= order.getName() %></td>
 			</tr>
 			<tr>
@@ -81,10 +88,14 @@
 				<td><%= order.getPhone() %></td>
 			</tr>
 			<tr>
-				<th>결제 수단</th>
-				<td><%= o.getPayment() %></td>
+				<th>이메일</th>
+				<td><%= order.getEmail() %></td>
 			</tr>
-		</table> --%>
+			<tr>
+				<th>결제 수단</th>
+				<td><%= order.getPayment() %></td>
+			</tr>
+		</table>
 
 						
 		<div align="center" class="pay button">

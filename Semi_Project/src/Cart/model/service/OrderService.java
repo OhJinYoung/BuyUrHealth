@@ -1,7 +1,6 @@
 package Cart.model.service;
 
-import static common.JDBCTemplate.close;
-import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 
@@ -14,10 +13,34 @@ public class OrderService {
 		Connection conn = getConnection();
 
 		int result = new OrderDAO().insertOrderInfo(conn, o);
-
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
 		close(conn);
 
 		return result;
+	}
+
+	public Order detailOrder(int no) {
+		Connection conn = getConnection();
+		
+		
+		Order order = new OrderDAO().detailOrder(conn, no);
+		
+		if(order == null) {
+			rollback(conn);
+		} else {
+			commit(conn);
+		}
+		
+		close(conn);
+		
+		return order;
+
 	}
 
 }

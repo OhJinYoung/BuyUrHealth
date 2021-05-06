@@ -17,8 +17,7 @@ public class Order {
 	private String trackingNo; // 운송장번호
 	private String email;
 
-	public Order() {
-	}
+	public Order() {}
 
 	public Order(int no, String name, String address, String phone, String request, String payment, String state,
 			String orderDate, int userNo, String userName, String userId, String pList, int price, String trackingNo,
@@ -38,6 +37,16 @@ public class Order {
 		this.pList = pList;
 		this.price = price;
 		this.trackingNo = trackingNo;
+		this.email = email;
+	}
+	
+	public Order(String name, String address, String phone, String payment, String userName, String email) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+		this.payment = payment;
+		this.userName = userName;
 		this.email = email;
 	}
 

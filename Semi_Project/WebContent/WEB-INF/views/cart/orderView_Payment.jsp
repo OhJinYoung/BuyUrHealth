@@ -368,7 +368,7 @@
             		<div class="addressdiv" id="address">
 		            	<h3>배송지 정보</h3>
 		            	
-		   <form action="pay();" name="orderform" id="orderform" method="post" class="orderform" >         	
+		   <form action="pay();" name="orderform" id="orderform" method="post" class="orderform">  
 		   	
 		            	<table border="1" class="addressTable" cellpadding="10px">
 		            	
@@ -526,8 +526,9 @@
 						msg += '이메일 : ' + rsp.buyer_email + '\n';
 						msg += '주소 : ' + rsp.buyer_addr + '\n';
 						msg += '결제 금액 : ' + rsp.paid_amount;
-					
-						location.href='<%=request.getContextPath()%>/order.or';	
+						
+
+						location.href='<%=request.getContextPath()%>/com.or?no=' + orderNo;	
 						
 						
 					} else {
