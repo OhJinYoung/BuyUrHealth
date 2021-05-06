@@ -266,12 +266,12 @@ td a:hover{
 								if (list != null && list.size() > 0) {
 									for (Member m : list) {
 								%>
-								<tr>
+								<tr class="click">
 									<td><input type="checkbox" name="checkbox"
 										value="<%=m.getUserId()%>"></td>
-									<td class="memberInfo"><a><%=m.getUserId()%></a></td>
-									<td><%=m.getUserName()%></td>
-									<td><%=m.getUserDate()%></td>
+									<td onclick="memberInfo('<%=m.getUserId()%>')"><%=m.getUserId()%></td>
+									<td onclick="memberInfo('<%=m.getUserId()%>')"><%=m.getUserName()%></td>
+									<td onclick="memberInfo('<%=m.getUserId()%>')"><%=m.getUserDate()%></td>
 									<td><%=m.getCountComm() %>/<%=m.getCountReply() %>/<%=m.getCountQna() %></td>
 								</tr>
 								<%
@@ -369,11 +369,6 @@ td a:hover{
 		}
 	});
 	
-	$('.memberInfo>a').on('click', function(){
-		var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='+ $(this).text();
-		window.open(url, 'update', 'width=300px, height=320px');
-	});
-	
 	$('#pagingBtns button').on('click', function(){
 		var page = $(this).val();
 		if('<%=input%>'!='')
@@ -381,5 +376,16 @@ td a:hover{
 		else
 			location.href = '<%=request.getContextPath()%>/memberList.do?page=' + page;
 	});
+	
+	$('.click').on('mouseover',function(){
+		$(this).closest('tr').css({"background":"beige","color":"orangered","cursor":"pointer"});
+	}).on('mouseout',function(){
+		$(this).closest('tr').css({"background":"","color":"","cursor":""});
+	});
+	
+	function memberInfo(member_id){
+		var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='+ member_id;
+		window.open(url, 'memberInfo', 'width=300px, height=320px');
+	}
 </script>
 </html>

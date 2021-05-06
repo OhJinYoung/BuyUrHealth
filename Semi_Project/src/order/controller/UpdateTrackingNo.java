@@ -40,9 +40,9 @@ public class UpdateTrackingNo extends HttpServlet {
 
 		String msg = null;
 		if (result > 0)
-			msg = "배송지 정보가 수정되었습니다.";
+			msg = "운송장 번호가 저장되었습니다.";
 		else
-			msg = "운송장번호 저장 중 오류가 발생했습니다.";
+			msg = "운송장 번호 저장 중 오류가 발생했습니다.";
 		
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(msg, response.getWriter());

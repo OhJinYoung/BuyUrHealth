@@ -239,25 +239,25 @@ th>p:last-child {
 		<table>
 			<tr>
 				<td>수령인</td>
-				<td><input type="text" value="<%=order.getName()%>"></td>
+				<td><%=order.getName()%></td>
 				<td>주문자 정보</td>
 			</tr>
 			<tr>
 				<td>연락처</td>
-				<td><input type="text" value="<%=order.getPhone()%>"></td>
+				<td><%=order.getPhone()%></td>
 				<td rowspan="5" id="userInfo"><%=order.getUserName()%><br><%=order.getUserId()%></td>
 			</tr>
 			<tr>
 				<td>이메일</td>
-				<td><input type="email" value="<%=order.getEmail()%>"></td>
+				<td><%=order.getEmail()%></td>
 			</tr>
 			<tr>
 				<td>배송지</td>
-				<td><input type="text" value="<%=order.getAddress()%>"></td>
+				<td><%=order.getAddress()%></td>
 			</tr>
 			<tr>
 				<td>요청사항</td>
-				<td><textarea><%=order.getRequest()%></textarea></td>
+				<td><%=order.getRequest()%></td>
 			</tr>
 			<tr>
 				<td>운송장번호</td>
