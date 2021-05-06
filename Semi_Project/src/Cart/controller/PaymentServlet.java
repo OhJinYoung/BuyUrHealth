@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import Cart.model.service.OrderService;
 import Cart.model.vo.Order;
 
@@ -36,8 +38,10 @@ public class PaymentServlet extends HttpServlet {
 		String status = request.getParameter("state"); 
 		String payments = request.getParameter("payment");
 		
-		String imp_uid = request.getParameter("imp_uid"); //post ajax request로부터 imp_uid확인
-
+		/*
+		 * String imp_uid = request.getParameter("imp_uid"); //post ajax request로부터
+		 * imp_uid확인
+		 */
 		
 		
 		String state = "";
@@ -57,9 +61,9 @@ public class PaymentServlet extends HttpServlet {
 		Order o = new Order();
 		o.setPayment(payment);
 		o.setState(state);
-		o.setOrderNo(orderNo);
+		o.setNo(orderNo);;
 		
-		int result = new OrderService().payInfo(o);
+		int result = 0;
 		
 		if(result > 0) {
 			request.getRequestDispatcher("WEB-INF/views/cart/orderCompleteView.jsp").forward(request, response);

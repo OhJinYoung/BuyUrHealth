@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="Cart.model.vo.Order" %>
-<%  
-	Order order = (Order)request.getAttribute("order");
-	int orderNo = order.getOrderNo();
-	String phone = order.getPhone();
-	String name = order.getName();
-	String email = order.getEmail();
-	String address = order.getAddress();
-%>
+
 <!DOCTYPE html>
 <html>
 <head>

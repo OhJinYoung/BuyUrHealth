@@ -20,14 +20,4 @@ public class OrderService {
 		return result;
 	}
 
-	public int payInfo(Order o) {
-		Connection conn = getConnection();
-
-		int result = new OrderDAO().payInfo(conn, o);
-
-		close(conn);
-
-		return result;
-	}
-	
 }
