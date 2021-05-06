@@ -174,7 +174,7 @@ th>p:last-child {
 	padding: 10px;
 }
 
-#delivery td input {
+#delivery td input, #delivery td textarea{
 	padding: 5px;
 	width: 200px;
 }
@@ -186,7 +186,7 @@ th>p:last-child {
 }
 
 #userInfo {
-	padding-bottom: 122px !important;
+	padding-bottom: 162px !important;
 }
 </style>
 </head>
@@ -200,7 +200,7 @@ th>p:last-child {
 			</div>
 			<div>
 				<p>주문번호</p>
-				<p><%=order.getNo()%></p>
+				<p id="orderNo"><%=order.getNo()%></p>
 			</div>
 		</div>
 		<table id="product">
@@ -239,34 +239,63 @@ th>p:last-child {
 		<table>
 			<tr>
 				<td>수령인</td>
-				<td><%=order.getName()%></td>
+				<td><input type="text" value="<%=order.getName()%>"></td>
 				<td>주문자 정보</td>
 			</tr>
 			<tr>
 				<td>연락처</td>
-				<td><%=order.getPhone()%></td>
-				<td rowspan="4" id="userInfo"><%=order.getUserName()%><br><%=order.getUserId()%></td>
+				<td><input type="text" value="<%=order.getPhone()%>"></td>
+				<td rowspan="5" id="userInfo"><%=order.getUserName()%><br><%=order.getUserId()%></td>
+			</tr>
+			<tr>
+				<td>이메일</td>
+				<td><input type="email" value="<%=order.getEmail()%>"></td>
 			</tr>
 			<tr>
 				<td>배송지</td>
-				<td><%=order.getAddress()%></td>
+				<td><input type="text" value="<%=order.getAddress()%>"></td>
 			</tr>
 			<tr>
 				<td>요청사항</td>
-				<td><%=order.getRequest()%></td>
+				<td><textarea><%=order.getRequest()%></textarea></td>
 			</tr>
 			<tr>
 				<td>운송장번호</td>
-				<td><input type="text" placeholder="운송장 번호를 입력해주세요."
+				<td><input type="number" placeholder="숫자만 입력해주세요."
 					value="<%=order.getTrackingNo()%>" id="trackingNo">
-					<button id="updateTrakingNo">저장</button></td>
+					<button id="updateTrackingNo">저장</button></td>
 			</tr>
 		</table>
 	</div>
 </body>
 <script>
 	$('#updateTrackingNo').on('click', function() {
-		if($('trackingNo'))
+		var trackingNo = $('#trackingNo').val().trim();
+		var regex = /^[0-9]/g;
+		if (trackingNo == '') {
+			alert('운송장번호를 입력해주세요.');
+		} else {
+			if (!regex.test(trackingNo)) {
+				alert('숫자만 입력해주세요.');
+				$('#trackingNo').val('');
+				$('#trackingNo').focus();
+			} else {
+				$.ajax({
+					url : 'updateTrackingNo.do',
+					data : {
+						orderNo : $('#orderNo').text(),
+						trackingNo : trackingNo
+					},
+					success : function(data) {
+						alert(data);
+						if (data != '')
+							window.location.reload();
+						else
+							$('#trackingNo').focus();
+					}
+				});
+			}
+		}
 	});
 </script>
 </html>

@@ -1,6 +1,7 @@
 package order.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,16 +13,16 @@ import com.google.gson.Gson;
 import order.model.service.OrderService;
 
 /**
- * Servlet implementation class RequestOUServlet
+ * Servlet implementation class UpdateTrackingNo
  */
-@WebServlet("/requestOU.do")
-public class RequestOUServlet extends HttpServlet {
+@WebServlet("/updateTrackingNo.do")
+public class UpdateTrackingNo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public RequestOUServlet() {
+	public UpdateTrackingNo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -32,16 +33,17 @@ public class RequestOUServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int no = Integer.parseInt(request.getParameter("no"));
-		String state = request.getParameter("state");
+		int orderNo = Integer.parseInt(request.getParameter("orderNo"));
+		String trackingNo = request.getParameter("trackingNo");
 
-		OrderService oService = new OrderService();
-		int result = oService.updateRequest(no, state);
+		int result = new OrderService().updateTrackingNo(orderNo, trackingNo);
 
-		String msg = "";
+		String msg = null;
 		if (result > 0)
-			msg = "요청번호 " + no + " " + state + " 되었습니다.";
-
+			msg = "배송지 정보가 수정되었습니다.";
+		else
+			msg = "운송장번호 저장 중 오류가 발생했습니다.";
+		
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(msg, response.getWriter());
 	}

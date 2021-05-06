@@ -192,12 +192,12 @@ li>a {
 	color: #828282a6;
 }
 
-.requestBtn {
+.requestBtn, .trackingBtn {
 	font-size: 10px;
 	padding: 4px;
 }
 
-.requestBtn:hover, #searchBtn:hover {
+.requestBtn:hover, #searchBtn:hover, .trackingBtn:hover {
 	background: lightgray;
 	cursor: pointer;
 }
@@ -278,6 +278,12 @@ li>a {
 											<p>
 												<button class="requestBtn" value="<%=o.getNo()%>">요청서
 													확인</button>
+											</p>
+											<%
+											} else if (state.equals("배송중")&&o.getTrackingNo()!=null&&!o.getTrackingNo().equals("")){
+											%>
+											<p>
+												<button class="trackingBtn" value="<%=o.getTrackingNo()%>">배송 조회</button>
 											</p>
 											<%
 											}
@@ -387,6 +393,11 @@ li>a {
 		var option='width=470px, height=330px';
 		var url = '<%=request.getContextPath()%>/requestOUForm.do?no=' + $(this).val();
 		window.open(url,'request',option);
+	});
+	
+	$('.trackingBtn').on('click', function(){
+		var url = 'https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?displayHeader=N&sid1=' + $(this).val();
+		window.open(url,'tracking');
 	});
 	
 	$('#pagingBtns button').on('click', function(){
