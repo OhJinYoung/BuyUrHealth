@@ -14,12 +14,13 @@ public class Order {
 	private String pList; // 구매 상품 목록
 	private int price;
 	private String trackingNo; // 운송장번호
+	private String email;
 
 	public Order() {
 	}
 
 	public Order(int no, String name, String address, String phone, String request, String payment, String state,
-			String orderDate, String userName, String userId, String trackingNo) {
+			String orderDate, String userName, String userId, String trackingNo, String email) {
 		super();
 		this.no = no;
 		this.name = name;
@@ -32,6 +33,7 @@ public class Order {
 		this.userName = userName;
 		this.userId = userId;
 		this.trackingNo = trackingNo;
+		this.email = email;
 	}
 
 	public Order(int no, String state, String orderDate, String userName, String userId, String pList, int price) {
@@ -63,7 +65,8 @@ public class Order {
 	}
 
 	public Order(int no, String name, String address, String phone, String request, String payment, String state,
-			String orderDate, String trackingNo, String userName, String userId, String pList, int price) {
+			String orderDate, String trackingNo, String userName, String userId, String pList, int price,
+			String email) {
 		super();
 		this.no = no;
 		this.name = name;
@@ -78,6 +81,7 @@ public class Order {
 		this.userId = userId;
 		this.pList = pList;
 		this.price = price;
+		this.email = email;
 	}
 
 	public int getNo() {
@@ -182,6 +186,14 @@ public class Order {
 
 	public void setTrackingNo(String trackingNo) {
 		this.trackingNo = trackingNo;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }
