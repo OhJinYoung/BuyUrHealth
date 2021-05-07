@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import Cart.model.vo.UserOrder;
+import order.model.vo.Order;
 
 public class UserOrderDAO {
 	private Properties prop = new Properties();
@@ -30,7 +30,7 @@ public class UserOrderDAO {
 	}
 	
 	
-	public int insertOrderInfo(Connection conn, UserOrder o) {
+	public int insertOrderInfo(Connection conn, Order o) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -63,10 +63,10 @@ public class UserOrderDAO {
 	}
 
 
-	public UserOrder detailOrder(Connection conn, int no) {
+	public Order detailOrder(Connection conn, int no) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		UserOrder order = null;
+		Order order = null;
 		
 		String query = prop.getProperty("detailOrder");
 		// detailOrder=SELECT USER_NAME, R_NAME, R_ADDRESS, R_PHONE, R_EMAIL, PAYMENT 
@@ -78,7 +78,7 @@ public class UserOrderDAO {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				order = new UserOrder(rset.getString("R_NAME"),
+				order = new Order(rset.getString("R_NAME"),
 									rset.getString("R_ADDRESS"),
 									rset.getString("R_PHONE"),
 									rset.getString("PAYMENT"),

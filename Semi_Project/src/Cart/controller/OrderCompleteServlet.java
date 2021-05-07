@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Cart.model.service.CartService;
 import Cart.model.service.UserOrderService;
-import Cart.model.vo.UserOrder;
+import order.model.vo.Order;
 
 
 /**
@@ -33,7 +33,7 @@ public class OrderCompleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no = Integer.parseInt(request.getParameter("no"));
 		
-		UserOrder order = new UserOrderService().detailOrder(no);
+		Order order = new UserOrderService().detailOrder(no);
 		
 		String page = null;
 		if(order != null) {

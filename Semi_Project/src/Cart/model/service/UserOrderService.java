@@ -5,11 +5,11 @@ import static common.JDBCTemplate.*;
 import java.sql.Connection;
 
 import Cart.model.dao.UserOrderDAO;
-import Cart.model.vo.UserOrder;
+import order.model.vo.Order;
 
 public class UserOrderService {
 	
-	public int insertOrderInfo(UserOrder o) {
+	public int insertOrderInfo(Order o) {
 		Connection conn = getConnection();
 
 		int result = new UserOrderDAO().insertOrderInfo(conn, o);
@@ -25,11 +25,11 @@ public class UserOrderService {
 		return result;
 	}
 
-	public UserOrder detailOrder(int no) {
+	public Order detailOrder(int no) {
 		Connection conn = getConnection();
 		
 		
-		UserOrder order = new UserOrderDAO().detailOrder(conn, no);
+		Order order = new UserOrderDAO().detailOrder(conn, no);
 		
 		if(order == null) {
 			rollback(conn);

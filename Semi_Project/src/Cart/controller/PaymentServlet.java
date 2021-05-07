@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import Cart.model.service.UserOrderService;
-import Cart.model.vo.UserOrder;
+import order.model.vo.Order;
 
 /**
  * Servlet implementation class PaymentServlet
@@ -58,7 +58,7 @@ public class PaymentServlet extends HttpServlet {
 			payment = "-";
 		}
 		
-		UserOrder o = new UserOrder();
+		Order o = new Order();
 		o.setPayment(payment);
 		o.setState(state);
 		o.setNo(orderNo);;

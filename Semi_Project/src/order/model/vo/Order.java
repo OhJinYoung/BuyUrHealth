@@ -9,6 +9,7 @@ public class Order {
 	private String payment;
 	private String state;
 	private String orderDate;
+	private int userNo; // userNo 추가
 	private String userName; // 구매한 회원 이름
 	private String userId;
 	private String pList; // 구매 상품 목록
@@ -18,6 +19,29 @@ public class Order {
 
 	public Order() {
 	}
+	
+	// userNo 추가한 생성자 + 주문완료 페이지용 생성자 추가했습니다.
+	public Order(int no, String name, String address, String phone, String request, String payment, String state,
+			String orderDate, int userNo, String userName, String userId, String pList, int price, String trackingNo,
+			String email) {
+		super();
+		this.no = no;
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+		this.request = request;
+		this.payment = payment;
+		this.state = state;
+		this.orderDate = orderDate;
+		this.userNo = userNo;
+		this.userName = userName;
+		this.userId = userId;
+		this.pList = pList;
+		this.price = price;
+		this.trackingNo = trackingNo;
+		this.email = email;
+	}
+
 
 	public Order(int no, String name, String address, String phone, String request, String payment, String state,
 			String orderDate, String userName, String userId, String trackingNo, String email) {
@@ -82,6 +106,16 @@ public class Order {
 		this.userId = userId;
 		this.pList = pList;
 		this.price = price;
+		this.email = email;
+	}
+	
+	public Order(String name, String address, String phone, String payment, String userName, String email) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+		this.payment = payment;
+		this.userName = userName;
 		this.email = email;
 	}
 
@@ -196,5 +230,15 @@ public class Order {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+	
+	
 
 }
