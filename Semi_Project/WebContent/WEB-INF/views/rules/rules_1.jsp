@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
+	html{
+		min-width: 1000px;
+	}
+
 	html, body {
 	    height: 100%; 
 	    overflow-y: auto;
@@ -46,7 +50,6 @@
 	.qa.head{
 		width: 98%; float: left; margin-left: 30px; 
 		margin-top: 15px;
-		/* background: lightpink; */
 	}
 	
 	h3{
@@ -62,7 +65,6 @@
 		width: 100%;
 	}
 	
-
 	.qa.body{
 		width: 90%; 
 		min-height:350px; 

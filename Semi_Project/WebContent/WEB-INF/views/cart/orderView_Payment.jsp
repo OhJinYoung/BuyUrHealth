@@ -225,18 +225,6 @@
 	}
 
 	
-	
-	
-    
-    
-    
-    
-
-    
-	
-    
-    
-	
 </style>
 </head>
 <body>
@@ -492,8 +480,7 @@
 					msg += '주소 : ' + rsp.buyer_addr + '\n';
 					msg += '결제 금액 : ' + rsp.paid_amount;
 					
-
-					location.href='<%=request.getContextPath()%>/com.or?no=' + orderNo;	
+					/* 필수 */
 					
 				} else {
 				var msg = '결제에 실패하였습니다.';
@@ -501,6 +488,7 @@
 				
 				}
 				alert(msg);
+				location.href='<%=request.getContextPath()%>/com.or?orderNo=' + orderNo;
 			});
 		}
 		</script>

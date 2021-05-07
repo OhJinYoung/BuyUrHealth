@@ -10,6 +10,9 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 %>
+<%
+	Member authority = (Member) session.getAttribute("loginUser");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -18,9 +21,10 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
-html{
-	min-width: 1000px;
-}
+	html{
+		min-width: 1000px;
+	}
+	
 	html, body {
 	    height: 100%; 
 	    overflow-y: auto;
@@ -29,26 +33,24 @@ html{
 	    letter-spacing: -1px;
 	}	
 	
-	#qaboard-menubar-name { 
+	#service-menubar-name { 
 		text-align: center; 
 		font-size: 20px;
 	}
 	
-	.qaboard-menubar ul, li {
+	.service-menubar ul, li {
 		list-style: none; 
-		padding: 10px; 
-		margin: 0; 
-		text-align: center;
+		padding: 10px; margin: 0; text-align: center;
 	}
 	
-	.qaboard-menubar {
+	.service-menubar {
         width: 170px;
-        max-width:170px;
+        max-width: 170px;
         padding: 20px;
         margin-top: 14px; 
         float: left;
         position: absolute;
-        height: 100%;
+        min-height: 100%;
         overflow: auto;
 	}
 	
@@ -56,14 +58,20 @@ html{
 	    width: 85%;
         margin-top: 30px; 
         margin-right: 10px;
-		/* background: lightblue; */
 		position: absolute; /* 없애지 말 것 */
 		margin-left: 200px;
 	}
+	
 	.qa.head{
 		width: 98%; float: left; margin-left: 30px; 
 		margin-top: 15px;
-		/* background: lightpink; */
+	}
+	
+	h3{
+		color: black; 
+		margin: 0px auto;
+		font-size: 20px;
+		margin-left: 15px;
 	}
 	
 	.item:hover {
@@ -73,13 +81,6 @@ html{
 	.itemTitle{
 		margin: 5px;
 		margin-top: 10px;
-	}
-	
-	h3{
-		color: black; 
-		margin: 0px auto;
-		font-size: 20px;
-		margin-left: 15px;
 	}
 	
 	.subdiv{
@@ -173,9 +174,9 @@ html{
 <body>
 	<%@ include file="../title_header.jsp" %>
 	
-	<div class="qaboard-menubar">
+	<div class="service-menubar">
 	<hr>
-		<h2 id="qaboard-menubar-name">Q&A</h2>
+		<h2 id="service-menubar-name">Q&A</h2>
 	<hr>
 		<ul>
 			<li class="servicemenu" id="">공지사항</li>
@@ -192,9 +193,9 @@ html{
 				<h3>고객센터>Q&A</h3>
 			</div>
 			<div class="buttondiv">
-				<% if(loginUser != null){ %> 
+				 
 				<button class="button" onclick="location.href='<%= request.getContextPath() %>/QABoardWriteForm.bo'">문의하기</button>
-				 <% } %> 
+				 
 			</div>
 			<br>
 			<div class="line"></div>
@@ -209,29 +210,28 @@ html{
 					<th width="15%">상태</th>
 				</tr>
 				
-						<% if(list.isEmpty()){ %>
-							<tr>
-								<td colspan="3">조회된 리스트가 없습니다.</td>
-							</tr>
-					
-						<% } else { 
-							for (QABoard bo : list){ %>
-						<tr>
-							<td class="none">
-							<%= bo.getQaNo() %>
-							</td>
-							<td>
-							<%= bo.getQaQuestionDate() %>
-							</td>
-							<td><%= bo.getQaTitle() %></td>
-							<% if(bo.getQaAnswer() != null) { %>
-							<td>답변완료</td>
-							<% } else { %>
-							<td>답변대기</td>
-							<% } %>
-							<% } %> 
-						</tr>
-						<% } %> 
+			<% if(loginUser != null){ %>
+				<tr>
+					<td colspan="3">로그인을 해주세요.</td>
+				</tr>
+			<% } else if(list.isEmpty()){ %>
+				<tr>
+					<td colspan="3">조회된 리스트가 없습니다.</td>
+				</tr>
+			<% } else { 
+				for (QABoard bo : list){ %>
+				<tr>
+					<td class="none"><%= bo.getQaNo() %></td>
+					<td><%= bo.getQaQuestionDate() %></td>
+					<td><%= bo.getQaTitle() %></td>
+					<% if(bo.getQaAnswer() != null) { %>
+						<td>답변완료</td>
+					<% } else { %>
+						<td>답변대기</td>
+				<% } %>
+			<% } %> 
+				</tr>
+			<% } %> 
 			</table>
 		</div>
 	

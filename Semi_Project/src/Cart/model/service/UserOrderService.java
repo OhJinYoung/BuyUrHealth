@@ -25,11 +25,10 @@ public class UserOrderService {
 		return result;
 	}
 
-	public Order detailOrder(int no) {
+	public Order detailOrder(int oNo) {
 		Connection conn = getConnection();
 		
-		
-		Order order = new UserOrderDAO().detailOrder(conn, no);
+		Order order = new UserOrderDAO().detailOrder(conn, oNo);
 		
 		if(order == null) {
 			rollback(conn);
