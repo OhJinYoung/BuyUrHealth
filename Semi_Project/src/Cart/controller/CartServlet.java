@@ -44,6 +44,7 @@ public class CartServlet extends HttpServlet {
 		
 		String page = null;
 		if(member != null) {
+			// page = "WEB-INF/views/cart/cartView.jsp";
 			page = "WEB-INF/views/cart/cartView.jsp";
 			request.setAttribute("userId", member);
 		} else {

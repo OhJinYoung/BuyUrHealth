@@ -5,7 +5,6 @@ package QABoard.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.List;
 
 import static common.JDBCTemplate.*;
 import QABoard.model.dao.QABoardDAO;
