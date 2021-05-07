@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="member.model.vo.Member"%>
-<%
-Member member = (Member) request.getAttribute("member");
-%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,17 +97,22 @@ select {
 	<div id="contents">
 		<div id="contents-wrap">
 			<div id="table">
-				<input type="hidden" id="no" value="<%=member.getUserNo()%>">
 				<table>
 					<tr>
 						<td>아이디</td>
-						<td><input type="text" value="<%=member.getUserId()%>"
-							readonly></td>
+						<td><input type="text" id="id"></td>
+					</tr>
+					<tr>
+						<td>비밀번호</td>
+						<td><input type="password" id="password"></td>
+					</tr>
+					<tr>
+						<td>비밀번호 확인</td>
+						<td><input type="password" id="passwordConfirm"></td>
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td><input type="text" id="name"
-							value="<%=member.getUserName()%>"></td>
+						<td><input type="text" id="name"></td>
 					</tr>
 					<tr>
 						<td>성별</td>
@@ -121,29 +123,21 @@ select {
 					</tr>
 					<tr>
 						<td>생일</td>
-						<td><input type="date" id="birth"
-							value="<%=member.getBirth()%>"></td>
+						<td><input type="date" id="birth"></td>
 					</tr>
 					<tr>
 						<td>전화번호</td>
-						<td><input type="text" id="phone"
-							value="<%=member.getPhone()%>"></td>
+						<td><input type="text" id="phone"></td>
 					</tr>
 					<tr>
 						<td>이메일</td>
-						<td><input type="email" id="email"
-							value="<%=member.getEmail()%>"></td>
-					</tr>
-					<tr>
-						<td>가입일</td>
-						<td><input type="date" value="<%=member.getUserDate()%>"
-							readonly></td>
+						<td><input type="email" id="email"></td>
 					</tr>
 				</table>
 			</div>
 			<div id="btns">
 				<button>취소</button>
-				<button>수정</button>
+				<button>등록</button>
 			</div>
 		</div>
 	</div>
@@ -151,13 +145,34 @@ select {
 <script>
 	function check() {
 		// 빈칸 유효성 검사
+		var id = $('#id').val().trim();
+		var password = $('#password').val().trim();
+		var passwordConfirm = $('#passwordConfirm').val().trim();
 		var name = $('#name').val().trim();
 		var phone = $('#phone').val().trim();
+		var gender = $('#gender').val();
 		var email = $('#email').val().trim();
 
-		if (name == "") {
+		if (id == "") {
+			alert('아이디를 입력해주세요');
+			$('#id').focus();
+			return false;
+		} else if (name == "") {
 			alert('이름을 입력해주세요');
 			$('#name').focus();
+			return false;
+		} else if(password==""){
+			alert('비밀번호를 입력해주세요');
+			$('#password').focus();
+			return false;
+		} else if(passwordConfirm==""){
+			alert('비밀번호 확인을 입력해주세요');
+			$('#passwordConfirm').focus();
+			return false;
+		} else if(password!=passwordConfirm){
+			alert('비밀번호를 다시 확인해주세요');
+			$('#passwordConfirm').val("");
+			$('#passwordConfirm').focus();
 			return false;
 		} else if (phone == "") {
 			alert('전화번호를 입력해주세요');
@@ -184,27 +199,30 @@ select {
 		if ($(this).text() == '취소')
 			window.close();
 		else {
+			var id = $('#id').val().trim();
+			var password = $('#password').val().trim();
 			var name = $('#name').val().trim();
-			var birth = $('#birth').val();
 			var phone = $('#phone').val().trim();
 			var gender = $('#gender').val();
 			var email = $('#email').val().trim();
+			var birth = $('#birth').val();
 
 			if (check()) {
 				$.ajax({
 					type : 'post',
-					url : 'updateMember.do',
+					url : 'insertAdmin.do',
 					data : {
-						no : $('#no').val(),
+						id : id,
+						password : password,
 						name : name,
 						gender : gender,
-						birth : birth,
 						phone : phone,
-						email : email
+						email : email,
+						birth : birth
 					},
 					success : function(data) {
 						alert(data);
-						if (data == '수정 성공') {
+						if (data == '관리자 등록 성공') {
 							opener.parent.location.reload();
 							window.close();
 						}

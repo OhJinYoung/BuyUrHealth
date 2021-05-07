@@ -16,13 +16,13 @@ import member.model.service.MemberService;
  * Servlet implementation class deleteMemberServlet
  */
 @WebServlet("/deleteMember.do")
-public class deleteMembersServlet extends HttpServlet {
+public class DeleteMembersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public deleteMembersServlet() {
+    public DeleteMembersServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
