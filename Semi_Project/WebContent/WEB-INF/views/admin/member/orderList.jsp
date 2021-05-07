@@ -173,6 +173,7 @@ body {
 }
 
 #pagingBtns button {
+	background:#efefef;
 	width: 30px;
 	height: 30px;
 }
@@ -182,6 +183,10 @@ body {
 	background: #d6d6d6;
 }
 
+#pagingBtns button:disabled:hover {
+	cursor: default;
+	background: #efefef;
+}
 
 li>a {
 	color: black;
@@ -203,7 +208,7 @@ li>a {
 }
 
 #currentPage {
-	background: orange;
+	background: orange !important;
 	color: white;
 	cursor: default !important;
 }

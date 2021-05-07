@@ -6,10 +6,10 @@ ArrayList<Member> list = (ArrayList) request.getAttribute("list");
 PageInfo paging = (PageInfo) request.getAttribute("page");
 String input = (String) request.getAttribute("input");
 String filter = (String) request.getAttribute("filter");
-if(input==null)
-	input="";
-if(filter==null)
-	filter="Id";
+if (input == null)
+	input = "";
+if (filter == null)
+	filter = "Id";
 %>
 <!DOCTYPE html>
 <html>
@@ -20,7 +20,6 @@ if(filter==null)
 	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <style>
-
 button {
 	border: 0px;
 	border-radius: 2px;
@@ -115,7 +114,7 @@ tr td:last-child {
 	padding: 30px;
 }
 
-body{
+body {
 	min-width: 1200px;
 }
 
@@ -161,10 +160,11 @@ body{
 }
 
 #pagingBtns {
-	padding-bottom: 20px;
+	padding-bottom: 30px;
 }
 
 #pagingBtns button {
+	background: #efefef;
 	width: 30px;
 	height: 30px;
 }
@@ -174,9 +174,13 @@ body{
 	background: #d6d6d6;
 }
 
+#pagingBtns button:disabled:hover {
+	cursor: default;
+	background: #efefef;
+}
 
 #currentPage {
-	background: orange;
+	background: orange !important;
 	color: white;
 	cursor: default !important;
 }
@@ -220,7 +224,7 @@ li>a {
 	cursor: pointer;
 }
 
-td a:hover{
+td a:hover {
 	cursor: pointer;
 }
 </style>
@@ -272,7 +276,7 @@ td a:hover{
 									<td onclick="memberInfo('<%=m.getUserId()%>')"><%=m.getUserId()%></td>
 									<td onclick="memberInfo('<%=m.getUserId()%>')"><%=m.getUserName()%></td>
 									<td onclick="memberInfo('<%=m.getUserId()%>')"><%=m.getUserDate()%></td>
-									<td><%=m.getCountComm() %>/<%=m.getCountReply() %>/<%=m.getCountQna() %></td>
+									<td><%=m.getCountComm()%>/<%=m.getCountReply()%>/<%=m.getCountQna()%></td>
 								</tr>
 								<%
 								}
@@ -290,7 +294,8 @@ td a:hover{
 					<div id="bottom">
 						<div id="pagingBtns">
 							<button value="1" class="beforeBtn">&lt;&lt;</button>
-							<button value="<%=paging.getCurrentPage() - 1%>" class="beforeBtn">&lt;</button>
+							<button value="<%=paging.getCurrentPage() - 1%>"
+								class="beforeBtn">&lt;</button>
 							<%
 							for (int i = paging.getStartPage(); i <= paging.getEndPage(); i++) {
 								if (i == paging.getCurrentPage()) {
@@ -308,8 +313,8 @@ td a:hover{
 							<button value="<%=paging.getMaxPage()%>" class="afterBtn">&gt;&gt;</button>
 						</div>
 						<script>
-						var currentPage = <%=paging.getCurrentPage() %>
-						var maxPage = <%=paging.getMaxPage() %>
+						var currentPage = <%=paging.getCurrentPage()%>
+						var maxPage = <%=paging.getMaxPage()%>
 						
 						if (currentPage==1)
 							$('.beforeBtn').attr('disabled', true);
@@ -384,7 +389,7 @@ td a:hover{
 	});
 	
 	function memberInfo(member_id){
-		var url ='<%=request.getContextPath()%>/updateMemberForm.do?id='+ member_id;
+		var url ='<%=request.getContextPath()%>/updateMemberForm.do?id=' + member_id;
 		window.open(url, 'memberInfo', 'width=300px, height=320px');
 	}
 </script>
