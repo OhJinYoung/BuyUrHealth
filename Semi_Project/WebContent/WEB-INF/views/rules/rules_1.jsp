@@ -131,7 +131,7 @@
 		<ul>
 		<li class="servicemenu" id="">공지사항</li>
 		<li class="servicemenu" id="">자주묻는질문</li>
-		<li class="servicemenu" id="goQNA">Q&A</li>
+		<li class="servicemenu" id="qalist.bo">Q&A</li>
 		<li><b>약관 및 방침</b></li>
 		</ul>
 	</div>

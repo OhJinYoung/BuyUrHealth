@@ -236,7 +236,7 @@
 	
 	<div class="service-menubar">
 	<hr>
-		<h2 id="service-menubar-name">약관 및 방침</h2>
+		<h2 id="service-menubar-name">Q&A</h2>
 	<hr>
 		<ul>
 			<li class="servicemenu" id="">공지사항</li>
