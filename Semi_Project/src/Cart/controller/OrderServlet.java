@@ -12,7 +12,7 @@ import Cart.model.service.CartService;
 
 import member.model.vo.Member;
 import Cart.model.service.UserOrderService;
-import Cart.model.vo.UserOrder;
+import order.model.vo.Order;
 
 /**
  * Servlet implementation class OrderServlet
@@ -70,7 +70,7 @@ public class OrderServlet extends HttpServlet {
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		System.out.println("유저번호 : " + userNo);
 		
-		UserOrder o = new UserOrder();
+		Order o = new Order();
 		o.setName(name);
 		o.setAddress(address);
 		o.setPhone(phone);

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="Cart.model.vo.UserOrder" %>
+    pageEncoding="UTF-8" import="order.model.vo.Order" %>
 <%
-	UserOrder order = (UserOrder)request.getAttribute("order");
+	Order order = (Order)request.getAttribute("order");
 %>
 <!DOCTYPE html>
 <html>
