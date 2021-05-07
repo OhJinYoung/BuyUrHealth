@@ -14,7 +14,6 @@ import java.util.Properties;
 
 import notice.model.vo.Notice;
 import notice.model.vo.PageInfo;
-import test.model.dao.TestDAO;
 
 public class NoticeDAO {
 	

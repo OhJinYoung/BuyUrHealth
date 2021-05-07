@@ -32,7 +32,7 @@
 	 
 	 input[type=radio]{
 	 	font-size:17px; width:20px; height:20px;
-	    margin-left: 50px;
+	    margin: 10px 0px 10px 50px; vertical-align: middle;
 	 }
 	 
 	 p{
@@ -62,7 +62,8 @@
     <div class="returnBackground">
     	<div class="returnDetail">
 	    	<form action="<%= request.getContextPath() %>/subProductReturn.me" method="post">
-	    	<h2>사유 선택</h2>
+	    	<h2 style="margin-top: 10px;">사유 선택</h2>
+	    		<p style="margin-top: 10px;"></p>
 				<input type="radio" name="requestSelect" value="취소요청"><label>취소</label>
 				<input type="radio" name="requestSelect" value="반품요청"><label>반품</label>
 				<input type="radio" name="requestSelect" value="교환요청"><label>교환</label>
@@ -87,19 +88,6 @@
     </div>
     
 	<script>
-		$('#goBuy').on('click', function(){
-			location.href="<%= request.getContextPath() %>/buyMyPage.me";
-		});
-		
-		$('#goPage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/goMypage";
-		});
-		
-		$('#goFavorite').on('click', function(){
-			location.href="<%= request.getContextPath() %>/favoriteMyPage.me";
-		});
-		
-		
 		$('#product-return').on('click', function(){
 			location.href="<%= request.getContextPath() %>/productReturnForm.me";
 		});

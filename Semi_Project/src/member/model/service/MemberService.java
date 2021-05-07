@@ -37,6 +37,8 @@ public class MemberService {
 		Connection conn = getConnection();
 
 		ArrayList<Member> list = new MemberDAO().memberList(conn, pi);
+		
+		System.out.println(list);
 
 		close(conn);
 
