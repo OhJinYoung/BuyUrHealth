@@ -37,8 +37,6 @@ public class MemberService {
 		Connection conn = getConnection();
 
 		ArrayList<Member> list = new MemberDAO().memberList(conn, pi);
-		
-		System.out.println(list);
 
 		close(conn);
 
@@ -136,6 +134,31 @@ public class MemberService {
 
 		int result = new MemberDAO().listCount(conn, filter, input);
 
+		close(conn);
+
+		return result;
+	}
+
+	public ArrayList<Member> adminList() {
+		Connection conn = getConnection();
+
+		ArrayList<Member> list = new MemberDAO().adminList(conn);
+
+		close(conn);
+
+		return list;
+	}
+
+	public int insertAdmin(Member member) {
+		Connection conn = getConnection();
+
+		int result = new MemberDAO().insertAdmin(conn, member);
+
+		if(result>0)
+			commit(conn);
+		else
+			rollback(conn);
+		
 		close(conn);
 
 		return result;
