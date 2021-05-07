@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -107,7 +108,7 @@ public class MemberDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			
+
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
@@ -215,7 +216,6 @@ public class MemberDAO {
 			pstmt.setString(4, myInfo.getPhone());
 			pstmt.setString(5, myInfo.getEmail());
 			pstmt.setInt(6, myInfo.getUserNo());
-			
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -229,15 +229,15 @@ public class MemberDAO {
 	public int updatePwd(Connection conn, String userId, String userPwd, String newPwd) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
+
 		String query = prop.getProperty("updatePwd");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, newPwd);
 			pstmt.setString(2, userId);
 			pstmt.setString(3, userPwd);
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -250,9 +250,9 @@ public class MemberDAO {
 	public int deleteMember(Connection conn, String userId) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
+
 		String query = prop.getProperty("deleteMember");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, userId);
@@ -273,8 +273,8 @@ public class MemberDAO {
 
 		try {
 			pstmt = conn.prepareStatement(query);
-			if(filter!="")
-			pstmt.setString(1, "%" + input + "%");
+			if (filter != "")
+				pstmt.setString(1, "%" + input + "%");
 			rset = pstmt.executeQuery();
 			if (rset.next())
 				result = rset.getInt(1);
@@ -285,6 +285,51 @@ public class MemberDAO {
 			close(pstmt);
 		}
 
+		return result;
+	}
+
+	public ArrayList<Member> adminList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = new ArrayList<>();
+		String query = prop.getProperty("adminList");
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				Member member = new Member(rset.getInt("user_no"),rset.getString("user_id"),rset.getString("user_name"),rset.getString("email"));
+				list.add(member);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+	}
+
+	public int insertAdmin(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertAdmin");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, member.getPassword());
+			pstmt.setString(2, member.getGender()+"");
+			pstmt.setString(3, member.getUserId());
+			pstmt.setString(4, member.getUserName());
+			pstmt.setString(5, member.getBirth());
+			pstmt.setString(6, member.getPhone());
+			pstmt.setString(7, member.getEmail());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
 		return result;
 	}
 

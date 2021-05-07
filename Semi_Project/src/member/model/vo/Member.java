@@ -24,6 +24,25 @@ public class Member {
 		this.password = password;
 	}
 
+	public Member(int userNo, String userId, String userName, String email) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userName = userName;
+		this.email = email;
+	}
+
+	public Member(String password, char gender, String userId, String userName, String birth, String phone, String email) {
+		super();
+		this.password = password;
+		this.gender = gender;
+		this.userId = userId;
+		this.userName = userName;
+		this.birth = birth;
+		this.phone = phone;
+		this.email = email;
+	}
+
 	public Member(int userNo, String userId, String userName, String userDate, int countComm, int countReply,
 			int countQna) {
 		super();

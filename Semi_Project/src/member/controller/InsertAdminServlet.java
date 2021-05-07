@@ -14,16 +14,16 @@ import member.model.service.MemberService;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class UpdateMemberServlet
+ * Servlet implementation class InsertAdminServlet
  */
-@WebServlet("/updateMember.do")
-public class UpdateMemberServlet extends HttpServlet {
+@WebServlet("/insertAdmin.do")
+public class InsertAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UpdateMemberServlet() {
+	public InsertAdminServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -34,23 +34,24 @@ public class UpdateMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int no = Integer.parseInt(request.getParameter("no"));
+		String id = request.getParameter("id");
+		String password = request.getParameter("password");
 		String name = request.getParameter("name");
 		char gender = request.getParameter("gender").charAt(0);
-		String birth = request.getParameter("birth");
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
+		String birth = request.getParameter("birth");
+		Member member = new Member(password,gender,id,name,birth,phone,email);
 
-		Member member = new Member(no, gender, name, birth, phone, email);
-
-		int result = new MemberService().updateMember(member);
-
-		String msg = null;
-		if (result > 0)
-			msg = "수정 성공";
-		else
-			msg = "수정 중 오류가 발생했습니다.";
+		int result = new MemberService().insertAdmin(member);
 		
+		String msg = null;
+		
+		if (result > 0) {
+			msg = "관리자 등록 성공";
+		} else {
+			msg = "관리자 등록 중 오류가 발생했습니다.";
+		}
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(msg, response.getWriter());
 	}
