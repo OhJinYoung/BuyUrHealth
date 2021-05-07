@@ -60,7 +60,7 @@ hr {
 					src="<%=request.getContextPath()%>/images/mainlogo.png"
 					width="100px" height="50px" alt="My Image"></a>
 			</div>
-			<div class="mainMenu" id="goViewProduct">제품보기</div>
+			<div class="mainMenu" id="list.pro">제품보기</div>
 			<div class="mainMenu" id="goCommunity">커뮤니티</div>
 			<div class="mainMenu" id="goCart">장바구니</div>
 			<div class="mainMenu" id="goMypage">마이페이지</div>

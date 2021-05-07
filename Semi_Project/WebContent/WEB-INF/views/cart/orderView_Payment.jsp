@@ -20,6 +20,10 @@
 	    min-width: 1500px;
 	}	
 	
+	h3{
+		margin-bottom: 10px;
+	}
+	
 	#orderTitle{
 		width: 80%;
 		color: red; 
