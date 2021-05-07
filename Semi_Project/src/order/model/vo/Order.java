@@ -9,7 +9,7 @@ public class Order {
 	private String payment;
 	private String state;
 	private String orderDate;
-	private int userNo;
+	private int userNo; // userNo 추가
 	private String userName; // 구매한 회원 이름
 	private String userId;
 	private String pList; // 구매 상품 목록
@@ -20,6 +20,7 @@ public class Order {
 	public Order() {
 	}
 	
+	// userNo 추가한 생성자 + 주문완료 페이지용 생성자 추가했습니다.
 	public Order(int no, String name, String address, String phone, String request, String payment, String state,
 			String orderDate, int userNo, String userName, String userId, String pList, int price, String trackingNo,
 			String email) {
@@ -40,7 +41,6 @@ public class Order {
 		this.trackingNo = trackingNo;
 		this.email = email;
 	}
-
 
 
 	public Order(int no, String name, String address, String phone, String request, String payment, String state,
