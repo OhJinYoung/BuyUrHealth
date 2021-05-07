@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member" %>
+    pageEncoding="UTF-8" import="member.model.vo.Member, order.model.vo.Order"%>
 <%
 	Member member = (Member)request.getAttribute("userId");
+	Order orderList = (Order)request.getAttribute("order");
 	String authority = null;
 	if(member.getAuthority() == 'Y'){
 		authority = "관리자";
@@ -29,12 +30,17 @@
 	 	width: auto; min-width: 770px; height: auto; margin: 10px; 
 	 	border: 1px solid black; display: inline-block;
 	 }
-	 .product-intro {width: 620px; height: 230px; border-right: 1px solid black; float: left; margin: 5px;}
+	 .product-intro {
+	 	width: 620px; height: 230px; border-right: 1px solid black; 
+	 	float: left; margin: 5px;	
+	 }
 	 .product-status {margin: 5px;}
 	 div.product-content img {float: left;}
-	 div.product-content p {float: left;}
-	 div.product-content button {float: right; margin-right: 50px;}
-	 .product-request {width: 130px; height: auto; float: right; margin: 60px 5px;}
+	 div.product-content p {margin-top: 40px; float: left;}
+	 .product-request {
+	 	width: 130px; height: auto; float: right;
+	  	margin: 60px 5px;
+	  }
 	 .product-request button {width: 100px; margin: 5px;}
 	
 </style>
@@ -72,7 +78,7 @@
 				<div class="product-content">
 					<img src="<%= request.getContextPath() %>/images/vitamin_c.jpg" width="130px" height="100px" alt="My Image">
 					<h1>상품 설명</h1>
-					<p>가격</p> <button type="button">장바구니 담기</button>
+					<p>가격</p><p style="float: right; margin-right: 50px;">개수 : </p>
 				</div>
 			</div>
 			

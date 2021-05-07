@@ -18,6 +18,7 @@
 	    float: left;
 	    width: 180px;
 	    text-align: center;
+	    cursor:pointer;
 	}
 
 	div.nutrientImg:hover {
@@ -42,6 +43,7 @@
 		background: white; text-align: center; font-weight: bold; 
 		vertical-align: middle; width: 150px; height: 30px; 
 		display: table-cell; border: 1px inset black; border-radius: 2em 1em 4em / 0.5em 3em;
+		cursor:pointer;
 	}
 	
 	.mainFoot:hover {
@@ -150,15 +152,29 @@
 
 	<div class="mainFootWrap">
 		<nav>
-			<div class="mainFoot">이용약관</div>
-			<div class="mainFoot">개인정보처리방침</div>
-			<div class="mainFoot">고객센터</div>
+			<div class="mainFoot" onclick="goRules1();">이용약관</div>
+			<div class="mainFoot" onclick="goRules2();">개인정보처리방침</div>
+			<div class="mainFoot" onclick="qalist();">고객센터</div>
 		</nav>
 	</div>
 	
 	<div class="mainBottom">
 		<%@include file="footer.jsp"%>
 	</div>
+	
+	<script>
+		function goRules1(){
+			location.href='<%=request.getContextPath()%>/goRules';
+		}
+		
+		function goRules2(){
+			location.href='<%=request.getContextPath()%>/goRules2';
+		}
+		
+		function qalist(){
+			location.href='<%=request.getContextPath()%>/qalist.bo';
+		}
+	</script>
 	
 </body>
 </html>

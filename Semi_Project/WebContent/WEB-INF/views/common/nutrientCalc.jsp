@@ -5,7 +5,7 @@
 <head>
 <style>
 	.nutrientCalc{text-align: center;}
-	select[name=calcSelect]{width:20%; height:40px; margin:10px;}
+	select[name=calcSelect]{width:20%; height:40px; margin:10px; cursor:pointer;}
 	
 </style>
 <meta charset="UTF-8">
@@ -46,7 +46,7 @@
 		키<label id="calcResult1"></label> 체중<label id="calcResult2"></label>인 <label id="calcResult3"></label> <label id="calcResult4"></label>성의 필요영양소는
 		<br> <label id="calcResult5"></label>입니다.
 		<br>
-		<button onclick="calcResult();">계산하기</button>
+		<button onclick="calcResult();" style="cursor:pointer;">계산하기</button>
 		<script>
 			function calcResult(){
 				var old = document.getElementById('old');
