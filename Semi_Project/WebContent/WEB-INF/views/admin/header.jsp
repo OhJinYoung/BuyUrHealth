@@ -61,8 +61,8 @@ hr {
 			</div>
 			<div class="mainMenu" id="memberList.do">사용자 관리</div>
 			<div class="mainMenu" id="orderList.do">주문 관리</div>
-			<div class="mainMenu" id="">제품 관리</div>
-			<div class="mainMenu" id="">고객센터</div>
+			<div class="mainMenu" id="goProduct">제품 관리</div>
+			<div class="mainMenu" id="goNotice">고객센터</div>
 			<%
 			if (loginUser == null) {
 			%>
