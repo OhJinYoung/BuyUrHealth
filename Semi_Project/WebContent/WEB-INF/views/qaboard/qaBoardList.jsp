@@ -210,11 +210,7 @@
 					<th width="15%">상태</th>
 				</tr>
 				
-			<% if(loginUser != null){ %>
-				<tr>
-					<td colspan="3">로그인을 해주세요.</td>
-				</tr>
-			<% } else if(list.isEmpty()){ %>
+			<% if(list.isEmpty()){ %>
 				<tr>
 					<td colspan="3">조회된 리스트가 없습니다.</td>
 				</tr>

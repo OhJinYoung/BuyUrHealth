@@ -64,7 +64,8 @@ Product p = (Product)request.getAttribute("product");
 		</div>
 
 		<div class="product_view">
-			<span class="product_name"><%= p.getProductName() %></span><br> <span
+			<span class="product_name"><input type="hidden" name="productname" value="<%= p.getProductName() %>">
+			<%= p.getProductName() %></span><br> <span
 				class="product_exp"> #간 #면역 #항산화 </span>
 
 			<table>
@@ -78,13 +79,14 @@ Product p = (Product)request.getAttribute("product");
 				<tbody>
 					<tr>
 						<th>구매수량</th>
-						<td class="length"><input type="number" min="1" value="1">
+						<td class="length"><input type="number" name="number" min="1" value="1">
 							<a href="#a">증가</a> <a href="#a">감소</a></td>
 					</tr>
 
 					<tr>
 						<th>금액</th>
-						<td class="total"><%= p.getProductPrice() %></td>
+						<td class="total"><input type="hidden" name="total" value="<%= p.getProductPrice() %>">
+						<%= p.getProductPrice() %></td>
 					</tr>
 				</tbody>
 
