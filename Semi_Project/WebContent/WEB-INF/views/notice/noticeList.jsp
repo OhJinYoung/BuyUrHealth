@@ -45,9 +45,9 @@
 			<ul>
 				<li id="goNotice">공지사항</li>
 				<li id="goFaq">자주묻는질문</li>
-				<li>Q&A</li>
-				<li>약관및방침</li>
-			</ul>
+				<li id="goQNA">Q&A</li>
+				<li id="goRules">약관및방침</li>
+			</ul> 
 		</div>
 
 		<div class="product-list">
@@ -122,6 +122,14 @@
 			location.href="<%= request.getContextPath() %>/faq.no";
 		});
 		
+		$('#goQNA').on('click', function(){
+			location.href="<%= request.getContextPath() %>/goQNA";
+		});
+		
+		$('#goRules').on('click', function(){
+			location.href="<%= request.getContextPath() %>/goRules";
+		});
+		
 		$(function(){
 			$('#listArea td').on({'mouseenter':function(){
 				$(this).parent().css({'background':'darkgray', 'cursor':'pointer'});
@@ -132,6 +140,7 @@
 				location.href='<%= request.getContextPath() %>/noticedetail.no?no='+num;
 			}});
 		});
+		
 	</script>
 </body>
 </html>

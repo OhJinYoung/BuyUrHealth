@@ -3,26 +3,24 @@ package Cart.model.vo;
 import java.sql.Date;
 
 public class Cart {
-	private String cartNo;
+	private String cartNo; // userNo와 같도록
 	private String productName;
 	private int cartVolumn;
 	private int productPrice;
 	private int cartPrice;
-	private Date receiptDate;
 	private int userNo;
 	private int productNo;
 	
 	public Cart() {}
 
-	public Cart(String cartNo, String productName, int cartVolumn, int productPrice, int cartPrice, Date receiptDate,
-			int userNo, int productNo) {
+	public Cart(String cartNo, String productName, int cartVolumn, int productPrice, int cartPrice, int userNo,
+			int productNo) {
 		super();
 		this.cartNo = cartNo;
 		this.productName = productName;
 		this.cartVolumn = cartVolumn;
 		this.productPrice = productPrice;
 		this.cartPrice = cartPrice;
-		this.receiptDate = receiptDate;
 		this.userNo = userNo;
 		this.productNo = productNo;
 	}
@@ -67,14 +65,6 @@ public class Cart {
 		this.cartPrice = cartPrice;
 	}
 
-	public Date getReceiptDate() {
-		return receiptDate;
-	}
-
-	public void setReceiptDate(Date receiptDate) {
-		this.receiptDate = receiptDate;
-	}
-
 	public int getUserNo() {
 		return userNo;
 	}
@@ -94,9 +84,10 @@ public class Cart {
 	@Override
 	public String toString() {
 		return "Cart [cartNo=" + cartNo + ", productName=" + productName + ", cartVolumn=" + cartVolumn
-				+ ", productPrice=" + productPrice + ", cartPrice=" + cartPrice + ", receiptDate=" + receiptDate
-				+ ", userNo=" + userNo + ", productNo=" + productNo + "]";
+				+ ", productPrice=" + productPrice + ", cartPrice=" + cartPrice + ", userNo=" + userNo + ", productNo="
+				+ productNo + "]";
 	}
+
 	
 	
 }

@@ -35,6 +35,8 @@ public class OrderServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
+		System.out.println("welcome to OrderServlet");
+		
 		String orNo = request.getParameter("orderNo").trim();
 		System.out.println("기존주문번호 : " + orNo);
 		int orderNo = Integer.parseInt(orNo);
@@ -82,14 +84,18 @@ public class OrderServlet extends HttpServlet {
 		
 		
 		int result = new UserOrderService().insertOrderInfo(o);
+		System.out.println("정보 입력됨");
 		
 		if(result > 0) {
-			request.getRequestDispatcher("WEB-INF/views/cart/orderCompleteView.jsp").forward(request, response);
-			request.setAttribute("order", o);
+			request.getRequestDispatcher("com.or").forward(request, response);
+			System.out.println("order.or -> com.or");
+			// response.sendRedirect("com.or");
+			request.setAttribute("o", o);
 		} else {
 			request.setAttribute("msg", "정보를 처리하는데 문제가 발생했습니다.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
+		
 	}
 
 
