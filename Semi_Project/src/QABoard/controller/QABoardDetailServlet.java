@@ -37,6 +37,7 @@ public class QABoardDetailServlet extends HttpServlet {
 		
 		QABoard qaboard = new QABoardService().selectBoard(bId);
 		ArrayList<QAFile> qafile = new QABoardService().selectFile(bId);
+
 		
 		String page = null;
 		if(qaboard != null) {
@@ -46,7 +47,6 @@ public class QABoardDetailServlet extends HttpServlet {
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시글 조회에 실패했습니다.");
-			
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);

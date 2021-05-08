@@ -1,6 +1,7 @@
 package member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
 import member.model.vo.Member;
+import order.model.service.OrderService;
+import order.model.vo.Order;
 
 /**
  * Servlet implementation class BuyMyPageServlet
@@ -36,6 +39,7 @@ public class BuyMypageServlet extends HttpServlet {
 		String id = loginUser.getUserId();
 		
 		Member member = new MemberService().selectMember(id);
+//		int userNo = member.getUserNo();
 		
 		String page = null;
 		if(member != null) {

@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="member.model.vo.Member"%>
+	
+<%
+	Member loginUser = (Member) session.getAttribute("loginUser");
+%>
 <style>
 
 * {
@@ -57,8 +61,19 @@ hr {
 			</div>
 			<div class="mainMenu" id="memberList.do">사용자 관리</div>
 			<div class="mainMenu" id="orderList.do">주문 관리</div>
-			<div class="mainMenu" id="">제품 관리</div>
-			<div class="mainMenu" id="">고객센터</div>
+			<div class="mainMenu" id="goProduct">제품 관리</div>
+			<div class="mainMenu" id="goNotice">고객센터</div>
+			<%
+			if (loginUser == null) {
+			%>
+			<div class="mainMenu" id="login">로그인</div>
+			<%
+			} else {
+			%>
+			<div class="mainMenu" id="logout">로그아웃</div>
+			<%
+			}
+			%>
 		</nav>
 	</div>
 </div>

@@ -47,9 +47,9 @@ public class UpdateMemberServlet extends HttpServlet {
 
 		String msg = null;
 		if (result > 0)
-			msg = "회원 수정 성공";
+			msg = "수정 성공";
 		else
-			msg = "회원 수정 중 오류가 발생했습니다.";
+			msg = "수정 중 오류가 발생했습니다.";
 		
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(msg, response.getWriter());

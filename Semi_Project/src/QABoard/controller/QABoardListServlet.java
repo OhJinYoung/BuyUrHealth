@@ -1,6 +1,7 @@
 package QABoard.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -18,7 +19,7 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class QABoardListServlet
  */
-@WebServlet("/qalist.bo")
+@WebServlet("/goQNA")
 public class QABoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,13 +35,19 @@ public class QABoardListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
 		QABoardService qaService = new QABoardService();
 		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
+		if(loginUser == null) {
+			PrintWriter out = response.getWriter();
+			out.println("로그인을 확인하세요");
+		}
 		int userNo = loginUser.getUserNo();
 
-		
 		int listCount;
 		int currentPage;
 		int pageLimit;
@@ -56,7 +63,7 @@ public class QABoardListServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		pageLimit = 10;
+		pageLimit = 5;
 		boardLimit = 10;
 		
 		maxPage = (int)Math.ceil((double)listCount/boardLimit);
@@ -72,6 +79,9 @@ public class QABoardListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		ArrayList<QABoard> list = qaService.selectList(pi, userNo);
+		
+		
+		
 		
 		String page = null;
 		if(list != null) {

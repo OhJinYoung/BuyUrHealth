@@ -172,6 +172,7 @@
         border-radius: 5px;
         text-decoration: none;
         font-size: 0.9375em;
+        margin-left: 80%;
     }
     
     #selectAll {
@@ -183,7 +184,6 @@
         word-break: keep-all;
         text-decoration: none;
         font-size: 0.9375em;
-        margin-left: 78%;
     }
     
     .buttondiv{
@@ -248,8 +248,8 @@
 	<h3 id=cartTitle>장바구니</h3>
     <form name="cartform" id="cartform" method="post" class="cartform" action="<%= request.getContextPath() %>/orderPage">
 		<div id="buttondiv">
-			<label id="selectAll">전체선택 <input type="checkbox"></label>
 			<button id="selectDelete">선택삭제</button>
+			<label id="selectAll">전체선택 <input type="checkbox"></label>
 		</div>
     
             <div class="cartdiv" id="cart">
@@ -346,7 +346,7 @@
           		총 결제할 금액: <b>00</b>원
           	</div>
           	<div class="calcinfo" id="calcinfo3">
-          		<button class="paybutton" onclick="location.href='<%= request.getContextPath() %>/orderPage'">결제하기</button>
+          		<button class="paybutton" onclick="location.href='<%= request.getContextPath() %>/orderPage'">주문서 작성하기</button>
           	</div>
           </div>
         </form>

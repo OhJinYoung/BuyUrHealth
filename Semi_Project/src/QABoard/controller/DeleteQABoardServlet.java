@@ -38,7 +38,6 @@ public class DeleteQABoardServlet extends HttpServlet {
 			request.setAttribute("msg", "게시글 삭제에 실패했습니다");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
-
 	}
 
 	/**

@@ -1,22 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="order.model.vo.Order" %>
+<%
+	Order order = (Order)request.getAttribute("order");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
+	html, body {
+	    height: 100%; 
+	    overflow: auto;
+	    margin: 0px auto;
+	    letter-spacing: -1px;
+	    min-width: 1500px;
+  		align: center;
+  		margin: auto;
+	}	
+	
 	h1{
 		color: red;
 		padding-top: 50px;
 	}
 	
 	table{
+  		margin: auto;
 		width: 80%;
 		border : 1px solid black;
   		border-collapse : collapse;
   		cellpadding: 10px;
   		margin-bottom: 50px;
+  		align: center;
 	}
 	
 	th{
@@ -51,41 +67,42 @@
 </style>
 </head>
 <body>
-	<%@ include file="../user/header.jsp" %>
+	<%@ include file="../title_header.jsp" %>
 	
 		<h1 align="center">주문이 완료 되었습니다!</h1>
-	<form>
+	<form action="<%= request.getContextPath() %>/detailMyProductForm.me">
+		
 		<table border="1" align="center">
 			<tr>
-				<th>주문번호</th>
-				<td></td>
+				<th>주문하신 분</th>
+				<td><%= order.getUserName() %></td>
 			</tr>
 			<tr>
-				<th>주문 접수일</th>
-				<td></td>
+				<th>받는분</th>
+				<td><%= order.getName() %></td>
 			</tr>
 			<tr>
-				<th>수령 예상일</th>
-				<td></td>
+				<th>주소</th>
+				<td><%= order.getAddress() %></td>
+			</tr>
+			<tr>
+				<th>핸드폰 번호</th>
+				<td><%= order.getPhone() %></td>
+			</tr>
+			<tr>
+				<th>이메일</th>
+				<td><%= order.getEmail() %></td>
 			</tr>
 			<tr>
 				<th>결제 수단</th>
-				<td></td>
-			</tr>
-			<tr>
-				<th>결제 금액</th>
-				<td></td>
-			</tr>
-			<tr>
-				<th>결제 상태</th>
-				<td></td>
+				<td><%= order.getPayment() %></td>
 			</tr>
 		</table>
 
 						
 		<div align="center" class="pay button">
-			<button onclick="" id="goOrderDetail">주문 상세보기</button>
-			<button onclick="" id="goMain">홈으로 가기</button>
+			<input type="submit" id="goOrderDetail" value="주문 상세보기">
+			<input type="button" onclick="location.href='<%= request.getContextPath() %>/gomain'" id="goMain" value="홈으로 가기">
 		</div>
 	</form>
 	

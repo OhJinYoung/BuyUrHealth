@@ -270,6 +270,7 @@ public class QABoardDAO {
 
 	}
 
+
 	public int deleteBoard(Connection conn, int bId) {
 		PreparedStatement pstmt = null;
 		int result = 0;

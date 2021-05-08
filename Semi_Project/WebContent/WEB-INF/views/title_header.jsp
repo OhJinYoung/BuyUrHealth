@@ -33,7 +33,9 @@
 }
 
 .mainMenu:hover {
-	background: beige;
+	border: 1px solid black; 
+	border-radius: 80px 40px;
+	background-color: rgb(250, 213, 204);
 	color: orangered;
 	font-weight: bold;
 	cursor: pointer;
@@ -58,7 +60,7 @@ hr {
 					src="<%=request.getContextPath()%>/images/mainlogo.png"
 					width="100px" height="50px" alt="My Image"></a>
 			</div>
-			<div class="mainMenu" id="goViewProduct">제품보기</div>
+			<div class="mainMenu" id="goProduct">제품보기</div>
 			<div class="mainMenu" id="goCommunity">커뮤니티</div>
 			<div class="mainMenu" id="goCart">장바구니</div>
 			<div class="mainMenu" id="goMypage">마이페이지</div>
@@ -77,7 +79,7 @@ hr {
 			<%
 			}
 			%>
-			<div class="mainMenu" id="qalist.bo">고객센터</div>
+			<div class="mainMenu" id="goNotice">고객센터</div>
 
 		</nav>
 	</div>

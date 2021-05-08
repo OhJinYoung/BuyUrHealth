@@ -5,7 +5,6 @@ package QABoard.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.List;
 
 import static common.JDBCTemplate.*;
 import QABoard.model.dao.QABoardDAO;
@@ -101,40 +100,18 @@ public class QABoardService {
 		}
 		
 		return result1;
-
 	}
-
+	
+	
 	public int updateBoard(QABoard b) {
 		Connection conn = getConnection();
 		
 		QABoardDAO dao = new QABoardDAO();
 		
-		int result = dao.updateBoard(conn, b); 
-
-		
-		if(result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		
-		close(conn);
-		
-		return result;
-
-	}
-	
-	
-	public int updateBoard(QABoard b, ArrayList<QAFile> fileList) {
-		Connection conn = getConnection();
-		
-		QABoardDAO dao = new QABoardDAO();
-		
 		int result1 = dao.updateBoard(conn, b); 
-		int result2 = dao.insertFile(conn, fileList);
 
 		
-		if(result1 > 0 && result2 > 0) {
+		if(result1 > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);

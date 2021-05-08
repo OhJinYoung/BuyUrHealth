@@ -139,4 +139,29 @@ public class MemberService {
 		return result;
 	}
 
+	public ArrayList<Member> adminList() {
+		Connection conn = getConnection();
+
+		ArrayList<Member> list = new MemberDAO().adminList(conn);
+
+		close(conn);
+
+		return list;
+	}
+
+	public int insertAdmin(Member member) {
+		Connection conn = getConnection();
+
+		int result = new MemberDAO().insertAdmin(conn, member);
+
+		if(result>0)
+			commit(conn);
+		else
+			rollback(conn);
+		
+		close(conn);
+
+		return result;
+	}
+
 }

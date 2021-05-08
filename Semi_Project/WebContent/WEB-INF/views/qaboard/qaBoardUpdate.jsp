@@ -4,14 +4,12 @@
 	QABoard qab = (QABoard)request.getAttribute("b"); 
 	ArrayList<QAFile> qaf = (ArrayList<QAFile>)request.getAttribute("qafile"); 
 %>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
 	html, body {
 	    height: 100%; 
@@ -39,7 +37,6 @@
         padding: 20px;
         margin-top: 14px; 
         float: left;
-        border-right: 1px solid;
         position: absolute;
         height: 100%;
         overflow: auto;
@@ -195,14 +192,14 @@
 		<h2 id="qaboard-menubar-name">Q&A</h2>
 	<hr>
 		<ul>
-		<li>공지사항</li>
-		<li>자주묻는질문</li>
-		<li><b>Q&A</b></li>
-		<li>약관 및 방침</li>
+			<li class="servicemenu" id="">공지사항</li>
+			<li class="servicemenu" id="">자주묻는질문</li>
+			<li><b>Q&A</b></li>
+			<li class="servicemenu" id="goRules">약관 및 방침</li>
 		</ul>
 	</div>
 	
-	<form action="<%= request.getContextPath() %>/QAUpdate.bo" method="post">
+	<form action="<%= request.getContextPath() %>/QAUpdate.bo" method="post" >
 	
 	<div class="qa data">
 	
@@ -246,10 +243,9 @@
 					<td class="td1">
 						<label>첨부파일</label>
 						<% if(qaf.isEmpty()) {%>
-						<input type="file" id="uploadFile" name="uploadFile" multiple accept=".jpg, .png, .jpeg">
+						첨부파일이 없습니다.
 						<% } else { %>
 						<a href="<%= request.getContextPath() %>/uploadFiles/qafile_uploadFiles/<%= qaf.get(0).getFileChangeName() %>" target='_blank'><%= qaf.get(0).getFileChangeName() %></a>
-						<input type="button" id="deleteFile" onclick="deleteQAFile();" value="첨부파일 삭제">
 						<% } %>
 						<input type="submit" id="enterBtn" value="등록">
 						<input type="button" onclick="location.href='javascript:history.go(-1);'" id="cancelBtn" value="취소">
@@ -259,18 +255,9 @@
 		</div>
 		
 		<script>
-			$("#deleteFile").on("click", function(){
-			   if (confirm("첨부파일을 삭제하시겠습니까?")) {
-				   
-					String fileName = qaf.get(0).getFileChangeName(); 
-					String root = request.getSession().getServletContext().getRealPath("/");
-					String savePath = root + "uploadFiles/qafile_uploadFiles/";
-					
-					File f = new File(savePath); 
-						if(f.exists()) {
-							f.remove(); 
-						}
-			   }
+			$('.servicemenu').on('click', function() {
+				var id = $(this).attr('id');
+				location.href='<%=request.getContextPath()%>/' + id;
 			});
 		</script>
 	</div>

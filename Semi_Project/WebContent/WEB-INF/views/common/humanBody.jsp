@@ -29,7 +29,7 @@
 	
 	.supplementsImg4 {position: relative; left: -360px; top: -200px;}
 	
-	.supplements1 img {width: 150px; height: 100px;}
+	.supplements1 img {width: 150px; height: 100px; cursor:pointer;}
 	
 	.supplementsImg5 {position: relative; left: 450px; top: -870px;}
 	
@@ -41,7 +41,7 @@
 	
 	.supplementsImg9 {position: relative; left: -100px; top: -100px;}
 	
-	.supplements2 img {width: 150px; height: 100px;}
+	.supplements2 img {width: 150px; height: 100px; cursor:pointer;}
 	
 </style>
 <meta charset="UTF-8">
