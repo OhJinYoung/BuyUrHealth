@@ -70,7 +70,7 @@
 	<%@ include file="../title_header.jsp" %>
 	
 		<h1 align="center">주문이 완료 되었습니다!</h1>
-	<form>
+	<form action="<%= request.getContextPath() %>/detailMyProductForm.me">
 		
 		<table border="1" align="center">
 			<tr>
@@ -101,20 +101,10 @@
 
 						
 		<div align="center" class="pay button">
-			<button onclick="goDetail();" id="goOrderDetail">주문 상세보기</button>
-			<button onclick="goMain();" id="goMain">홈으로 가기</button>
+			<input type="submit" id="goOrderDetail" value="주문 상세보기">
+			<input type="button" onclick="location.href='<%= request.getContextPath() %>/gomain'" id="goMain" value="홈으로 가기">
 		</div>
 	</form>
-	
-	<script>
-		function goMain() {
-			location.href="<%= request.getContextPath() %>";
-		}
-		
-		function goDetail() {
-			location.href="<%= request.getContextPath() %>";
-		}
-	</script>
 	
 </body>
 </html>
