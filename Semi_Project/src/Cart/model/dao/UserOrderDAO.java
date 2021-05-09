@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import Cart.model.vo.Cart;
 import order.model.vo.Order;
 
 public class UserOrderDAO {
@@ -92,6 +93,56 @@ public class UserOrderDAO {
 			close(pstmt);
 		}
 		return order;
+	}
+
+
+	public int updateOrderDetail(Connection conn, int orderNo, int userNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateOrderDetail");
+		// updateOrderDetail=UPDATE ORDER_DETAIL SET ORDER_NO=? WHERE USER_NO=?
+		
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, orderNo);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	public int insertOrderDetail(Connection conn) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertOrderDetail");
+		// insertOrderDetail=INSERT INTO ORDER_DETAIL(OD_NO, OD_VOLUME, PRODUCT_NO, ORDER_NO) 
+		// SELECT orderdetail_seq.nextval, CART_VOLUME, PRODUCT_NO, ORDER_NO 
+		// FROM CART 
+		// JOIN ORDERLIST USING(USER_NO);
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 
