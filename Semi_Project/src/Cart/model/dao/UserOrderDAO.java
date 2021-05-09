@@ -63,7 +63,7 @@ public class UserOrderDAO {
 	}
 
 
-	public Order detailOrder(Connection conn, int no) {
+	public Order detailOrder(Connection conn, int oNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Order order = null;
@@ -74,7 +74,7 @@ public class UserOrderDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, no);
+			pstmt.setInt(1, oNo);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {

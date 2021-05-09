@@ -52,7 +52,7 @@ hr {
 					src="<%=request.getContextPath()%>/images/mainlogo.png"
 					width="100px" height="50px" alt="My Image"></a>
 			</div>
-			<div class="mainMenu" id="goViewProduct">제품보기</div>
+			<div class="mainMenu" id="goProduct">제품보기</div>
 			<div class="mainMenu" id="goCommunity">커뮤니티</div>
 			<div class="mainMenu" id="goCart">장바구니</div>
 			<div class="mainMenu" id="goMypage">마이페이지</div>
@@ -65,7 +65,7 @@ hr {
 			<% } else{%>
 				<div class="mainMenu" id="login">로그아웃</div>
 			<% } %>
-			<div class="mainMenu" id="goService">고객센터</div>
+			<div class="mainMenu" id="goNotice">고객센터</div>
 
 		</nav>
 	</div>
