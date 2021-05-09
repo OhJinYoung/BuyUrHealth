@@ -16,7 +16,7 @@ import notice.model.vo.PageInfo;
 /**
  * Servlet implementation class NoticeListServlet
  */
-@WebServlet("/noticelist.no")
+@WebServlet("/goNotice")
 public class NoticeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,17 +45,17 @@ public class NoticeListServlet extends HttpServlet {
 		int endPage;  		// 페이징 된 페이지 중 마지막 페이지 
 		
 		listCount = nService.getListCount();
+		System.out.println(listCount);
 		
 		currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		pageLimit = 10;
-		noticeLimit = 10;
+		pageLimit = 5;
+		noticeLimit = 9;
 		
-		
-		maxPage = (int)Math.ceil((double)listCount/noticeLimit +1);
+		maxPage = (int)Math.ceil((double)listCount/noticeLimit);
 		
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		
@@ -75,20 +75,14 @@ public class NoticeListServlet extends HttpServlet {
 		if(list != null) {
 			page = "WEB-INF/views/notice/noticeList.jsp";
 			request.setAttribute("list",  list);
+			request.setAttribute("pi",  pi);
 			
 		} else {
-			//page = "WEB-INF/views/notice/noticeList원래 내꺼.jsp";
-			//request.setAttribute("list",  list);
-			
 			page = "WEB-INF/views/common/errorPage.jsp"; 
 			request.setAttribute("msg",  "공지사항 조회에 실패했습니다");
 			
 		}
-		
-		
-		
 		request.getRequestDispatcher(page).forward(request, response);
-		
 	}
 
 	/**
