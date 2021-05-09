@@ -1,87 +1,120 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="community.model.vo.*, java.util.*"%>
-<%
-	Community = (Community)request.getAttribute("Community");
+    pageEncoding="UTF-8" import="Board.model.vo.*, java.util.ArrayList" %>
+    
+<% 
+	Community c = (Community)request.getAttribute("community"); 
 	ArrayList<AddFile> fileList = (ArrayList<AddFile>)request.getAttribute("fileList");
 	AddFile titleImg = fileList.get(0);
+
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.outer {
-		width:1000px; height:735px; background: rgba(255, 255, 255, 0.4); border: 5px solid white;
+	.outer{
+		width:800px; height:800px; background: rgba(255, 255, 255, 0.4); border: 5px solid white;
 		margin-left:auto; margin-right:auto; margin-top:50px;
 	}
-	.detail{text-align:center;}
-	.detail th, .detail td{width: 1000px; padding: 10px; background: rgba(255, 255, 255, 0.4);}
-	.detail th{background: white;}
-	#titleImgArea{width:500px; height:300px; margin-left:auto; margin-right:auto;}
-	#contentArea{height:30px;}
-	.detailImgArea{width:250px; height:210px; margin-left:auto; margin-right:auto;}
-	#titleImg{width:500px; height:300px;}
-	.detailImg{width:250px; height:180px;}
-	.downBtn{background: #D1B2FF;}
-	#thumbTable{margin: auto;}
+	.tableArea {width: 450px; height:350px; margin-left:auto; margin-right:auto; align: center;}
+	table{align: center;}
+	#updateBtn{background: #B2CCFF;}
+	#menuBtn{background: #D1B2FF;}
+	#deleteBtn{background: #D5D5D5;}
 </style>
 </head>
 <body>
-	<%@ include file="../common/menubar.jsp" %>
-	<div class="outer">
-		<table class="detail" id="thumbTable">
-			<tr>
-				<th width="50px">제목</th>
-				<td colspan="5"><%= c.getCommTitle() %></td>
-			</tr>
-			<tr>
-				<th>작성자</th>
-				<td><%= c.userNo() %></td>
-				<th>조회수</th>
-				<td><%= c.getCommCount() %></td>
-				<th>작성일</th>
-				<td><%= c.getModifyDate() %></td>
-			</tr>
-			<tr>
-				<th>대표<br>사진</th>
-				<td colspan="4">
-					<%-- <!--  thumbnail_uploadFiles에는 rename된게 들어가있기 때문에, 대표사진이니까 titleImg로해서 .getChangeName 가져옴 --> --%>
-					<div id="titldImgArea" align="center">
-						<a href="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= titleImg.getChangeName() %>"
-							download="<%= titleImg.getOriginName() %>">
-							<img id="titleImg" src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= titleImg.getChangeName() %>">
-						</a>
-						<%-- 이미지 자체를 a태그로 감싸줌, 이미지 다운로드를  getChangeName()로하면 바뀐이름으로 저장되고 getOriginName()하면 원래이름으로 저장됨 --%>	
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>사진<br>메모</th>
-				<td colspan="6">
-					<p id="contentArea">
-						<%= c.getCommContent() %>
-					</p>
-				</td>
-			</tr>
-		</table>
+	<%@include file="../title_header.jsp"  %>
 		
-		<table class="detail">
-			<tr>
-				<% for(int i = 1; i < fileList.size(); i++){ %>
-					<td>
-						<%-- 이미지 다운받을 수 잇게하려면 a태그 안에 넣어주는게 좋음 --%> 
-						<div class="detailImgArea">
-							<a href="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= fileList.get(i).getChangeName() %>"
-								download="<%= fileList.get(i).getOriginName() %>">
-								<img id="detailImg<%= i %>" class="detailImg" 
-									src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= fileList.get(i).getChangeName() %>">
-							</a>
-						</div>
-					</td>
-				<% } %>
-			</tr>
-		</table>
-	</div>
+	<div class="outer">
+		<br>
+		<h2 align="center">커뮤니티 상세보기</h2>
+		<div class="tableArea">
+			<form action="<%= request.getContextPath() %>/communityUpdateForm.co" id="detailForm" method="post">
+				<table>
+					<tr>
+						<th>제목</th>
+						<td colspan="3"><%= c.getCommTitle() %></td>
+					</tr>
+					<tr>
+						<th>작성자</th>
+						<td><%= c.getUserName()%></td>
+						<th>작성일</th>
+						<td><%= c.getCommDate() %></td>
+					</tr>
+					<tr>
+						<th>내용</th>
+					</tr>
+					<tr>
+						<td colspan="6">
+							<img src="<%= request.getContextPath() %>/uploadFiles/communityUpload/<%= titleImg.getChangeName() %>" 
+							width="400px" height="350px" id="image" alt="My Image">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="6">
+							<textarea cols="60" rows="15" style="resize:none;" readonly><%= c.getCommContent() %></textarea>
+						</td>
+					</tr>
+				</table>
+				
+				
+				<div align="center">
+					<% if(loginUser != null){ %>
+					<input type="submit" id="updateBtn" value="수정">
+					<input type="button" onclick="deleteBoard();" id="deleteBtn" value="삭제">
+					<% } %>
+					<input type="button" onclick="location.href='<%= request.getContextPath() %>/list.bo'" id="menuBtn" value="메뉴로">
+				</div>
+			</form>
+		</div>
+	</div> 
+			<div align="center" class="replyArea">
+			<div class="replyWriterArea"><!-- 댓글 작성 부분 -->
+				<table>
+					<tr>
+						<td>댓글 작성</td>
+						<td><textarea rows="3" cols="80" id="replyContent" style="resize:none;"></textarea>
+						<td><button id="addReply">댓글 등록</button></td>
+					</tr>
+				</table>
+			</div>
+			
+		</div> 
+	<script>
+		$(function(){
+			$('#addReply').on('click', function(){
+				var writer = '<%= loginUser.getUserId() %>';
+				var bId = <%= c.getCommNo() %>;
+				var content = $('#replyContent').val();
+				
+				$.ajax({
+					url: 'insertReply.bo',
+					data:{writer:writer, bId:bId, content:content},
+					success: function(data){
+						console.log(data);
+						$replyTable = $('#replySelectTable');
+						$replyTable.html('');  // 이어져서 나오지 않도록, 비워두는 역할
+						
+						for(var key in data){
+							var $tr = $('<tr>');
+							var $writerTd = $('<td>').text(data[key].nickName).css('width', '100px');
+							var $contentTd = $('<td>').text(data[key].replyContent).css('width', '400px');
+							var $dateTd = $('<td>').text(data[key].createDate).css('width', '200px');
+							
+							$tr.append($writerTd);
+							$tr.append($contentTd);
+							$tr.append($dateTd);
+							$replyTable.append($tr); // tr을 eplyTable에 붙이기
+						}
+						
+						$('#replyContent').val('');  // 다 적었으면 댓글작성부분 없앰
+					}
+				});
+			});
+		});
+	</script>
 </body>
 </html>

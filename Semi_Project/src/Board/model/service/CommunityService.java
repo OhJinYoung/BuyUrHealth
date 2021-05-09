@@ -27,19 +27,19 @@ public class CommunityService {
 //		return list;
 //	}  // 상세 보기할대 필요할듯..? 
 
-	public int insertBoard(Community c) {
-		Connection conn = getConnection();
-		
-		int result = new CommunityDAO().insertBoard(conn, c);
-		
-		if(result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-//		close(conn);		
-		return result;
-	}
+//	public int insertBoard(Community c) {
+//		Connection conn = getConnection();
+//		
+//		int result = new CommunityDAO().insertBoard(conn, c);
+//		
+//		if(result > 0) {
+//			commit(conn);
+//		} else {
+//			rollback(conn);
+//		}
+////		close(conn);		
+//		return result;
+//	}
 
 
 	public int insertThumbnail(Community c, ArrayList<AddFile> fileList) {
@@ -47,7 +47,7 @@ public class CommunityService {
 		
 		CommunityDAO dao = new CommunityDAO();
 		
-		int result1 = dao.insertBoard(conn, c);
+		int result1 = dao.insertCommunity(conn, c);
 		int result2 = dao.insertAddFile(conn, fileList);
 		
 		if(result1 > 0 && result2 > 0) {
@@ -55,30 +55,23 @@ public class CommunityService {
 		} else {
 			rollback(conn);
 		}
-//		close(conn);		
+		close(conn);		
 		return result1;
 	}
 
-	public Community selectBoard(int bId) {
+	public Community selectCommunity(int bId) {             // 0509 수정
 		Connection conn = getConnection();
 		
 		CommunityDAO dao = new CommunityDAO();  // 두번 다녀와야함 1.조회수 증가 2.셀렉트
 		
-		int result = dao.updateCount(conn, bId);
+		Community community = dao.selectCommunity(conn, bId);
 		
-		Community community = null;
-		if(result > 0) { // 업데이트 잘 됐다고 하면
-			community = dao.selectBoard(conn, bId);
-			
-			if(community != null) { 
+		if(community != null) { // 업데이트 잘 됐다고 하면
 				commit(conn);
-			} else {
-				rollback(conn);
-			}
 		} else { // result가 0보다 작다고해도 롤백 해줘야 함
 			rollback(conn);
 		}
-				
+		close(conn);		
 		return community;
 	}
 
@@ -87,6 +80,7 @@ public class CommunityService {
 		
 		ArrayList<AddFile> list = new CommunityDAO().selectThumbnail(conn, bId);
 		
+		close(conn);
 		return list;
 	}
 	

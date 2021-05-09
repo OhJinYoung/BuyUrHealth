@@ -19,14 +19,15 @@
 	.buttonArea {width:80px; margin-left:auto; margin-right:auto;}
 	.thumb-list {width:220px; border:1px solid white; display:inline-block; margin:10px; align:center;}
 	.thumb-list:hover {opacity:0.8; cursor:pointer;}
-	#insertBtn{background: #B2CCFF;}
+	#insertBtn{background: #FFC83D;border: 1px solid white;  color: white; font-weight: bold; cursor: pointer;  letter-spacing: -1px;  padding: 10px 30px;
+	margin: 2px 3px; width: auto; word-break: keep-all; border-radius: 5px; text-decoration: none; font-size: 0.9375em;}
 </style>
 </head>
 <body>
 	<%@include file="../title_header.jsp"  %>
 	<div class="outer">
 		<br>
-		<h2 align="center">사진 게시판</h2>
+		<h2 align="center">커뮤니티</h2>
 		<div class="thumbnailArea">
 		
 	 <% if(cList.isEmpty()){ %>  
@@ -61,7 +62,7 @@
 		<!--  로그인 했을때 '글쓰기작성하기' 버튼 나타남 -->
 		<div class="buttonArea">
 			<% if(loginUser != null) { %>
-				<input type="button" onclick="location.href='writeThumbForm.th'" id="insertBtn" value="작성하기">
+				<input type="button" onclick="location.href='communityWriteThumbForm.th'" id="insertBtn" value="작성하기">
 			<% } %>
 		</div>
 	</div>
@@ -69,11 +70,15 @@
 	<script>
 		$(function(){
 			$('.thumb-list').click(function(){
-				var bId = $(this).children().children().eq(0).val();
-
-		
-				location.href="<%= request.getContextPath() %>/detail.th?bId=" + bId; 
+				if('<%=loginUser%>'=='null')
+				{
+					alert('로그인을 먼저 해주세요.');
+					location.href="<%= request.getContextPath() %>/login"
+				} else{
+					var bId = $(this).children().children().eq(0).val();
 	
+					location.href="<%= request.getContextPath() %>/detail.th?bId=" + bId; 
+				}
 			});
 		});
 	</script>

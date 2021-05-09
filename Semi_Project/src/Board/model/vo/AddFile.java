@@ -8,7 +8,7 @@ public class AddFile {
 	private String changeName;
 	private String filePath;
 	private Date uploadDate;
-	private char fYN;
+	private String fYN;
 	private int commNo;
 	private int productNo;
 	
@@ -20,7 +20,7 @@ public class AddFile {
 		this.changeName = changeName;
 	}	
 
-	public AddFile(int fNo, String fName, String changeName, String filePath, Date uploadDate, char fYN, int commNo,
+	public AddFile(int fNo, String fName, String changeName, String filePath, Date uploadDate, String fYN, int commNo,
 			int productNo) {
 		super();
 		this.fNo = fNo;
@@ -73,11 +73,11 @@ public class AddFile {
 		this.uploadDate = uploadDate;
 	}
 
-	public char getfYN() {
+	public String getfYN() {
 		return fYN;
 	}
 
-	public void setfYN(char fYN) {
+	public void setfYN(String fYN) {
 		this.fYN = fYN;
 	}
 

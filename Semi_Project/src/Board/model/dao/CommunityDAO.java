@@ -31,19 +31,18 @@ public class CommunityDAO {
 	}
 
 
-	public int insertBoard(Connection conn, Community c) {  // 보드 게시판 생성
+	public int insertCommunity(Connection conn, Community c) {  // 보드 게시판 생성
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertBoard");
-//insertBoard=INSERT INTO BOARD VALUES(COMM_SEQ.NEXTVAL, ?, ?, SYSDATE, DEFAULT, DEFAULT)	// ***
+		String query = prop.getProperty("insertCommunity");
+
 		try {
 			pstmt = conn.prepareStatement(query);
-//			pstmt.setInt(1, b.getBoardType());
-//			pstmt.setInt(2, Integer.parseInt(b.getCategory()));
-//			pstmt.setString(3, b.getBoardTitle());
-//			pstmt.setString(4, b.getBoardContent());
-//			pstmt.setString(5, b.getBoardWriter());   -> 내용 고쳐놓을것!!!!!!!!!!!!!
+			pstmt.setString(1, c.getCommTitle());
+			pstmt.setString(2, c.getCommContent());
+//			pstmt.setInt(3, c.getUserNo());   
+			pstmt.setInt(3, c.getCtgNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -55,12 +54,12 @@ public class CommunityDAO {
 		return result;
 	}
 
-	public ArrayList selectBList(Connection conn) {
+	public ArrayList selectcList(Connection conn) {
 		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Community> list = null;
 		
-		String query = prop.getProperty("selectBList");
+		String query = prop.getProperty("selectcList");
 // SELECT * FROM BLIST WHERE BOARD_TYPE=2		
 		try {
 			stmt = conn.createStatement();
@@ -91,17 +90,18 @@ public class CommunityDAO {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertAttachment");
+		String query = prop.getProperty("insertAddFile");
 		
 		try {
 			for(int i = 0; i < fileList.size(); i++) {
 				AddFile af = fileList.get(i);
 				
-//				pstmt = conn.prepareStatement(query);
-//				pstmt.setString(1, at.getOriginName());
-//				pstmt.setString(2, at.getChangeName());
-//				pstmt.setString(3, at.getFilePath());
-//				pstmt.setInt(4, at.getFileLevel());  // 안에 내용 고치기!!!!!!!
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, af.getfName());
+				pstmt.setString(2, af.getChangeName());
+				pstmt.setString(3, af.getFilePath());
+				pstmt.setString(4, af.getfYN());  
+//				pstmt.setInt(5, af.getCommNo()); 
 				 
 				result += pstmt.executeUpdate();
 			}
@@ -114,33 +114,13 @@ public class CommunityDAO {
 		return result;
 	}
 
-	public int updateCount(Connection conn, int bId) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("updateCount");
-// updateCount=UPDATE BOARD SET BOARD_COUNT = BOARD_COUNT + 1 WHERE BOARD_ID = ?
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, bId);
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
 
-	public Community selectBoard(Connection conn, int bId) {
+	public Community selectCommunity(Connection conn, int bId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Community c = null;
 		
-		String query = prop.getProperty("selectBoard");
+		String query = prop.getProperty("selectCommunity");
 //selectBoard=SELECT * FROM BDETAIL WHERE BOARD_ID = ?
 
 /* SQL에서 작성해보면 
@@ -164,17 +144,15 @@ WHERE BOARD_ID = 101;  */
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-//				c = new Community(rset.getInt("BOARD_ID"),
-//								rset.getInt("BOARD_TYPE"), 
-//								rset.getString("CATE_NAME"),
-//								rset.getString("BOARD_TITLE"),
-//								rset.getString("BOARD_CONTENT"),
-//								rset.getString("BOARD_WRITER"),
-//								rset.getString("NICKNAME"),
-//								rset.getInt("BOARD_COUNT"),
-//								rset.getDate("CREATE_DATE"),
-//								rset.getDate("MODIFY_DATE"),
-//								rset.getString("STATUS"));  // 내용수정
+				c = new Community(rset.getInt("COMM_NO"),
+								rset.getString("COMM_TITLE"), 
+								rset.getString("COMM_CONTENT"),
+								rset.getDate("COMM_DATE"),
+								rset.getInt("USER_NO"),
+								rset.getInt("CTG_NO"),
+								rset.getString("USER_NAME"),
+								rset.getInt("CO_NO"),
+								rset.getString("CO_CONTENT")); 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -203,10 +181,10 @@ WHERE BOARD_ID = 101;  */
 			list = new ArrayList<AddFile>(); // 객체 하나 만들어주고
 			while(rset.next()) {  // 다음 값이 있으면
 				AddFile af = new AddFile(); // 객체생성
-//				at.setFileId(rset.getInt("FILE_ID"));
-//				at.setOriginName(rset.getString("ORIGIN_NAME"));
-//				at.setChangeName(rset.getString("CHANGE_NAME"));
-//				at.setFilePath(rset.getString("FILE_PATH"));  // 내용수정
+				af.setfNo(rset.getInt("F_NO"));
+				af.setfName(rset.getString("F_NAME"));
+				af.setChangeName(rset.getString("CHANGE_NAME"));
+				af.setFilePath(rset.getString("FILE_PATH"));  // 내용수정
 				
 				list.add(af);
 			}
@@ -321,34 +299,4 @@ select * from rlist where ref_bid = 101;  */
 		return list;
 	}
 
-
-	public ArrayList selectcList(Connection conn) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		ArrayList<Community> list = null;
-		
-		String query = prop.getProperty("selectcList");
-// SELECT * FROM BLIST WHERE BOARD_TYPE=2		
-		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
-			
-			list = new ArrayList<Community>(); // 객체생성
-			while(rset.next()) {
-				list.add(new Community(rset.getInt("COMM_NO"),
-									rset.getString("COMM_TITLE"),
-									rset.getString("COMM_CONTENT"),
-									rset.getDate("COMM_DATE"),
-									rset.getInt("USER_NO"),
-									rset.getInt("CTG_NO")));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
-		
-		return list;
-	}
 }	

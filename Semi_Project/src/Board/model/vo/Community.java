@@ -9,6 +9,9 @@ public class Community {
 	private Date commDate;
 	private int userNo;
 	private int ctgNo;
+	private String userName;
+	private int coNo;
+	private String coContent;
 	
 	public Community() {}
 
@@ -22,6 +25,21 @@ public class Community {
 		this.ctgNo = ctgNo;
 	}
 
+	public Community(int commNo, String commTitle, String commContent, Date commDate, int userNo, int ctgNo,
+			String userName, int coNo, String coContent) {
+		super();
+		this.commNo = commNo;
+		this.commTitle = commTitle;
+		this.commContent = commContent;
+		this.commDate = commDate;
+		this.userNo = userNo;
+		this.ctgNo = ctgNo;
+		this.userName = userName;
+		this.coNo = coNo;
+		this.coContent = coContent;
+	}
+
+	
 	public int getCommNo() {
 		return commNo;
 	}
@@ -69,13 +87,31 @@ public class Community {
 	public void setCtgNo(int ctgNo) {
 		this.ctgNo = ctgNo;
 	}
+	
 
-	@Override
-	public String toString() {
-		return "Community [commNo=" + commNo + ", commTitle=" + commTitle + ", commContent=" + commContent + ", commDate="
-				+ commDate + ", userNo=" + userNo + ", ctgNo=" + ctgNo + "]";
+	public String getUserName() {
+		return userName;
 	}
-	
-	
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public int getCoNo() {
+		return coNo;
+	}
+
+	public void setCoNo(int coNo) {
+		this.coNo = coNo;
+	}
+
+	public String getCoContent() {
+		return coContent;
+	}
+
+	public void setCoContent(String coContent) {
+		this.coContent = coContent;
+	}
+
 
 }

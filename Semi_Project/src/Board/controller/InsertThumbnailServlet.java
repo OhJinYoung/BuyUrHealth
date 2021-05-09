@@ -54,7 +54,7 @@ public class InsertThumbnailServlet extends HttpServlet {
 			// getRealPath("/") -> "/" 가장 처음 루트로 돌아가겠다는 것 (백단은 웹에서 화면에서 보이는 부분이 아님, 기능단이지)
 			// websever 컨터이너 경로를 추출하는건데 그게 webcontent라고 생각하면 됨 
 			
-			String savePath = root + "thumbnail_uploadFiles/";
+			String savePath = root + "uploadFiles\\communityUpload/";
 			// JSPSvevletSever 들어가서 serve modules without publising 체크해주기 
 			//-> publising 없이, 니네가 알아서 계산하는거 없이 모듈사용할래라는 것 파일할때는 항상 체크해줘야 경로 이상하게 가지 않음!-> 체크해야지 내가 아는 경로 나옴
 			
@@ -108,33 +108,35 @@ public class InsertThumbnailServlet extends HttpServlet {
 			String title = multipartRequest.getParameter("title");
 			String content = multipartRequest.getParameter("content");
 			String writer = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+			int ctgNo = 30;
 			
 			Community c = new Community();
-			c.setCommTitle(content);
-			c.setCommContent(writer);
-			c.setBoardType(2);
-			c.setCategory("10");
+			c.setCommTitle(title);
+			c.setCommContent(content);
+//			c.setBoardType(2);
+			c.setUserName(writer);
+			c.setCtgNo(ctgNo); 
 			
 			ArrayList<AddFile> fileList = new ArrayList<AddFile>();
 			for(int i = originFiles.size() - 1; i >= 0; i--) {
-				AddFile at = new AddFile();
-				at.setFilePath(savePath);
-				at.setOriginName(originFiles.get(i));
-				at.setChangeName(saveFiles.get(i));
+				AddFile af = new AddFile();
+				af.setFilePath(savePath);
+				af.setfName(originFiles.get(i));
+				af.setChangeName(saveFiles.get(i));
 				
 				if(i == originFiles.size() - 1) {
-					at.setFileLevel(0);
+					af.setfYN("Y");
 				} else {
-					at.setFileLevel(1);
+					af.setfYN("N");
 				}
 				
-				fileList.add(at);
+				fileList.add(af);
 			}
 			
-			int result = new CommunityService().insertThumbnail(b, fileList);
+			int result = new CommunityService().insertThumbnail(c, fileList);
 			
 			if(result > 0) {
-				response.sendRedirect("list.th");
+				response.sendRedirect("goCommunity");
 			} else {
 				request.setAttribute("msg", "사진 게시판 등록에 실패하였습니다.");
 				
