@@ -11,6 +11,7 @@
 	QABoard qab = (QABoard)request.getAttribute("qaboard");
 	ArrayList<QAFile> qaf = (ArrayList<QAFile>)request.getAttribute("qafile"); 
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -221,7 +222,6 @@
 			<div class="line"></div>
 		</div>
 	<!-- 사용자 버전 -->
-	<% if(authority.getAuthority() == 'N') {%>
 	<form action="<%= request.getContextPath() %>/QAInsert.bo" method="post" enctype="multipart/form-data">
 		<div class="qa body">
 			<table>
@@ -264,71 +264,6 @@
 		</div>
 		</form>
 		
-		<!-- 관리자 버전 -->
-		<% } else { %>
-			<form action="<%= request.getContextPath() %>/QAAnInsert.bo" method="post" enctype="multipart/form-data">
-			<div class="qa body">
-			<table>
-				<tr>
-					<td>
-						<label>분류</label>
-						<input type="hidden" size="50" name="bId" value="<%= qab.getQaNo() %>">
-						<input type="hidden" size="50" name="category" value="<%= qab.getQacateName() %>">
-						<%= qab.getQacateName() %>
-						<label id="writeDate">작성일 : <%= qab.getQaQuestionDate() %></label>
-						<input type="hidden" size="50" name="date" value="<%= qab.getQaQuestionDate() %>">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="hidden" size="50" name="title" value="<%= qab.getQaTitle() %>">
-						<div id="qaTitle"><%= qab.getQaTitle() %></div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div id="qaContent">
-							<input type="hidden" name="content" cols="60" rows="15" style="resize:none;" value="<%= qab.getQaContent() %>" readonly><%= qab.getQaContent() %>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label>첨부파일</label>
-						<% if(qaf.isEmpty()) {%>
-							첨부파일이 없습니다.
-						<% } else { %>
-							<a href="<%= request.getContextPath() %>/uploadFiles/qafile_uploadFiles/<%= qaf.get(0).getFileChangeName() %>" target='_blank'><%= qaf.get(0).getFileChangeName() %></a>
-						<% } %>
-						
-					</td>
-				</tr>
-			</table>
-			
-			
-			<% if(qab.getQaAnswer() != null){ %>
-			<table>
-				<tr>
-					<td>
-						<label>답변</label>
-					</td>
-				</tr>
-				<tr>				
-					<td>
-						<div id="anContent">
-						<textarea type="text" name="anContent" id="anContent" style="resize:none;"></textarea>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<input type="button" id="goListBtn" onclick="location.href='<%= request.getContextPath() %>/goQNA'" value="목록">
-					<input type="submit" id="updateBtn" value="답변등록">
-				</tr>
-			</table>
-			<% } %> 
-		</div>
-		</form>
-		<% } %>
 		
 		<script>
 		function readImage(input) {

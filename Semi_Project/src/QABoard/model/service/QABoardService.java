@@ -34,6 +34,7 @@ public class QABoardService {
 		close(conn);
 		
 		return list;
+		
 	}
 	
 	public ArrayList<QABoard> selectList(PageInfo pi) {

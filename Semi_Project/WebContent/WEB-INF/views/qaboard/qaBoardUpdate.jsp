@@ -299,7 +299,6 @@
     	float: right;
     }
     
-    
 </style>
 </head>
 <body>

@@ -48,7 +48,6 @@ public class QABoardListServlet extends HttpServlet {
 		}
 		int userNo = loginUser.getUserNo();
 		
-		
 
 		int listCount;
 		int currentPage;

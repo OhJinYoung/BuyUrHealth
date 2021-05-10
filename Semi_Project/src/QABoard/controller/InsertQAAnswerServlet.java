@@ -51,7 +51,6 @@ public class InsertQAAnswerServlet extends HttpServlet {
 		QABoard b = new QABoard();
 		b.setQaAnswer(anContent);
 		
-		
 		int result1 = 0;
 		
 		result1 = new QABoardService().insertAnQABoard(b, bId);

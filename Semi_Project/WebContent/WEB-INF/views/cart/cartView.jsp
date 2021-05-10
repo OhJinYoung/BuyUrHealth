@@ -6,6 +6,7 @@
 int total = 0; 
 int sum = 0;
 %>
+
 <!DOCTYPE html>
 <html>
 <head>

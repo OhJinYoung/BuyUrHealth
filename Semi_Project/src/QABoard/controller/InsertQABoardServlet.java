@@ -77,7 +77,6 @@ public class InsertQABoardServlet extends HttpServlet {
 		b.setQaContent(qaContent);
 		b.setUserNo(userNo);
 		
-		
 			
 		ArrayList<QAFile> fileList = new ArrayList<QAFile>();
 		for(int i = originFiles.size() - 1; i >= 0; i--) {
