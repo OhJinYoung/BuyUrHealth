@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, Cart.model.vo.Cart, java.text.DecimalFormat" %>
+<%@ page import="java.util.ArrayList, Cart.model.vo.Cart, java.text.DecimalFormat"%>
+<%@ page import="java.util.Calendar"%>
+
 <% ArrayList<Cart> cartlist = (ArrayList<Cart>)request.getAttribute("cartlist"); %>
 <% 
-int total = 0; 
-int sum = 0;
+	int total = 0; 
+	int sum = 0;
 %>
-
+<%
+	Calendar cal = Calendar.getInstance();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -242,7 +246,7 @@ int sum = 0;
           <div class="calc">
           	<div class="calcinfo" id="calcinfo1">
           		총 상품가격: <b><%= new DecimalFormat("###,###").format(total) %></b>원  + 배송비: <b>2,500</b>원<br>
-          		수령 예상일: <b>5월 17일</b> 도착 예정
+          		발송 예상일: <b><%= cal.get(Calendar.MONTH)+1 %>월 <%= cal.get(Calendar.DATE) %>일</b> 발송 예정
           	</div>
           	<div class="calcinfo" id="calcinfo2">
           		총 결제할 금액: <b><%= new DecimalFormat("###,###").format(total + 2500)%></b>원

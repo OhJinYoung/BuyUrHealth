@@ -34,31 +34,20 @@ public class GetCartServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8"); 
-		
 		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
-		int proNo = Integer.parseInt(request.getParameter("productNo").trim());
-		String proName = request.getParameter("productName");
-		int proVol = Integer.parseInt(request.getParameter("number").trim());
-		int proPrice = Integer.parseInt(request.getParameter("total").trim());
-		int cartNo = Integer.parseInt(request.getParameter("cartNo").trim());
-		int cartPrice = proPrice * cartNo;
-		
+		int proNo = Integer.parseInt(request.getParameter("productNo").trim()); // 제품번호
 		
 		Cart c = new Cart();
-		c.setProductName(proName); // product에서 받아오기
-		c.setProductVolume(proVol);
 		c.setCartVolume(1);
-		c.setProductPrice(proPrice); // product에서 받아오기
 		c.setUserNo(userNo);
-		c.setProductNo(proNo);
-		c.setCartPrice(cartPrice);
+		c.setProductNo(proNo); // product에서 받아오기
 		
 		ArrayList<Cart> cartlist = (ArrayList<Cart>)request.getAttribute("cartlist");
 		
 		// 되는지 실행해보기
+		response.setContentType("text/html; charset=UTF-8"); 
 		for(int i = 0; i < cartlist.size(); i++) {
 			if(cartlist.get(i).getProductNo() == proNo) {
 				PrintWriter writer = response.getWriter(); 
@@ -68,8 +57,6 @@ public class GetCartServlet extends HttpServlet {
 		}
 		
 		int result = new CartService().insertCart(c);
-		
-
 		
 		if(result > 0) {
 			request.getRequestDispatcher("WEB-INF/views/cart/cartView.jsp").forward(request, response);
