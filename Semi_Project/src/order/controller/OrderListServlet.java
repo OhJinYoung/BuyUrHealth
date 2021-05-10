@@ -43,14 +43,6 @@ public class OrderListServlet extends HttpServlet {
 		PageInfo pi = new PagingTemplate().getPageInfo(page,listCount);
 
 		ArrayList<Order> list = oService.orderList(pi);
-	
-		if (list != null && list.size() > 0) {
-			for (Order o : list) {
-				String[] products = o.getpList().split("&&");
-				if (products.length > 1)
-					o.setpList(products[0] + " 외 " + (products.length - 1)+"");
-			}
-		}
 		
 		request.setAttribute("page",pi);
 		request.setAttribute("list", list);

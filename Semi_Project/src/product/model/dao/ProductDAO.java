@@ -265,6 +265,40 @@ public class ProductDAO {
 		}
 		return p;
 	}
+
+	public ProductFile selectProductFile(Connection conn, int productNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ProductFile productFile = null;
+		
+		String query = prop.getProperty("selectProductFile");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, productNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				productFile = new ProductFile(rset.getInt("F_NO"),
+						  					  rset.getString("F_NAME"),
+						  					  rset.getInt("PRODUCT_NO"),
+						  					  rset.getString("CHANGE_NAME"),
+						  					  rset.getString("FILE_PATH"),
+						  					  rset.getDate("UPLOAD_DATE"));
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return productFile;
+	}
 	
 	/*
 	public ArrayList<Product> selectList(Connection conn) {

@@ -25,14 +25,14 @@ import common.MyFileRenamePolicy;
 /**
  * Servlet implementation class UpdateQABoardFormServlet
  */
-@WebServlet("/updateQABoardForm.bo")
-public class UpdateQABoardFormServlet extends HttpServlet {
+@WebServlet("/updateQAAnswerForm.bo")
+public class UpdateQAAnswerFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateQABoardFormServlet() {
+    public UpdateQAAnswerFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,12 +44,17 @@ public class UpdateQABoardFormServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int bId = Integer.parseInt(request.getParameter("bId"));
+		
 		String category = request.getParameter("category");
 		String date = request.getParameter("date");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		content = content.replaceAll("<br>", "\r\n");
+		
+		String anContent = request.getParameter("anContent");
+		anContent = anContent.replaceAll("<br>", "\r\n");
 		ArrayList<QAFile> qafile = new QABoardService().selectFile(bId);
+		
 		
 		String[] dateArr = date.split("-");
 		int year = Integer.parseInt(dateArr[0]);
@@ -57,13 +62,19 @@ public class UpdateQABoardFormServlet extends HttpServlet {
 		int day = Integer.parseInt(dateArr[2]);
 		
 		Date dat = new Date(new GregorianCalendar(year, month, day).getTimeInMillis());
+		
 
-		QABoard b = new QABoard(bId, title, content, dat, category);
+		QABoard abo = new QABoard();
+		abo.setQaNo(bId);
+		abo.setQaAnswer(anContent);
+		abo.setQacateName(category);
+		abo.setQaQuestionDate(dat);
+		abo.setQaTitle(title);
+		abo.setQaContent(content);
 		
-		request.setAttribute("b", b);
+		request.setAttribute("abo", abo);
 		request.setAttribute("qafile", qafile);
-		request.getRequestDispatcher("WEB-INF/views/qaboard/qaBoardUpdate.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("WEB-INF/views/qaboard/qaBoardAnUpdate.jsp").forward(request, response);
 
 	}
 

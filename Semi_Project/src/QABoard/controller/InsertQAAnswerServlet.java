@@ -1,26 +1,39 @@
 package QABoard.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.GregorianCalendar;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+
 import QABoard.model.service.QABoardService;
 import QABoard.model.vo.QABoard;
+import QABoard.model.vo.QAFile;
+import common.MyFileRenamePolicy;
+import member.model.vo.Member;
 
 /**
- * Servlet implementation class UpdateQABoardServlet
+ * Servlet implementation class UpdateQABoardFormServlet
  */
-@WebServlet("/QAUpdate.bo")
-public class UpdateQABoardServlet extends HttpServlet {
+@WebServlet("/QAAnInsert.bo")
+public class InsertQAAnswerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateQABoardServlet() {
+    public InsertQAAnswerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,25 +45,22 @@ public class UpdateQABoardServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int bId = Integer.parseInt(request.getParameter("bId"));
-		
-		int category = Integer.parseInt(request.getParameter("category"));
-		String title = request.getParameter("qaTitle");
-		String content = request.getParameter("qaContent");
-		content = content.replace("\r\n", "<br>");
+		String anContent = request.getParameter("anContent");
+		anContent = anContent.replace("\r\n", "<br>");
 		
 		QABoard b = new QABoard();
-		b.setQaNo(bId);
-		b.setQacateNo(category);
-		b.setQaTitle(title);
-		b.setQaContent(content);
+		b.setQaAnswer(anContent);
 		
-		int result = new QABoardService().updateBoard(b);
+		int result1 = 0;
 		
-		if(result > 0) {
+		result1 = new QABoardService().insertAnQABoard(b, bId);
+		
+		if(result1 > 0) {
 			response.sendRedirect("QADetail.bo?bId="+bId);
 		} else {
-			request.setAttribute("msg", "게시글 수정에 실패하였습니다.");
+			request.setAttribute("msg", "게시물 등록에 실패했습니다.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+			
 		}
 		
 	}

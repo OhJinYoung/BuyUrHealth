@@ -119,6 +119,22 @@ public class Order {
 		this.email = email;
 	}
 
+	public Order(int no, String name, String address, String phone, String request, String payment, String state,
+			String orderDate, int userNo, String trackingNo, String email) {
+		super();
+		this.no = no;
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+		this.request = request;
+		this.payment = payment;
+		this.state = state;
+		this.orderDate = orderDate;
+		this.userNo = userNo;
+		this.trackingNo = trackingNo;
+		this.email = email;
+	}
+
 	public int getNo() {
 		return no;
 	}

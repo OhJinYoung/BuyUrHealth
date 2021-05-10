@@ -1,6 +1,9 @@
 package Cart.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,6 +33,10 @@ public class GetCartServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8"); 
+		
+		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
 		int proNo = Integer.parseInt(request.getParameter("productNo").trim());
@@ -49,8 +56,20 @@ public class GetCartServlet extends HttpServlet {
 		c.setProductNo(proNo);
 		c.setCartPrice(cartPrice);
 		
+		ArrayList<Cart> cartlist = (ArrayList<Cart>)request.getAttribute("cartlist");
+		
+		// 되는지 실행해보기
+		for(int i = 0; i < cartlist.size(); i++) {
+			if(cartlist.get(i).getProductNo() == proNo) {
+				PrintWriter writer = response.getWriter(); 
+				writer.println("<script>alert('이미 장바구니에 추가된 상품입니다.'); location.href='<%= request.getContextPath() %>/goCart';</script>"); 
+				writer.close();
+			}
+		}
+		
 		int result = new CartService().insertCart(c);
 		
+
 		
 		if(result > 0) {
 			request.getRequestDispatcher("WEB-INF/views/cart/cartView.jsp").forward(request, response);
