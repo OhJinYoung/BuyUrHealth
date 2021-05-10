@@ -15,9 +15,10 @@
 }
 
 .ddiv{
-	position: absolute;
-	top: 290px;
-	left: 850px;
+	vertical-align: middle;
+	width: 480px;
+	height: 1000px;
+	display: table-cell;
 }
 #idCheck{
 	background-color: #e4a127;
@@ -80,7 +81,7 @@
 		display: flex;
         flex-direction: column;
         width: 100%;
-        height: 100%;
+        height: 1000px;
         align-items: center;
         justify-content: center;
 }
@@ -110,26 +111,7 @@ color: red;
 
       }
 
-h2{
-	position: absolute;
-	left: 440px;
-	bottom: 700px;
-}
 
-.wrap{background: white; width: 100%; height: 50px;}
-.mainMenu
-{
-	background: white; color: gray; text-align: center; font-weight: bold; 
-	vertical-align: middle; width: 150px; height: 50px; display: table-cell;
-}
-.mainMenu:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
-.mainLogo{float:left; margin-right:100px; margin-left:30px; clear:both;}
-.mainLogo2 {
-	float: left;
-	margin-right: 150px;
-	margin-left: 30px;
-	clear: both;
-}
 </style>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 </head>
@@ -137,8 +119,11 @@ h2{
 <%@include file="../title_header.jsp"%>
 	
 	<div class="big">
-			<h2>회원가입</h2>
 			<div class="ddiv">
+			<br><br><br><br>
+			<br><br><br><br>
+			<h2>회원가입</h2>
+			<br><br>
 					<form action="<%= request.getContextPath() %>/insert.me" id="mailForm" name="mailForm"  onsubmit="return checkValue()">  
 						이름 <br>
 						<input type="text" placeholder="이름을 입력해 주세요" name="userName"required>
@@ -216,11 +201,12 @@ h2{
 					<br>
 					<input type="checkbox" name="category" value="마케팅수신" id="essay" onclick="selectOne();"><a> 마케팅 수신 동의(선택)&nbsp;&nbsp;&nbsp;</a>
 					<input type="button" value="전문보기" id="look3" class="btn1">
-					<br>
+					<br><br><br>
 							<div class="btns" id="signUpBtns">
 								<input id="signUpBtn" type="submit" value="가입하기" class="btn hover1">
 								<button id="button" class="btnArea" onclick="goHome();">메인으로</button>
 							</div>
+					<br><br><br><br>
 					</form> 
 			</div>
 	</div>
