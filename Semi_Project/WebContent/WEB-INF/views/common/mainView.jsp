@@ -50,6 +50,44 @@
 	
 	.mainBottom{margin-top: -70px;}
 	
+	.navigationBar{
+		position: fixed;
+  		top: 600px;
+  		/* width: 100% */
+  		left: 1450px;
+	}
+	
+	.navigationBar button{
+		border: 1px solid skyblue;
+		color: white;
+		padding: 5px;
+	}
+	
+	.navigationBar button:hover{
+		color: white;
+		background-color: gray;
+	}
+	
+	#navigationBtn1{
+		border-top-left-radius: 20px;
+		border-top-right-radius: 20px;
+		background-color: rgb(232, 18, 36);
+	}
+	
+	#navigationBtn1:hover{
+		background-color: gray;
+	}
+	
+	#navigationBtn2{
+		border-bottom-left-radius: 20px;
+		border-bottom-right-radius: 20px;
+		background-color: rgb(255, 200, 61);
+	}
+	
+	#navigationBtn2:hover{
+		background-color: gray;
+	}
+	
 </style>
 </head>
 <body>
@@ -61,9 +99,9 @@
 		<%@include file="../title_header.jsp"  %>
 	<% } %>
 	
-	
+	<div id="top"></div>
 	<%@include file="humanBody.jsp"%>
-	
+	<div id="bottom"></div>
 	<%@include file="nutrientCalc.jsp"%>
 	
 	<h2 align="center" style="margin-top: 100px;">영양소 소개</h2>
@@ -159,6 +197,11 @@
 		<%@include file="footer.jsp"%>
 	</div>
 	
+	<div class="navigationBar">
+		<button id="navigationBtn1">상단</button><br>
+		<button id="navigationBtn2">하단</button><br>
+	</div>
+	
 	<script>
 		function goRules1(){
 			location.href='<%=request.getContextPath()%>/goRules';
@@ -169,8 +212,21 @@
 		}
 		
 		function qalist(){
-			location.href='<%=request.getContextPath()%>/goQNA';
+			location.href='<%=request.getContextPath()%>/goNotice';
 		}
+
+		$('#navigationBtn1').click(function(){
+			var offset = $('#top').offset(); //선택한 태그의 위치를 반환
+			//animate()메서드를 이용해서 선택한 태그의 스크롤 위치를 지정해서 0.4초 동안 부드럽게 해당 위치로 이동함 
+			$('html').animate({scrollTop : offset.top}, 400);
+		});
+		
+		$('#navigationBtn2').click(function(){
+			var offset = $('#bottom').offset(); //선택한 태그의 위치를 반환
+			//animate()메서드를 이용해서 선택한 태그의 스크롤 위치를 지정해서 0.4초 동안 부드럽게 해당 위치로 이동함 
+			$('html').animate({scrollTop : offset.top}, 400);
+		});
+		
 	</script>
 	
 </body>
