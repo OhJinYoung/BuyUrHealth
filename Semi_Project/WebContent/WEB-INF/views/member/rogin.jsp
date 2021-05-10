@@ -48,7 +48,7 @@ text-align:center; cursor: pointer; color:#333; transition:all 0.9s, color 0.3;
 }
 
 </style>
-<script type="text/javascript" src="<%= request.getContextPath() %>../js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<%@include file="../title_header.jsp"%>
