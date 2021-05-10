@@ -77,8 +77,6 @@
 /* 페이징 */
 .paging {
 	text-align: center;
-
-	
 }
 
 .paging a {
@@ -98,7 +96,7 @@
 </style>
 </head>
 <body>
-	<% if(authority == null) {%>
+<% if(authority == null) {%>
 		<%@include file="../title_header.jsp"  %>
 	<% } else if(authority != null && authority.getUserId().equals("admin")) {%>
 		<%@include file="../admin/header.jsp"%>
@@ -110,7 +108,7 @@
 
 	<div class="product-list">
 		<div class="list-name">
-			<span>제품보기 > 기초영양</span>
+			<span>제품보기 > 피부건강</span>
 			<%
 				if (authority != null && authority.getUserId().equals("admin")) {
 			%>

@@ -4,53 +4,92 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>제품보기</title>
-<link rel="stylesheet" href="css/style.css">
+<title>제품등록</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
-	h2{text-align:center;}
-	.wrap{background: white; width: 100%; height: 50px;}
-	.mainMenu{
-			background: white; color: gray; text-align: center; font-weight: bold; 
-			vertical-align: middle; width: 150px; height: 50px; display: table-cell;
-		}
-	.mainMenu:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
-	.mainLogo{float:left; margin-right:100px; margin-left:30px; clear:both;}
-	.humanBody{width: 100%; height: 30%; text-align: center; display: inline-block;}
+.product-list { width: 70%; 
+				max-width:900px;
+				padding: 20px; 
+				margin-bottom: 10px; 
+				margin-top: 20px; 
+ 				float: left; 
+ 				border-left: 1px solid #bcbcbc; 
+ 				border-right: 1px solid #bcbcbc; 
+ 				}
+.product-list span {font-size: 20px;}
+
+
+.cell { float: left; box-sizing: border-box;}
+/* .row::after { content: ""; display: block; clear: both; } */
+
+
+.listArea {
+	mergin-left: 20px;
+	mergin-right: 20px;
+	border-collapse: collapse;
+	}
+.listArea tr {height: 40px; border-bottom: 1px solid #ccc;}
+.listArea th {font-size: 18px;}
+.listArea td {font-size: 15px; text-align: center;}
+
+
+.list-name {margin: 10px; font-weight: bold; font-size: 30px;}
+.list-name span {margin: 0 0 0 10px;}
+.list {align: center;}
+
+
+#test_btn1 {
+	background-color: orange;
+	border: none;
+	color: #fff;
+	padding: 5px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 15px;
+	margin: 4px;
+	cursor: pointer;
+	border-radius: 5px;
+	float: right;
+}
+
+#prod-submit {
+	background-color: orange;
+	border: none;
+	color: #fff;
+	padding: 5px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 15px;
+	margin-top: 20px;
+	cursor: pointer;
+	border-radius: 5px;
+	align: center;
+}
+
+
+/* 제품등록 */
+.product-upload { position: center; width: auto; box-sizing: border-box;}
+.product-upload2 { table-layout:fixed}
+
+
+.product-upload table th { text-align : left; }
+.product-upload2 { border-spacing : 15px; border-collapse: collapse;}
+.product-upload2 tr {border-bottom: 1px solid #ccc; height: 40px; font-size: 18px;}
+
+
+
+
 </style>
 </head>
 <body>
-	<div class="wrap">
-		<nav>
-			<div><img class="mainLogo" src="<%= request.getContextPath() %>/images/mainlogo.png" width="100px" height="50px" alt="My Image"></div>
-			<div class="mainMenu" id="goViewProduct">제품보기</div>
-			<div class="mainMenu" id="goCommunity">커뮤니티</div>
-			<div class="mainMenu" id="goCart">장바구니</div>
-			<div class="mainMenu" id="goMypage">마이페이지</div>
-			<div class="mainMenu" id="login">로그인</div>
-			<div class="mainMenu" id="goService">고객센터</div>
-			<hr>
-		</nav>
-	</div>
-	
-		<div class="product-menubar">
-	<hr>
-        <h2 id="product-menubar-name">제품보기</h2>
-    <hr>
-        <ul>
-          <li>기초영양</li>
-          <li>항산화</li>
-          <li>뼈/관절</li>
-          <li>면역</li>
-          <li>눈건강</li>
-          <li>장건강</li>
-          <li>피부건강</li>
-        </ul>
-      </div>
+		<%@include file="../title_header.jsp"  %>
+		<%@include file="productNav.jsp"%>
 
 	<div class="product-list">
 			<div class="list-name">
-				<span>상품등록</span>
+				<span>제품등록</span>
 				<hr>
 			</div>
 			<div class="product-upload">
@@ -74,27 +113,27 @@
 							</tr>
 
 							<tr>
-								<th>| 상품명</th>
+								<th>| 제품명</th>
 								<td><input type="text" name="name"></td>
 							</tr>
 
 							<tr>
-								<th>| 상품가격</th>
+								<th>| 제품가격</th>
 								<td><input type="text" name="price"></td>
 							</tr>
 
 							<tr>
 								<th>| 재고수량</th>
-								<td><input type="number" min="1" value="1" name="volume"></td>
+								<td><input type="number" min="1" value ="10" name="volume"></td>
 							</tr>
 
 							<tr>
-								<th>| 상품상세정보</th>
+								<th>| 제품상세정보</th>
 							</tr>
 
 
 							<tr>
-								<th colspan="2"><textarea name="" rows="10" cols="80" name="detail"></textarea></th>
+								<th colspan="2"><textarea rows="10" cols="80" name="detail"></textarea></th>
 							</tr>
 							<tr>
 								<th >| 썸네일이미지 첨부</th>
@@ -120,7 +159,7 @@
 
 						</table>
 					<div>
-						<button type="submit" id="prod-submit">상품등록</button>
+						<button type="submit" id="prod-submit">제품등록</button>
 					</div>
 					</form>
 				</div>
@@ -164,26 +203,5 @@
 						}
 					}
 				</script>
-				
-
-
-	<script>
-		$('#goViewProduct').on('click', function(){
-			location.href="<%= request.getContextPath() %>/list.pro";
-		});
-		$('#goCommunity').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no";
-		});
-		$('#goCart').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goMypage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goService').on('click', function(){
-			location.href="<%= request.getContextPath() %>/list.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		
-	</script>
 </body>
 </html>
