@@ -163,5 +163,55 @@ public class MemberService {
 
 		return result;
 	}
+	public int insertMember(Member member) {
+
+		Connection conn = getConnection();
+
+		
+
+		int result = new MemberDAO().insertMember(conn, member);
+
+		
+
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public Member idFindInfoMember(Member member) {
+
+		Connection conn = getConnection();
+
+		Member idFindInfo = new MemberDAO().idFindInfoMember(conn, member);
+		
+		close(conn);
+		
+
+		return idFindInfo;
+
+	}
+
+
+	public Member pwFindInfoMember(Member member) {
+		Connection conn = getConnection();
+
+		Member pwFindInfo = new MemberDAO().pwFindInfoMember(conn, member);
+		
+		close(conn);
+		
+
+		return pwFindInfo;
+	}
+
+	public int checkId(String inputId) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().checkId( conn, inputId);
+		
+		return result;
+	}
 
 }
