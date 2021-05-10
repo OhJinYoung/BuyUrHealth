@@ -216,14 +216,12 @@
 		}
 
 		$('#navigationBtn1').click(function(){
-			var offset = $('#top').offset(); //선택한 태그의 위치를 반환
-			//animate()메서드를 이용해서 선택한 태그의 스크롤 위치를 지정해서 0.4초 동안 부드럽게 해당 위치로 이동함 
+			var offset = $('#top').offset();
 			$('html').animate({scrollTop : offset.top}, 400);
 		});
 		
 		$('#navigationBtn2').click(function(){
-			var offset = $('#bottom').offset(); //선택한 태그의 위치를 반환
-			//animate()메서드를 이용해서 선택한 태그의 스크롤 위치를 지정해서 0.4초 동안 부드럽게 해당 위치로 이동함 
+			var offset = $('#bottom').offset();
 			$('html').animate({scrollTop : offset.top}, 400);
 		});
 		
