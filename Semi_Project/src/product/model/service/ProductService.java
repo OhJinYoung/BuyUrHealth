@@ -72,13 +72,28 @@ public class ProductService {
 		ProductDAO dao = new ProductDAO();
 		
 		Product product = dao.selectProduct(conn, pNo);
-			if(product != null) {
-				commit(conn);
-			} else {
-				rollback(conn);
-			}
-			
+		if(product != null) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
 		return product;
+	}
+
+	public ProductFile selectProductFile(int productNo) {
+		Connection conn = getConnection();
+		
+		ProductDAO dao = new ProductDAO();
+		
+		ProductFile productFile = dao.selectProductFile(conn, productNo);
+		if(productFile != null) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+
+		return productFile;
 	}
 
 }

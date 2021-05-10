@@ -52,7 +52,7 @@ public class SearchOrderServlet extends HttpServlet {
 		request.setAttribute("filter", filter);
 		request.setAttribute("page", pi);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("WEB-INF/views/admin/member/orderList.jsp?filter=" + filter + "&&input=" + input)
+		request.getRequestDispatcher("WEB-INF/views/admin/member/orderList.jsp")
 				.forward(request, response);
 	}
 

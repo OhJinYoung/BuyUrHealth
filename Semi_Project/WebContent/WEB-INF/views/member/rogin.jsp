@@ -8,10 +8,10 @@
 <style type="text/css">
 
 #loginForm{
-	position: absolute;
-	top: 400px;
-	left: 770px;
-
+	vertical-align: middle;
+	width: 150px;
+	height: 50px;
+	display: table-cell;
 }
 #idFind {
 	color: black;

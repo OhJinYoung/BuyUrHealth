@@ -15,9 +15,10 @@
 }
 
 .ddiv{
-	position: absolute;
-	top: 290px;
-	left: 850px;
+	vertical-align: middle;
+	width: 480px;
+	height: 1000px;
+	display: table-cell;
 }
 #idCheck{
 	background-color: #e4a127;
@@ -51,6 +52,27 @@
 	border-radius: 12px;
 	width: 80px;
 }
+#look1{
+	background-color: white;
+	border:0;
+	outline:0;
+	color: blue;
+	text-decoration: underline;
+}
+#look2{
+	background-color: white;
+	border:0;
+	outline:0;
+	color: blue;
+	text-decoration: underline;
+}
+#look3{
+	background-color: white;
+	border:0;
+	outline:0;
+	color: blue;
+	text-decoration: underline;
+}
 .btn:hover{color:#fff;}
 .hover1:hover{ box-shadow: 0 80px 0 0 rgba(0,0,0,0.25) inset, 0 -80px 0 0 rgba(0,0,0,0.25) inset; }
 
@@ -59,7 +81,7 @@
 		display: flex;
         flex-direction: column;
         width: 100%;
-        height: 100%;
+        height: 1000px;
         align-items: center;
         justify-content: center;
 }
@@ -77,27 +99,19 @@ font-size:16px;
 color: red;
 
       }
+input[type="password"]{
 
-h2{
-	position: absolute;
-	left: 440px;
-	bottom: 700px;
-}
+width:290px; height:30px;
 
-.wrap{background: white; width: 100%; height: 50px;}
-.mainMenu
-{
-	background: white; color: gray; text-align: center; font-weight: bold; 
-	vertical-align: middle; width: 150px; height: 50px; display: table-cell;
-}
-.mainMenu:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
-.mainLogo{float:left; margin-right:100px; margin-left:30px; clear:both;}
-.mainLogo2 {
-	float: left;
-	margin-right: 150px;
-	margin-left: 30px;
-	clear: both;
-}
+padding:15px;
+
+font-size:16px;
+
+color: red;
+
+      }
+
+
 </style>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 </head>
@@ -105,8 +119,11 @@ h2{
 <%@include file="../title_header.jsp"%>
 	
 	<div class="big">
-			<h2>회원가입</h2>
 			<div class="ddiv">
+			<br><br><br><br>
+			<br><br><br><br>
+			<h2>회원가입</h2>
+			<br><br>
 					<form action="<%= request.getContextPath() %>/insert.me" id="mailForm" name="mailForm"  onsubmit="return checkValue()">  
 						이름 <br>
 						<input type="text" placeholder="이름을 입력해 주세요" name="userName"required>
@@ -160,7 +177,7 @@ h2{
 						<br><br>
 						
 						비밀번호<br>
-						<input type="text" placeholder="비밀번호를 입력해 주세요" name="passWord" required>
+						<input type="password" placeholder="비밀번호를 입력해 주세요" name="passWord" required>
 						<br><br>
 						
 						
@@ -170,20 +187,26 @@ h2{
 						<br><br>
 						
 						
-					<input type="checkbox" value="전체선택" id="all" onclick="selectAll();"><a>모두 동의하기</a>
+					<input type="checkbox" value="전체선택" id="all" onclick="selectAll();"><a> 모두 동의하기</a>
 					<br><br>
 						<hr>
 					<br><br>
-					<input type="checkbox" name="category" value="이용약관" id="comp" onclick="selectOne();"><a>이용 약관 동의 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">전문보기</a>
+					<input type="checkbox" name="category" value="이용약관" id="comp" onclick="selectOne();" required><a> 이용약관 동의 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					
+					<input type="button" value="전문보기" id="look1" class="btn1">
+					
 					<br>
-					<input type="checkbox" name="category" value="개인정보" id="novel" onclick="selectOne();"><a>개인정보처리방침 동의</a> &nbsp;&nbsp;<a href="">전문보기</a>
+					<input type="checkbox" name="category" value="개인정보" id="novel" onclick="selectOne();"required><a> 개인정보처리방침 동의</a> &nbsp;&nbsp;
+					<input type="button" value="전문보기" id="look2" class="btn1">
 					<br>
-					<input type="checkbox" name="category" value="마케팅수신" id="essay" onclick="selectOne();"><a>마케팅 수신 동의(선택)&nbsp;&nbsp;&nbsp;</a><a href="">전문보기</a>
-					<br>
+					<input type="checkbox" name="category" value="마케팅수신" id="essay" onclick="selectOne();"><a> 마케팅 수신 동의(선택)&nbsp;&nbsp;&nbsp;</a>
+					<input type="button" value="전문보기" id="look3" class="btn1">
+					<br><br><br>
 							<div class="btns" id="signUpBtns">
 								<input id="signUpBtn" type="submit" value="가입하기" class="btn hover1">
 								<button id="button" class="btnArea" onclick="goHome();">메인으로</button>
 							</div>
+					<br><br><br><br>
 					</form> 
 			</div>
 	</div>
@@ -249,6 +272,15 @@ h2{
 	
 		$('#idCheck').on('click',function(){
 			window.open('checkIdForm.me','idCheckForm','width=300, height=200');
+		})
+		$('#look1').on('click',function(){
+			window.open('agreeA.me','agreeA','width=1400, height=700');
+		})
+		$('#look2').on('click',function(){
+			window.open('agreeB.me','agreeB','width=1400, height=700');
+		})
+		$('#look3').on('click',function(){
+			window.open('agreeC.me','agreeC','width=1400, height=700');
 		})
 		
 		$('#login').on('click', function(){
