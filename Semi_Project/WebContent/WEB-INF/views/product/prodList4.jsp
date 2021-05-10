@@ -98,7 +98,7 @@
 </style>
 </head>
 <body>
-	<% if(authority == null) {%>
+<% if(authority == null) {%>
 		<%@include file="../title_header.jsp"  %>
 	<% } else if(authority != null && authority.getUserId().equals("admin")) {%>
 		<%@include file="../admin/header.jsp"%>
@@ -110,7 +110,7 @@
 
 	<div class="product-list">
 		<div class="list-name">
-			<span>제품보기 > 기초영양</span>
+			<span>제품보기 > 면역</span>
 			<%
 				if (authority != null && authority.getUserId().equals("admin")) {
 			%>
