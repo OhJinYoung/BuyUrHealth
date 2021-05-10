@@ -4,7 +4,9 @@
 	QABoard qab = (QABoard)request.getAttribute("qaboard");
 	ArrayList<QAFile> qaf = (ArrayList<QAFile>)request.getAttribute("qafile"); 
 %>
-
+<%
+	Member authority = (Member) session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -233,7 +235,13 @@
 </style>
 </head>
 <body>
-	<%@ include file="../title_header.jsp" %>
+	<% if(authority == null) {%>
+	<%@include file="../title_header.jsp"%>
+	<% } else if(authority.getAuthority() == 'Y') {%>
+	<%@include file="../admin/header.jsp"%>
+	<% } else if(authority.getAuthority() == 'N') {%>
+	<%@include file="../title_header.jsp"%>
+	<% } %>
 	
 	<div class="service-menubar">
 	<hr>
@@ -246,6 +254,9 @@
 			<li class="servicemenu" id="goRules">약관 및 방침</li>
 		</ul>
 	</div>
+	
+	
+	<% if(authority.getAuthority() == 'N') { %>
 	<form action="<%= request.getContextPath() %>/updateQABoardForm.bo" id="detailForm" method="post">
 	<div class="qa data">
 	
@@ -278,7 +289,7 @@
 				<tr>
 					<td>
 						<div id="qaContent">
-						<input type="hidden" name="content" cols="60" rows="15" style="resize:none;" value="<%= qab.getQaContent() %>" readonly><%= qab.getQaContent() %>
+						<input type="hidden" name="content" cols="60" rows="15" style="resize:none;" value="<%= qab.getQaContent().replace("\r\n", "<br>") %>" readonly><%= qab.getQaContent().replace("\r\n", "<br>") %>
 						</div>
 					</td>
 				</tr>
@@ -286,16 +297,16 @@
 					<td>
 						<label>첨부파일</label>
 						<% if(qaf.isEmpty()) {%>
-						첨부파일이 없습니다.
+							첨부파일이 없습니다.
 						<% } else { %>
-						<a href="<%= request.getContextPath() %>/uploadFiles/qafile_uploadFiles/<%= qaf.get(0).getFileChangeName() %>" target='_blank'><%= qaf.get(0).getFileChangeName() %></a>
+							<a href="<%= request.getContextPath() %>/uploadFiles/qafile_uploadFiles/<%= qaf.get(0).getFileChangeName() %>" target='_blank'><%= qaf.get(0).getFileChangeName() %></a>
 						<% } %>
 						<% if(qab.getQaAnswer() == null){ %>
-						<input type="submit" id="updateBtn" value="수정">
-						<input type="button" id="deleteButton" onclick="deleteQNA();" value="삭제">
-						<input type="button" id="goListBtn" onclick="location.href='<%= request.getContextPath() %>/qalist.bo'" value="목록">
+							<input type="submit" id="updateBtn" value="수정">
+							<input type="button" id="deleteButton" onclick="deleteQNA();" value="삭제">
+							<input type="button" id="goListBtn" onclick="location.href='<%= request.getContextPath() %>/goQNA'" value="목록">
 						<% } else { %>
-						<input type="button" id="goListBtn" onclick="location.href='<%= request.getContextPath() %>/qalist.bo'" value="목록">
+							<input type="button" id="goListBtn" onclick="location.href='<%= request.getContextPath() %>/goQNA'" value="목록">
 						<% } %>
 					</td>
 				</tr>
@@ -314,7 +325,7 @@
 				<tr>				
 					<td>
 						<div id="anContent">
-						<input type="hidden" name="anContent" cols="60" rows="15" style="resize:none;" value="<%= qab.getQaAnswer() %> %>" readonly><%= qab.getQaAnswer() %></textarea>
+						<input type="hidden" name="anContent" cols="60" rows="15" style="resize:none;" value="<%= qab.getQaAnswer() %> %>" readonly><%= qab.getQaAnswer() %>
 						</div>
 					</td>
 				</tr>
@@ -323,7 +334,94 @@
 		</div>
 	</div>
 	</form>
-	
+	<% } else { %>
+			<div class="qa data">
+				<div class="qa head">
+			
+					<div class="subdiv">
+						<h3>고객센터>Q&A</h3>
+					</div>
+		
+					<div class="line"></div>
+				</div>
+				
+				<div class="qa body">
+				<form action="<%= request.getContextPath() %>/insertQAAnswerForm.bo" id="detailForm" method="post">
+					<table>
+						<tr>
+							<td>
+								<label>분류</label>
+								<input type="hidden" size="50" name="bId" value="<%= qab.getQaNo() %>">
+								<input type="hidden" size="50" name="category" value="<%= qab.getQacateName() %>">
+								<%= qab.getQacateName() %>
+								<label id="writeDate">작성일 : <%= qab.getQaQuestionDate() %></label>
+								<input type="hidden" size="50" name="date" value="<%= qab.getQaQuestionDate() %>">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="hidden" size="50" name="title" value="<%= qab.getQaTitle() %>">
+								<div id="qaTitle"><%= qab.getQaTitle() %></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div id="qaContent">
+								<input type="hidden" name="content" cols="60" rows="15" style="resize:none;" value="<%= qab.getQaContent() %>" readonly><%= qab.getQaContent() %>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label>첨부파일</label>
+								<% if(qaf.isEmpty()) {%>
+									첨부파일이 없습니다.
+								<% } else { %>
+									<a href="<%= request.getContextPath() %>/uploadFiles/qafile_uploadFiles/<%= qaf.get(0).getFileChangeName() %>" target='_blank'><%= qaf.get(0).getFileChangeName() %></a>
+								<% } %>
+								<% if(qab.getQaAnswer() == null) {%>
+								<input type="button" id="goListBtn" onclick="location.href='<%= request.getContextPath() %>/goQNA'" value="목록">
+								<input type="submit" id="updateBtn" value="답변등록">
+								<% } %>
+							</td>
+						</tr>
+					</table>
+				</form>
+					
+					
+				<% if(qab.getQaAnswer() != null){ %>
+					<form action="<%= request.getContextPath() %>/updateQAAnswerForm.bo" id="detailForm" method="post">
+					<table>
+						<tr>
+							<td>
+								<label>답변</label>
+								<input type="hidden" size="50" name="bId" value="<%= qab.getQaNo() %>">
+								<input type="hidden" size="50" name="category" value="<%= qab.getQacateName() %>">
+								<input type="hidden" size="50" name="date" value="<%= qab.getQaQuestionDate() %>">
+								<input type="hidden" size="50" name="title" value="<%= qab.getQaTitle() %>">
+								<input type="hidden" name="content" cols="60" rows="15" style="resize:none;" value="<%= qab.getQaContent() %>" readonly>
+								<input type="hidden" size="50" name="answerDate" value="<%= qab.getQaAnswerDate() %>">
+							</td>
+						</tr>
+						<tr>				
+							<td>
+								<div id="anContent">
+								<input type="hidden" name="anContent" cols="60" rows="15" style="resize:none;" value="<%= qab.getQaAnswer() %> %>" readonly><%= qab.getQaAnswer() %>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="button" id="goListBtn" onclick="location.href='<%= request.getContextPath() %>/goQNA'" value="목록">
+								<input type="submit" id="updateBtn" value="답변수정">
+							</td>
+						</tr>
+					</table>
+					</form>
+				<% } %>
+				</div>	
+		</div>
+		<% } %>
 	<script>
 	$('.servicemenu').on('click', function() {
 		var id = $(this).attr('id');

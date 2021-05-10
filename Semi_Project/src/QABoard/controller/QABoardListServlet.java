@@ -47,6 +47,8 @@ public class QABoardListServlet extends HttpServlet {
 			out.println("로그인을 확인하세요");
 		}
 		int userNo = loginUser.getUserNo();
+		
+		
 
 		int listCount;
 		int currentPage;
@@ -78,8 +80,12 @@ public class QABoardListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		ArrayList<QABoard> list = qaService.selectList(pi, userNo);
-		
+		ArrayList<QABoard> list = new ArrayList<QABoard>();
+		if(loginUser.getAuthority() == 'Y') {
+			list = qaService.selectList(pi);
+		} else {
+			list = qaService.selectList(pi, userNo);
+		}
 		
 		
 		

@@ -25,18 +25,34 @@ int sum = 0;
 	}	
 	
 	#cartTitle{
+	    width: 80%;
 		color: red; 
-		padding-left: 180px; 
-		padding-top: 30px;
+		padding-top: 50px;
+		padding-bottom: 20px;
+		margin: 0px auto;
 		font-size: 24px;
 	}
 	
 	.cartdiv {
 	    width: 80%;
 	    min-width: 80%;
+		padding-top: 5px;
 	    border-top: 1px solid black;
 	    margin-left: auto; 
 	    margin-right: auto; 
+	}
+	
+	th{
+	    border-bottom: 1px solid black;
+		padding-top: 11px;
+		padding-bottom: 15px;
+		font-size: 20px;
+	}
+	
+	td{
+		padding-top: 7px;
+		padding-bottom: 7px;
+		border-bottom: 1px dashed black;
 	}
     
     .img {width: 15%;}

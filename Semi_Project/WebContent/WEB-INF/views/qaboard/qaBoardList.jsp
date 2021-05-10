@@ -173,7 +173,13 @@
 </style>
 </head>
 <body>
-	<%@ include file="../title_header.jsp" %>
+	<% if(authority == null) {%>
+	<%@include file="../title_header.jsp"%>
+	<% } else if(authority.getAuthority() == 'Y') {%>
+	<%@include file="../admin/header.jsp"%>
+	<% } else if(authority.getAuthority() == 'N') {%>
+	<%@include file="../title_header.jsp"%>
+	<% } %>
 	
 	<div class="service-menubar">
 	<hr>
@@ -194,8 +200,9 @@
 				<h3>고객센터>Q&A</h3>
 			</div>
 			<div class="buttondiv">
-				 
+			<% if(authority.getAuthority() == 'N') {%>
 				<button class="button" onclick="location.href='<%= request.getContextPath() %>/QABoardWriteForm.bo'">문의하기</button>
+			<% } %>
 				 
 			</div>
 			<br>
@@ -204,18 +211,43 @@
 		
 		<div class="tableArea">
 			<table id="listArea">
+			<% if(authority.getAuthority() == 'N'){ %>
 				<tr>
 					<th class="none"></th>
 					<th width="15%">작성일</th>
 					<th width="70%">글제목</th>
 					<th width="15%">상태</th>
 				</tr>
-				
-			<% if(list.isEmpty()){ %>
+			<% } else {%>
+				<tr>
+					<th class="none"></th>
+					<th width="15%">작성자(ID)</th>
+					<th width="15%">작성일</th>
+					<th width="60%">글제목</th>
+					<th width="10%">상태</th>
+				</tr>
+			<% } %>	
+			
+			
+			<% if(authority.getAuthority() == 'Y'){ 
+				for (QABoard bo : list){ %>
+				<tr>
+					<td class="none"><%= bo.getQaNo() %></td>
+					<td><%= bo.getUserName() %><br>(<%= bo.getUserId() %>)</td>
+					<td><%= bo.getQaQuestionDate() %></td>
+					<td><%= bo.getQaTitle() %></td>
+				<% if(bo.getQaAnswer() != null) { %>
+					<td>답변완료</td>
+				<% } else { %>
+					<td>답변대기</td>
+				<% } %>
+				</tr>
+				<% } %>
+			<% } else if(list.isEmpty() && authority.getAuthority() == 'N'){ %>
 				<tr>
 					<td colspan="3">조회된 리스트가 없습니다.</td>
 				</tr>
-			<% } else { 
+			<% } else if (authority.getAuthority() == 'N'){ 
 				for (QABoard bo : list){ %>
 				<tr>
 					<td class="none"><%= bo.getQaNo() %></td>

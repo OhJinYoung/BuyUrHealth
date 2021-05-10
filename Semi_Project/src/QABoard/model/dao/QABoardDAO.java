@@ -61,7 +61,8 @@ public class QABoardDAO {
 		
 		return result;
 	}
-
+	
+	// 사용자 ver
 	public ArrayList<QABoard> selectList(Connection conn, PageInfo pi, int userNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -94,8 +95,8 @@ public class QABoardDAO {
 										rset.getString("USER_NAME"),
 										rset.getInt("QACATE_NO"),
 										rset.getString("QACATE_NAME"),
-										rset.getString("STATUS"));
-				// QA_NO, QA_TITLE, QA_CONTENT, QA_QUESTION_DATE, QA_ANSWER, QA_ANSWER_DATE, USER_NO, USER_NAME, QACATE_NO, QACATE_NAME, Q.STATUS
+										rset.getString("STATUS"),
+										rset.getString("USER_ID"));
 				list.add(b);
 			}
 			
@@ -107,7 +108,53 @@ public class QABoardDAO {
 		}
 		
 		return list;
+	}
+	
+	// 관리자 ver
+	public ArrayList<QABoard> selectList(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ArrayList<QABoard> list = null;
 		
+		String query = prop.getProperty("selectListADMIN");
+		// selectListADMIN=SELECT * FROM QNALIST WHERE RNUM BETWEEN ? AND ? AND STATUS='Y' 
+		
+		try {
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1; 
+			int endRow = startRow + pi.getBoardLimit() - 1;
+
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			rset = pstmt.executeQuery();
+			list = new ArrayList<QABoard>();
+			
+			while(rset.next()) {
+				QABoard b = new QABoard(rset.getInt("QA_NO"),
+										rset.getString("QA_TITLE"),
+										rset.getString("QA_CONTENT"),
+										rset.getDate("QA_QUESTION_DATE"),
+										rset.getString("QA_ANSWER"),
+										rset.getDate("QA_ANSWER_DATE"),
+										rset.getInt("USER_NO"),
+										rset.getString("USER_NAME"),
+										rset.getInt("QACATE_NO"),
+										rset.getString("QACATE_NAME"),
+										rset.getString("STATUS"),
+										rset.getString("USER_ID"));
+				list.add(b);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 	public QABoard selectBoard(Connection conn, int bId) {
@@ -292,6 +339,32 @@ public class QABoardDAO {
 		return result;
 
 	}
+
+	public int insertAnQABoard(Connection conn, QABoard b, int bId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAnQABoard");
+		// insertAnQABoard=UPDATE QNA SET QA_ANSWER=?, QA_ANSWER_DATE=SYSDATE WHERE QA_NO=?
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, b.getQaAnswer());
+			pstmt.setInt(2, bId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	
 
 	
 

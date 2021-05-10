@@ -1,9 +1,6 @@
 package QABoard.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,19 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import QABoard.model.service.QABoardService;
 import QABoard.model.vo.QABoard;
-import QABoard.model.vo.QAFile;
 
 /**
- * Servlet implementation class QABoardDetailServlet
+ * Servlet implementation class UpdateQABoardServlet
  */
-@WebServlet("/QADetail.bo")
-public class QABoardDetailServlet extends HttpServlet {
+@WebServlet("/updateQAAnswer.bo")
+public class UpdateQAAnswerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QABoardDetailServlet() {
+    public UpdateQAAnswerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,23 +29,25 @@ public class QABoardDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		int bId = Integer.parseInt(request.getParameter("bId"));
 		
-		QABoard qaboard = new QABoardService().selectBoard(bId);
-		ArrayList<QAFile> qafile = new QABoardService().selectFile(bId);
+		String anContent = request.getParameter("anContent");
+		anContent = anContent.replace("\r\n", "<br>");
 		
-		String page = null;
-		if(qaboard != null) {
-			request.setAttribute("qaboard", qaboard);
-			request.setAttribute("qafile", qafile);
-			page = "WEB-INF/views/qaboard/qaBoardDetail.jsp";
+		QABoard b = new QABoard();
+		b.setQaNo(bId);
+		b.setQaAnswer(anContent);
+		
+		int result = new QABoardService().insertAnQABoard(b, bId);
+		
+		if(result > 0) {
+			response.sendRedirect("QADetail.bo?bId="+bId);
 		} else {
-			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg", "게시글 조회에 실패했습니다.");
+			request.setAttribute("msg", "게시글 수정에 실패하였습니다.");
+			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
-		
-		request.getRequestDispatcher(page).forward(request, response);
-
 	}
 
 	/**
