@@ -59,7 +59,7 @@
     <hr>
     
     <div class="buy-list">
-    	<% if(orderList.isEmpty()){  %>
+    	<% if(orderList.isEmpty()){ %>
 					
 				주문하신 상품이 없습니다.
 					

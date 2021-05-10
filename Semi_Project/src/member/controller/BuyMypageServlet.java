@@ -50,7 +50,6 @@ public class BuyMypageServlet extends HttpServlet {
 		
 		Member member = new MemberService().selectMember(id);
 		ArrayList<Order> orderList = new OrderService().searchMypageOrder(member.getUserNo());
-		
 		for(int i = 0; i < orderList.size(); i++) {
 			OrderDetail od = new OrderService().selectMypageOrderDetail(orderList.get(i).getNo());
 			orderDetail.add(od);
