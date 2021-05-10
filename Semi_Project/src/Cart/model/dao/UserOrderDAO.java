@@ -121,19 +121,21 @@ public class UserOrderDAO {
 	}
 
 
-	public int insertOrderDetail(Connection conn) {
+	public int insertOrderDetail(Connection conn, int orderNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		String query = prop.getProperty("insertOrderDetail");
-		// insertOrderDetail=INSERT INTO ORDER_DETAIL(OD_NO, OD_VOLUME, PRODUCT_NO, ORDER_NO) 
+		// INSERT INTO ORDER_DETAIL(OD_NO, OD_VOLUME, PRODUCT_NO, ORDER_NO) 
 		// SELECT orderdetail_seq.nextval, CART_VOLUME, PRODUCT_NO, ORDER_NO 
 		// FROM CART 
-		// JOIN ORDERLIST USING(USER_NO);
+		// JOIN ORDERLIST USING(USER_NO)
+		// where ORDER_NO = ?
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			
+			pstmt.setInt(1, orderNo);
 			
 			result = pstmt.executeUpdate();
 			

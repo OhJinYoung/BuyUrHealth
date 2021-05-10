@@ -28,6 +28,8 @@ public class InsertOrderDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		/*
 		int result = new UserOrderService().insertOrderDetail();
 		
 		if(result > 0) {
@@ -37,6 +39,7 @@ public class InsertOrderDetailServlet extends HttpServlet {
 			request.setAttribute("msg", "정보를 처리하는데 문제가 발생했습니다.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
+		*/
 	}
 
 	/**

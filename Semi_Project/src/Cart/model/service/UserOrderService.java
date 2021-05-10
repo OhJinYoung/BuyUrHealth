@@ -61,10 +61,10 @@ public class UserOrderService {
 		return result;
 	}
 
-	public int insertOrderDetail() {
+	public int insertOrderDetail(int orderNo) {
 		Connection conn = getConnection();
 		
-		int result = new UserOrderDAO().insertOrderDetail(conn);
+		int result = new UserOrderDAO().insertOrderDetail(conn, orderNo);
 		
 		if(result > 0) {
 			commit(conn);

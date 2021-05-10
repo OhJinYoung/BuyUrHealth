@@ -73,9 +73,17 @@ public class OrderServlet extends HttpServlet {
 		
 		int result = new UserOrderService().insertOrderInfo(o);
 		
+		int result2 = 0;
 		if(result > 0) {
-			request.getRequestDispatcher("insertDetail").forward(request, response);
+			result2 = new UserOrderService().insertOrderDetail(orderNo);
 			request.setAttribute("o", o);
+		} else {
+			request.setAttribute("msg", "정보를 처리하는데 문제가 발생했습니다.");
+			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+		}
+		
+		if(result2 > 0) {
+			request.getRequestDispatcher("com.or").forward(request, response);
 		} else {
 			request.setAttribute("msg", "정보를 처리하는데 문제가 발생했습니다.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);

@@ -49,7 +49,7 @@ public class OrderFormServlet extends HttpServlet {
 			request.setAttribute("cartlist", cart);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg", "공지사항 조회에 실패하였습니다.");
+			request.setAttribute("msg", "정보를 처리하는데 실패하였습니다.");
 		}
 		request.getRequestDispatcher(page).forward(request, response);
 
