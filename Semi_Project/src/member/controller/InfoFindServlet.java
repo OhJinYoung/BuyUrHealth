@@ -1,7 +1,6 @@
 package member.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,18 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class checkKeyServlet
+ * Servlet implementation class InfoFindServlet
  */
-@WebServlet("/sendtrue.do")
-public class checkKeyServlet extends HttpServlet {
+@WebServlet("/infoFind.me")
+public class InfoFindServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public checkKeyServlet() {
+    public InfoFindServlet() {
         super();
-        // TODO Auto-generated constructor stub 
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -30,23 +29,8 @@ public class checkKeyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-
-		String AuthenticationKey = (String)request.getSession().getAttribute("AuthenticationKey");
-		String AuthenticationUser = request.getParameter("AuthenticationUser");
-		
-		if(!AuthenticationKey.equals(AuthenticationUser))
-		{
-			PrintWriter writer = response.getWriter(); 
-			writer.println("<script>alert('BUH계정을 입력해주세요.');</script>"); 
-			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/errorFail.jsp");
-			view.forward(request, response);
-			
-		}else {
-			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/mailSuccess.jsp");
-			view.forward(request, response);
-		}
-		
+		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/infoFind.jsp");
+		view.forward(request, response);
 	}
 
 	/**
