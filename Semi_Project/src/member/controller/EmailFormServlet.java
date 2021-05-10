@@ -21,36 +21,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class EmailFormServlet
- */
+import member.model.service.MemberService;
+import member.model.vo.Member;
+
 @WebServlet("/sendEmail.do")
 public class EmailFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public EmailFormServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8"); 
 		
 		String receiver = request.getParameter("receiver");
-		/* String title = request.getParameter("title"); */
-		/* String title = ""; */
 		
-		// 난수설정
-//		Random r = new Random();
-//		int i = r.nextInt(99999)+1111;
-		
-		// 인증번호생성기
 		StringBuffer temp =new StringBuffer();
         Random rnd = new Random();
         for(int i=0;i<10;i++)
@@ -74,28 +60,18 @@ public class EmailFormServlet extends HttpServlet {
         String AuthenticationKey = temp.toString();
         System.out.println(AuthenticationKey);
 
-		// 난수 string으로 변경
-//		String AuthenticationKey = Integer.toString(i);
-		
-//		AuthenticationKey = "<h1 style='color: blue;'>" + AuthenticationKey + "</h1>";
-		
-		// 사용할 메일
 		String host = "smtp.naver.com";
-		//보내는 사람의 메일
 		String sender = "buyurhealth@naver.com";
-		// 보내는 사람의 비밀번호
 		String password = "zz11z1!!";
 		
 		Properties prop = new Properties();
 		prop.put("mail.smtp.host", host);
 		prop.put("mail.smtp.auth", true);
 
-		// 세션에 보관
 		Session session = Session.getDefaultInstance(prop, new Authenticator() {
-			// 임명 클래스
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(sender, password);//	보내는 사람과 비밀번호를 담아서 생성자 완료
+				return new PasswordAuthentication(sender, password);
 				
 			}
 		});
@@ -105,37 +81,22 @@ public class EmailFormServlet extends HttpServlet {
 			msg.setFrom(new InternetAddress(sender));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
 			
-			// 메일 제목
 			msg.setSubject("BUH 계정을 인증해주세요");
-			// 메일 내용
 			msg.setText(AuthenticationKey, "UTF-8", "html");
 			
 			Transport.send(msg);
-			System.out.println("전송 완료");
 		} catch (AddressException e) {
 			e.printStackTrace();
-			System.out.println("전송 실패");
 		} catch (MessagingException e) {
 			e.printStackTrace();
-			System.out.println("전송 실패");
 		}
 		HttpSession key = request.getSession();
 		key.setAttribute("AuthenticationKey", AuthenticationKey);
 		
-		/*
-		 * response.sendRedirect(request.getContextPath()); // 메인으로 돌아가기
-		 */		
-		
-//		ServletContext context =getServletContext();
-//        RequestDispatcher dispatcher = context.getRequestDispatcher("WEB-INF/views/member/mailkey.jsp"); //넘길 페이지
-//        dispatcher.forward(request, response);
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/mailkey.jsp");
 		view.forward(request, response);
 		}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

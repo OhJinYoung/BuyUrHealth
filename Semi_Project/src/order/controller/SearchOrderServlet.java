@@ -47,13 +47,6 @@ public class SearchOrderServlet extends HttpServlet {
 
 		ArrayList<Order> list = null;
 		list = oService.searchOrder(filter, input, pi);
-		if (list != null && list.size() > 0) {
-			for (Order o : list) {
-				String[] products = o.getpList().split("&&");
-				if (products.length > 1)
-					o.setpList(products[0] + " 외 " + (products.length - 1) + "");
-			}
-		}
 
 		request.setAttribute("input", input);
 		request.setAttribute("filter", filter);

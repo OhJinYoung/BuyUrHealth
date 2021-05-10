@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class loginidfind
+ * Servlet implementation class loginpwfindServlet
  */
-@WebServlet("/idfind")
-public class loginidfindServlet extends HttpServlet {
+@WebServlet("/find.pw")
+public class loginpwfindServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public loginidfindServlet() {
+    public loginpwfindServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +28,7 @@ public class loginidfindServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/id_log.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/pw_log.jsp");
 		view.forward(request, response);
 	}
 
