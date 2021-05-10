@@ -36,6 +36,18 @@ public class ProductFile {
 	}
 
 
+	public ProductFile(int fileNo, String fileName, int productNo, String changeName, String filePath,
+			Date uploadDate) {
+		super();
+		this.fileNo = fileNo;
+		this.fileName = fileName;
+		this.productNo = productNo;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.uploadDate = uploadDate;
+	}
+
+
 	public int getFileNo() {
 		return fileNo;
 	}

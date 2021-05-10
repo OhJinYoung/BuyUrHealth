@@ -29,6 +29,7 @@ public class SubProductReturnServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		int orderNo = 1;
 		String requestType = request.getParameter("requestSelect");
 		String requestInfo = request.getParameter("requestResult");
 		

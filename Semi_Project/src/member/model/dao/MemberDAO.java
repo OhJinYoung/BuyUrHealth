@@ -49,7 +49,6 @@ public class MemberDAO {
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
-				System.out.println(rset);
 				loginUser = new Member(rset.getInt("USER_NO"), rset.getString("PASSWORD"),
 						rset.getString("GENDER").charAt(0), rset.getString("USER_ID"), rset.getString("USER_NAME"),
 						rset.getString("birthdate"), rset.getString("PHONE"), rset.getString("EMAIL"),
