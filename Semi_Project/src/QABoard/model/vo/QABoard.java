@@ -14,8 +14,26 @@ public class QABoard {
 	private int qacateNo;
 	private String qacateName;
 	private String status;
+	private String userId;
 	
 	public QABoard() {}
+	
+	public QABoard(int qaNo, String qaTitle, String qaContent, Date qaQuestionDate, String qaAnswer, Date qaAnswerDate,
+			int userNo, String userName, int qacateNo, String qacateName, String status, String userId) {
+		super();
+		this.qaNo = qaNo;
+		this.qaTitle = qaTitle;
+		this.qaContent = qaContent;
+		this.qaQuestionDate = qaQuestionDate;
+		this.qaAnswer = qaAnswer;
+		this.qaAnswerDate = qaAnswerDate;
+		this.userNo = userNo;
+		this.userName = userName;
+		this.qacateNo = qacateNo;
+		this.qacateName = qacateName;
+		this.status = status;
+		this.userId = userId;
+	}
 
 	public QABoard(int qaNo, String qaTitle, String qaContent, Date qaQuestionDate, String qaAnswer, Date qaAnswerDate,
 			int userNo, String userName, int qacateNo, String qacateName, String status) {
@@ -33,8 +51,6 @@ public class QABoard {
 		this.status = status;
 	}
 	
-	
-
 	public QABoard(int qaNo, String qaTitle, String qaContent, Date qaQuestionDate, String qacateName) {
 		super();
 		this.qaNo = qaNo;
@@ -43,6 +59,7 @@ public class QABoard {
 		this.qaQuestionDate = qaQuestionDate;
 		this.qacateName = qacateName;
 	}
+
 
 	public int getQaNo() {
 		return qaNo;
@@ -130,6 +147,14 @@ public class QABoard {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	@Override

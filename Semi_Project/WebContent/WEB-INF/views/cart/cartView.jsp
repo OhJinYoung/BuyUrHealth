@@ -25,18 +25,34 @@ int sum = 0;
 	}	
 	
 	#cartTitle{
+	    width: 80%;
 		color: red; 
-		padding-left: 180px; 
-		padding-top: 30px;
+		padding-top: 50px;
+		padding-bottom: 20px;
+		margin: 0px auto;
 		font-size: 24px;
 	}
 	
 	.cartdiv {
 	    width: 80%;
 	    min-width: 80%;
+		padding-top: 5px;
 	    border-top: 1px solid black;
 	    margin-left: auto; 
 	    margin-right: auto; 
+	}
+	
+	th{
+	    border-bottom: 1px solid black;
+		padding-top: 11px;
+		padding-bottom: 15px;
+		font-size: 20px;
+	}
+	
+	td{
+		padding-top: 7px;
+		padding-bottom: 7px;
+		border-bottom: 1px dashed black;
 	}
     
     .img {width: 15%;}
@@ -170,7 +186,7 @@ int sum = 0;
     
             <table class="cartdiv" id="cart">
                 <tr class="cart head">
-                        <th class="img">이미지</th>
+                        <th class="img"></th>
                         <th class="iname">상품명</th>
                         <th class="cartprice">가격</th>
                         <th class="num">수량</th>
@@ -225,7 +241,7 @@ int sum = 0;
           <div class="calc">
           	<div class="calcinfo" id="calcinfo1">
           		총 상품가격: <b><%= new DecimalFormat("###,###").format(total) %></b>원  + 배송비: <b>2,500</b>원<br>
-          		수령 예상일: <b>5월 14일</b> 도착 예정
+          		수령 예상일: <b>5월 17일</b> 도착 예정
           	</div>
           	<div class="calcinfo" id="calcinfo2">
           		총 결제할 금액: <b><%= new DecimalFormat("###,###").format(total + 2500)%></b>원

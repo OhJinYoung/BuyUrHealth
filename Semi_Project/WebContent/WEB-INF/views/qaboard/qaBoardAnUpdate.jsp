@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="QABoard.model.vo.QABoard, QABoard.model.vo.QAFile, java.util.ArrayList, java.io.*" %>
 <% 
 	QABoard qab = (QABoard)request.getAttribute("b"); 
+	QABoard abo = (QABoard)request.getAttribute("abo"); 
 	ArrayList<QAFile> qaf = (ArrayList<QAFile>)request.getAttribute("qafile"); 
 %>
 <%
@@ -316,65 +317,8 @@
 			<li class="servicemenu" id="goRules">약관 및 방침</li>
 		</ul>
 	</div>
-	
-	<% if(authority.getAuthority() == 'N') {%>
-	<form action="<%= request.getContextPath() %>/QAUpdate.bo" method="post" >
-	
-	<div class="qa data">
-	
-		<div class="qa head">
-			<div class="subdiv">
-				<h3>고객센터>Q&A</h3>
-			</div>
 
-			<div class="line"></div>
-		</div>
-		
-		<div class="qa body">
-			<table>
-				<tr>
-					<td>
-						<label>분류</label>
-						<input type="hidden" name="bId" value="<%= qab.getQaNo() %>">
-						<select name="category" value="<%= qab.getQacateNo() %>">
-						<%= qab.getQacateNo() %>
-							<option value="10">주문/결제</option>
-							<option value="20">배송</option>
-							<option value="30">상품</option>
-							<option value="40">반품</option>
-							<option value="50">교환</option>
-							<option value="60">취소</option>
-							<option value="70">기타</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<textarea type="text" name="qaTitle" id="qaTitle" style="resize:none;" value="<%=qab.getQaTitle()%>"><%=qab.getQaTitle()%></textarea>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<textarea type="text" name="qaContent" id="qaContent" style="resize:none;" value="<%= qab.getQaContent() %>"><%= qab.getQaContent() %></textarea>
-					</td>
-				</tr>
-				<tr>
-					<td class="td1">
-						<label>첨부파일</label>
-						<% if(qaf.isEmpty()) {%>
-						첨부파일이 없습니다.
-						<% } else { %>
-						<a href="<%= request.getContextPath() %>/uploadFiles/qafile_uploadFiles/<%= qaf.get(0).getFileChangeName() %>" target='_blank'><%= qaf.get(0).getFileChangeName() %></a>
-						<% } %>
-						<input type="submit" id="enterBtn" value="등록">
-						<input type="button" onclick="location.href='javascript:history.go(-1);'" id="cancelBtn" value="취소">
-					</td>
-				</tr>
-			</table>
-		</div>
-	</div>
-	</form>
-	<% } else { %>
+
 	<div class="qa data">
 		<div class="qa head">
 			<div class="subdiv">
@@ -384,29 +328,29 @@
 			<div class="line"></div>
 		</div>
 		
-			<form action="<%= request.getContextPath() %>/QAAnInsert.bo" method="post">
+			<form action="<%= request.getContextPath() %>/updateQAAnswer.bo" method="post">
 			<div class="qa body">
 			<table>
 				<tr>
 					<td>
 						<label>분류</label>
-						<input type="hidden" size="50" name="bId" value="<%= qab.getQaNo() %>">
-						<input type="hidden" size="50" name="category" value="<%= qab.getQacateName() %>">
-						<%= qab.getQacateName() %>
-						<label id="writeDate">작성일 : <%= qab.getQaQuestionDate() %></label>
-						<input type="hidden" size="50" name="date" value="<%= qab.getQaQuestionDate() %>">
+						<input type="hidden" size="50" name="bId" value="<%= abo.getQaNo() %>">
+						<input type="hidden" size="50" name="category" value="<%= abo.getQacateName() %>">
+						<%= abo.getQacateName() %>
+						<label id="writeDate">작성일 : <%= abo.getQaQuestionDate() %></label>
+						<input type="hidden" size="50" name="date" value="<%= abo.getQaQuestionDate() %>">
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<input type="hidden" size="50" name="title" value="<%= qab.getQaTitle() %>">
-						<div id="qaTitle"><%= qab.getQaTitle() %></div>
+						<input type="hidden" size="50" name="title" value="<%= abo.getQaTitle() %>">
+						<div id="qaTitle"><%= abo.getQaTitle() %></div>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<div id="qaContent">
-							<input type="hidden" name="content" cols="60" rows="15" style="resize:none;" value="<%= qab.getQaContent().replace("\r\n", "<br>") %>" readonly><%= qab.getQaContent().replace("\r\n", "<br>") %>
+							<input type="hidden" name="content" cols="60" rows="15" style="resize:none;" value="<%= abo.getQaContent() %>"><%= abo.getQaContent() %>
 						</div>
 					</td>
 				</tr>
@@ -432,7 +376,7 @@
 				<tr>				
 					<td>
 						<div id="anContent">
-						<textarea type="text" name="anContent" id="anContent" style="resize:none;"></textarea>
+						<textarea type="text" name="anContent" id="anContent" style="resize:none;" value="<%= abo.getQaAnswer() %>"><%= abo.getQaAnswer() %></textarea>
 						</div>
 					</td>
 				</tr>
@@ -446,7 +390,6 @@
 		</div>
 		</form>
 		</div>
-		<% } %>
 		
 		<script>
 			$('.servicemenu').on('click', function() {

@@ -82,7 +82,15 @@ public class OrderServlet extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
 		
+		int result3 = 0;
 		if(result2 > 0) {
+			result3 = new UserOrderService().deleteCartData(userNo);
+		} else {
+			request.setAttribute("msg", "정보를 처리하는데 문제가 발생했습니다.");
+			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+		}
+		
+		if(result3 > 0) {
 			request.getRequestDispatcher("com.or").forward(request, response);
 		} else {
 			request.setAttribute("msg", "정보를 처리하는데 문제가 발생했습니다.");

@@ -149,6 +149,29 @@ public class UserOrderDAO {
 
 
 
+	public int deleteCartData(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteCartData");
+		// deleteCartData=delete from cart where user_no = ?
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
 
 	
 }

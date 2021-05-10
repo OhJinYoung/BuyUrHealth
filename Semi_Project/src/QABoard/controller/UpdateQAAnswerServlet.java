@@ -1,4 +1,4 @@
-package Cart.controller;
+package QABoard.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,19 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Cart.model.service.UserOrderService;
+import QABoard.model.service.QABoardService;
+import QABoard.model.vo.QABoard;
 
 /**
- * Servlet implementation class InsertOrderDetailServlet
+ * Servlet implementation class UpdateQABoardServlet
  */
-@WebServlet("/insertDetail")
-public class InsertOrderDetailServlet extends HttpServlet {
+@WebServlet("/updateQAAnswer.bo")
+public class UpdateQAAnswerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertOrderDetailServlet() {
+    public UpdateQAAnswerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,18 +29,25 @@ public class InsertOrderDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
-		/*
-		int result = new UserOrderService().insertOrderDetail();
+		int bId = Integer.parseInt(request.getParameter("bId"));
+		
+		String anContent = request.getParameter("anContent");
+		anContent = anContent.replace("\r\n", "<br>");
+		
+		QABoard b = new QABoard();
+		b.setQaNo(bId);
+		b.setQaAnswer(anContent);
+		
+		int result = new QABoardService().insertAnQABoard(b, bId);
 		
 		if(result > 0) {
-			System.out.println("OrderDetail넘김");
-			request.getRequestDispatcher("com.or").forward(request, response);
+			response.sendRedirect("QADetail.bo?bId="+bId);
 		} else {
-			request.setAttribute("msg", "정보를 처리하는데 문제가 발생했습니다.");
+			request.setAttribute("msg", "게시글 수정에 실패하였습니다.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
-		*/
 	}
 
 	/**

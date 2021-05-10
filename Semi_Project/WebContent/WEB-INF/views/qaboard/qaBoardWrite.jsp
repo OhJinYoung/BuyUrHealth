@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="QABoard.model.dao.QABoardDAO, QABoard.model.vo.QAFile, java.util.ArrayList" %>
+<%@ page import="QABoard.model.dao.QABoardDAO, QABoard.model.vo.QABoard, QABoard.model.vo.QAFile, java.util.ArrayList" %>
 <%@ page import="java.io.File" %>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
-
+<%
+	Member authority = (Member) session.getAttribute("loginUser");
+%>
+<% 
+	QABoard qab = (QABoard)request.getAttribute("qaboard");
+	ArrayList<QAFile> qaf = (ArrayList<QAFile>)request.getAttribute("qafile"); 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +27,7 @@
 	}	
 	
 	#service-menubar-name { 
+		margin-top: 5px;
 		text-align: center; 
 		font-size: 20px;
 	}
@@ -184,24 +191,28 @@
 </style>
 </head>
 <body>
-	<%@include file="../title_header.jsp" %>
+	<% if(authority == null) {%>
+	<%@include file="../title_header.jsp"%>
+	<% } else if(authority.getAuthority() == 'Y') {%>
+	<%@include file="../admin/header.jsp"%>
+	<% } else if(authority.getAuthority() == 'N') {%>
+	<%@include file="../title_header.jsp"%>
+	<% } %>
 	
 	<div class="service-menubar">
 	<hr>
-		<h2 id="service-menubar-name">Q&A</h2>
+		<h2 id="service-menubar-name">고객센터</h2>
 	<hr>
 		<ul>
-			<li class="servicemenu" id="noticelist.no">공지사항</li>
-			<li class="servicemenu" id="faq.no">자주묻는질문</li>
-			<li><b>Q&A</b></li>
+			<li class="servicemenu" id="goNotice">공지사항</li>
+			<li class="servicemenu" id="goFAQ">자주묻는질문</li>
+			<li class="servicemenu" id="goQNA"><b>Q&A</b></li>
 			<li class="servicemenu" id="goRules">약관 및 방침</li>
 		</ul>
 	</div>
 	
-	<form action="<%= request.getContextPath() %>/QAInsert.bo" method="post" enctype="multipart/form-data">
 	
 	<div class="qa data">
-	
 		<div class="qa head">
 			<div class="subdiv">
 				<h3>고객센터>Q&A</h3>
@@ -209,7 +220,9 @@
 
 			<div class="line"></div>
 		</div>
-		
+	<!-- 사용자 버전 -->
+	<% if(authority.getAuthority() == 'N') {%>
+	<form action="<%= request.getContextPath() %>/QAInsert.bo" method="post" enctype="multipart/form-data">
 		<div class="qa body">
 			<table>
 				<tr>
@@ -244,11 +257,78 @@
 						    <img style="width: 500px;" id="preview-image">
 						</div>
 						<input type="submit" id="enterBtn" onclick="checkConfirm();" value="등록">
-						<button id="cancelBtn" onclick="location.href='<%= request.getContextPath() %>/qalist.bo'" >취소</button>
+						<button id="cancelBtn" onclick="location.href='<%= request.getContextPath() %>/goQNA'" >취소</button>
 					</td>
 				</tr>
 			</table>
 		</div>
+		</form>
+		
+		<!-- 관리자 버전 -->
+		<% } else { %>
+			<form action="<%= request.getContextPath() %>/QAAnInsert.bo" method="post" enctype="multipart/form-data">
+			<div class="qa body">
+			<table>
+				<tr>
+					<td>
+						<label>분류</label>
+						<input type="hidden" size="50" name="bId" value="<%= qab.getQaNo() %>">
+						<input type="hidden" size="50" name="category" value="<%= qab.getQacateName() %>">
+						<%= qab.getQacateName() %>
+						<label id="writeDate">작성일 : <%= qab.getQaQuestionDate() %></label>
+						<input type="hidden" size="50" name="date" value="<%= qab.getQaQuestionDate() %>">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="hidden" size="50" name="title" value="<%= qab.getQaTitle() %>">
+						<div id="qaTitle"><%= qab.getQaTitle() %></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div id="qaContent">
+							<input type="hidden" name="content" cols="60" rows="15" style="resize:none;" value="<%= qab.getQaContent() %>" readonly><%= qab.getQaContent() %>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>첨부파일</label>
+						<% if(qaf.isEmpty()) {%>
+							첨부파일이 없습니다.
+						<% } else { %>
+							<a href="<%= request.getContextPath() %>/uploadFiles/qafile_uploadFiles/<%= qaf.get(0).getFileChangeName() %>" target='_blank'><%= qaf.get(0).getFileChangeName() %></a>
+						<% } %>
+						
+					</td>
+				</tr>
+			</table>
+			
+			
+			<% if(qab.getQaAnswer() != null){ %>
+			<table>
+				<tr>
+					<td>
+						<label>답변</label>
+					</td>
+				</tr>
+				<tr>				
+					<td>
+						<div id="anContent">
+						<textarea type="text" name="anContent" id="anContent" style="resize:none;"></textarea>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<input type="button" id="goListBtn" onclick="location.href='<%= request.getContextPath() %>/goQNA'" value="목록">
+					<input type="submit" id="updateBtn" value="답변등록">
+				</tr>
+			</table>
+			<% } %> 
+		</div>
+		</form>
+		<% } %>
 		
 		<script>
 		function readImage(input) {
@@ -283,6 +363,5 @@
 
 		</script>
 	</div>
-	</form>
 </body>
 </html>
