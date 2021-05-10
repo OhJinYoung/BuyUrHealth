@@ -10,7 +10,7 @@ public class ProductFile {
 	private String changeName;
 	private String filePath;
 	private Date uploadDate;
-	private char fileYN;
+	private String fileYN;
 
 
 	public ProductFile() {}
@@ -24,7 +24,7 @@ public class ProductFile {
 
 
 	public ProductFile(int fileNo, String fileName, int productNo, String changeName, String filePath, Date uploadDate,
-			char fileYN) {
+			String fileYN) {
 		super();
 		this.fileNo = fileNo;
 		this.fileName = fileName;
@@ -33,18 +33,6 @@ public class ProductFile {
 		this.filePath = filePath;
 		this.uploadDate = uploadDate;
 		this.fileYN = fileYN;
-	}
-
-
-	public ProductFile(int fileNo, String fileName, int productNo, String changeName, String filePath,
-			Date uploadDate) {
-		super();
-		this.fileNo = fileNo;
-		this.fileName = fileName;
-		this.productNo = productNo;
-		this.changeName = changeName;
-		this.filePath = filePath;
-		this.uploadDate = uploadDate;
 	}
 
 
@@ -108,12 +96,12 @@ public class ProductFile {
 	}
 
 
-	public char getFileYN() {
+	public String getFileYN() {
 		return fileYN;
 	}
 
 
-	public void setFileYN(char fileYN) {
+	public void setFileYN(String fileYN) {
 		this.fileYN = fileYN;
 	}
 
