@@ -331,5 +331,136 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	public int insertMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
+
+		String query = prop.getProperty("insertMember");
+
+		try {
+
+			pstmt = conn.prepareStatement(query.toString());
+			pstmt.setString(1, member.getPassword());
+			pstmt.setString(2, member.getGender() +"");
+			pstmt.setString(3, member.getUserId());
+			pstmt.setString(4, member.getUserName());
+			pstmt.setString(5, member.getBirth());
+			pstmt.setString(6, member.getPhone());
+			pstmt.setString(7, member.getEmail());
+
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
+
+	public int checkId(Connection conn, String inputId) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		 
+		String query = prop.getProperty("idCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, inputId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Member idFindInfoMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Member UserInfo = null;
+		
+		String query = prop.getProperty("UserInfoFind");
+		
+			try {
+				
+				pstmt = conn.prepareStatement(query.toString());
+				pstmt.setString(1, member.getUserName());
+				pstmt.setString(2, member.getEmail());
+				pstmt.setString(3, member.getPhone());
+				
+				
+				rset = pstmt.executeQuery();
+				if (rset.next()) {
+					UserInfo = new Member(
+							rset.getString("USER_ID"), 
+							rset.getString("USER_NAME"),
+							rset.getString("PHONE"), 
+							rset.getString("EMAIL"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			System.out.println(UserInfo);
+		
+		
+		return UserInfo;
+	}
+
+	public Member pwFindInfoMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Member UserInfo2 = null;
+		
+		String query = prop.getProperty("UserInfoFinds");
+		
+			try {
+				
+				pstmt = conn.prepareStatement(query.toString());
+				pstmt.setString(1, member.getUserId());
+				pstmt.setString(2, member.getUserName());
+				pstmt.setString(3, member.getEmail());
+				pstmt.setString(4, member.getPhone());
+				
+				
+				rset = pstmt.executeQuery();
+				if (rset.next()) {
+					UserInfo2 = new Member(
+							rset.getString("PASSWORD"), 
+							rset.getString("USER_ID"), 
+							rset.getString("USER_NAME"),
+							rset.getString("PHONE"), 
+							rset.getString("EMAIL"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+		
+		return UserInfo2;
+	}
 
 }
