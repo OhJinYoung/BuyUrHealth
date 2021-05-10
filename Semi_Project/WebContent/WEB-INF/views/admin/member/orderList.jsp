@@ -362,7 +362,8 @@ li>a {
 </body>
 <script>
 	$('#searchBtn').on('click', function() {
-		location.href = '<%=request.getContextPath()%>/searchOrder.do?filter=' + $('#filter').val() + '&&input=' + $('#inputSearch').val().trim(); 
+		location.href = '<%=request.getContextPath()%>/searchOrder.do?filter=' + $('#filter').val() 
+				+ '&&input=' + $('#inputSearch').val().trim(); 
 	});
 
 	$('#updateBtn').on('click', function() {
