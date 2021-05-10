@@ -170,7 +170,7 @@ int sum = 0;
     
             <table class="cartdiv" id="cart">
                 <tr class="cart head">
-                        <th class="img">이미지</th>
+                        <th class="img"></th>
                         <th class="iname">상품명</th>
                         <th class="cartprice">가격</th>
                         <th class="num">수량</th>
@@ -225,7 +225,7 @@ int sum = 0;
           <div class="calc">
           	<div class="calcinfo" id="calcinfo1">
           		총 상품가격: <b><%= new DecimalFormat("###,###").format(total) %></b>원  + 배송비: <b>2,500</b>원<br>
-          		수령 예상일: <b>5월 14일</b> 도착 예정
+          		수령 예상일: <b>5월 17일</b> 도착 예정
           	</div>
           	<div class="calcinfo" id="calcinfo2">
           		총 결제할 금액: <b><%= new DecimalFormat("###,###").format(total + 2500)%></b>원

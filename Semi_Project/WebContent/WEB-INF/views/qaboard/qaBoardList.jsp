@@ -34,6 +34,7 @@
 	}	
 	
 	#service-menubar-name { 
+		margin-top: 5px;
 		text-align: center; 
 		font-size: 20px;
 	}
@@ -176,12 +177,12 @@
 	
 	<div class="service-menubar">
 	<hr>
-		<h2 id="service-menubar-name">Q&A</h2>
+		<h2 id="service-menubar-name">고객센터</h2>
 	<hr>
 		<ul>
-			<li class="servicemenu" id="noticelist.no">공지사항</li>
-			<li class="servicemenu" id="faq.no">자주묻는질문</li>
-			<li><b>Q&A</b></li>
+			<li class="servicemenu" id="goNotice">공지사항</li>
+			<li class="servicemenu" id="goFAQ">자주묻는질문</li>
+			<li class="servicemenu" id="goQNA"><b>Q&A</b></li>
 			<li class="servicemenu" id="goRules">약관 및 방침</li>
 		</ul>
 	</div>
