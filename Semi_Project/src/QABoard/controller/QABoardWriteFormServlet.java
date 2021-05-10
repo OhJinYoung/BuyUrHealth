@@ -27,7 +27,6 @@ public class QABoardWriteFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("WEB-INF/views/qaboard/qaBoardWrite.jsp").forward(request, response);
-		
 	}
 
 	/**

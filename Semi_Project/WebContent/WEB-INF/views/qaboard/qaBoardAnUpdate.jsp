@@ -300,7 +300,6 @@
     	float: right;
     }
     
-    
 </style>
 </head>
 <body>
@@ -317,6 +316,7 @@
 			<li class="servicemenu" id="goRules">약관 및 방침</li>
 		</ul>
 	</div>
+
 
 
 	<div class="qa data">

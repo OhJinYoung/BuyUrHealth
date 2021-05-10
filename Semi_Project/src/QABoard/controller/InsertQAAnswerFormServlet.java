@@ -59,7 +59,6 @@ public class InsertQAAnswerFormServlet extends HttpServlet {
 		
 		Date dat = new Date(new GregorianCalendar(year, month, day).getTimeInMillis());
 
-
 		QABoard b = new QABoard(bId, title, content, dat, category);
 		
 		request.setAttribute("b", b);

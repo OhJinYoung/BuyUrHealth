@@ -75,7 +75,6 @@ public class UpdateQAAnswerFormServlet extends HttpServlet {
 		request.setAttribute("abo", abo);
 		request.setAttribute("qafile", qafile);
 		request.getRequestDispatcher("WEB-INF/views/qaboard/qaBoardAnUpdate.jsp").forward(request, response);
-		
 
 	}
 

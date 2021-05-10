@@ -43,7 +43,6 @@ public class QABoardDAO {
 		String query = prop.getProperty("getListCount");
 		// getListCount=SELECT COUNT(*) FROM QNA WHERE STATUS='Y' 
 		
-		
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);

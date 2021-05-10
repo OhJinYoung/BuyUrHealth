@@ -16,6 +16,7 @@ public class QABoard {
 	private String status;
 	private String userId;
 	
+	
 	public QABoard() {}
 	
 	public QABoard(int qaNo, String qaTitle, String qaContent, Date qaQuestionDate, String qaAnswer, Date qaAnswerDate,

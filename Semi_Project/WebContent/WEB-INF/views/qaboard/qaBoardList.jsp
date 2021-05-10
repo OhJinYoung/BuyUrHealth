@@ -13,7 +13,6 @@
 <%
 	Member authority = (Member) session.getAttribute("loginUser");
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -243,7 +242,7 @@
 				<% } %>
 				</tr>
 				<% } %>
-			<% } else if(list.isEmpty() && authority.getAuthority() == 'N'){ %>
+			<% } else if(list.isEmpty()){ %>
 				<tr>
 					<td colspan="3">조회된 리스트가 없습니다.</td>
 				</tr>
@@ -267,10 +266,10 @@
 		<!-- 페이징 -->
 		 <div class="pagingArea" align="center">
 			<!-- 맨 처음으로 -->
-			<button onclick="location.href='<%= request.getContextPath() %>/qalist.bo?currentPage=1'">&lt;&lt;</button>
+			<button onclick="location.href='<%= request.getContextPath() %>/goQNA?currentPage=1'">&lt;&lt;</button>
 			
 			<!-- 이전 페이지로 -->
-			<button onclick="location.href='<%= request.getContextPath() %>/qalist.bo?currentPage=<%= currentPage-1 %>'" id="beforeBtn">&lt;</button>
+			<button onclick="location.href='<%= request.getContextPath() %>/goQNA?currentPage=<%= currentPage-1 %>'" id="beforeBtn">&lt;</button>
 			<script>
 				if(<%= currentPage %> <= 1){
 					var before = $('#beforeBtn');
@@ -286,12 +285,12 @@
 			<%		
 				} else {
 			%>
-			<button id="numBtn" onclick="location.href='<%= request.getContextPath() %>/qalist.bo?currentPage=<%= p %>'"><%= p %></button>			
+			<button id="numBtn" onclick="location.href='<%= request.getContextPath() %>/goQNA?currentPage=<%= p %>'"><%= p %></button>			
 			<% } %>
 			<% } %>				
 			
 			<!-- 다음 페이지로 -->
-			<button onclick="location.href='<%= request.getContextPath() %>/qalist.bo?currentPage=<%= currentPage+1 %>'" id="afterBtn">&gt;</button>
+			<button onclick="location.href='<%= request.getContextPath() %>/goQNA?currentPage=<%= currentPage+1 %>'" id="afterBtn">&gt;</button>
 			<script>
 				if(<%= currentPage %> >= <%= maxPage %>){
 					$('#afterBtn').attr('disabled', true);
@@ -299,7 +298,7 @@
 			</script>
 			
 			<!-- 맨 뒤로 -->
-			<button onclick="location.href='<%= request.getContextPath() %>/qalist.bo?currentPage=<%= maxPage %>'">&gt;&gt;</button>
+			<button onclick="location.href='<%= request.getContextPath() %>/goQNA?currentPage=<%= maxPage %>'">&gt;&gt;</button>
 		</div>
 		
 		

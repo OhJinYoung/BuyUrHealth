@@ -55,6 +55,7 @@
 		position: absolute; 
 		margin-left: 200px;
 	}
+	
 	.qa.head{
 		width: 98%; float: left; margin-left: 30px; 
 		margin-top: 15px;
