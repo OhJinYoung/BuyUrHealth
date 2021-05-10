@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, Cart.model.vo.Cart, java.text.DecimalFormat"%>
-<%@ page import="java.util.Calendar"%>
-
-<% ArrayList<Cart> cartlist = (ArrayList<Cart>)request.getAttribute("cartlist"); %>
+<%@ page import="java.util.ArrayList, Cart.model.vo.Cart, java.text.DecimalFormat, product.model.vo.*" %>
 <% 
-	int total = 0; 
-	int sum = 0;
+ArrayList<Cart> cartlist = (ArrayList<Cart>)request.getAttribute("cartlist"); 
+ArrayList<ProductFile> fList = (ArrayList<ProductFile>) request.getAttribute("fList");
+System.out.println(fList);
 %>
-<%
-	Calendar cal = Calendar.getInstance();
+<% 
+int total = 0; 
+int sum = 0;
 %>
 <!DOCTYPE html>
 <html>
@@ -30,34 +29,18 @@
 	}	
 	
 	#cartTitle{
-	    width: 80%;
 		color: red; 
-		padding-top: 50px;
-		padding-bottom: 20px;
-		margin: 0px auto;
+		padding-left: 180px; 
+		padding-top: 30px;
 		font-size: 24px;
 	}
 	
 	.cartdiv {
 	    width: 80%;
 	    min-width: 80%;
-		padding-top: 5px;
 	    border-top: 1px solid black;
 	    margin-left: auto; 
 	    margin-right: auto; 
-	}
-	
-	th{
-	    border-bottom: 1px solid black;
-		padding-top: 11px;
-		padding-bottom: 15px;
-		font-size: 20px;
-	}
-	
-	td{
-		padding-top: 7px;
-		padding-bottom: 7px;
-		border-bottom: 1px dashed black;
 	}
     
     .img {width: 15%;}
@@ -191,7 +174,7 @@
     
             <table class="cartdiv" id="cart">
                 <tr class="cart head">
-                        <th class="img"></th>
+                        <th class="img">이미지</th>
                         <th class="iname">상품명</th>
                         <th class="cartprice">가격</th>
                         <th class="num">수량</th>
@@ -209,7 +192,23 @@
 							total += sum;
 						%>
 							<tr>
-								<td class="img" align="center"></td>
+							<%
+							for (int j = 0; j < fList.size(); j++) {
+								%>
+								<%
+									ProductFile f = fList.get(j);
+								%>
+								<%
+									if (c.getProductNo() == f.getProductNo()) {
+								%>
+								<td class="img" align="center"><img width="80px" src="<%=request.getContextPath()%>/uploadFiles/productUpload/<%=f.getChangeName()%>"></td>
+								<%
+									}
+								%>
+								<%
+									}
+								%>
+							
 								<td class="iname" align="center">
 									
 									<input type="hidden" size="3" name="cartNo" value="<%= c.getCartNo() %>">
@@ -239,14 +238,14 @@
 								</form>
 								</td>
 							</tr>
-				<%			}
-					} %>       
+						<% } %> 
+						<% } %>       
             </table>
     		<br clear="all">
           <div class="calc">
           	<div class="calcinfo" id="calcinfo1">
           		총 상품가격: <b><%= new DecimalFormat("###,###").format(total) %></b>원  + 배송비: <b>2,500</b>원<br>
-          		발송 예상일: <b><%= cal.get(Calendar.MONTH)+1 %>월 <%= cal.get(Calendar.DATE) %>일</b> 발송 예정
+          		수령 예상일: <b>5월 14일</b> 도착 예정
           	</div>
           	<div class="calcinfo" id="calcinfo2">
           		총 결제할 금액: <b><%= new DecimalFormat("###,###").format(total + 2500)%></b>원

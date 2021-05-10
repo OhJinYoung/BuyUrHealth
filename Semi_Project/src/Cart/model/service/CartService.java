@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import Cart.model.dao.CartDAO;
 import Cart.model.dao.UserOrderDAO;
 import Cart.model.vo.Cart;
+import product.model.vo.ProductFile;
 
 public class CartService {
 
@@ -69,6 +70,20 @@ public class CartService {
 		return result;
 
 	}
+	
+	public ArrayList<ProductFile> selectTList(int i) {
+		Connection conn = getConnection();
+
+		ArrayList<ProductFile> list = null;
+
+		CartDAO cDAO = new CartDAO();
+		if (i == 1) {
+			list = cDAO.selectFList(conn);
+		}
+
+		return list;
+	}
+
 
 
 

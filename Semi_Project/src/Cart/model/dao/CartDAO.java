@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import Cart.model.vo.Cart;
+import product.model.vo.ProductFile;
 
 
 public class CartDAO {
@@ -161,6 +162,33 @@ private Properties prop = new Properties();
 		}
 		
 		return result;
+	}
+	
+	public ArrayList<ProductFile> selectFList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<ProductFile> list = null;
+		
+		String query = prop.getProperty("selectFList");
+		// selectFList=SELECT * FROM ADDFILE WHERE F_YN ='Y'
+
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<ProductFile>();
+			while(rset.next()) {
+				list.add(new ProductFile( 
+						rset.getInt("PRODUCT_NO"),
+						rset.getString("CHANGE_NAME")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
 	}
 
 
