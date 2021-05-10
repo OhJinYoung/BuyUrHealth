@@ -388,7 +388,7 @@ public class ProductDAO {
 		ResultSet rset = null;
 		ArrayList<ProductFile> list = null;
 		
-		String query = prop.getProperty("selectProductFile");
+		String query = prop.getProperty("selectProductFiles");
 		// SELECT * FROM ADDFILE WHERE PRODUCT_NO = ? ORDER BY F_NO 
 		
 		try {
