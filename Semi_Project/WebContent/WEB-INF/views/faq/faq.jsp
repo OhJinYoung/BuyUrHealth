@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="member.model.vo.Member" %>
+	
+<%
+Member authority = (Member) session.getAttribute("loginUser");
+ %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +19,13 @@
 </style>
 </head>
 <body>
-	<%@include file="../admin/header.jsp"%>
+	<% if(authority == null) {%>
+		<%@include file="../title_header.jsp"  %>
+	<% } else if(authority != null && authority.getUserId().equals("admin")) {%>
+		<%@include file="../admin/header.jsp"%>
+	<% } else if(authority != null && !authority.getUserId().equals("admin")) {%>
+		<%@include file="../title_header.jsp"  %>
+	<% } %>
 	<%@include file="../notice/customerCenterNav.jsp"%>
 	<div class="product-list">
 		<div class="list-name">
