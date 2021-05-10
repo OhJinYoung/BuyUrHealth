@@ -49,10 +49,18 @@ public class MemberDAO {
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
-				loginUser = new Member(rset.getInt("USER_NO"), rset.getString("PASSWORD"),
-						rset.getString("GENDER").charAt(0), rset.getString("USER_ID"), rset.getString("USER_NAME"),
-						rset.getString("birthdate"), rset.getString("PHONE"), rset.getString("EMAIL"),
-						rset.getString("USERDATE"), rset.getString("AUTHORITY").charAt(0), rset.getString("STATUS"));
+				System.out.println(rset);
+				loginUser = new Member(rset.getInt("USER_NO"), 
+						rset.getString("password"),
+						rset.getString("GENDER").charAt(0), 
+						rset.getString("USER_ID"), 
+						rset.getString("USER_NAME"),
+						rset.getString("birth"), 
+						rset.getString("PHONE"), 
+						rset.getString("EMAIL"),
+						rset.getString("USER_DATE"), 
+						rset.getString("AUTHORITY").charAt(0), 
+						rset.getString("STATUS"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -462,5 +470,4 @@ public class MemberDAO {
 		
 		return UserInfo2;
 	}
-
 }
