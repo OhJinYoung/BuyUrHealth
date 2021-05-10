@@ -27,6 +27,7 @@ public class QAServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("WEB-INF/views/qaboard/qaBoardList.jsp").forward(request, response);
+		
 	}
 
 	/**

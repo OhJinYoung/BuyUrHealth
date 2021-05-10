@@ -77,7 +77,6 @@ public class InsertQABoardServlet extends HttpServlet {
 		b.setQaContent(qaContent);
 		b.setUserNo(userNo);
 		
-		
 			
 		ArrayList<QAFile> fileList = new ArrayList<QAFile>();
 		for(int i = originFiles.size() - 1; i >= 0; i--) {
@@ -99,7 +98,7 @@ public class InsertQABoardServlet extends HttpServlet {
 		}
 		
 		if(result1 > 0 || result2 > 0) {
-			response.sendRedirect("qalist.bo");
+			response.sendRedirect("goQNA");
 			request.setAttribute("fileList", fileList);
 		} else {
 			request.setAttribute("msg", "게시물 등록에 실패했습니다.");

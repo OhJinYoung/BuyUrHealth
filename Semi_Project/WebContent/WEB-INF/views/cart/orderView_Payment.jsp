@@ -25,6 +25,9 @@ int sum = 0;
 	    min-width: 1500px;
 	}	
 	
+	h3{margin-bottom: 10px;}
+	
+	/* 주문 내역 */
 	/* 주문하기 글씨 */
 	#orderTitle{
 		width: 80%;
@@ -35,18 +38,25 @@ int sum = 0;
 		font-size: 24px;
 	}
 	
-	h3{margin-bottom: 10px;}
-	
-	
-	/* 주문 내역 */
 	.cartdiv{
 		width: 80%;
 		border-top: 2px solid black;
+		border-bottom: 2px solid black;
 		margin: 0px auto;
 		height: auto;
-		min-height: 30%;
-		padding: 30px;
+		margin-top: 2px;
+		margin-bottom: 5px;
 	}	
+	
+	.cartTH{
+		padding: 10px;
+		border-bottom: 1px solid black;
+	}
+	.cartTD{
+		padding: 5px;
+	}
+	
+	.cartTable{width: 100%;}
 	
     .iname {width:70%;}
     .cartprice {width: 10%;}
@@ -71,9 +81,7 @@ int sum = 0;
 		padding: 30px;
     }
     
-    table, td, th, tr{border : 1px solid black; border-collapse : collapse;}
-    
-    table{width: 100%;}
+    .addressTable{width: 100%; border : 1px solid black; border-collapse : collapse;}
     
     .none{display: none;}
 	
@@ -146,6 +154,7 @@ int sum = 0;
 		display: flex; align-items: center; justify-content: center;
 	}
 	
+	#tPrice{color: red; font-size: 40px; font-weight:bold;}
 	
     /* pay foot */
 	.pay.foot{margin-bottom: 50px; float: left;}
@@ -193,12 +202,13 @@ int sum = 0;
 	<h3 id=orderTitle>주문하기</h3>
 	
 	<!-- 주문내역 -->
-	<table class="cartdiv" id="cart">
+	<div class="cartdiv" id="cart">
+		<table class="cartTable" id="cartTable">
                 <tr class="cart head">
-                        <th class="iname">상품명</th>
-                        <th class="cartprice">가격</th>
-                        <th class="num">수량</th>
-                        <th class="sum">합계</th>
+                        <th class="cartTH iname">상품명</th>
+                        <th class="cartTH cartprice">가격</th>
+                        <th class="cartTH num">수량</th>
+                        <th class="cartTH sum">합계</th>
                 </tr>
         
                 <% for(Cart c : cartlist){
@@ -206,36 +216,30 @@ int sum = 0;
 					total += sum;
                 %>
 					<tr>
-						<td class="iname" align="center">
+						<td class="cartTD iname" align="center">
 							
 							<input type="hidden" size="3" name="cartNo" value="<%= c.getCartNo() %>">
 							<input type="hidden" size="3" name="proName" value="<%= c.getProductName() %>">
 							<a><%= c.getProductName() %></a>
 						</td>
-						<td class="cartprice" align="center">
+						<td class="cartTD cartprice" align="center">
 							<input type="hidden" size="3" name="proPrice" value="<%= c.getProductPrice() %>">
 							<%= c.getProductPrice() %>
 						</td>
-						<td class="num" align="center">
+						<td class="cartTD num" align="center">
 						<form name="volchange" method="POST" action="<%= request.getContextPath() %>/volchange">
 							<input type="hidden" size="3" name="proNo" value="<%= c.getProductNo() %>">
-							<input type="text" size="3" name="cartVol" id="cartVol" value="<%= c.getCartVolume() %>">
+							<input type="hidden" size="3" name="cartVol" id="cartVol" value="<%= c.getCartVolume() %>"><%= c.getCartVolume() %>
 						</form>
 						</td>
-						<td class="sum" align="center">
+						<td class="cartTD sum" align="center">
 							<input type="hidden" name="cartPrice" size="3" name="cartVol" value="<%= c.getProductPrice() * c.getCartVolume()%>">
 							<%= c.getProductPrice() * c.getCartVolume()%>
-						</td>
-						
-						<td class="cartDelete" align="center">
-						<form name="deleteCart" method="POST" action="<%= request.getContextPath() %>/deleteCart">
-							<input type="hidden" size="3" name="proNo" value="<%= c.getProductNo() %>">
-						</form>
 						</td>
 					</tr>
 				<%	} %>
             </table>
-	    		
+	    </div>		
 	    		
     	<!-- 배송지 정보 -->
 		<form action="pay();" name="orderform" id="orderform" method="post" class="orderform">  
@@ -309,7 +313,7 @@ int sum = 0;
 		          	<div class="calcinfo" id="calcinfo3" >
 		          		<div id="subdiv">
 		          			<input type="hidden" name="totalPrice" id="totalPrice" value="<%= total + 2500 %>">
-		          			총 결제할 금액: <b><%= new DecimalFormat("###,###").format(total + 2500)%></b>원
+		          			총 결제할 금액: <label id="tPrice"><%= new DecimalFormat("###,###").format(total + 2500)%></label>원
 		          		</div>
 		          	</div>
 				</div>
@@ -330,17 +334,6 @@ int sum = 0;
 
 		
 				
- 		<!-- <script>
-		$(function(){
-			$("#orderNo").on("keyup", function(){
-				var check = true;
-				check = $(this).val().length > 0 ? false : true;
-				$("payBtn").attr("disabled", chech);
-			});
-		});
-		</script> -->
-		 
-		
 	<script>
 		function pay(){	
 			var orderNo = $("#orderNo").val(); 

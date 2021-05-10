@@ -10,17 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.jasper.tagplugins.jstl.core.Param;
-
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class InsertMemberServlet
  */
 @WebServlet("/insert.me")
 public class InsertMemberServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -29,56 +26,69 @@ public class InsertMemberServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+	
+	  
+	 
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8"); 
+   /**
+    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+    */
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      request.setCharacterEncoding("UTF-8"); 
+
+      // »ıÀÏÀÇ °æ¿ì <select>·Î µÇ¾î ÀÖ´Âµ¥ ÆÄ¶ó¹ÌÅÍ °ªÀ» ¹ŞÀ» ½Ã ¹è¿­ÇüÅÂ·Î ³Ñ°Ü ¹Ş´Â´Ù.
+//      String[] birthmm = request.getParameterValues("birth_mm");
+//      String birthdd = request.getParameter("birth_dd");
+     
+      	String year = request.getParameter("birthyy");
+		String month = request.getParameter("birthmm");
+		String day = request.getParameter("birthdd");
+		
+		String birth = (year+month+day);
+//		Date birth = Date.valueOf(year+"-"+month+"-"+day);
+      
+      
+      
+      String passWord   = request.getParameter("passWord");
+      char gender		= request.getParameter("gender").charAt(0);
+      String userId		= request.getParameter("userId"); 
+      String userName	= request.getParameter("userName");
+//      String birth		= request.getParameter("birth");
+      String phone		= request.getParameter("phone");
+      String email		= request.getParameter("email");
+//      String userDate	= request.getParameter("userDate");
+      // º¸³»±â Èûµå´Ï member¿¡ ´ã¾Æ º¸³½´Ù
+      Member member = new Member(passWord,gender,userId,userName,birth,phone,email,null,'Y',null);
+      
+//      Member member = new Member(passWord,gender,userId,userName,null,phone,email,null);
+      // ¹Ş¾Æ¿Â µ¥ÀÌÅÍ¸¦ db¿¡ º¸³»±â À§ÇØ ¾îµğ·Î º¸³»¾ßÇÏ´Â°¡? ±×°ÍÀº ¹Ù·Î ¼­ºñ½ººÎºĞ!
+      //¼º°øÇÑ ÇàÀÇ °¹¼ö¸¦ ¹Ş¾Æ¿À´Ï±ñ int
+      
+      int result = new MemberService().insertMember(member);
+      
+      System.out.println(result);
+      if(result > 0) {
+//         response.sendRedirect(request.getContextPath());
+//         request.getRequestDispatcher("WEB-INF/views/common/mainView.jsp");
+         request.setAttribute("msg", "È¸¿ø°¡ÀÔ¿¡ ¼º°øÇÏ¼Ì½À´Ï´Ù.");
+         RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/signupSuccess.jsp");
+         view.forward(request, response);
+      }else {
+         request.setAttribute("msg", "È¸¿ø°¡ÀÔ¿¡ ½ÇÆĞÇÏ¼Ì½À´Ï´Ù.");
+         RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
+         view.forward(request, response);
+         }
 
 
 
+   }
 
-
-
-
-
-
-//		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		String passWord	= request.getParameter("passWord");
-		char gender		= request.getParameter("gender").charAt(0);
-		String userId   = request.getParameter("userId"); 
-		String userName = request.getParameter("userName");
-		String phone    = request.getParameter("phone");
-		String email    = request.getParameter("email");
-		// ë³´ë‚´ê¸° í˜ë“œë‹ˆ memberì— ë‹´ì•„ ë³´ë‚¸ë‹¤
-//		Member member = new Member(passWord,gender,userId,userName,null,phone,email,null,'Y',null);
-//		Member member = new Member(passWord,gender,userId,userName,null,phone,email,null);
-		// ë°›ì•„ì˜¨ ë°ì´í„°ë¥¼ dbì— ë³´ë‚´ê¸° ìœ„í•´ ì–´ë””ë¡œ ë³´ë‚´ì•¼í•˜ëŠ”ê°€? ê·¸ê²ƒì€ ë°”ë¡œ ì„œë¹„ìŠ¤ë¶€ë¶„!
-		//ì„±ê³µí•œ í–‰ì˜ ê°¯ìˆ˜ë¥¼ ë°›ì•„ì˜¤ë‹ˆê¹ int
-//		int result = new MemberService().insertMember(member);
-//		if(result > 0) {
-//			response.sendRedirect(request.getContextPath());
-//			request.getRequestDispatcher("WEB-INF/views/common/mainView.jsp");
-//			request.setAttribute("msg", "íšŒì›ê°€ì…ì— ì„±ê³µí•˜ì…¨ìŠµë‹ˆë‹¤.");
-//			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/signupSuccess.jsp");
-//			view.forward(request, response);
-//		}else {
-//			request.setAttribute("msg", "íšŒì›ê°€ì…ì— ì‹¤íŒ¨í•˜ì…¨ìŠµë‹ˆë‹¤.");
-//			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
-//			view.forward(request, response);
-//			}
-
-
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+   /**
+    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+    */
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      // TODO Auto-generated method stub
+      doGet(request, response);
+   }
 
 }

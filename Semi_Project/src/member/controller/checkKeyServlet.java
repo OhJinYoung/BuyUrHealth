@@ -38,13 +38,11 @@ public class checkKeyServlet extends HttpServlet {
 		if(!AuthenticationKey.equals(AuthenticationUser))
 		{
 			PrintWriter writer = response.getWriter(); 
-			writer.println("<script>alert('인증번호 일치하지않습니다.');</script>"); 
+			writer.println("<script>alert('BUH계정을 입력해주세요.');</script>"); 
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/errorFail.jsp");
 			view.forward(request, response);
 			
 		}else {
-			// 여기다가 이메일 인증을 을해서 성공을 해야만 이 과정을 거쳐야만 status에 변화를 줘서 회원가입에 성공할수있도록 한다.
-			
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/mailSuccess.jsp");
 			view.forward(request, response);
 		}
