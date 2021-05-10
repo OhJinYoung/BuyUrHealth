@@ -51,6 +51,27 @@
 	border-radius: 12px;
 	width: 80px;
 }
+#look1{
+	background-color: white;
+	border:0;
+	outline:0;
+	color: blue;
+	text-decoration: underline;
+}
+#look2{
+	background-color: white;
+	border:0;
+	outline:0;
+	color: blue;
+	text-decoration: underline;
+}
+#look3{
+	background-color: white;
+	border:0;
+	outline:0;
+	color: blue;
+	text-decoration: underline;
+}
 .btn:hover{color:#fff;}
 .hover1:hover{ box-shadow: 0 80px 0 0 rgba(0,0,0,0.25) inset, 0 -80px 0 0 rgba(0,0,0,0.25) inset; }
 
@@ -67,6 +88,17 @@ a{
 font-weight: bold;
 }
 input[type="text"]{
+
+width:290px; height:30px;
+
+padding:15px;
+
+font-size:16px;
+
+color: red;
+
+      }
+input[type="password"]{
 
 width:290px; height:30px;
 
@@ -160,7 +192,7 @@ h2{
 						<br><br>
 						
 						비밀번호<br>
-						<input type="text" placeholder="비밀번호를 입력해 주세요" name="passWord" required>
+						<input type="password" placeholder="비밀번호를 입력해 주세요" name="passWord" required>
 						<br><br>
 						
 						
@@ -170,15 +202,20 @@ h2{
 						<br><br>
 						
 						
-					<input type="checkbox" value="전체선택" id="all" onclick="selectAll();"><a>모두 동의하기</a>
+					<input type="checkbox" value="전체선택" id="all" onclick="selectAll();"><a> 모두 동의하기</a>
 					<br><br>
 						<hr>
 					<br><br>
-					<input type="checkbox" name="category" value="이용약관" id="comp" onclick="selectOne();"><a>이용 약관 동의 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">전문보기</a>
+					<input type="checkbox" name="category" value="이용약관" id="comp" onclick="selectOne();" required><a> 이용약관 동의 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					
+					<input type="button" value="전문보기" id="look1" class="btn1">
+					
 					<br>
-					<input type="checkbox" name="category" value="개인정보" id="novel" onclick="selectOne();"><a>개인정보처리방침 동의</a> &nbsp;&nbsp;<a href="">전문보기</a>
+					<input type="checkbox" name="category" value="개인정보" id="novel" onclick="selectOne();"required><a> 개인정보처리방침 동의</a> &nbsp;&nbsp;
+					<input type="button" value="전문보기" id="look2" class="btn1">
 					<br>
-					<input type="checkbox" name="category" value="마케팅수신" id="essay" onclick="selectOne();"><a>마케팅 수신 동의(선택)&nbsp;&nbsp;&nbsp;</a><a href="">전문보기</a>
+					<input type="checkbox" name="category" value="마케팅수신" id="essay" onclick="selectOne();"><a> 마케팅 수신 동의(선택)&nbsp;&nbsp;&nbsp;</a>
+					<input type="button" value="전문보기" id="look3" class="btn1">
 					<br>
 							<div class="btns" id="signUpBtns">
 								<input id="signUpBtn" type="submit" value="가입하기" class="btn hover1">
@@ -249,6 +286,15 @@ h2{
 	
 		$('#idCheck').on('click',function(){
 			window.open('checkIdForm.me','idCheckForm','width=300, height=200');
+		})
+		$('#look1').on('click',function(){
+			window.open('agreeA.me','agreeA','width=1400, height=700');
+		})
+		$('#look2').on('click',function(){
+			window.open('agreeB.me','agreeB','width=1400, height=700');
+		})
+		$('#look3').on('click',function(){
+			window.open('agreeC.me','agreeC','width=1400, height=700');
 		})
 		
 		$('#login').on('click', function(){
