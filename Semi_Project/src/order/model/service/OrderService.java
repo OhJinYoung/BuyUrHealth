@@ -111,4 +111,49 @@ public class OrderService {
 		return olist;
 	}
 
+	public int updateTrackingNo(int orderNo, String trackingNo) {
+		Connection conn = getConnection();
+
+		int result = new OrderDAO().updateTrackingNo(conn, orderNo, trackingNo);
+
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+
+		close(conn);
+
+		return result;
+	}
+
+	public ArrayList<Order> searchMypageOrder(int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<Order> list = new OrderDAO().searchMypageOrder(conn, userNo);
+
+		close(conn);
+
+		return list;
+	}
+
+	public OrderDetail selectMypageOrderDetail(int orderNo) {
+		Connection conn = getConnection();
+
+		OrderDetail orderDetail = new OrderDAO().selectMypageOrderDetail(conn, orderNo);
+
+		close(conn);
+
+		return orderDetail;
+	}
+
+	public Order searchMypageOrderNormal(int userNo) {
+		Connection conn = getConnection();
+
+		Order order = new OrderDAO().searchMypageOrderNormal(conn, userNo);
+
+		close(conn);
+		
+		return order;
+	}
+
 }

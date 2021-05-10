@@ -64,11 +64,7 @@ public class NoticeUpdateServlet2 extends HttpServlet {
 		} else {
 			request.setAttribute("msg",  "공지사항 수정에 실패했습니다");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
-		
-		
 		}
-	
-	
 	}
 
 	/**

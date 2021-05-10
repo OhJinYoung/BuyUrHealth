@@ -18,17 +18,15 @@
 	    float: left;
 	    width: 180px;
 	    text-align: center;
+	    cursor:pointer;
 	}
-
 	div.nutrientImg:hover {
 	    border: 1px solid #777;
 	}
-
 	div.nutrientImg img {
 	    width: 150px;
 	    height: 100px;
 	}
-
 	div.desc {
 	    padding: 15px;
 	    text-align: center;
@@ -42,6 +40,7 @@
 		background: white; text-align: center; font-weight: bold; 
 		vertical-align: middle; width: 150px; height: 30px; 
 		display: table-cell; border: 1px inset black; border-radius: 2em 1em 4em / 0.5em 3em;
+		cursor:pointer;
 	}
 	
 	.mainFoot:hover {
@@ -50,6 +49,44 @@
 	}
 	
 	.mainBottom{margin-top: -70px;}
+	
+	.navigationBar{
+		position: fixed;
+  		top: 600px;
+  		/* width: 100% */
+  		left: 1450px;
+	}
+	
+	.navigationBar button{
+		border: 1px solid skyblue;
+		color: white;
+		padding: 5px;
+	}
+	
+	.navigationBar button:hover{
+		color: white;
+		background-color: gray;
+	}
+	
+	#navigationBtn1{
+		border-top-left-radius: 20px;
+		border-top-right-radius: 20px;
+		background-color: rgb(232, 18, 36);
+	}
+	
+	#navigationBtn1:hover{
+		background-color: gray;
+	}
+	
+	#navigationBtn2{
+		border-bottom-left-radius: 20px;
+		border-bottom-right-radius: 20px;
+		background-color: rgb(255, 200, 61);
+	}
+	
+	#navigationBtn2:hover{
+		background-color: gray;
+	}
 	
 </style>
 </head>
@@ -62,9 +99,9 @@
 		<%@include file="../title_header.jsp"  %>
 	<% } %>
 	
-	
+	<div id="top"></div>
 	<%@include file="humanBody.jsp"%>
-	
+	<div id="bottom"></div>
 	<%@include file="nutrientCalc.jsp"%>
 	
 	<h2 align="center" style="margin-top: 100px;">영양소 소개</h2>
@@ -150,15 +187,45 @@
 
 	<div class="mainFootWrap">
 		<nav>
-			<div class="mainFoot">이용약관</div>
-			<div class="mainFoot">개인정보처리방침</div>
-			<div class="mainFoot">고객센터</div>
+			<div class="mainFoot" onclick="goRules1();">이용약관</div>
+			<div class="mainFoot" onclick="goRules2();">개인정보처리방침</div>
+			<div class="mainFoot" onclick="qalist();">고객센터</div>
 		</nav>
 	</div>
 	
 	<div class="mainBottom">
 		<%@include file="footer.jsp"%>
 	</div>
+	
+	<div class="navigationBar">
+		<button id="navigationBtn1">상단</button><br>
+		<button id="navigationBtn2">하단</button><br>
+	</div>
+	
+	<script>
+		function goRules1(){
+			location.href='<%=request.getContextPath()%>/goRules';
+		}
+		
+		function goRules2(){
+			location.href='<%=request.getContextPath()%>/goRules2';
+		}
+		
+		function qalist(){
+			location.href='<%=request.getContextPath()%>/goNotice';
+		}
+
+		$('#navigationBtn1').click(function(){
+			var offset = $('#top').offset();
+			$('html').animate({scrollTop : offset.top}, 400);
+		});
+		
+		$('#navigationBtn2').click(function(){
+			var offset = $('#bottom').offset();
+			$('html').animate({scrollTop : offset.top}, 400);
+		});
+		
+	</script>
 	
 </body>
 </html>

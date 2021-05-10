@@ -1,6 +1,7 @@
 package Cart.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Cart.model.service.CartService;
+import Cart.model.vo.Cart;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
@@ -37,14 +40,18 @@ public class CartServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String userId = loginUser.getUserId();
+		int userNo = loginUser.getUserNo();
 		
 		Member member = new MemberService().selectMember(userId);
 		
 		System.out.println(member);
 		
+		ArrayList<Cart> cartlist = new CartService().selectList(userNo); 
+		
 		String page = null;
-		if(member != null) {
+		if(cartlist != null) {
 			page = "WEB-INF/views/cart/cartView.jsp";
+			request.setAttribute("cartlist", cartlist);
 			request.setAttribute("userId", member);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
@@ -52,8 +59,6 @@ public class CartServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
-		
-		
 
 	}
 

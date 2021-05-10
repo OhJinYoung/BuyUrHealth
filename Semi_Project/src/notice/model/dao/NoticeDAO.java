@@ -14,7 +14,6 @@ import java.util.Properties;
 
 import notice.model.vo.Notice;
 import notice.model.vo.PageInfo;
-import test.model.dao.TestDAO;
 
 public class NoticeDAO {
 	
@@ -38,6 +37,30 @@ public class NoticeDAO {
 	}
 	
 	
+	public int getListCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("getListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);  // 첫번째 값을 가져옴 
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return result;
+	}
+	
 
 	public ArrayList<Notice> selectList(Connection conn, PageInfo pi) {
 		PreparedStatement pstmt = null;
@@ -47,20 +70,15 @@ public class NoticeDAO {
 		String query = prop.getProperty("selectList");
 		
 		try {
-			
-			// Page 1 ==> 1 2 3 4 5 6 7 8 9 10
-			int startRow = (pi.getCurrentPage() - 1) * pi.getNoticeLimit() + 1; //  10n+1
+			int startRow = (pi.getCurrentPage() - 1) * pi.getNoticeLimit() + 1; 
 			int endRow = startRow + pi.getNoticeLimit() - 1;
 			
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1,  startRow);
-			pstmt.setInt(2,  endRow);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
 			list = new ArrayList<Notice>();
-			
-			
-			//rset에 다음 값이 있다고 한다면~~~ 
 			while(rset.next()) {
 				Notice no = new Notice(rset.getInt("COMM_NO"),
 									   rset.getString("COMM_TITLE"),
@@ -166,29 +184,7 @@ public class NoticeDAO {
 
 
 
-	public int getListCount(Connection conn) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		int result = 0;
-		
-		String query = prop.getProperty("getListCount");
-		
-		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);  // 첫번째 값을 가져옴 
-			
-			if(rset.next()) {
-				result = rset.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
-		
-		return result;
-	}
+
 
 	public int updateNotice(Connection conn, Notice notice) {
 		PreparedStatement pstmt = null;

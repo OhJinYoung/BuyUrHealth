@@ -204,7 +204,7 @@ select {
 					},
 					success : function(data) {
 						alert(data);
-						if (data == '회원 수정 성공') {
+						if (data == '수정 성공') {
 							opener.parent.location.reload();
 							window.close();
 						}

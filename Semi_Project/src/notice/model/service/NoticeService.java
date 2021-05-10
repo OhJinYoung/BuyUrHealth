@@ -17,6 +17,17 @@ import notice.model.vo.PageInfo;
  */
 
 public class NoticeService {
+	
+	public int getListCount() {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new NoticeDAO().getListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
 
 	public ArrayList<Notice> selectList(PageInfo pi) {
 		// Service에서 가장 먼저 할일은 Connnection받아오기
@@ -25,6 +36,7 @@ public class NoticeService {
 		ArrayList<Notice> list = new NoticeDAO().selectList(conn, pi);
 		
 		close(conn);
+		
 		return list;
 		
 	}
@@ -59,16 +71,7 @@ public class NoticeService {
 		
 	}
 
-	public int getListCount() {
-		
-		Connection conn = getConnection();
-		
-		int listCount = new NoticeDAO().getListCount(conn);
-		
-		close(conn);
-		
-		return listCount;
-	}
+
 
 	public int updateNotice(Notice notice) {
 		

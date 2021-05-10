@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
+	html{
+		min-width: 1000px;
+	}
+
 	html, body {
 	    height: 100%; 
 	    overflow-y: auto;
@@ -16,6 +20,7 @@
 	}	
 	
 	#service-menubar-name { 
+		margin-top: 5px;
 		text-align: center; 
 		font-size: 20px;
 	}
@@ -46,7 +51,6 @@
 	.qa.head{
 		width: 98%; float: left; margin-left: 30px; 
 		margin-top: 15px;
-		/* background: lightpink; */
 	}
 	
 	h3{
@@ -62,7 +66,6 @@
 		width: 100%;
 	}
 	
-
 	.qa.body{
 		width: 90%; 
 		min-height:350px; 
@@ -126,13 +129,13 @@
 	
 	<div class="service-menubar">
 	<hr>
-		<h2 id="service-menubar-name">Q&A</h2>
+		<h2 id="service-menubar-name">고객센터</h2>
 	<hr>
 		<ul>
-		<li class="servicemenu" id="">공지사항</li>
-		<li class="servicemenu" id="">자주묻는질문</li>
+		<li class="servicemenu" id="goNotice">공지사항</li>
+		<li class="servicemenu" id="goFAQ">자주묻는질문</li>
 		<li class="servicemenu" id="goQNA">Q&A</li>
-		<li><b>약관 및 방침</b></li>
+		<li class="servicemenu" id="goRules"><b>약관 및 방침</b></li>
 		</ul>
 	</div>
 	

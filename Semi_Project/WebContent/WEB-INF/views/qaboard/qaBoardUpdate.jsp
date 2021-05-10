@@ -4,6 +4,9 @@
 	QABoard qab = (QABoard)request.getAttribute("b"); 
 	ArrayList<QAFile> qaf = (ArrayList<QAFile>)request.getAttribute("qafile"); 
 %>
+<%
+	Member authority = (Member) session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +23,7 @@
 	}	
 	
 	#qaboard-menubar-name { 
+		margin-top: 5px;
 		text-align: center; 
 		font-size: 20px;
 	}
@@ -101,6 +105,15 @@
 	    margin-left: 50px;
 	}
 	
+	.qa.data{
+	    width: 85%;
+		float: right;
+        margin-top: 30px; 
+        margin-right: 10px;
+		position: absolute; 
+		margin-left: 200px;
+	}
+	
 	table{
     	width: 95%;
     }
@@ -179,8 +192,112 @@
     }
     
     li:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
-
+	
+	#goListBtn{
+        float: right;
+    	background-color: #FFC83D;
+        border: 1px solid white;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        letter-spacing: -1px;
+        padding: 3px 20px;
+        margin: 3px 4px;
+        width: auto;
+        word-break: keep-all;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9375em;
+    }
     
+    #updateBtn{
+        float: right;
+    	background-color: #E81224;
+        border: 1px solid white;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        letter-spacing: -1px;
+        padding: 3px 20px;
+        margin: 3px 4px;
+        width: auto;
+        word-break: keep-all;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9375em;
+    }
+    
+    .qa.body{
+		width: 90%; 
+		min-height:350px; 
+		margin-top: 10px;
+		float: left;
+		padding-bottom: 10px; 
+	    margin-left: 50px;
+	}
+	
+	table{
+    	width: 95%;
+    	border-bottom: 3px solid gray;
+    	margin-bottom: 30px;
+    }
+    
+    label{
+    	font-size: 20px;
+    	margin-right: 10px;
+    }
+    
+    select{
+    	width: 200px;
+		padding: .8em .5em;
+		border: 1px solid #999;
+    }
+    
+    td{
+    	padding: 10px;
+    }
+    
+    #qaTitle{
+    	width: 100%;
+		height: 43px;
+		padding: 10px;
+		box-sizing: border-box;
+		border: 1px solid gray;
+		font-size: 16px;
+		resize: none;
+		background: lightgray;
+    }
+    
+    #qaContent{
+    	width: 100%;
+		min-height: 500px;
+		padding: 10px;
+		box-sizing: border-box;
+		border: 1px solid gray;
+		font-size: 16px;
+		resize: both;
+		font-align: left;
+		overflow: auto;
+		resize: none;
+		background: lightgray;
+    }
+    
+    #anContent{
+    	width: 100%;
+		min-height: 500px;
+		padding: 10px;
+		box-sizing: border-box;
+		font-size: 16px;
+		resize: both;
+		font-align: left;
+		overflow: auto;
+		resize: none;
+    }
+    
+    #writeDate{
+    	font-size: 16px;
+    	float: right;
+    }
     
 </style>
 </head>
@@ -189,17 +306,18 @@
 	
 	<div class="qaboard-menubar">
 	<hr>
-		<h2 id="qaboard-menubar-name">Q&A</h2>
+		<h2 id="qaboard-menubar-name">고객센터</h2>
 	<hr>
 		<ul>
-			<li class="servicemenu" id="">공지사항</li>
-			<li class="servicemenu" id="">자주묻는질문</li>
-			<li><b>Q&A</b></li>
+			<li class="servicemenu" id="goNotice">공지사항</li>
+			<li class="servicemenu" id="goFAQ">자주묻는질문</li>
+			<li class="servicemenu" id="goQNA"><b>Q&A</b></li>
 			<li class="servicemenu" id="goRules">약관 및 방침</li>
 		</ul>
 	</div>
 	
-	<form action="<%= request.getContextPath() %>/QAUpdate.bo" method="post">
+	<% if(authority.getAuthority() == 'N') {%>
+	<form action="<%= request.getContextPath() %>/QAUpdate.bo" method="post" >
 	
 	<div class="qa data">
 	
@@ -243,7 +361,7 @@
 					<td class="td1">
 						<label>첨부파일</label>
 						<% if(qaf.isEmpty()) {%>
-						<input type="file" id="uploadFile" name="uploadFile" multiple accept=".jpg, .png, .jpeg">
+						첨부파일이 없습니다.
 						<% } else { %>
 						<a href="<%= request.getContextPath() %>/uploadFiles/qafile_uploadFiles/<%= qaf.get(0).getFileChangeName() %>" target='_blank'><%= qaf.get(0).getFileChangeName() %></a>
 						<% } %>
@@ -253,6 +371,81 @@
 				</tr>
 			</table>
 		</div>
+	</div>
+	</form>
+	<% } else { %>
+	<div class="qa data">
+		<div class="qa head">
+			<div class="subdiv">
+				<h3>고객센터>Q&A</h3>
+			</div>
+
+			<div class="line"></div>
+		</div>
+		
+			<form action="<%= request.getContextPath() %>/QAAnInsert.bo" method="post">
+			<div class="qa body">
+			<table>
+				<tr>
+					<td>
+						<label>분류</label>
+						<input type="hidden" size="50" name="bId" value="<%= qab.getQaNo() %>">
+						<input type="hidden" size="50" name="category" value="<%= qab.getQacateName() %>">
+						<%= qab.getQacateName() %>
+						<label id="writeDate">작성일 : <%= qab.getQaQuestionDate() %></label>
+						<input type="hidden" size="50" name="date" value="<%= qab.getQaQuestionDate() %>">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="hidden" size="50" name="title" value="<%= qab.getQaTitle() %>">
+						<div id="qaTitle"><%= qab.getQaTitle() %></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div id="qaContent">
+							<input type="hidden" name="content" cols="60" rows="15" style="resize:none;" value="<%= qab.getQaContent().replace("\r\n", "<br>") %>" readonly><%= qab.getQaContent().replace("\r\n", "<br>") %>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>첨부파일</label>
+						<% if(qaf.isEmpty()) {%>
+							첨부파일이 없습니다.
+						<% } else { %>
+							<a href="<%= request.getContextPath() %>/uploadFiles/qafile_uploadFiles/<%= qaf.get(0).getFileChangeName() %>" target='_blank'><%= qaf.get(0).getFileChangeName() %></a>
+						<% } %>
+						
+					</td>
+				</tr>
+			</table>
+			
+			<table>
+				<tr>
+					<td>
+						<label>답변</label>
+					</td>
+				</tr>
+				<tr>				
+					<td>
+						<div id="anContent">
+						<textarea type="text" name="anContent" id="anContent" style="resize:none;"></textarea>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="button" id="goListBtn" onclick="location.href='<%= request.getContextPath() %>/goQNA'" value="목록">
+						<input type="submit" id="updateBtn" value="답변등록">
+					</td>
+				</tr>
+			</table>
+		</div>
+		</form>
+		</div>
+		<% } %>
 		
 		<script>
 			$('.servicemenu').on('click', function() {
@@ -260,7 +453,5 @@
 				location.href='<%=request.getContextPath()%>/' + id;
 			});
 		</script>
-	</div>
-		</form>
 </body>
 </html>

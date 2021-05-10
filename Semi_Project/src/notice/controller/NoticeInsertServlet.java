@@ -37,7 +37,7 @@ public class NoticeInsertServlet extends HttpServlet {
 		
 		// 데이터 받아오귕
 		String title = request.getParameter("title");
-		String userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		String userNo = request.getParameter("writer");
 		String date = request.getParameter("date");
 		String content = request.getParameter("content");
 		
@@ -59,7 +59,7 @@ public class NoticeInsertServlet extends HttpServlet {
 		int result = new NoticeService().insertNotice(n);
 		
 		if(result > 0) {
-			response.sendRedirect("noticelist.no");
+			response.sendRedirect("goNotice");
 		} else {
 			request.setAttribute("msg", "공지사항 등록에 실패했습니다.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);

@@ -10,7 +10,9 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 %>
-
+<%
+	Member authority = (Member) session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,9 +20,10 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
-html{
-	min-width: 1000px;
-}
+	html{
+		min-width: 1000px;
+	}
+	
 	html, body {
 	    height: 100%; 
 	    overflow-y: auto;
@@ -29,26 +32,25 @@ html{
 	    letter-spacing: -1px;
 	}	
 	
-	#qaboard-menubar-name { 
+	#service-menubar-name { 
+		margin-top: 5px;
 		text-align: center; 
 		font-size: 20px;
 	}
 	
-	.qaboard-menubar ul, li {
+	.service-menubar ul, li {
 		list-style: none; 
-		padding: 10px; 
-		margin: 0; 
-		text-align: center;
+		padding: 10px; margin: 0; text-align: center;
 	}
 	
-	.qaboard-menubar {
+	.service-menubar {
         width: 170px;
-        max-width:170px;
+        max-width: 170px;
         padding: 20px;
         margin-top: 14px; 
         float: left;
         position: absolute;
-        height: 100%;
+        min-height: 100%;
         overflow: auto;
 	}
 	
@@ -56,14 +58,20 @@ html{
 	    width: 85%;
         margin-top: 30px; 
         margin-right: 10px;
-		/* background: lightblue; */
 		position: absolute; /* 없애지 말 것 */
 		margin-left: 200px;
 	}
+	
 	.qa.head{
 		width: 98%; float: left; margin-left: 30px; 
 		margin-top: 15px;
-		/* background: lightpink; */
+	}
+	
+	h3{
+		color: black; 
+		margin: 0px auto;
+		font-size: 20px;
+		margin-left: 15px;
 	}
 	
 	.item:hover {
@@ -73,13 +81,6 @@ html{
 	.itemTitle{
 		margin: 5px;
 		margin-top: 10px;
-	}
-	
-	h3{
-		color: black; 
-		margin: 0px auto;
-		font-size: 20px;
-		margin-left: 15px;
 	}
 	
 	.subdiv{
@@ -171,16 +172,22 @@ html{
 </style>
 </head>
 <body>
-	<%@ include file="../title_header.jsp" %>
+	<% if(authority == null) {%>
+	<%@include file="../title_header.jsp"%>
+	<% } else if(authority.getAuthority() == 'Y') {%>
+	<%@include file="../admin/header.jsp"%>
+	<% } else if(authority.getAuthority() == 'N') {%>
+	<%@include file="../title_header.jsp"%>
+	<% } %>
 	
-	<div class="qaboard-menubar">
+	<div class="service-menubar">
 	<hr>
-		<h2 id="qaboard-menubar-name">Q&A</h2>
+		<h2 id="service-menubar-name">고객센터</h2>
 	<hr>
 		<ul>
-			<li class="servicemenu" id="">공지사항</li>
-			<li class="servicemenu" id="">자주묻는질문</li>
-			<li><b>Q&A</b></li>
+			<li class="servicemenu" id="goNotice">공지사항</li>
+			<li class="servicemenu" id="goFAQ">자주묻는질문</li>
+			<li class="servicemenu" id="goQNA"><b>Q&A</b></li>
 			<li class="servicemenu" id="goRules">약관 및 방침</li>
 		</ul>
 	</div>
@@ -192,9 +199,10 @@ html{
 				<h3>고객센터>Q&A</h3>
 			</div>
 			<div class="buttondiv">
-				<% if(loginUser != null){ %> 
+			<% if(authority.getAuthority() == 'N') {%>
 				<button class="button" onclick="location.href='<%= request.getContextPath() %>/QABoardWriteForm.bo'">문의하기</button>
-				 <% } %> 
+			<% } %>
+				 
 			</div>
 			<br>
 			<div class="line"></div>
@@ -202,46 +210,66 @@ html{
 		
 		<div class="tableArea">
 			<table id="listArea">
+			<% if(authority.getAuthority() == 'N'){ %>
 				<tr>
 					<th class="none"></th>
 					<th width="15%">작성일</th>
 					<th width="70%">글제목</th>
 					<th width="15%">상태</th>
 				</tr>
-				
-						<% if(list.isEmpty()){ %>
-							<tr>
-								<td colspan="3">조회된 리스트가 없습니다.</td>
-							</tr>
-					
-						<% } else { 
-							for (QABoard bo : list){ %>
-						<tr>
-							<td class="none">
-							<%= bo.getQaNo() %>
-							</td>
-							<td>
-							<%= bo.getQaQuestionDate() %>
-							</td>
-							<td><%= bo.getQaTitle() %></td>
-							<% if(bo.getQaAnswer() != null) { %>
-							<td>답변완료</td>
-							<% } else { %>
-							<td>답변대기</td>
-							<% } %>
-							<% } %> 
-						</tr>
-						<% } %> 
+			<% } else {%>
+				<tr>
+					<th class="none"></th>
+					<th width="15%">작성자(ID)</th>
+					<th width="15%">작성일</th>
+					<th width="60%">글제목</th>
+					<th width="10%">상태</th>
+				</tr>
+			<% } %>	
+			
+			
+			<% if(authority.getAuthority() == 'Y'){ 
+				for (QABoard bo : list){ %>
+				<tr>
+					<td class="none"><%= bo.getQaNo() %></td>
+					<td><%= bo.getUserName() %><br>(<%= bo.getUserId() %>)</td>
+					<td><%= bo.getQaQuestionDate() %></td>
+					<td><%= bo.getQaTitle() %></td>
+				<% if(bo.getQaAnswer() != null) { %>
+					<td>답변완료</td>
+				<% } else { %>
+					<td>답변대기</td>
+				<% } %>
+				</tr>
+				<% } %>
+			<% } else if(list.isEmpty()){ %>
+				<tr>
+					<td colspan="3">조회된 리스트가 없습니다.</td>
+				</tr>
+			<% } else if (authority.getAuthority() == 'N'){ 
+				for (QABoard bo : list){ %>
+				<tr>
+					<td class="none"><%= bo.getQaNo() %></td>
+					<td><%= bo.getQaQuestionDate() %></td>
+					<td><%= bo.getQaTitle() %></td>
+					<% if(bo.getQaAnswer() != null) { %>
+						<td>답변완료</td>
+					<% } else { %>
+						<td>답변대기</td>
+				<% } %>
+			<% } %> 
+				</tr>
+			<% } %> 
 			</table>
 		</div>
 	
 		<!-- 페이징 -->
 		 <div class="pagingArea" align="center">
 			<!-- 맨 처음으로 -->
-			<button onclick="location.href='<%= request.getContextPath() %>/qalist.bo?currentPage=1'">&lt;&lt;</button>
+			<button onclick="location.href='<%= request.getContextPath() %>/goQNA?currentPage=1'">&lt;&lt;</button>
 			
 			<!-- 이전 페이지로 -->
-			<button onclick="location.href='<%= request.getContextPath() %>/qalist.bo?currentPage=<%= currentPage-1 %>'" id="beforeBtn">&lt;</button>
+			<button onclick="location.href='<%= request.getContextPath() %>/goQNA?currentPage=<%= currentPage-1 %>'" id="beforeBtn">&lt;</button>
 			<script>
 				if(<%= currentPage %> <= 1){
 					var before = $('#beforeBtn');
@@ -257,12 +285,12 @@ html{
 			<%		
 				} else {
 			%>
-			<button id="numBtn" onclick="location.href='<%= request.getContextPath() %>/qalist.bo?currentPage=<%= p %>'"><%= p %></button>			
+			<button id="numBtn" onclick="location.href='<%= request.getContextPath() %>/goQNA?currentPage=<%= p %>'"><%= p %></button>			
 			<% } %>
 			<% } %>				
 			
 			<!-- 다음 페이지로 -->
-			<button onclick="location.href='<%= request.getContextPath() %>/qalist.bo?currentPage=<%= currentPage+1 %>'" id="afterBtn">&gt;</button>
+			<button onclick="location.href='<%= request.getContextPath() %>/goQNA?currentPage=<%= currentPage+1 %>'" id="afterBtn">&gt;</button>
 			<script>
 				if(<%= currentPage %> >= <%= maxPage %>){
 					$('#afterBtn').attr('disabled', true);
@@ -270,7 +298,7 @@ html{
 			</script>
 			
 			<!-- 맨 뒤로 -->
-			<button onclick="location.href='<%= request.getContextPath() %>/qalist.bo?currentPage=<%= maxPage %>'">&gt;&gt;</button>
+			<button onclick="location.href='<%= request.getContextPath() %>/goQNA?currentPage=<%= maxPage %>'">&gt;&gt;</button>
 		</div>
 		
 		

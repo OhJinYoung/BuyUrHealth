@@ -67,9 +67,9 @@
     	<div class="myPage-email">
     		<h2>이메일 인증</h2>
 	    	<input id="emailCert" type="text"><br>
-	    	<button class="emailCheck">확인</button>
+	    	<button class="numCheck">확인</button>
 	    	<input id="certNum" type="text">
-    		<button class="numCheck" onkeyup="emailEnterKey();">인증번호 발송</button>
+    		<button class="emailCheck" onkeyup="emailEnterKey();">인증번호 발송</button>
     	</div>
     </div>
     	
@@ -164,19 +164,6 @@
 		}
 		
 		
-		$('#goBuy').on('click', function(){
-			location.href="<%= request.getContextPath() %>/buyMyPage.me";
-		});
-		
-		$('#goPage').on('click', function(){
-			location.href="<%= request.getContextPath() %>/goMypage";
-		});
-		
-		$('#goFavorite').on('click', function(){
-			location.href="<%= request.getContextPath() %>/favoriteMyPage.me";
-		});
-		
-		
 		$('.pwdCheck').on('click', function(){
 			if($('#loginPwdCheck').val() == "<%= member.getPassword() %>"){
 				alert('회원정보와 일치합니다!');
@@ -192,6 +179,10 @@
 				$('.myPageBtns').css("opacity", "0.3");
 				$('.outer').css("opacity", "0.3");
 			}
+		});
+		
+		$('.emailCheck').on('click', function(){
+			location.href='<%= request.getContextPath() %>/checkmail.me';
 		});
 		
 	</script>

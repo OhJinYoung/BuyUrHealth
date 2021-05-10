@@ -28,7 +28,7 @@ public class loginidfindServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/login/id_log.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/id_log.jsp");
 		view.forward(request, response);
 	}
 

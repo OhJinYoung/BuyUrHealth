@@ -173,6 +173,7 @@ body {
 }
 
 #pagingBtns button {
+	background:#efefef;
 	width: 30px;
 	height: 30px;
 }
@@ -182,6 +183,10 @@ body {
 	background: #d6d6d6;
 }
 
+#pagingBtns button:disabled:hover {
+	cursor: default;
+	background: #efefef;
+}
 
 li>a {
 	color: black;
@@ -192,18 +197,18 @@ li>a {
 	color: #828282a6;
 }
 
-.requestBtn {
+.requestBtn, .trackingBtn {
 	font-size: 10px;
 	padding: 4px;
 }
 
-.requestBtn:hover, #searchBtn:hover {
+.requestBtn:hover, #searchBtn:hover, .trackingBtn:hover {
 	background: lightgray;
 	cursor: pointer;
 }
 
 #currentPage {
-	background: orange;
+	background: orange !important;
 	color: white;
 	cursor: default !important;
 }
@@ -211,6 +216,7 @@ li>a {
 #currentPage:hover {
 	background: orange !important
 }
+
 </style>
 <body>
 	<%@include file="../header.jsp"%>
@@ -262,11 +268,11 @@ li>a {
 									<td><input type="checkbox" name="checkbox"
 										value="<%=o.getNo()%>"></td>
 									<td><%=o.getOrderDate()%></td>
-									<td><div>
+									<td class="click" onclick="orderDetail(<%=o.getNo()%>)"><div>
 											<p><%=o.getUserName()%></p>
 											<p id="id"><%=o.getUserId()%></p>
 										</div></td>
-									<td><a onclick="orderDetail(<%=o.getNo()%>)"><%=o.getpList()%></a></td>
+									<td class="click" onclick="orderDetail(<%=o.getNo()%>)"><%=o.getpList()%></td>
 									<td><%=price%> 원</td>
 									<td><div>
 											<p><%=o.getState()%></p>
@@ -277,6 +283,12 @@ li>a {
 											<p>
 												<button class="requestBtn" value="<%=o.getNo()%>">요청서
 													확인</button>
+											</p>
+											<%
+											} else if (state.equals("배송중")&&o.getTrackingNo()!=null&&!o.getTrackingNo().equals("")){
+											%>
+											<p>
+												<button class="trackingBtn" value="<%=o.getTrackingNo()%>">배송 조회</button>
 											</p>
 											<%
 											}
@@ -350,7 +362,8 @@ li>a {
 </body>
 <script>
 	$('#searchBtn').on('click', function() {
-		location.href = '<%=request.getContextPath()%>/searchOrder.do?filter=' + $('#filter').val() + '&&input=' + $('#inputSearch').val().trim(); 
+		location.href = '<%=request.getContextPath()%>/searchOrder.do?filter=' + $('#filter').val() 
+				+ '&&input=' + $('#inputSearch').val().trim(); 
 	});
 
 	$('#updateBtn').on('click', function() {
@@ -388,6 +401,11 @@ li>a {
 		window.open(url,'request',option);
 	});
 	
+	$('.trackingBtn').on('click', function(){
+		var url = 'https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?displayHeader=N&sid1=' + $(this).val();
+		window.open(url,'tracking');
+	});
+	
 	$('#pagingBtns button').on('click', function(){
 		var page = $(this).val();
 		if('<%=input%>'!='')
@@ -396,8 +414,14 @@ li>a {
 			location.href = '<%=request.getContextPath()%>/orderList.do?page=' + page;
 	});
 	
+	$('.click').on('mouseover',function(){
+		$(this).closest('tr').css({"background":"beige","color":"orangered","cursor":"pointer"});
+	}).on('mouseout',function(){
+		$(this).closest('tr').css({"background":"","color":"","cursor":""});
+	});
+	
 	function orderDetail(order_no){
-		var option='width=470px, height=330px';
+		var option='width=670px, height=330px';
 		var url = '<%=request.getContextPath()%>/orderDetail.do?no=' + order_no;
 		window.open(url,'orderDetail',option);
 	}

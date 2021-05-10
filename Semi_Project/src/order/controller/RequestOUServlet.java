@@ -38,7 +38,7 @@ public class RequestOUServlet extends HttpServlet {
 		OrderService oService = new OrderService();
 		int result = oService.updateRequest(no, state);
 
-		String msg = null;
+		String msg = "";
 		if (result > 0)
 			msg = "요청번호 " + no + " " + state + " 되었습니다.";
 

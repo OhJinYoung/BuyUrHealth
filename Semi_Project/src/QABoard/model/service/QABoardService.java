@@ -5,7 +5,6 @@ package QABoard.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.List;
 
 import static common.JDBCTemplate.*;
 import QABoard.model.dao.QABoardDAO;
@@ -35,7 +34,17 @@ public class QABoardService {
 		close(conn);
 		
 		return list;
-
+		
+	}
+	
+	public ArrayList<QABoard> selectList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<QABoard> list = new QABoardDAO().selectList(conn, pi);
+		
+		close(conn);
+		
+		return list;
 	}
 
 	public QABoard selectBoard(int bId) {
@@ -133,6 +142,26 @@ public class QABoardService {
 		}
 		return result;
 	}
+
+	public int insertAnQABoard(QABoard b, int bId) {
+		Connection conn = getConnection();
+		
+		QABoardDAO dao = new QABoardDAO();
+		
+		int result1 = dao.insertAnQABoard(conn, b, bId); 
+
+		
+		if(result1 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result1;
+	}
+
+
+	
 
 	
 
