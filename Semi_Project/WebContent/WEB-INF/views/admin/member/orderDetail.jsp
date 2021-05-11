@@ -234,7 +234,7 @@ button:disabled:hover {
 			%>
 			<tr class="plist">
 				<td class="odNo"><%=od.getNo()%></td>
-				<td><img src="uploadFiles/productUpload/1.png"></td>
+				<td><img src="<%=od.getFilePath()+od.getFileName()%>"></td>
 				<td><%=od.getProductName()%></td>
 				<td><%=new DecimalFormat("###,###").format(od.getPrice())%></td>
 				<td><%=od.getVolume()%></td>

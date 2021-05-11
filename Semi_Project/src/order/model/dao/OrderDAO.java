@@ -258,7 +258,7 @@ public class OrderDAO {
 
 			while (rset.next()) {
 				OrderDetail od = new OrderDetail(rset.getInt("od_no"), rset.getInt("od_volume"),
-						rset.getString("product_name"), rset.getInt("product_price"));
+						rset.getString("product_name"), rset.getInt("product_price"),rset.getString("file_path"),rset.getString("change_name"));
 				
 				olist.add(od);
 			}
@@ -372,5 +372,26 @@ public class OrderDAO {
 			close(pstmt);
 		}
 		return order;
+	}
+
+	public int insertRequest(Connection conn, int no, RequestOrder ro) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertRequest");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, ro.getType());
+			pstmt.setString(2, ro.getInfo());
+			pstmt.setInt(3, no);
+	
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }

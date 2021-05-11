@@ -7,9 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.service.MemberService;
-import member.model.vo.Member;
-
 /**
  * Servlet implementation class ProductReturnForm
  */
@@ -29,11 +26,6 @@ public class ProductReturnForm extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
-		
-		Member member = new MemberService().selectMember(id);
-		
-		request.setAttribute("member", member);
 		request.getRequestDispatcher("WEB-INF/views/mypage/productReturnMyPage.jsp").forward(request, response);
 	}
 

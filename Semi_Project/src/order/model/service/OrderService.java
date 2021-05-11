@@ -156,4 +156,14 @@ public class OrderService {
 		return order;
 	}
 
+	public int insertRequest(int no, RequestOrder ro) {
+		Connection conn = getConnection();
+
+		int result = new OrderDAO().insertRequest(conn, no ,ro);
+
+		close(conn);
+		
+		return result;
+	}
+
 }
