@@ -25,9 +25,7 @@
 }
 
 .myPage-menubar li:hover {
-	background: beige;
-	color: orangered;
-	font-weight: bold;
+	color: gray;
 	cursor: pointer;
 }
 
