@@ -87,8 +87,8 @@ ArrayList<Cart> cartlist = (ArrayList<Cart>)request.getAttribute("cartlist");
 }
 
 .product_view .img>img {
-	width: 300px;
-	height: 300px;
+	width: 250px;
+	height: 250px;
 	position: absolute;
 	left: 25px;
 	top: 0;
@@ -284,7 +284,7 @@ ArrayList<Cart> cartlist = (ArrayList<Cart>)request.getAttribute("cartlist");
 				<input type ="submit" class="btn2" onClick="this.form.action='getcart'" value="장바구니">
 			</div>
 			<div class="btns">
-				<input type ="submit" class="btn3" onClick="this.form.action='gocart'" value="즉시 구매하기">
+				<input type ="hidden" class="btn3" onClick="this.form.action='gocart'" value="즉시 구매하기">
 			</div>
 		</div>
 		<!-- product_view 끝 -->

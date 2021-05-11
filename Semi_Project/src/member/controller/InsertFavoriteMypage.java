@@ -36,7 +36,7 @@ public class InsertFavoriteMypage extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		String page = request.getParameter("page");
@@ -76,8 +76,10 @@ request.setCharacterEncoding("UTF-8");
 			request.setAttribute("favoriteList", favoriteList);
 			request.setAttribute("fList",  fList);
 		} else {
-			form = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg", "관심상품 추가를 실패하였습니다.");
+			form = "WEB-INF/views/mypage/favoriteMyPage.jsp";
+			request.setAttribute("page", pi);
+			request.setAttribute("favoriteList", favoriteList);
+			request.setAttribute("fList",  fList);
 		}
 		
 		request.getRequestDispatcher(form).forward(request, response);
