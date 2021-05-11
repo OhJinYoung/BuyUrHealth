@@ -248,7 +248,7 @@ td a:hover {
 								%>
 								<tr class="click">
 									<td><input type="checkbox" name="checkbox"
-										value="<%=m.getUserNo()%>"></td>
+										value="<%=m.getUserId()%>"></td>
 									<td onclick="adminInfo('<%=m.getUserId()%>')"><%=m.getUserId()%></td>
 									<td onclick="adminInfo('<%=m.getUserId()%>')"><%=m.getUserName()%></td>
 									<td onclick="adminInfo('<%=m.getUserId()%>')"><%=m.getEmail() %></td>
@@ -292,6 +292,7 @@ td a:hover {
 					check:checkArr
 				},
 				success:function(data){
+					data = (data.replace('회원','관리자')).replace('을','를');
 					alert(data);
 					window.location.reload();
 				}		
