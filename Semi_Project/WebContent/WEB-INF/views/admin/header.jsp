@@ -34,10 +34,8 @@
 }
 
 .mainMenu:hover {
-	background: beige;
-	color: orangered;
-	font-weight: bold;
 	cursor: pointer;
+	color:#808080ab;
 }
 
 .mainLogo {

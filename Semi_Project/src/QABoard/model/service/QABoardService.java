@@ -113,7 +113,7 @@ public class QABoardService {
 	}
 	
 	
-	public int updateBoard(QABoard b) {
+	public int updateBoard(QABoard b) {  
 		Connection conn = getConnection();
 		
 		QABoardDAO dao = new QABoardDAO();
@@ -130,7 +130,7 @@ public class QABoardService {
 		return result1;
 	}
 
-	public int deleteBoard(int bId) {
+	public int deleteBoard(int bId) {  
 		Connection conn = getConnection();
 		
 		int result = new QABoardDAO().deleteBoard(conn, bId);
