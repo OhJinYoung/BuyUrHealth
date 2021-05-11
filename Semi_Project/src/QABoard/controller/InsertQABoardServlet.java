@@ -51,16 +51,16 @@ public class InsertQABoardServlet extends HttpServlet {
 		
 		MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 		
-		ArrayList<String> saveFiles = new ArrayList<String>();		// 바뀐 이름의 파일을 저장할 용도
-		ArrayList<String> originFiles = new ArrayList<String>();	// 원본 이름의 파일을 저장할 용도
+		ArrayList<String> saveFiles = new ArrayList<String>();		// 바뀐 이름 파일
+		ArrayList<String> originFiles = new ArrayList<String>();	// 원본 이름 파일
 		
-		Enumeration<String> files = multipartRequest.getFileNames(); // getFileNames(): 폼에서 전송된 파일 리스트들의 이름 반환 / getFileNames()의 반환값 : Enumeration (Iterator의 구버전)
+		Enumeration<String> files = multipartRequest.getFileNames(); 
 		while(files.hasMoreElements()) {
-			String name = files.nextElement(); // 사진을 다 넣지 않아도 4321이 다 뜸
+			String name = files.nextElement(); 
 			
-			if(multipartRequest.getFilesystemName(name) != null) { // getFilesystemName(name) : MyFileRenamePolicy.rename()에서 작성한대로 rename된 파일명 반환
-				saveFiles.add(multipartRequest.getFilesystemName(name)); // rename한 이름 가져오기
-				originFiles.add(multipartRequest.getOriginalFileName(name)); // 실제 업로드된 파일 이름 가져오기
+			if(multipartRequest.getFilesystemName(name) != null) { 
+				saveFiles.add(multipartRequest.getFilesystemName(name)); 
+				originFiles.add(multipartRequest.getOriginalFileName(name)); 
 			}
 		}
 
