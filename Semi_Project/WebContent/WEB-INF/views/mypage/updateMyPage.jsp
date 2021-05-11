@@ -149,7 +149,7 @@
 	
 	<script>
 		function deleteMember(){
-			var bool = confirm('정말로 탈퇴하시겠습니가?');
+			var bool = confirm('정말로 탈퇴하시겠습니까?');
 			
 			if(bool){
 				location.href='<%= request.getContextPath() %>/delete.me';

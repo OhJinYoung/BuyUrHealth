@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member" import="common.PageInfo"%>
+    pageEncoding="UTF-8" import="member.model.vo.*" import="common.PageInfo, product.model.vo.ProductFile, java.util.ArrayList"%>
 <%
 	Member member = (Member)request.getAttribute("userId");
 	PageInfo paging = (PageInfo) request.getAttribute("page");
+	ArrayList<FavoriteProduct> favoriteList = (ArrayList<FavoriteProduct>)request.getAttribute("favoriteList"); 
+	ArrayList<ProductFile> fList = (ArrayList<ProductFile>) request.getAttribute("fList");
+	System.out.println(fList);
 	String authority = null;
-	if(member.getAuthority() == 'Y'){
-		authority = "관리자";
-	} else {
-		authority = "회원";
-	}
 %>
 <!DOCTYPE html>
 <html>
@@ -163,63 +161,39 @@
 			<div class="line"></div>
 		</div>
 
-		<div class="likeitem_body">
-		<%--  <% if(list.isEmpty()){ %>
+		<% if(favoriteList.isEmpty()) {%>
 					
 					찜하신 상품이 없습니다.
 					
-				<% } else{
-						for(Product p : list){ %>
-							
-				<%		} 
-					} %> --%>
+				<%  } else { %>
+		<div class="likeitem_body">
+					<%	for(FavoriteProduct pf : favoriteList){ 
+						%>
 			<div class="item" id="item1">
-				<input type="checkbox" id="check"><br>
-				<a href="https://www.naver.com">
-				
-				</a>
-				<div class="itemTitle">
-					<a href="https://www.naver.com">아이템1</a>
+					<input type="checkbox" id="check"><br>
+							<%
+							for (int j = 0; j < fList.size(); j++) {
+								%>
+								<%
+									ProductFile f = fList.get(j);
+								%>
+								<%
+									if (pf.getProductNo() == f.getProductNo()) {
+								%>
+									<img width="120px" height="120px" src="<%=request.getContextPath()%>/uploadFiles/productUpload/<%=f.getChangeName()%>">
+								<%
+									}
+								%>
+								<%
+									}
+								%>
+								<div class="itemTitle">
+					<a><%= pf.getProductName() %></a><br>
+					<a ><%= pf.getProductPrice() %></a>
 				</div>
 			</div>
-			<div class="item" id="item1">
-				<input type="checkbox" id="check"><br>
-				<a href="https://www.naver.com">
-				
-				</a>
-				<div class="itemTitle">
-					<a href="https://www.naver.com">아이템2</a>
-				</div>
-			</div>
-			<div class="item" id="item1">
-				<input type="checkbox" id="check"><br>
-				<a href="https://www.naver.com">
-				
-				</a>
-				<div class="itemTitle">
-					<a href="https://www.naver.com">아이템3</a>
-				</div>
-			</div>
-			<div class="item" id="item1">
-				<input type="checkbox" id="check"><br>
-				<a href="https://www.naver.com">
-				
-				</a>
-				<div class="itemTitle">
-					<a href="https://www.naver.com">아이템4</a>
-				</div>
-			</div>
-			<div class="item" id="item1">
-				<input type="checkbox" id="check"><br>
-				<a href="https://www.naver.com">
-				
-				</a>
-				<div class="itemTitle">
-					<a href="https://www.naver.com">아이템5</a>
-				</div>
-			</div>
-			
-			
+				<% }	%>
+				<% }	%>
 			
 			<div id="pagingBtns" align="center"> <!-- 아직 구현 안됨 -->
 				<button value="1" class="beforeBtn">&lt;&lt;</button>
