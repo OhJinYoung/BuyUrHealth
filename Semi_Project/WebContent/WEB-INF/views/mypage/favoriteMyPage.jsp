@@ -153,7 +153,7 @@
 			</div>
 			
 			<div class="buttondiv">
-				<button class="button">장바구니 담기</button>
+				<button class="button" id="addCart">장바구니 담기</button>
 				<button class="button" id="checkDelete">선택삭제</button>
 				<label>전체선택</label><input type="checkbox" id="allCheck">
 			</div>
@@ -161,16 +161,16 @@
 			<div class="line"></div>
 		</div>
 
+		<div class="likeitem_body">
 		<% if(favoriteList.isEmpty()) {%>
 					
-					찜하신 상품이 없습니다.
+					<p style="margin-left: 50px;">찜하신 상품이 없습니다.</p>
 					
 				<%  } else { %>
-		<div class="likeitem_body">
 					<%	for(FavoriteProduct pf : favoriteList){ 
 						%>
 			<div class="item" id="item1">
-					<input type="checkbox" id="check"><br>
+					<input type="checkbox" id="check" name="checking"><br>
 							<%
 							for (int j = 0; j < fList.size(); j++) {
 								%>
@@ -181,6 +181,7 @@
 									if (pf.getProductNo() == f.getProductNo()) {
 								%>
 									<img width="120px" height="120px" src="<%=request.getContextPath()%>/uploadFiles/productUpload/<%=f.getChangeName()%>">
+									<input type="hidden" id="pNo" name="pNo" value="<%=f.getProductNo() %>">
 								<%
 									}
 								%>
@@ -195,24 +196,6 @@
 				<% }	%>
 				<% }	%>
 			
-			<div id="pagingBtns" align="center"> <!-- 아직 구현 안됨 -->
-				<button value="1" class="beforeBtn">&lt;&lt;</button>
-				<button value="<%=paging.getCurrentPage() - 1%>" class="beforeBtn">&lt;</button>
-				<%
-					for (int i = paging.getStartPage(); i <= paging.getEndPage(); i++) {
-					if (i == paging.getCurrentPage()) {
-				%>
-				<button id="currentPage" disabled><%=i%></button>
-				<%
-					} else {
-				%>
-				<button value="<%=i%>"><%=i%></button>
-				<% }
-				}
-				%>
-				<button value="<%=paging.getCurrentPage() + 1%>" class="afterBtn">&gt;</button>
-				<button value="<%=paging.getMaxPage()%>" class="afterBtn">&gt;&gt;</button>
-			</div>
 		</div>
 	</div>
     
@@ -235,14 +218,24 @@
 			});
 		});
 		 
-
 		$('#checkDelete').on('click', function(){
-			$('.likeitem_body input:checked').each(function(){
-				  var checked = $(this).attr("checked");
-				  if(checked==undefined){
-				   $(this).parent().remove();
-				  }
-			});
+			$("input[name=checking]:checked").each(function(){
+				var pNo = $('#pNo').val();
+				location.href="<%= request.getContextPath() %>/DeleteFavoriteMypage?pNo="+pNo;
+            });          
+		});
+		
+		$('.item img').on('click', function(){
+			var pNo = $(this).next().val();
+			location.href="<%= request.getContextPath() %>/detail.pro?pNo="+pNo;
+		});
+		
+		$('#addCart').on('click', function(){
+			$("input[name=checking]:checked").each(function(){
+				var pNo = $('#pNo').val();
+				location.href="<%= request.getContextPath() %>/addCartMypage?pNo="+pNo;
+				
+            });  
 		});
 	</script>
 </body>

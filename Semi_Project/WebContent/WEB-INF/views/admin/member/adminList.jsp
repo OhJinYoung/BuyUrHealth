@@ -248,7 +248,7 @@ td a:hover {
 								%>
 								<tr class="click">
 									<td><input type="checkbox" name="checkbox"
-										value="<%=m.getUserNo()%>"></td>
+										value="<%=m.getUserId()%>"></td>
 									<td onclick="adminInfo('<%=m.getUserId()%>')"><%=m.getUserId()%></td>
 									<td onclick="adminInfo('<%=m.getUserId()%>')"><%=m.getUserName()%></td>
 									<td onclick="adminInfo('<%=m.getUserId()%>')"><%=m.getEmail() %></td>
@@ -275,7 +275,7 @@ td a:hover {
 <script>
 	$('#insertBtn').on('click', function() {
 		var url ='<%=request.getContextPath()%>/insertAdminForm.do';
-		window.open(url, 'insert', 'width=300px, height=320px');
+		window.open(url, 'insert', 'width=330px, height=355px');
 	});
 
 	$('#deleteBtn').on('click', function() {
@@ -292,6 +292,7 @@ td a:hover {
 					check:checkArr
 				},
 				success:function(data){
+					data = (data.replace('회원','관리자')).replace('을','를');
 					alert(data);
 					window.location.reload();
 				}		

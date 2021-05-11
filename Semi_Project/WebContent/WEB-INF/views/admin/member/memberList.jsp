@@ -227,6 +227,16 @@ li>a {
 td a:hover {
 	cursor: pointer;
 }
+
+input[type=search]:hover {
+	-webkit-box-shadow: inset 0 0 2px 0 rgb(115 128 150/ 20%);
+	box-shadow: inset 0 0 2px 0 rgb(115 128 150/ 20%);
+	z-index: 2;
+}
+
+input{
+	outline: none;
+}
 </style>
 <body>
 	<%@include file="../header.jsp"%>
