@@ -126,7 +126,7 @@
 		});
 		
 		$('#goBuy-review').on('click', function(){
-		
+			location.href="<%= request.getContextPath() %>/goReview.me";
 		});
 	</script>
 </body>

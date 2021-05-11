@@ -119,15 +119,33 @@
 			var stomachArr = ["<%= request.getContextPath() %>/uploadFiles/productUpload/37.jpeg", "<%= request.getContextPath() %>/uploadFiles/productUpload/39.jpeg", "<%= request.getContextPath() %>/uploadFiles/productUpload/41.jpeg"];
 			var boneArr = ["<%= request.getContextPath() %>/uploadFiles/productUpload/21.png", "<%= request.getContextPath() %>/uploadFiles/productUpload/7.png"];
 			
-			$(".supplementsImg1 img").attr("src", eyesArr[eyesRandn]);
-			$(".supplementsImg2 img").attr("src", skinArr[skinRandn]);
-			$(".supplementsImg3 img").attr("src", muscleArr[muscleRandn]);
-			$(".supplementsImg4 img").attr("src", lungsArr[lungsRandn]);
-			$(".supplementsImg5 img").attr("src", hairArr[hairRandn]);
-			$(".supplementsImg6 img").attr("src", brainArr[brainRandn]);
-			$(".supplementsImg7 img").attr("src", heartArr[heartRandn]);
-			$(".supplementsImg8 img").attr("src", stomachArr[stomachRandn]);
-			$(".supplementsImg9 img").attr("src", boneArr[boneRandn]);
+			$(".supplementsImg1 img").attr("src", eyesArr[eyesRandn]).on("click", function(){
+				location.href="<%= request.getContextPath() %>/goProduct5";
+			});
+			$(".supplementsImg2 img").attr("src", skinArr[skinRandn]).on("click", function(){
+				location.href="<%= request.getContextPath() %>/goProduct7";
+			});
+			$(".supplementsImg3 img").attr("src", muscleArr[muscleRandn]).on("click", function(){
+				location.href="<%= request.getContextPath() %>/goProduct3";
+			});
+			$(".supplementsImg4 img").attr("src", lungsArr[lungsRandn]).on("click", function(){
+				location.href="<%= request.getContextPath() %>/goProduct2";
+			});
+			$(".supplementsImg5 img").attr("src", hairArr[hairRandn]).on("click", function(){
+				location.href="<%= request.getContextPath() %>/goProduct1";
+			});
+			$(".supplementsImg6 img").attr("src", brainArr[brainRandn]).on("click", function(){
+				location.href="<%= request.getContextPath() %>/goProduct4";
+			});
+			$(".supplementsImg7 img").attr("src", heartArr[heartRandn]).on("click", function(){
+				location.href="<%= request.getContextPath() %>/goProduct6";
+			});
+			$(".supplementsImg8 img").attr("src", stomachArr[stomachRandn]).on("click", function(){
+				location.href="<%= request.getContextPath() %>/goProduct7";
+			});
+			$(".supplementsImg9 img").attr("src", boneArr[boneRandn]).on("click", function(){
+				location.href="<%= request.getContextPath() %>/goProduct3";
+			});
 			
 		});
 	</script>

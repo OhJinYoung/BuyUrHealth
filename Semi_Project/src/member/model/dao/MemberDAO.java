@@ -16,7 +16,10 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import common.PageInfo;
+import member.model.vo.FavoriteProduct;
 import member.model.vo.Member;
+import product.model.vo.Product;
+import product.model.vo.ProductFile;
 
 public class MemberDAO {
 	private Properties prop = new Properties();
@@ -468,5 +471,93 @@ public class MemberDAO {
 			}
 		
 		return UserInfo2;
+	}
+
+	public ArrayList<FavoriteProduct> selectFavoriteList(Connection conn, PageInfo pi, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<FavoriteProduct> list = null;
+		
+		String query = prop.getProperty("selectFavoriteList");
+		// selectFavoriteList=SELECT * FROM FAVLIST WHERE RNUM BETWEEN ? AND ?
+		
+		try {
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1; 
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<FavoriteProduct>();
+			while(rset.next()) {
+				FavoriteProduct fp = new FavoriteProduct(rset.getString("PRODUCT_NAME"),
+										  rset.getInt("PRODUCT_PRICE"),
+										  rset.getInt("USER_NO"),
+										  rset.getInt("PRODUCT_NO"));
+								list.add(fp);			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<ProductFile> selectFList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<ProductFile> list = null;
+		
+		String query = prop.getProperty("selectFList");
+		// selectFList=SELECT * FROM ADDFILE WHERE F_YN ='Y'
+
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<ProductFile>();
+			while(rset.next()) {
+				list.add(new ProductFile( 
+						rset.getInt("PRODUCT_NO"),
+						rset.getString("CHANGE_NAME")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+	}
+
+	public int insertFavorite(Connection conn, FavoriteProduct pf) {
+		
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertFavorite");
+		// insertFavorite=INSERT INTO LIKEITEM VALUES(?, ?)
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, pf.getUserNo());
+			pstmt.setInt(2, pf.getProductNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }
