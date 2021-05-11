@@ -88,26 +88,15 @@ Member authority = (Member) session.getAttribute("loginUser");
 	align: center;
 }
 </style>
-
-
-
 </head>
 <body>
-	<%
-		if (authority == null) {
-	%>
-	<%@include file="../title_header.jsp"%>
-	<%
-		} else if (authority.getAuthority() == 'Y') {
-	%>
-	<%@include file="../admin/header.jsp"%>
-	<%
-		} else if (authority.getAuthority() == 'N') {
-	%>
-	<%@include file="../title_header.jsp"%>
-	<%
-		}
-	%>
+	<% if(authority == null) {%>
+		<%@include file="../title_header.jsp"  %>
+	<% } else if(authority != null && authority.getUserId().equals("admin")) {%>
+		<%@include file="../admin/header.jsp"%>
+	<% } else if(authority != null && !authority.getUserId().equals("admin")) {%>
+		<%@include file="../title_header.jsp"  %>
+	<% } %>
 
 
 	<%@include file="customerCenterNav.jsp"%>
@@ -119,8 +108,7 @@ Member authority = (Member) session.getAttribute("loginUser");
 		</div>
 		<div class="notice-detail">
 			<div align="center">
-				<form action="noticeupdate.no" id="detailForm" name="detailForm"
-					method="post">
+				<form action="noticeupdate.no" id="detailForm" name="detailForm" method="post">
 					<table class="notice-detail2">
 						<tr>
 							<th>제목</th>

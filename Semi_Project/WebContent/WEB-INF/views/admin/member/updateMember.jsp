@@ -39,6 +39,7 @@ tr td:first-child {
 
 input {
 	width: 160px;
+	outline: none;
 }
 
 #contents {
@@ -80,19 +81,30 @@ select {
 }
 
 #btns button:first-child {
-	background: orange;
-}
-
-#btns button:first-child:hover {
-	background: #ffa500d9;
-}
-
-#btns button:last-child {
 	background: #666666;
 }
 
-#btns button:last-child:hover {
+#btns button:first-child:hover {
 	background: #666666d9;
+}
+
+#btns button:last-child {
+	background: orange;
+}
+
+#btns button:last-child:hover {
+	background: #ffa500d9;
+}
+
+input[type=text]:hover {
+	-webkit-box-shadow: inset 0 0 2px 0 rgb(115 128 150/ 20%);
+	box-shadow: inset 0 0 2px 0 rgb(115 128 150/ 20%);
+	z-index: 2;
+	outline: none;
+}
+
+input{
+	outline: none;
 }
 </style>
 </head>
@@ -150,7 +162,6 @@ select {
 </body>
 <script>
 	function check() {
-		// 빈칸 유효성 검사
 		var name = $('#name').val().trim();
 		var phone = $('#phone').val().trim();
 		var email = $('#email').val().trim();

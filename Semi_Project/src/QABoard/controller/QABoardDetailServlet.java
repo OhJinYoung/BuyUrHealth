@@ -37,7 +37,6 @@ public class QABoardDetailServlet extends HttpServlet {
 		
 		QABoard qaboard = new QABoardService().selectBoard(bId);
 		ArrayList<QAFile> qafile = new QABoardService().selectFile(bId);
-
 		
 		String page = null;
 		if(qaboard != null) {
@@ -50,7 +49,6 @@ public class QABoardDetailServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
-
 	}
 
 	/**

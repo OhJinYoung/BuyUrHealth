@@ -1,21 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"
-	import="java.util.ArrayList, member.model.vo.Member, product.model.vo.Product, product.model.vo.ProductFile,  product.model.vo.PageInfo, common.MyFileRenamePolicy"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList, member.model.vo.Member, product.model.vo.Product, product.model.vo.ProductFile,  product.model.vo.PageInfo, common.MyFileRenamePolicy"%>
 <%
-	Member loginUser = (Member) session.getAttribute("loginUser");
-
-ArrayList<Product> pList = (ArrayList<Product>) request.getAttribute("pList");
-ArrayList<ProductFile> fList = (ArrayList<ProductFile>) request.getAttribute("fList");
-PageInfo pi = (PageInfo) request.getAttribute("pi");
-int listCount = pi.getListCount();
-int currentPage = pi.getCurrentPage();
-int maxPage = pi.getMaxPage();
-int startPage = pi.getStartPage();
-int endPage = pi.getEndPage();
-
-System.out.println(pList);
-System.out.println(fList);
-System.out.println(pi);
+	Member authority = (Member) session.getAttribute("loginUser");
+	
+	ArrayList<Product> pList = (ArrayList<Product>) request.getAttribute("pList");
+	ArrayList<ProductFile> fList = (ArrayList<ProductFile>) request.getAttribute("fList");
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	
+	System.out.println(pList);
+	System.out.println(fList);
+	System.out.println(pi);
 %>
 
 <!DOCTYPE html>
@@ -23,84 +22,97 @@ System.out.println(pi);
 <head>
 <meta charset="UTF-8">
 <title>제품보기</title>
-<link rel="stylesheet" href="css/style.css">
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
 <style>
-h2 {
-	text-align: center;
-}
-
-.wrap {
-	background: white;
-	width: 100%;
-	height: 50px;
-}
-
-.mainMenu {
-	background: white;
-	color: gray;
-	text-align: center;
-	font-weight: bold;
-	vertical-align: middle;
-	width: 150px;
-	height: 50px;
-	display: table-cell;
-}
-
-.mainMenu:hover {
-	background: beige;
-	color: orangered;
-	font-weight: bold;
-	cursor: pointer;
-}
-
-.mainLogo {
+.product-list {
+	width: 70%;
+	max-width: 900px;
+	padding: 20px;
+	margin-bottom: 10px;
+	margin-top: 20px;
 	float: left;
-	margin-right: 100px;
-	margin-left: 30px;
-	clear: both;
+	border-left: 1px solid #bcbcbc;
+	border-right: 1px solid #bcbcbc;
 }
+
+.product-list span {
+	font-size: 20px;
+}
+
+.list>ul>li {width: calc(100%/3); }
+
+
+.img-box>img {width: 100%; width:170px; height:170px;}
+.list>ul>li>.product-name {text-align: center; 
+						   font-weight: bold;}
+.list>ul>li:hover>.product-name { text-decoration: underline;}
+.list>ul>li>.product-price { text-align: center; 
+							 font-weight: bold;}
+.list>ul>li>.product-price::after { content: "원"; 
+									font-size: 1rem; font-weight: bold;}
+
+.list-name {margin: 10px; font-weight: bold; font-size: 30px;}
+.list-name span {margin: 0 0 0 10px;}
+.list {align: center;}
+
+/*라이브러리*/
+.cell { float: left; box-sizing: border-box;}
+
+#test_btn1 {
+	background-color: orange;
+	border: none;
+	color: #fff;
+	padding: 5px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 15px;
+	margin: 4px;
+	cursor: pointer;
+	border-radius: 5px;
+	float: right;
+}
+
+/* 페이징 */
+.paging {
+	text-align: center;
+
+	
+}
+
+.paging a {
+	display: inline-block;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 5px 8px;
+	border: 1px solid #ccc;
+	color: #000;
+	background-color: lightgray;
+}
+/* 현재 페이징에 select 클래스를 적용한다*/
+.paging a.select {
+	color: #fff;
+	background-color: orange;
+
 </style>
 </head>
 <body>
-	<div class="wrap">
-		<nav>
-			<div>
-				<img class="mainLogo"
-					src="<%=request.getContextPath()%>/images/mainlogo.png"
-					width="100px" height="50px" alt="My Image">
-			</div>
-			<div class="mainMenu" id="goViewProduct">제품보기</div>
-			<div class="mainMenu" id="goCommunity">커뮤니티</div>
-			<div class="mainMenu" id="goCart">장바구니</div>
-			<div class="mainMenu" id="goMypage">마이페이지</div>
-			<div class="mainMenu" id="login">로그인</div>
-			<div class="mainMenu" id="goService">고객센터</div>
-			<hr>
-		</nav>
-	</div>
-
-	<div class="product-menubar">
-		<hr>
-		<h2 id="product-menubar-name">제품보기</h2>
-		<hr>
-		<ul>
-			<li>기초영양</li>
-			<li>항산화</li>
-			<li>뼈/관절</li>
-			<li>면역</li>
-			<li>눈건강</li>
-			<li>장건강</li>
-			<li>피부건강</li>
-		</ul>
-	</div>
+	<% if(authority == null) {%>
+		<%@include file="../title_header.jsp"  %>
+	<% } else if(authority != null && authority.getUserId().equals("admin")) {%>
+		<%@include file="../admin/header.jsp"%>
+	<% } else if(authority != null && !authority.getUserId().equals("admin")) {%>
+		<%@include file="../title_header.jsp"  %>
+	<% } %>
+		
+		<%@include file="productNav.jsp"%>
 
 	<div class="product-list">
 		<div class="list-name">
 			<span>제품보기 > 기초영양</span>
 			<%
-				if (loginUser != null && loginUser.getUserId().equals("admin")) {
+				if (authority != null && authority.getUserId().equals("admin")) {
 			%>
 			<button id="test_btn1"
 				onclick="location.href='<%=request.getContextPath()%>/writeProductForm.pro'">상품등록</button>
@@ -111,11 +123,6 @@ h2 {
 			<hr>
 
 		</div>
-
-
-
-
-
 		<div class="list">
 			<ul>
 				<%
@@ -136,18 +143,7 @@ h2 {
 						<%
 							if (p.getProductNo() == f.getProductNo()) {
 						%>
-						<img
-							src="<%=request.getContextPath()%>/uploadFiles/productUpload/<%=f.getChangeName()%>">
-						<script >
-						$(function(){
-						$('#pNo').click(function(){
-							var pNo = $(this).eq(0).val();
-							location.href="<%=request.getContextPath()%>/detail.pro?pNo"+pNo;
-							});
-						});
-						</script>
-						
-						
+						<img src="<%=request.getContextPath()%>/uploadFiles/productUpload/<%=f.getChangeName()%>">
 						<%
 							}
 						%>
@@ -167,10 +163,10 @@ h2 {
 			<div class="paging">
 				<!-- 맨 처음으로 -->
 				<a href="#"
-					onclick="location.href='<%=request.getContextPath()%>/list.pro?currentPage=1'">&lt;&lt;</a>
+					onclick="location.href='<%=request.getContextPath()%>/goProduct?currentPage=1'">&lt;&lt;</a>
 				<!-- 이전 페이지로 -->
 				<a href="#"
-					onclick="location.href='<%=request.getContextPath()%>/list.pro?currentPage=<%=currentPage - 1%>'"
+					onclick="location.href='<%=request.getContextPath()%>/goProduct?currentPage=<%=currentPage - 1%>'"
 					id="beforeBtn">&lt;</a>
 				<script>
 				
@@ -179,12 +175,6 @@ h2 {
 					var before = $('#beforeBtn');
 					before.attr('disabled', ture);
 				}
-				
-				
-				
-				
-				
-				
 			</script>
 				<!-- 숫자 버튼 -->
 				<%
@@ -196,39 +186,31 @@ h2 {
 					} else {
 				%>
 				<a href="#" id="numBtn"
-					onclick="location.href='<%=request.getContextPath()%>/list.pro?currentPage=<%=p%>'"><%=p%></a>
+					onclick="location.href='<%=request.getContextPath()%>/goProduct?currentPage=<%=p%>'"><%=p%></a>
 				<%
 					}
 				}
 				%>
 				<!-- 다음 페이지로 -->
 				<a href="#"
-					onclick="location.href='<%=request.getContextPath()%>/list.pro?currentPage=<%=currentPage + 1%>'"
+					onclick="location.href='<%=request.getContextPath()%>/goProduct?currentPage=<%=currentPage + 1%>'"
 					id="afterBtn">&gt;</a>
 				<!-- 맨 뒤로 -->
 				<a href="#"
-					onclick="location.href='<%=request.getContextPath()%>/list.pro?currentPage=<%=maxPage%>'">&gt;&gt;</a>
+					onclick="location.href='<%=request.getContextPath()%>/goProduct?currentPage=<%=maxPage%>'">&gt;&gt;</a>
 			</div>
+			
+			
+			<script >
+						$(function(){
+						$('.img-box').click(function(){
+							var pNo = $(this).children().eq(0).val();
+							console.log(pNo);
+							location.href='<%= request.getContextPath() %>/detail.pro?pNo='+pNo;
+							});
+						});
+			</script>
 		</div>
 	</div>
-	<script>
-		$('#goViewProduct').on('click', function(){
-			location.href="<%=request.getContextPath()%>/list.pro";
-		});
-		$('#goCommunity').on('click', function(){
-			location.href="<%=request.getContextPath()%>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goCart').on('click', function(){
-			location.href="<%=request.getContextPath()%>/test.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goMypage').on('click', function(){
-			location.href="<%=request.getContextPath()%>/updateMyPage.me"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		$('#goService').on('click', function(){
-			location.href="<%=request.getContextPath()%>/list.no"; <!-- 이부분은 지워도 됨(test) -->
-		});
-		
-		
-	</script>
 </body>
 </html>

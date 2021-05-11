@@ -93,11 +93,11 @@ public class InsertProductServlet extends HttpServlet {
 				}
 			}
 
-			String name = multupartRequest.getParameter("name");
 			int category = Integer.parseInt(multupartRequest.getParameter("category"));
+			String name = multupartRequest.getParameter("name");
+			int price = Integer.parseInt(multupartRequest.getParameter("price"));
 			int volume = Integer.parseInt(multupartRequest.getParameter("volume"));
 			String detail = multupartRequest.getParameter("detail");
-			int price = Integer.parseInt(multupartRequest.getParameter("price"));
 
 			Product p = new Product();
 			p.setProductName(name);
@@ -114,9 +114,9 @@ public class InsertProductServlet extends HttpServlet {
 				pt.setChangeName(saveFiles.get(i));
 				
 				if(i == originFiles.size() -1) {
-					pt.setFileYN('Y');
+					pt.setFileYN("Y");
 				} else {
-					pt.setFileYN('N');
+					pt.setFileYN("N");
 				}
 				
 				fileList.add(pt);
@@ -125,14 +125,10 @@ public class InsertProductServlet extends HttpServlet {
 			int result = new ProductService().insertProduct(p, fileList);
 			
 			if(result > 0 ) {
-				response.sendRedirect("list.pro");
+				response.sendRedirect("goProduct");
 				
 			} else {
-				
-				
-				
 				request.setAttribute("msg", "제품 등록에 실패하였습니다.");
-			
 			
 				for(int i = 0; i< saveFiles.size(); i++) {
 					File fail = new File(savePath + saveFiles.get(i));

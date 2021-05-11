@@ -126,4 +126,44 @@ public class OrderService {
 		return result;
 	}
 
+	public ArrayList<Order> searchMypageOrder(int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<Order> list = new OrderDAO().searchMypageOrder(conn, userNo);
+
+		close(conn);
+
+		return list;
+	}
+
+	public OrderDetail selectMypageOrderDetail(int orderNo) {
+		Connection conn = getConnection();
+
+		OrderDetail orderDetail = new OrderDAO().selectMypageOrderDetail(conn, orderNo);
+
+		close(conn);
+
+		return orderDetail;
+	}
+
+	public Order searchMypageOrderNormal(int userNo) {
+		Connection conn = getConnection();
+
+		Order order = new OrderDAO().searchMypageOrderNormal(conn, userNo);
+
+		close(conn);
+		
+		return order;
+	}
+
+	public int insertRequest(int no, RequestOrder ro) {
+		Connection conn = getConnection();
+
+		int result = new OrderDAO().insertRequest(conn, no ,ro);
+
+		close(conn);
+		
+		return result;
+	}
+
 }

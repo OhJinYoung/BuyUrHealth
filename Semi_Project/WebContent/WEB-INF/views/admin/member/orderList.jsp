@@ -217,6 +217,15 @@ li>a {
 	background: orange !important
 }
 
+input[type=search]:hover {
+	-webkit-box-shadow: inset 0 0 2px 0 rgb(115 128 150/ 20%);
+	box-shadow: inset 0 0 2px 0 rgb(115 128 150/ 20%);
+	z-index: 2;
+}
+
+input{
+	outline: none;
+}
 </style>
 <body>
 	<%@include file="../header.jsp"%>
@@ -362,7 +371,8 @@ li>a {
 </body>
 <script>
 	$('#searchBtn').on('click', function() {
-		location.href = '<%=request.getContextPath()%>/searchOrder.do?filter=' + $('#filter').val() + '&&input=' + $('#inputSearch').val().trim(); 
+		location.href = '<%=request.getContextPath()%>/searchOrder.do?filter=' + $('#filter').val() 
+				+ '&&input=' + $('#inputSearch').val().trim(); 
 	});
 
 	$('#updateBtn').on('click', function() {

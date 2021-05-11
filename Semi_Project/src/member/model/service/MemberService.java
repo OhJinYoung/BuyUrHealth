@@ -8,9 +8,14 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import Cart.model.dao.CartDAO;
+import Cart.model.vo.Cart;
 import common.PageInfo;
 import member.model.dao.MemberDAO;
+import member.model.vo.FavoriteProduct;
 import member.model.vo.Member;
+import product.model.dao.ProductDAO;
+import product.model.vo.ProductFile;
 
 public class MemberService {
 
@@ -161,6 +166,109 @@ public class MemberService {
 		
 		close(conn);
 
+		return result;
+	}
+	public int insertMember(Member member) {
+
+		Connection conn = getConnection();
+
+		
+
+		int result = new MemberDAO().insertMember(conn, member);
+
+		
+
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public Member idFindInfoMember(Member member) {
+
+		Connection conn = getConnection();
+
+		Member idFindInfo = new MemberDAO().idFindInfoMember(conn, member);
+		
+		close(conn);
+		
+
+		return idFindInfo;
+
+	}
+
+
+	public Member pwFindInfoMember(Member member) {
+		Connection conn = getConnection();
+
+		Member pwFindInfo = new MemberDAO().pwFindInfoMember(conn, member);
+		
+		close(conn);
+		
+
+		return pwFindInfo;
+	}
+
+	public int checkId(String inputId) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().checkId( conn, inputId);
+		
+		return result;
+	}
+
+	public ArrayList<FavoriteProduct> selectFavoriteList(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<FavoriteProduct> list = new MemberDAO().selectFavoriteList(conn, pi, userNo);
+		
+		close(conn); 
+		
+		return list;
+	}
+
+	public ArrayList<ProductFile> selectTList(int i) {
+		Connection conn = getConnection();
+
+		ArrayList<ProductFile> list = null;
+
+		MemberDAO mDAO = new MemberDAO();
+		if (i == 1) {
+			list = mDAO.selectFList(conn);
+		}
+
+		return list;
+	}
+
+	public int insertFavorite(FavoriteProduct pf) {
+		Connection conn = getConnection();
+		
+		
+		int result = new MemberDAO().insertFavorite(conn, pf);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+
+		return result;
+	}
+
+	public int deleteFavorite(int userNo, int pNo) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().deleteFavorite(conn, userNo, pNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
 		return result;
 	}
 

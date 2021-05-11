@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member" import="common.PageInfo"%>
+    pageEncoding="UTF-8" import="member.model.vo.*" import="common.PageInfo, product.model.vo.ProductFile, java.util.ArrayList"%>
 <%
 	Member member = (Member)request.getAttribute("userId");
 	PageInfo paging = (PageInfo) request.getAttribute("page");
+	ArrayList<FavoriteProduct> favoriteList = (ArrayList<FavoriteProduct>)request.getAttribute("favoriteList"); 
+	ArrayList<ProductFile> fList = (ArrayList<ProductFile>) request.getAttribute("fList");
+	System.out.println(fList);
 	String authority = null;
-	if(member.getAuthority() == 'Y'){
-		authority = "관리자";
-	} else {
-		authority = "회원";
-	}
 %>
 <!DOCTYPE html>
 <html>
@@ -155,7 +153,7 @@
 			</div>
 			
 			<div class="buttondiv">
-				<button class="button">장바구니 담기</button>
+				<button class="button" id="addCart">장바구니 담기</button>
 				<button class="button" id="checkDelete">선택삭제</button>
 				<label>전체선택</label><input type="checkbox" id="allCheck">
 			</div>
@@ -164,81 +162,40 @@
 		</div>
 
 		<div class="likeitem_body">
-		<%--  <% if(list.isEmpty()){ %>
+		<% if(favoriteList.isEmpty()) {%>
 					
-					찜하신 상품이 없습니다.
+					<p style="margin-left: 50px;">찜하신 상품이 없습니다.</p>
 					
-				<% } else{
-						for(Product p : list){ %>
-							
-				<%		} 
-					} %> --%>
+				<%  } else { %>
+					<%	for(FavoriteProduct pf : favoriteList){ 
+						%>
 			<div class="item" id="item1">
-				<input type="checkbox" id="check"><br>
-				<a href="https://www.naver.com">
-				
-				</a>
-				<div class="itemTitle">
-					<a href="https://www.naver.com">아이템1</a>
+					<input type="checkbox" id="check" name="checking"><br>
+							<%
+							for (int j = 0; j < fList.size(); j++) {
+								%>
+								<%
+									ProductFile f = fList.get(j);
+								%>
+								<%
+									if (pf.getProductNo() == f.getProductNo()) {
+								%>
+									<img width="120px" height="120px" src="<%=request.getContextPath()%>/uploadFiles/productUpload/<%=f.getChangeName()%>">
+									<input type="hidden" id="pNo" name="pNo" value="<%=f.getProductNo() %>">
+								<%
+									}
+								%>
+								<%
+									}
+								%>
+								<div class="itemTitle">
+					<a><%= pf.getProductName() %></a><br>
+					<a ><%= pf.getProductPrice() %></a>
 				</div>
 			</div>
-			<div class="item" id="item1">
-				<input type="checkbox" id="check"><br>
-				<a href="https://www.naver.com">
-				
-				</a>
-				<div class="itemTitle">
-					<a href="https://www.naver.com">아이템2</a>
-				</div>
-			</div>
-			<div class="item" id="item1">
-				<input type="checkbox" id="check"><br>
-				<a href="https://www.naver.com">
-				
-				</a>
-				<div class="itemTitle">
-					<a href="https://www.naver.com">아이템3</a>
-				</div>
-			</div>
-			<div class="item" id="item1">
-				<input type="checkbox" id="check"><br>
-				<a href="https://www.naver.com">
-				
-				</a>
-				<div class="itemTitle">
-					<a href="https://www.naver.com">아이템4</a>
-				</div>
-			</div>
-			<div class="item" id="item1">
-				<input type="checkbox" id="check"><br>
-				<a href="https://www.naver.com">
-				
-				</a>
-				<div class="itemTitle">
-					<a href="https://www.naver.com">아이템5</a>
-				</div>
-			</div>
+				<% }	%>
+				<% }	%>
 			
-			
-			
-			<div id="pagingBtns" align="center"> <!-- 아직 구현 안됨 -->
-				<button value="1" class="beforeBtn">&lt;&lt;</button>
-				<button value="<%=paging.getCurrentPage() - 1%>" class="beforeBtn">&lt;</button>
-				<%
-					for (int i = paging.getStartPage(); i <= paging.getEndPage(); i++) {
-					if (i == paging.getCurrentPage()) {
-				%>
-				<button id="currentPage" disabled><%=i%></button>
-				<%
-					} else {
-				%>
-				<button value="<%=i%>"><%=i%></button>
-				<% }
-				}
-				%>
-				<button value="<%=paging.getCurrentPage() + 1%>" class="afterBtn">&gt;</button>
-				<button value="<%=paging.getMaxPage()%>" class="afterBtn">&gt;&gt;</button>
-			</div>
 		</div>
 	</div>
     
@@ -261,14 +218,24 @@
 			});
 		});
 		 
-
 		$('#checkDelete').on('click', function(){
-			$('.likeitem_body input:checked').each(function(){
-				  var checked = $(this).attr("checked");
-				  if(checked==undefined){
-				   $(this).parent().remove();
-				  }
-			});
+			$("input[name=checking]:checked").each(function(){
+				var pNo = $('#pNo').val();
+				location.href="<%= request.getContextPath() %>/DeleteFavoriteMypage?pNo="+pNo;
+            });          
+		});
+		
+		$('.item img').on('click', function(){
+			var pNo = $(this).next().val();
+			location.href="<%= request.getContextPath() %>/detail.pro?pNo="+pNo;
+		});
+		
+		$('#addCart').on('click', function(){
+			$("input[name=checking]:checked").each(function(){
+				var pNo = $('#pNo').val();
+				location.href="<%= request.getContextPath() %>/addCartMypage?pNo="+pNo;
+				
+            });  
 		});
 	</script>
 </body>

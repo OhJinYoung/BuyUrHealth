@@ -16,11 +16,13 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import common.PageInfo;
+import member.model.vo.FavoriteProduct;
 import member.model.vo.Member;
+import product.model.vo.Product;
+import product.model.vo.ProductFile;
 
 public class MemberDAO {
 	private Properties prop = new Properties();
-	private DateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 	public MemberDAO() {
 		String fileName = MemberDAO.class.getResource("/sql/member/member-query.properties").getPath();
@@ -50,10 +52,17 @@ public class MemberDAO {
 
 			if (rset.next()) {
 				System.out.println(rset);
-				loginUser = new Member(rset.getInt("USER_NO"), rset.getString("PASSWORD"),
-						rset.getString("GENDER").charAt(0), rset.getString("USER_ID"), rset.getString("USER_NAME"),
-						rset.getString("birthdate"), rset.getString("PHONE"), rset.getString("EMAIL"),
-						rset.getString("USERDATE"), rset.getString("AUTHORITY").charAt(0), rset.getString("STATUS"));
+				loginUser = new Member(rset.getInt("USER_NO"), 
+						rset.getString("password"),
+						rset.getString("GENDER").charAt(0), 
+						rset.getString("USER_ID"), 
+						rset.getString("USER_NAME"),
+						rset.getString("birth"), 
+						rset.getString("PHONE"), 
+						rset.getString("EMAIL"),
+						rset.getString("USER_DATE"), 
+						rset.getString("AUTHORITY").charAt(0), 
+						rset.getString("STATUS"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -332,5 +341,246 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	public int insertMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
 
+		String query = prop.getProperty("insertMember");
+
+		try {
+
+			pstmt = conn.prepareStatement(query.toString());
+			pstmt.setString(1, member.getPassword());
+			pstmt.setString(2, member.getGender() +"");
+			pstmt.setString(3, member.getUserId());
+			pstmt.setString(4, member.getUserName());
+			pstmt.setString(5, member.getBirth());
+			pstmt.setString(6, member.getPhone());
+			pstmt.setString(7, member.getEmail());
+
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
+
+	public int checkId(Connection conn, String inputId) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		 
+		String query = prop.getProperty("idCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, inputId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Member idFindInfoMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Member UserInfo = null;
+		
+		String query = prop.getProperty("UserInfoFind");
+		
+			try {
+				
+				pstmt = conn.prepareStatement(query.toString());
+				pstmt.setString(1, member.getUserName());
+				pstmt.setString(2, member.getEmail());
+				pstmt.setString(3, member.getPhone());
+				
+				
+				rset = pstmt.executeQuery();
+				if (rset.next()) {
+					UserInfo = new Member(
+							rset.getString("USER_ID"), 
+							rset.getString("USER_NAME"),
+							rset.getString("PHONE"), 
+							rset.getString("EMAIL"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			System.out.println(UserInfo);
+		
+		
+		return UserInfo;
+	}
+
+	public Member pwFindInfoMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Member UserInfo2 = null;
+		
+		String query = prop.getProperty("UserInfoFinds");
+		
+			try {
+				
+				pstmt = conn.prepareStatement(query.toString());
+				pstmt.setString(1, member.getUserId());
+				pstmt.setString(2, member.getUserName());
+				pstmt.setString(3, member.getEmail());
+				pstmt.setString(4, member.getPhone());
+				
+				
+				rset = pstmt.executeQuery();
+				if (rset.next()) {
+					UserInfo2 = new Member(
+							rset.getString("PASSWORD"), 
+							rset.getString("USER_ID"), 
+							rset.getString("USER_NAME"),
+							rset.getString("PHONE"), 
+							rset.getString("EMAIL"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+		
+		return UserInfo2;
+	}
+
+	public ArrayList<FavoriteProduct> selectFavoriteList(Connection conn, PageInfo pi, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<FavoriteProduct> list = null;
+		
+		String query = prop.getProperty("selectFavoriteList");
+		// selectFavoriteList=SELECT * FROM FAVLIST WHERE RNUM BETWEEN ? AND ?
+		
+		try {
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1; 
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<FavoriteProduct>();
+			while(rset.next()) {
+				FavoriteProduct fp = new FavoriteProduct(rset.getString("PRODUCT_NAME"),
+										  rset.getInt("PRODUCT_PRICE"),
+										  rset.getInt("USER_NO"),
+										  rset.getInt("PRODUCT_NO"));
+								list.add(fp);			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<ProductFile> selectFList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<ProductFile> list = null;
+		
+		String query = prop.getProperty("selectFList");
+		// selectFList=SELECT * FROM ADDFILE WHERE F_YN ='Y'
+
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<ProductFile>();
+			while(rset.next()) {
+				list.add(new ProductFile( 
+						rset.getInt("PRODUCT_NO"),
+						rset.getString("CHANGE_NAME")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+	}
+
+	public int insertFavorite(Connection conn, FavoriteProduct pf) {
+		
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertFavorite");
+		// insertFavorite=INSERT INTO LIKEITEM VALUES(?, ?)
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, pf.getUserNo());
+			pstmt.setInt(2, pf.getProductNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteFavorite(Connection conn, int userNo, int pNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteFavorite");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, pNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

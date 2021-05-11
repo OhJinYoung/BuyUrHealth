@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member, order.model.vo.Order"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, member.model.vo.Member, order.model.vo.*, product.model.vo.*"%>
 <%
 	Member member = (Member)request.getAttribute("userId");
-	Order orderList = (Order)request.getAttribute("order");
+	ArrayList<Order> orderList = (ArrayList<Order>)request.getAttribute("orderList");
+	ArrayList<OrderDetail> orderDetail = (ArrayList<OrderDetail>)request.getAttribute("orderDetail");
+	ArrayList<Product> product = (ArrayList<Product>)request.getAttribute("product");
+	ArrayList<ProductFile> productFile = (ArrayList<ProductFile>)request.getAttribute("productFile");
+	ArrayList<RequestOrder> requestOrder = (ArrayList<RequestOrder>)request.getAttribute("orderRequest");
+	
 	String authority = null;
 	if(member.getAuthority() == 'Y'){
 		authority = "관리자";
@@ -21,8 +26,8 @@
 	 #myPage-head {text-align:left; margin-top:50px; margin-left:250px;}
 	 
 	 .buy-list {
-	  	width: 800px; height: 350px; margin-left: 50px; 
-	 	border: 1px solid black; display: inline-block;
+	  	width: 800px; margin-left: 50px;
+	  	margin-top: 20px; border: 1px solid black; display: inline-block;
 	 }
 	 .buy-list-head{margin: 10px;}
 	 #buy-detail{float: right;}
@@ -55,44 +60,63 @@
     <hr>
     
     <div class="buy-list">
-    	<div class="buy-list-head">
-    		<label>주문하신 날짜</label>
-    		<label id="buy-detail"><a href="<%= request.getContextPath() %>/detailMyProductForm.me">주문 상세 보기 ></a></label>
-    		<input type="hidden" name="id" required value="<%= member.getUserId() %>">
-    	</div>
-    	
-    	<div class="buy-product">
-    		<%--  <% if(list.isEmpty()){ %>
+    	<% if(orderList.isEmpty()){ %>
 					
-					주문하신 상품이 없습니다.
+				주문하신 상품이 없습니다.
 					
-				<% } else{
-						for(Notice n : list){ %>
-							
-				<%		} 
-					} %> --%>
-			<div class="product-intro">
-				<div class="product-status">
-					<label>상품상태</label>
-				</div>
-				<div class="product-content">
-					<img src="<%= request.getContextPath() %>/images/vitamin_c.jpg" width="130px" height="100px" alt="My Image">
-					<h1>상품 설명</h1>
-					<p>가격</p><p style="float: right; margin-right: 50px;">개수 : </p>
-				</div>
-			</div>
+		<% } else{ %>
+			<% 	for(int i = 0; i < orderList.size(); i++){ %>
+				<% Order o = orderList.get(i); %>
+				<% OrderDetail od = orderDetail.get(i); %>
+				<% Product p = product.get(i); %>
+				<% ProductFile pf = productFile.get(i); %>
+				<% RequestOrder ro = requestOrder.get(i); %>
+				<div class="buy-product">
+					<div class="buy-list-head">
+    					<label></label>
+    					<label id="buy-detail"><a href="<%= request.getContextPath() %>/detailMyProductForm.me">주문 상세 보기 ></a></label>
+    				</div>
+					<div class="product-intro">
+						<div class="product-status">
+							<label>구매한 날짜 : <%= o.getOrderDate() %></label> / <label><%= o.getState() %></label>
+					</div>
+						<div class="product-content">
+						<img src="<%= request.getContextPath() %>/uploadFiles/productUpload/<%=pf.getFileNo()%>.png" width="130px" height="100px" alt="My Image">
+						<h1><%= p.getProductName() %></h1>
+							<p>가격 : <%=p.getProductPrice() %></p><p style="float: right; margin-right: 50px;">개수 : <%= od.getVolume() %></p>
+		
+						</div>
+						<% if(ro.getType() == null) { %>
+						
+						<% } else { %>
+								<h2 id="requestCheck" style="color: red;"><%=ro.getType()%></h2>
+						<% } %>
+					</div>
 			
-			<div class="product-request">
-				<button type="button" id="product-return">교환/반품신청</button>
-				<button type="button" id="delive-search">배송조회</button>
-				<button type="button" id="goBuy-review">구매후기쓰기</button>
-			</div>
-    	</div>
+					<div class="product-request">
+						<button type="button" id="product-return">교환/반품신청</button>
+						<button type="button" id="delive-search">배송조회</button>
+						<button type="button" id="goBuy-review">구매후기쓰기</button>
+					</div>
+				</div>
+			<%	} 
+			} %>
+			
+    	
     	
     </div>
     
     
 	<script>
+		$(function(){
+			if($('#requestCheck').attr('id') == "requestCheck"){
+				$('#product-return').on('click', function(){
+					alert('이미 신청되었습니다.');
+					location.href="<%= request.getContextPath() %>/buyMyPage.me";
+				});
+			}
+		});
+		
 		$('#product-return').on('click', function(){
 			location.href="<%= request.getContextPath() %>/productReturnForm.me";
 		});
@@ -102,7 +126,7 @@
 		});
 		
 		$('#goBuy-review').on('click', function(){
-		
+			location.href="<%= request.getContextPath() %>/goReview.me";
 		});
 	</script>
 </body>

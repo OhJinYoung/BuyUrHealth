@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member" import="common.PageInfo"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, member.model.vo.Member, order.model.vo.*, product.model.vo.*"%>
 <%
 	Member member = (Member)request.getAttribute("userId");
+	Order order = (Order)request.getAttribute("orderList");
+	OrderDetail orderDetail = (OrderDetail)request.getAttribute("orderDetail");
+	Product product = (Product)request.getAttribute("product");
+	ProductFile productFile = (ProductFile)request.getAttribute("productFile");
 %>
 <!DOCTYPE html>
 <html>
@@ -83,6 +87,8 @@
 		background-color: #dfdfdf;
 	}
 	
+	
+	
 </style>
 </head>
 <body>
@@ -99,22 +105,26 @@
 			<div class="line"></div>
 		</div>
 		<div class="delivery_body">
-			<label>구매한 날짜</label><br>
-			<label>배송날짜(구매한 날짜의 1주일 뒤 정도)</label>
+			<label><%=order.getOrderDate().substring(0, 10)%> 구매</label><br>
+			<label><%= ((Integer.parseInt(order.getOrderDate().substring(0, 10).replace("-", ""))+3) + "").substring(0, 4) + "-" + ((Integer.parseInt(order.getOrderDate().substring(0, 10).replace("-", ""))+3) + "").substring(4, 6) + "-" + ((Integer.parseInt(order.getOrderDate().substring(0, 10).replace("-", ""))+3) + "").substring(6, 8)%> 도착예정</label>
 		 </div>
 	</div>
 	
 	<div class="delivery_foot">
 		<div class="company">
-			<label>상품명</label><br>
-			<label>xxx</label><br>
-			<label>송장번호 - 123456789</label>
+			<label><%=product.getProductName() %></label><br>
+			<label>xx택배</label><br>
+			<label>송장번호 - <%=order.getTrackingNo() %></label>
 		</div>
 		<div class="orderlistDetail">
-			<label>받는사람</label><br>
-			<label>받는 사람 주소</label><br>
-			<label>배송 요청 사항</label><br>
-			<label>상품 수령 방법</label>
+			<label>받는사람 : <%=order.getName() %></label><br>
+			<label>받는 사람 주소 : <%=order.getAddress() %></label><br>
+			<% if(order.getRequest() == null){ %>
+				<label>배송 요청 사항 : 없음</label><br>
+			<% } else {%>
+				<label>배송 요청 사항 : <%=order.getRequest() %></label><br>
+			<% } %>
+			
 		</div>
 	</div>
 	

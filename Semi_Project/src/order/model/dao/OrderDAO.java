@@ -258,7 +258,7 @@ public class OrderDAO {
 
 			while (rset.next()) {
 				OrderDetail od = new OrderDetail(rset.getInt("od_no"), rset.getInt("od_volume"),
-						rset.getString("product_name"), rset.getInt("product_price"));
+						rset.getString("product_name"), rset.getInt("product_price"),rset.getString("file_path"),rset.getString("change_name"));
 				
 				olist.add(od);
 			}
@@ -288,6 +288,110 @@ public class OrderDAO {
 			close(pstmt);
 		}
 
+		return result;
+	}
+
+	public ArrayList<Order> searchMypageOrder(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Order> list = new ArrayList<>();
+
+		String query = prop.getProperty("selectMypageOrder");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				Order order = new Order(rset.getInt("order_no"), rset.getString("r_name"), rset.getString("r_address"),
+						rset.getString("r_phone"), rset.getString("request"), rset.getString("payment"),
+						rset.getString("state"), rset.getString("order_date"), rset.getInt("user_No"),
+						rset.getString("tracking_no"),rset.getString("r_email"));
+				list.add(order);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public OrderDetail selectMypageOrderDetail(Connection conn, int orderNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		OrderDetail orderDetail = null;
+
+		String query = prop.getProperty("selectMypageOrderDetail");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, orderNo);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				orderDetail = new OrderDetail(rset.getInt("OD_NO"), rset.getInt("OD_VOLUME"), rset.getInt("PRODUCT_NO"),
+														  rset.getInt("ORDER_NO"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return orderDetail;
+	}
+
+	public Order searchMypageOrderNormal(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Order order = new Order();
+
+		String query = prop.getProperty("selectMypageOrder");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				order = new Order(rset.getInt("order_no"), rset.getString("r_name"), rset.getString("r_address"),
+						rset.getString("r_phone"), rset.getString("request"), rset.getString("payment"),
+						rset.getString("state"), rset.getString("order_date"), rset.getInt("user_No"),
+						rset.getString("tracking_no"),rset.getString("r_email"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return order;
+	}
+
+	public int insertRequest(Connection conn, int no, RequestOrder ro) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertRequest");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, ro.getType());
+			pstmt.setString(2, ro.getInfo());
+			pstmt.setInt(3, no);
+	
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 }

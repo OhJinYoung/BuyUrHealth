@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member" %>
-
+    pageEncoding="UTF-8" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,11 +61,11 @@
     
     <div class="returnBackground">
     	<div class="returnDetail">
-	    	<form action="<%= request.getContextPath() %>/subProductReturn.me" method="post">
+	    	<form action="<%= request.getContextPath() %>/ProductReturn" method="post">
 	    	<h2 style="margin-top: 10px;">사유 선택</h2>
 	    		<p style="margin-top: 10px;"></p>
-				<input type="radio" name="requestSelect" value="취소요청"><label>취소</label>
 				<input type="radio" name="requestSelect" value="반품요청"><label>반품</label>
+				<input type="radio" name="requestSelect" value="환불요청"><label>환불</label>
 				<input type="radio" name="requestSelect" value="교환요청"><label>교환</label>
 				
 				<p>단순변심</p>
@@ -76,7 +76,7 @@
 				<input type="radio" name="requestResult" value="선택된 주소가 아닌 다른 주소로 배송됨"><label>선택된 주소가 아닌 다른 주소로 배송됨</label><br>
 				<input type="radio" name="requestResult" value="주문된 상품 중 일부 상품이 배송되지 않음"><label>주문된 상품 중 일부 상품이 배송되지 않음</label><br>
 				<p>상품문제</p>
-				<input type="radio" name="requestResult" value="상품이 설명과 다름<"><label>상품이 설명과 다름</label><br>
+				<input type="radio" name="requestResult" value="상품이 설명과 다름"><label>상품이 설명과 다름</label><br>
 				<input type="radio" name="requestResult" value="다른 상품이 배송됨"><label>다른 상품이 배송됨</label><br>
 				<input type="radio" name="requestResult" value="상품이 파손됨"><label>상품이 파손됨</label><br>
 				<br>
@@ -88,19 +88,6 @@
     </div>
     
 	<script>
-		$('#product-return').on('click', function(){
-			location.href="<%= request.getContextPath() %>/productReturnForm.me";
-		});
-		
-		$('#delive-search').on('click', function(){
-			location.href="<%= request.getContextPath() %>/deliveSearchForm.me";
-		});
-		
-		$('#goBuy-review').on('click', function(){
-		
-		});
-		
-		
 		$('input:radio[name=requestResult]').click(function(){
 			if($(this).val() == "상품이 마음에 들지않음"){
 		    	$('#textarea').css('display', 'inline-block'); 

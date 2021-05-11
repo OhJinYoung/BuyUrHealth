@@ -1,6 +1,7 @@
 package Cart.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Cart.model.service.CartService;
+import Cart.model.vo.Cart;
 import member.model.service.MemberService;
 import member.model.vo.Member;
+import product.model.vo.ProductFile;
 
 /**
  * Servlet implementation class CartFromServlet
@@ -37,24 +41,29 @@ public class CartServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String userId = loginUser.getUserId();
+		int userNo = loginUser.getUserNo();
 		
 		Member member = new MemberService().selectMember(userId);
 		
 		System.out.println(member);
 		
+		ArrayList<Cart> cartlist = new CartService().selectList(userNo); 
+		
+		ArrayList<ProductFile> fList = new CartService().selectTList(1);
+		System.out.println(fList);
+		
 		String page = null;
-		if(member != null) {
-			// page = "WEB-INF/views/cart/cartView.jsp";
+		if(cartlist != null) {
 			page = "WEB-INF/views/cart/cartView.jsp";
+			request.setAttribute("cartlist", cartlist);
 			request.setAttribute("userId", member);
+			request.setAttribute("fList",  fList);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
 			request.setAttribute("msg", "회원 조회에 실패하였습니다.");
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
-		
-		
 
 	}
 

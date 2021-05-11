@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, Cart.model.vo.Cart, java.text.DecimalFormat" %>
 <%@page import="java.util.Random"%>
 <% int orderNo = (int)(Math.random()*10000000)+1; %>
+<% ArrayList<Cart> cartlist = (ArrayList<Cart>)request.getAttribute("cartlist"); %>
+<% 
+int total = 0; 
+int sum = 0;
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +15,6 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>	
-
 
 <style>
 	html, body {
@@ -20,6 +25,9 @@
 	    min-width: 1500px;
 	}	
 	
+	h3{margin-bottom: 10px;}
+	
+	/* 주문 내역 */
 	/* 주문하기 글씨 */
 	#orderTitle{
 		width: 80%;
@@ -30,69 +38,31 @@
 		font-size: 24px;
 	}
 	
-	h3{margin-bottom: 10px;}
-	
-	
-	/* 주문 내역 */
 	.cartdiv{
 		width: 80%;
 		border-top: 2px solid black;
+		border-bottom: 2px solid black;
 		margin: 0px auto;
 		height: auto;
-		min-height: 30%;
-		padding: 30px;
+		margin-top: 2px;
+		margin-bottom: 5px;
 	}	
 	
-    .iname{width: 90%;}
-    
-    .cartprice {width: 33%;}
-    
-    .num {width: 33%;}
-    
-    .sum {width: 34%; max-width: 80px;}
-    
-    .cartdiv .cart.head .subdiv {
-        background-color: white;
-        font-weight: bold;
-        width: 100%;
-        border-top: 1px solid black;
-        border-bottom: 2px dashed black;
-    }
-    
-	.cart.data {
-        border-bottom: 1px dashed #888;
-        box-sizing: border-box;
-        cursor: pointer;
-        float: left;
-        width: 100%;
-    }
-    
-    .cartdiv .data .iname {
-      text-align: center !important; /* 같은 속성을 여러 번 정의했을 때 나중에 설정한 값이 적용. 만약 나중에 설정한 값이 적용되지 않게 하려면 속성값 뒤에 !important */
-      line-height: 1 !important;
-    }
-    
-    .i_num {text-align: center; width: 40px; font-size: 1em;}
+	.cartTH{
+		padding: 10px;
+		border-bottom: 1px solid black;
+	}
+	.cartTD{
+		padding: 5px;
+	}
 	
-    .cartdiv .cart > .subdiv {float: left;}
-    
-    .cartdiv .cart > .subdiv:nth-child(1) {width: 60%;}
-    
-    .cartdiv .cart > .subdiv:nth-child(2) {width: 40%;}
-
-    .cartdiv .cart > div > div {
-        float: left;
-        text-align: center;
-        margin: 0;
-        padding: 12px 0;
-    }
-    
-    .cartdiv .cart.data > div > div {height: 60px; line-height: 60px;}
-    
-    .cartdiv .cart.data > div > div > div {height: 60px; line-height: 60px;}
-    
-	.cartnum {color: blue;}
+	.cartTable{width: 100%;}
 	
+    .iname {width:70%;}
+    .cartprice {width: 10%;}
+    .num {width: 10%;}
+    .sum {width: 10%;}
+    
 	.cart.foot{padding: 15px; float: right; width: 100%;}
 	
 	.cart.foot .total{float: right;}
@@ -111,9 +81,7 @@
 		padding: 30px;
     }
     
-    table, td, th, tr{border : 1px solid black; border-collapse : collapse;}
-    
-    table{width: 100%;}
+    .addressTable{width: 100%; border : 1px solid black; border-collapse : collapse;}
     
     .none{display: none;}
 	
@@ -186,6 +154,7 @@
 		display: flex; align-items: center; justify-content: center;
 	}
 	
+	#tPrice{color: red; font-size: 40px; font-weight:bold;}
 	
     /* pay foot */
 	.pay.foot{margin-bottom: 50px; float: left;}
@@ -234,84 +203,43 @@
 	
 	<!-- 주문내역 -->
 	<div class="cartdiv" id="cart">
-      	<h3>주문 내역</h3>
-           <div class="cart head">
-               <div class="subdiv">
-                   <div class="iname">상품명</div>
-               </div>
-               <div class="subdiv">
-                   <div class="cartprice">가격</div>
-                   <div class="num">수량</div>
-                   <div class="sum">합계</div>
-               </div>
-           </div>
-   
-           <div class="cart data">
-               <div class="subdiv">
-                   <div class="iname">
-                       <span>클리어런스 - 타게티드 초이스, 블러드 프레셔 서포트 60 베지캡슐</span>
-                   </div>
-               </div>
-               <div class="subdiv">
-                   <div class="cartprice"><input type="hidden" name="i_price" id="i_price1" class="i_price" value="12500">12,500원</div>
-                   <div class="num">
-                       <div class="cartnum">
-                           <input type="text" name="i_num1" id="i_num1" size="1" maxlength="4" class="i_num" value="2" onkeyup="">
-                       </div>
-                   </div>
-                   <div class="sum">25,000원</div>
-               </div>
-           </div>
-           
-           <div class="cart data">
-               <div class="subdiv">
-                   <div class="img"><img src="" width="60"></div>
-                   <div class="iname">
-                       <span>비타민 A 10,000 IU 100 소프트젤</span>
-                   </div>
-               </div>
-               <div class="subdiv">
-                   <div class="cartprice"><input type="hidden" name="i_price" id="i_price2" class="i_price" value="4200">4,200원</div>
-                   <div class="num">
-                       <div class="cartnum">
-                           <input type="text" name="i_num2" id="i_num2" size="1" maxlength="4" class="i_num" value="1" onkeyup="">
-                       </div>
-                   </div>
-                   <div class="sum">4,200원</div>
-               </div>
-           </div>
-           
-           <div class="cart data">
-               <div class="subdiv">
-                   <div class="iname">
-                       <span>울트라 프리미엄 어드밴스드 프리바이오틱 60 베지캡슐</span>
-                   </div>
-               </div>
-               <div class="subdiv">
-                   <div class="cartprice"><input type="hidden" name="i_price" id="i_price3" class="i_price" value="24000">24,000원</div>
-                   <div class="num">
-                       <div class="cartnum">
-                           <input type="text" name="i_num3" id="i_num3" size="1" maxlength="4" class="i_num" value="1" onkeyup="">
-                       </div>
-                   </div>
-                   <div class="sum">24,000원</div>
-                </div>
-             </div>
-             
-            <div class="cart foot">
-            	<div class="subdiv1">
-            		<div></div>
-            		<div></div>
-            	</div>
-            	<div class="subdiv1">
-            		<div></div>
-            		<div></div>
-            		<div class="total"><input type="hidden" name="i_priceTotal" id="i_priceTotal" class="i_price" value="24000">총 결제금액 : <b>00</b> 원</div>
-            	</div>
-            </div>
-		</div>
-		<br clear="all">
-	    		
+		<table class="cartTable" id="cartTable">
+                <tr class="cart head">
+                        <th class="cartTH iname">상품명</th>
+                        <th class="cartTH cartprice">가격</th>
+                        <th class="cartTH num">수량</th>
+                        <th class="cartTH sum">합계</th>
+                </tr>
+        
+                <% for(Cart c : cartlist){
+	                sum = c.getProductPrice() * c.getCartVolume();
+					total += sum;
+                %>
+					<tr>
+						<td class="cartTD iname" align="center">
+							
+							<input type="hidden" size="3" name="cartNo" value="<%= c.getCartNo() %>">
+							<input type="hidden" size="3" name="proName" value="<%= c.getProductName() %>">
+							<a><%= c.getProductName() %></a>
+						</td>
+						<td class="cartTD cartprice" align="center">
+							<input type="hidden" size="3" name="proPrice" value="<%= c.getProductPrice() %>">
+							<%= c.getProductPrice() %>
+						</td>
+						<td class="cartTD num" align="center">
+						<form name="volchange" method="POST" action="<%= request.getContextPath() %>/volchange">
+							<input type="hidden" size="3" name="proNo" value="<%= c.getProductNo() %>">
+							<input type="hidden" size="3" name="cartVol" id="cartVol" value="<%= c.getCartVolume() %>"><%= c.getCartVolume() %>
+						</form>
+						</td>
+						<td class="cartTD sum" align="center">
+							<input type="hidden" name="cartPrice" size="3" name="cartVol" value="<%= c.getProductPrice() * c.getCartVolume()%>">
+							<%= c.getProductPrice() * c.getCartVolume()%>
+						</td>
+					</tr>
+				<%	} %>
+            </table>
+	    </div>		
 	    		
     	<!-- 배송지 정보 -->
 		<form action="pay();" name="orderform" id="orderform" method="post" class="orderform">  
@@ -378,13 +306,14 @@
 		          	</div>
 		          	<div class="calcinfo" id="calcinfo2">
 		          		<div id="subdiv">
-		          			총 상품가격: <b>00</b>원 (총 <b>3</b>종)<br>
-		          			배송비: <b>2,500</b>원
+		          			총 상품가격: <b><%= new DecimalFormat("###,###").format(total) %></b>원  <br> 
+		          			배송비: <b>2,500</b>원<br>
 		          		</div>
 		          	</div>
 		          	<div class="calcinfo" id="calcinfo3" >
 		          		<div id="subdiv">
-		          			총 결제할 금액: <b>00</b>원
+		          			<input type="hidden" name="totalPrice" id="totalPrice" value="<%= total + 2500 %>">
+		          			총 결제할 금액: <label id="tPrice"><%= new DecimalFormat("###,###").format(total + 2500)%></label>원
 		          		</div>
 		          	</div>
 				</div>
@@ -405,17 +334,6 @@
 
 		
 				
- 		<!-- <script>
-		$(function(){
-			$("#orderNo").on("keyup", function(){
-				var check = true;
-				check = $(this).val().length > 0 ? false : true;
-				$("payBtn").attr("disabled", chech);
-			});
-		});
-		</script> -->
-		 
-		
 	<script>
 		function pay(){	
 			var orderNo = $("#orderNo").val(); 
@@ -425,7 +343,7 @@
 			var address = $("#postcode").val() + " " + $("#roadAddress").val() + " " 
 							+ $("#detailAddress").val() + " " + $("#extraAddress").val();
 			var forrequest = $("#forrequest").val();
-			var price = 1000;
+			var price = $("#totalPrice").val(); ;
 			var payment = $('input[name=payMethod]:checked').val();
 			
 			var IMP = window.IMP; // 생략가능

@@ -1,6 +1,7 @@
 package product.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import product.model.service.ProductService;
 import product.model.vo.Product;
+import product.model.vo.ProductFile;
 
 /**
  * Servlet implementation class ProductDetailServlet
@@ -30,21 +32,24 @@ public class ProductDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		
 		int pNo = Integer.parseInt(request.getParameter("pNo"));
 		
-		Product product = new ProductService().selectProduct(pNo);
+		
+		ProductService service = new ProductService();
+		
+		Product product = service.selectProduct(pNo);
+		ArrayList<ProductFile> fileList = service.selectProductFiles(pNo);
+		
 	
 		String page = null;
-		if(product != null) {
+		if(fileList != null) {
+			request.setAttribute("product", product);
+			request.setAttribute("fileList", fileList);
 			page = "WEB-INF/views/product/prodDetail.jsp";
-			request.setAttribute("product",  product);
 		} else {
-			page = "WEB-INF/views/common/errorPage.jsp";
 			request.setAttribute("msg",  "제품 상세조회에 실패했습니다");
+			page = "WEB-INF/views/common/errorPage.jsp";
 		}
-		
 		request.getRequestDispatcher(page).forward(request, response);
 	}
 

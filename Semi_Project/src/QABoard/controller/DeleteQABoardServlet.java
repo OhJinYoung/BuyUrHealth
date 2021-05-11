@@ -16,6 +16,7 @@ import QABoard.model.service.QABoardService;
 public class DeleteQABoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,7 +34,7 @@ public class DeleteQABoardServlet extends HttpServlet {
 		int result = new QABoardService().deleteBoard(bId);
 		
 		if(result > 0) {
-			response.sendRedirect("qalist.bo");
+			response.sendRedirect("goQNA");
 		} else {
 			request.setAttribute("msg", "게시글 삭제에 실패했습니다");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
