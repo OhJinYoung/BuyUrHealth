@@ -393,7 +393,7 @@ input{
 	});
 	
 	$('.click').on('mouseover',function(){
-		$(this).closest('tr').css({"background":"beige","color":"orangered","cursor":"pointer"});
+		$(this).closest('tr').css({"background":"#efefef85","cursor":"pointer"});
 	}).on('mouseout',function(){
 		$(this).closest('tr').css({"background":"","color":"","cursor":""});
 	});
