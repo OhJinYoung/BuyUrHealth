@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
+<style>
 	html, body {
 	    height: 100%; 
 	    overflow-y: auto;
@@ -153,6 +154,8 @@
         font-size: 0.9375em;
     }
 </style>
+</style>
+
 </head>
 <body>
 	<%@include file="../title_header.jsp" %>
@@ -187,16 +190,16 @@
 				</tr>
 				<tr>
 					<td colspan="6">
-						<textarea name="content" id="content" cols="30" rows="15" style="resize:none;" placeholder="내용을 입력해주세요"></textarea></td>
+						<textarea name="content" id="content" cols="60" rows="15" style="resize:none;" placeholder="내용을 입력해주세요"></textarea></td>
 				</tr>
 				<tr>
 					<td class="td1">
 						<div class="image-container">
-						<h2>첨부파일</h2>
+						<h3>첨부파일</h3>
 						    <input style="display: block;" type="file" id="input-image" name="upfile">
 						    <img style="width: 500px;" id="preview-image">
 						</div>
-						<input type="submit" id="enterBtn" onclick="checkConfirm();" value="등록" >
+						<input type="submit" id="enterBtn" onclick="checkConfirm();" value="등록">
 						<button id="cancelBtn" onclick="location.href='<%= request.getContextPath() %>/qalist.bo'" >취소</button>
 					</td>
 				</tr>
@@ -205,15 +208,21 @@
 		
 		<script>
 		function readImage(input) {
+		    // 인풋 태그에 파일이 있는 경우
 		    if(input.files && input.files[0]) {
+		        // 이미지 파일인지 검사 (생략)
+		        // FileReader 인스턴스 생성
 		        const reader = new FileReader()
+		        // 이미지가 로드가 된 경우
 		        reader.onload = function(e){
 		            const previewImage = document.getElementById("preview-image");
 		            previewImage.src = e.target.result;
 		        }
+		        // reader가 이미지 읽도록 하기
 		        reader.readAsDataURL(input.files[0])
 		    }
 		}
+		// input file에 change 이벤트 부여
 		const inputImage = document.getElementById("input-image")
 		inputImage.addEventListener("change", function(e){
 		    readImage(e.target)

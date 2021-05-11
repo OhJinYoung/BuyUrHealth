@@ -15,13 +15,14 @@ import java.util.Properties;
 import Board.model.vo.AddFile;
 import Board.model.vo.Community;
 import Board.model.vo.Reply;
+import QABoard.model.vo.QAFile;
 
 public class CommunityDAO {
 
 	private Properties prop = new Properties();
 	
 	public CommunityDAO() {
-		String filePath = CommunityDAO.class.getResource("/sql/board/board-query.properties").getPath(); // 경로가져옴
+		String filePath = CommunityDAO.class.getResource("/sql/community/community-query.properties").getPath(); // 경로가져옴
 		
 		try {
 			prop.load(new FileReader(filePath)); 
@@ -31,7 +32,7 @@ public class CommunityDAO {
 	}
 
 
-	public int insertCommunity(Connection conn, Community c) {  // 보드 게시판 생성
+	public int insertCommunity(Connection conn, Community c) {  // 게시판 생성
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -60,12 +61,12 @@ public class CommunityDAO {
 		ArrayList<Community> list = null;
 		
 		String query = prop.getProperty("selectcList");
-// SELECT * FROM BLIST WHERE BOARD_TYPE=2		
+	
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
 			
-			list = new ArrayList<Community>(); // 객체생성
+			list = new ArrayList<Community>(); 
 			while(rset.next()) {
 				list.add(new Community(rset.getInt("COMM_NO"),
 									rset.getString("COMM_TITLE"),
@@ -83,8 +84,6 @@ public class CommunityDAO {
 		
 		return list;
 	}
-
-
 
 	public int insertAddFile(Connection conn, ArrayList<AddFile> fileList) {
 		PreparedStatement pstmt = null;
@@ -122,20 +121,6 @@ public class CommunityDAO {
 		
 		String query = prop.getProperty("selectCommunity");
 //selectBoard=SELECT * FROM BDETAIL WHERE BOARD_ID = ?
-
-/* SQL에서 작성해보면 
-   CREATE OR REPLACE VIEW BDETAIL  -> 밑에 내용 다 쓰기엔 기니까,  BDETAIL를 만들어줌
-	AS
-	SELECT BOARD_ID, BOARD_TYPE, CATE_NAME, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITER,
-        NICKNAME, BOARD_COUNT, CREATE_DATE, BOARD.MODIFY_DATE, BOARD.STATUS
-	FROM BOARD
-    	JOIN MEMBER ON (USER_ID = BOARD_WRITER)
-    	JOIN CATEGORY USING(CATE_ID)
-	WHERE BOARD_ID = 101
-    	AND BOARD.STATUS = 'Y';
-    
-SELECT * FROM BDETAIL  -> BDETAIL만 불러와서 사용 가능하게 
-WHERE BOARD_ID = 101;  */		
 
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -200,18 +185,7 @@ WHERE BOARD_ID = 101;  */
 
 	public ArrayList<Reply> selectReplyList(Connection conn, int bId) {  // ajax하면서 댓글 추가한 부분
 		//dao구현하는데, 먼저 쿼리부터 생각하기  / vo에서 nickname을 집어넛었는데 reply엔 없으니까 member랑 조인해야 함
-/* 
-create or replace view rlist
-as
-select reply_id, reply_content, ref_bid, reply_writer, nickname, create_date, reply.modify_date, reply.status
-from reply
-    join member on (user_id = reply_writer)
-where  reply.status='Y'  
-order by reply_id desc;
-
-select * from rlist where ref_bid = 101;  */		
 		
-		// select * from rlist where ref_bid = ?
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Reply> rList = null;
@@ -249,7 +223,6 @@ select * from rlist where ref_bid = 101;  */
 		int result = 0;
 		
 		String query = prop.getProperty("insertReply");
-// INSERT INTO REPLY VALUES(SEQ_RID.NEXTVAL, ?, ?, ?, SYSDATE, SYSDATE, DEFAULT)	
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -298,5 +271,94 @@ select * from rlist where ref_bid = 101;  */
 		
 		return list;
 	}
+
+
+	public int updateCommunity(Connection conn, Community c) {  // 0510 입력 내용
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, c.getCommTitle());
+			pstmt.setString(2, c.getCommContent());
+//			pstmt.setInt(3, c.getUserNo());   
+			pstmt.setInt(3, c.getCtgNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+
+	}
+
+
+	public int deleteCommunity(Connection conn, int bId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteCommunity");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+
+	}
+
+
+	public ArrayList<AddFile> selectFile(Connection conn, int bId) {  //0511
+        
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+        ArrayList<AddFile> fileList = new ArrayList<AddFile>();
+ 
+        String query = prop.getProperty("selectFile");
+        
+        try {
+            pstmt = conn.prepareStatement(query);
+ 
+            pstmt.setInt(1, bId);
+            rset = pstmt.executeQuery();
+            
+            
+            fileList = new ArrayList<AddFile>();
+            
+            while(rset.next()) {
+				AddFile af = new AddFile();
+				af.setfNo(rset.getInt("F_NO"));;
+				af.setfName(rset.getString("F_NAME"));
+				af.setChangeName(rset.getString("CHANGE_NAME"));
+				af.setFilePath(rset.getString("FILE_PATH"));
+				
+				fileList.add(af);
+
+            }
+            
+ 
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        } finally {
+        	close(rset);
+        	close(pstmt);
+        }
+        return fileList;
+    }
+
 
 }	

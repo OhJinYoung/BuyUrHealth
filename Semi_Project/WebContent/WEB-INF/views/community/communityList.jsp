@@ -31,20 +31,15 @@
 		<div class="thumbnailArea">
 		
 	 <% if(cList.isEmpty()){ %>  
-			<!-- 둘 중 하나라도 비어있으면 -> 등록된 사진x -->
 			등록된 사진이 없습니다.
 			<% } else { %>
-				<!-- bList가 몇개가 들어있는지 모르니까 for문 돌리기 / get메소드 이용해서(i) 뽑아오기 -->
 				<% for(int i = 0; i < cList.size(); i++){ %>
 				<% Community c = cList.get(i); %> 
 					<div class="thumb-list" align="center">
 						<div>
-							<!-- 상세조회까지 할꺼니까 -> BoardId도 넣어주기, name도 필요 -->
 							<input type="hidden" name="bId" value="<%= c.getCommNo() %>">
-							<!-- 안에 또 for문을 돌리는데 -> i라고 쓰면 오류남!!  -->
 							<% for(int j = 0; j < fList.size(); j++){ %>
 								<% AddFile a = fList.get(j); %>
-								<!--  BoardId -> 게시판번호 고유, 중복 x getCommNO 에 맞춰서 썸네일을 매칭시켜 줘야하니까 / 안에 이미지 들어감-->
 								<% if(c.getCommNo() == a.getCommNo()){ %>
 									<img src="<%= request.getContextPath() %>/uploadFiles/communityUpload/<%= a.getChangeName() %>" width="200px" height="150px">
 								<% }  %>

@@ -7,17 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Board.model.service.CommunityService;
+import QABoard.model.service.QABoardService;
+
 /**
- * Servlet implementation class WriteBoardFormServlet
+ * Servlet implementation class DeleteCommunityServlet
  */
-@WebServlet("/writeBoardForm.bo")
-public class WriteBoardFormServlet extends HttpServlet {
+@WebServlet("/CommDelest.cd")
+public class DeleteCommunityServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WriteBoardFormServlet() {
+    public DeleteCommunityServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +29,16 @@ public class WriteBoardFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/views/board/boardWriteForm.jsp").forward(request, response);
+	int bId = Integer.parseInt(request.getParameter("bId"));
+		
+		int result = new CommunityService().deleteCommunity(bId);
+		
+		if(result > 0) {
+			response.sendRedirect("qalist.bo");
+		} else {
+			request.setAttribute("msg", "게시글 삭제에 실패했습니다");
+			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

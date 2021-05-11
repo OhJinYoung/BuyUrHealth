@@ -14,29 +14,91 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.outer{
-		width:800px; height:800px; background: rgba(255, 255, 255, 0.4); border: 5px solid white;
-		margin-left:auto; margin-right:auto; margin-top:50px;
-	}
-	.tableArea {width: 450px; height:350px; margin-left:auto; margin-right:auto; align: center;}
-	table{align: center;}
-	#updateBtn{background: #B2CCFF;}
-	#menuBtn{background: #D1B2FF;}
-	#deleteBtn{background: #D5D5D5;}
+
+    #updateBtn{
+    	background-color: #FFC83D;
+        border: 1px solid white;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        letter-spacing: -1px;
+        padding: 3px 20px;
+        margin: 3px 4px;
+        width: auto;
+        word-break: keep-all;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9375em;
+        float: center;
+    }
+    
+    #deleteBtn{
+        float: center;
+    	background-color: #E81224;
+        border: 1px solid white;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        letter-spacing: -1px;
+        padding: 3px 20px;
+        margin: 3px 4px;
+        width: auto;
+        word-break: keep-all;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9375em;
+    }
+    
+   #menuBtn{
+    	background-color: #FFC83D;
+        border: 1px solid white;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        letter-spacing: -1px;
+        padding: 3px 20px;
+        margin: 3px 4px;
+        width: auto;
+        word-break: keep-all;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9375em;
+        float: center;
+    }
+ 
+   #addReply{
+    	background-color: #FFC83D;
+        border: 1px solid white;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        letter-spacing: -1px;
+        padding: 3px 20px;
+        margin: 3px 4px;
+        width: auto;
+        word-break: keep-all;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9375em;
+        float: center;
+        text-align: center;
+    }      
+        
 </style>
 </head>
 <body>
 	<%@include file="../title_header.jsp"  %>
 		
-	<div class="outer">
+	<div class="community body">
 		<br>
-		<h2 align="center">커뮤니티 상세보기</h2>
+		<h2 align="center">상세보기</h2>
 		<div class="tableArea">
 			<form action="<%= request.getContextPath() %>/communityUpdateForm.co" id="detailForm" method="post">
+			
 				<table>
 					<tr>
 						<th>제목</th>
-						<td colspan="3"><%= c.getCommTitle() %></td>
+						<td align="center"colspan="3"><%= c.getCommTitle() %></td>
 					</tr>
 					<tr>
 						<th>작성자</th>

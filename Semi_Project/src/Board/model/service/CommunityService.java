@@ -13,6 +13,8 @@ import Board.model.dao.CommunityDAO;
 import Board.model.vo.AddFile;
 import Board.model.vo.Community;
 import Board.model.vo.Reply;
+import QABoard.model.dao.QABoardDAO;
+import QABoard.model.vo.QAFile;
 
 
 public class CommunityService {
@@ -123,6 +125,44 @@ public class CommunityService {
 			list = bDAO.selectfList(conn); // 사진조회
 		}
 		close(conn);		
+		return list;
+	}
+
+	public int updateCommunity(Community c) {  // 0510 
+		Connection conn = getConnection();
+		
+		CommunityDAO dao = new CommunityDAO();
+		
+		int result1 = dao.updateCommunity(conn, c); 
+		
+		if(result1 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1;
+	}
+
+	public int deleteCommunity(int bId) {  // 0510 
+		Connection conn = getConnection();
+		
+		int result = new CommunityDAO().deleteCommunity(conn, bId);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public ArrayList<AddFile> selectFile(int bId) { //0511
+		
+		Connection conn = getConnection();
+		
+		ArrayList<AddFile> list = new CommunityDAO().selectFile(conn, bId);
+		
 		return list;
 	}
 }
