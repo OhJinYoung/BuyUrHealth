@@ -275,7 +275,7 @@ td a:hover {
 <script>
 	$('#insertBtn').on('click', function() {
 		var url ='<%=request.getContextPath()%>/insertAdminForm.do';
-		window.open(url, 'insert', 'width=300px, height=320px');
+		window.open(url, 'insert', 'width=330px, height=355px');
 	});
 
 	$('#deleteBtn').on('click', function() {

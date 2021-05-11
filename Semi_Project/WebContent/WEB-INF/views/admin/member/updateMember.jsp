@@ -80,19 +80,19 @@ select {
 }
 
 #btns button:first-child {
-	background: orange;
-}
-
-#btns button:first-child:hover {
-	background: #ffa500d9;
-}
-
-#btns button:last-child {
 	background: #666666;
 }
 
-#btns button:last-child:hover {
+#btns button:first-child:hover {
 	background: #666666d9;
+}
+
+#btns button:last-child {
+	background: orange;
+}
+
+#btns button:last-child:hover {
+	background: #ffa500d9;
 }
 </style>
 </head>
@@ -150,7 +150,6 @@ select {
 </body>
 <script>
 	function check() {
-		// 빈칸 유효성 검사
 		var name = $('#name').val().trim();
 		var phone = $('#phone').val().trim();
 		var email = $('#email').val().trim();
