@@ -259,4 +259,17 @@ public class MemberService {
 		return result;
 	}
 
+	public int deleteFavorite(int userNo, int pNo) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().deleteFavorite(conn, userNo, pNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
 }
