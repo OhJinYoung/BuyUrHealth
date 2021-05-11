@@ -280,7 +280,7 @@ ArrayList<Cart> cartlist = (ArrayList<Cart>)request.getAttribute("cartlist");
 				
 			</div>
 			<div class="btns">
-				<input type ="submit" class="btn1" onClick="this.form.action='insertFavorite'" value="찜하기">
+				<input type ="submit" class="btn1" onClick="this.form.action='InsertFavorite'" value="찜하기">
 				<input type ="submit" class="btn2" onClick="this.form.action='getcart'" value="장바구니">
 			</div>
 			<div class="btns">
