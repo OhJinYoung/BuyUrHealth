@@ -107,7 +107,7 @@ h2{
 </head>
 <body>
 	<div class="humanBody">
-		<h2>신체부위별 영양소 추천</h2>
+		<h2>신체부위별 영양제 추천</h2>
 		<div id="mainBody" align="center">
 			<div class="supplements1">
 				<div class="supplementsImg1">
@@ -178,7 +178,7 @@ h2{
 				location.href="<%=request.getContextPath()%>/goProduct2";
 			});
 			$(".supplementsImg5 img").attr("src", hairArr[hairRandn]).on("click", function(){
-				location.href="<%=request.getContextPath()%>/goProduct1";
+				location.href="<%=request.getContextPath()%>/goProduct";
 			});
 			$(".supplementsImg6 img").attr("src", brainArr[brainRandn]).on("click", function(){
 				location.href="<%=request.getContextPath()%>/goProduct4";
