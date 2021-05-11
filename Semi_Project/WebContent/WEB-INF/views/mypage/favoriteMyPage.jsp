@@ -181,6 +181,7 @@
 									if (pf.getProductNo() == f.getProductNo()) {
 								%>
 									<img width="120px" height="120px" src="<%=request.getContextPath()%>/uploadFiles/productUpload/<%=f.getChangeName()%>">
+									<input type="hidden" id="pNo" name="pNo" value="<%=f.getProductNo() %>">
 								<%
 									}
 								%>
@@ -195,24 +196,6 @@
 				<% }	%>
 				<% }	%>
 			
-			<div id="pagingBtns" align="center"> <!-- 아직 구현 안됨 -->
-				<button value="1" class="beforeBtn">&lt;&lt;</button>
-				<button value="<%=paging.getCurrentPage() - 1%>" class="beforeBtn">&lt;</button>
-				<%
-					for (int i = paging.getStartPage(); i <= paging.getEndPage(); i++) {
-					if (i == paging.getCurrentPage()) {
-				%>
-				<button id="currentPage" disabled><%=i%></button>
-				<%
-					} else {
-				%>
-				<button value="<%=i%>"><%=i%></button>
-				<% }
-				}
-				%>
-				<button value="<%=paging.getCurrentPage() + 1%>" class="afterBtn">&gt;</button>
-				<button value="<%=paging.getMaxPage()%>" class="afterBtn">&gt;&gt;</button>
-			</div>
 		</div>
 	</div>
     
@@ -237,12 +220,19 @@
 		 
 
 		$('#checkDelete').on('click', function(){
-			$('.likeitem_body input:checked').each(function(){
+			$('.item input:checked').each(function(){
 				  var checked = $(this).attr("checked");
+				  var pNo = $(this).children().eq(1).val();
 				  if(checked==undefined){
-				   $(this).parent().remove();
+				  		$(this).parent().remove();
+				  		
 				  }
 			});
+		});
+		
+		$('.item img').on('click', function(){
+			var pNo = $(this).next().val();
+			location.href="<%= request.getContextPath() %>/detail.pro?pNo="+pNo;
 		});
 	</script>
 </body>
