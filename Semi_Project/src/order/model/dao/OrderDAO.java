@@ -373,4 +373,25 @@ public class OrderDAO {
 		}
 		return order;
 	}
+
+	public int insertRequest(Connection conn, int no, RequestOrder ro) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertRequest");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, ro.getType());
+			pstmt.setString(2, ro.getInfo());
+			pstmt.setInt(3, no);
+	
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

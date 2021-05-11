@@ -6,6 +6,7 @@
 	ArrayList<OrderDetail> orderDetail = (ArrayList<OrderDetail>)request.getAttribute("orderDetail");
 	ArrayList<Product> product = (ArrayList<Product>)request.getAttribute("product");
 	ArrayList<ProductFile> productFile = (ArrayList<ProductFile>)request.getAttribute("productFile");
+	ArrayList<RequestOrder> requestOrder = (ArrayList<RequestOrder>)request.getAttribute("orderRequest");
 	
 	String authority = null;
 	if(member.getAuthority() == 'Y'){
@@ -69,6 +70,7 @@
 				<% OrderDetail od = orderDetail.get(i); %>
 				<% Product p = product.get(i); %>
 				<% ProductFile pf = productFile.get(i); %>
+				<% RequestOrder ro = requestOrder.get(i); %>
 				<div class="buy-product">
 					<div class="buy-list-head">
     					<label></label>
@@ -84,6 +86,11 @@
 							<p>가격 : <%=p.getProductPrice() %></p><p style="float: right; margin-right: 50px;">개수 : <%= od.getVolume() %></p>
 		
 						</div>
+						<% if(ro.getType() == null) { %>
+						
+						<% } else { %>
+								<h2 id="requestCheck" style="color: red;"><%=ro.getType()%></h2>
+						<% } %>
 					</div>
 			
 					<div class="product-request">
@@ -101,6 +108,15 @@
     
     
 	<script>
+		$(function(){
+			if($('#requestCheck').attr('id') == "requestCheck"){
+				$('#product-return').on('click', function(){
+					alert('이미 신청되었습니다.');
+					location.href="<%= request.getContextPath() %>/buyMyPage.me";
+				});
+			}
+		});
+		
 		$('#product-return').on('click', function(){
 			location.href="<%= request.getContextPath() %>/productReturnForm.me";
 		});

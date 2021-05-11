@@ -15,6 +15,7 @@ import member.model.vo.Member;
 import order.model.service.OrderService;
 import order.model.vo.Order;
 import order.model.vo.OrderDetail;
+import order.model.vo.RequestOrder;
 import product.model.service.ProductService;
 import product.model.vo.Product;
 import product.model.vo.ProductFile;
@@ -46,6 +47,7 @@ public class BuyMypageServlet extends HttpServlet {
 		ArrayList<OrderDetail> orderDetail = new ArrayList<>();
 		ArrayList<Product> product = new ArrayList<>();
 		ArrayList<ProductFile> productFile = new ArrayList<>();
+		ArrayList<RequestOrder> orderRequest = new ArrayList<>();
 		
 		
 		Member member = new MemberService().selectMember(id);
@@ -57,6 +59,8 @@ public class BuyMypageServlet extends HttpServlet {
 			product.add(p);
 			ProductFile pf = new ProductService().selectProductFile(product.get(i).getProductNo());
 			productFile.add(pf);
+			RequestOrder ro = new OrderService().selectRequest(orderList.get(i).getNo());
+			orderRequest.add(ro);
 		}
 		
 //		int userNo = member.getUserNo();
@@ -69,6 +73,7 @@ public class BuyMypageServlet extends HttpServlet {
 			request.setAttribute("orderDetail", orderDetail);
 			request.setAttribute("product", product);
 			request.setAttribute("productFile", productFile);
+			request.setAttribute("orderRequest", orderRequest);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
 			request.setAttribute("msg", "구매목록 조회에 실패하였습니다.");
