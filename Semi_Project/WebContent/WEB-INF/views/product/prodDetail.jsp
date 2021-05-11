@@ -87,8 +87,8 @@ ArrayList<Cart> cartlist = (ArrayList<Cart>)request.getAttribute("cartlist");
 }
 
 .product_view .img>img {
-	width: 300px;
-	height: 300px;
+	width: 250px;
+	height: 250px;
 	position: absolute;
 	left: 25px;
 	top: 0;
