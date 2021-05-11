@@ -33,19 +33,14 @@ public class OrderCompleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		System.out.println("welcome to OrderCompleteServlet");
-		
 		int oNo = Integer.parseInt(request.getParameter("orderNo"));
-		System.out.println("oNo받음");
 		
 		Order order = new UserOrderService().detailOrder(oNo);
-		System.out.println("detailOrder에 넘김");
 		
 		String page = null;
 		if(order != null) {
 			page = "WEB-INF/views/cart/orderCompleteView.jsp";
 			request.setAttribute("order", order);
-			System.out.println("com.or -> orderCompleteView");
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
 			request.setAttribute("msg", "주문접수에 실패했습니다.");

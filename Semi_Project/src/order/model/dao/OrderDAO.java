@@ -258,7 +258,7 @@ public class OrderDAO {
 
 			while (rset.next()) {
 				OrderDetail od = new OrderDetail(rset.getInt("od_no"), rset.getInt("od_volume"),
-						rset.getString("product_name"), rset.getInt("product_price"));
+						rset.getString("product_name"), rset.getInt("product_price"),rset.getString("file_path"),rset.getString("change_name"));
 				
 				olist.add(od);
 			}

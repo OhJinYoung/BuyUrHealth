@@ -7,16 +7,20 @@ public class OrderDetail {
 	private int orderNo;
 	private String productName;
 	private int price;
+	private String filePath;
+	private String fileName;
 
 	public OrderDetail() {
 	}
 
-	public OrderDetail(int no, int volume, String productName, int price) {
+	public OrderDetail(int no, int volume, String productName, int price, String filePath, String fileName) {
 		super();
 		this.no = no;
 		this.volume = volume;
 		this.productName = productName;
 		this.price = price;
+		this.filePath = filePath;
+		this.fileName = fileName;
 	}
 
 	public OrderDetail(int no, int volume, int productNo, int orderNo) {
@@ -83,6 +87,22 @@ public class OrderDetail {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 }

@@ -53,60 +53,6 @@ public class OrderFormServlet extends HttpServlet {
 		}
 		request.getRequestDispatcher(page).forward(request, response);
 
-		
-		/*// proName(상품명)
-        String[] proName = request.getParameterValues("proName");
-        
-        
-        // proPrice(상품가격)
-        String[] pPrice = request.getParameterValues("proPrice");
-        int[] proPrice = new int[pPrice.length];
-        for(int i=0; i<pPrice.length; i++) {
-        	proPrice[i] = Integer.parseInt(pPrice[i]);
-        }
-        
-        // proNo(상품번호)
-        String[] pNo = request.getParameterValues("proNo");
-        int[] proNo = new int[pNo.length];
-        for(int i=0; i<pNo.length; i++) {
-        	proNo[i] = Integer.parseInt(pNo[i]);
-        }
-        
-        // cartVol(장바구니 수량)
-        String[] cVol = request.getParameterValues("cartVol");
-        int[] cartVol = new int[cVol.length];
-        for(int i=0; i<cVol.length; i++) {
-        	cartVol[i] = Integer.parseInt(cVol[i]);
-        }
-        
-        // cartPrice(수량*상품가격)
-        String[] cPrice = request.getParameterValues("cartPrice");
-        int[] cartPrice = new int[cPrice.length];
-        for(int i=0; i<cPrice.length; i++) {
-        	cartPrice[i] = Integer.parseInt(cPrice[i]);
-        }
-
-        
-        ArrayList<OrderDetail> od = new ArrayList<OrderDetail>();
-        for(int i = 1; ; i++) {
-        	od.add(new OrderDetail(0, cartVol[i], proNo[i], 0, proName[i], proPrice[i]));
-        }
-        OrderDetail OrderDetail = null;
-		for(int i = 0; i < od.size(); i++) {
-			OrderDetail += od.get(i);
-		}
-
-        System.out.println(od);
-        
-        String page = null;
-		if(od != null) {
-			page = "WEB-INF/views/cart/orderView_Payment.jsp";
-			request.setAttribute("od", od);
-		} else {
-			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg", "공지사항 조회에 실패하였습니다.");
-		}
-		request.getRequestDispatcher(page).forward(request, response);*/
 	}
 
 	/**

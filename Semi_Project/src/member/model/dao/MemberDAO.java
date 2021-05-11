@@ -20,7 +20,6 @@ import member.model.vo.Member;
 
 public class MemberDAO {
 	private Properties prop = new Properties();
-	private DateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 	public MemberDAO() {
 		String fileName = MemberDAO.class.getResource("/sql/member/member-query.properties").getPath();

@@ -38,7 +38,7 @@ private Properties prop = new Properties();
 		int result = 0;
 		
 		String query = prop.getProperty("insertCart");
-		// InsertCart=INSERT INTO CART VALUES(co_seq.NEXTVAL, ?, ?, ?)
+		// insertCart=INSERT INTO CART VALUES(co_seq.NEXTVAL, ?, ?, ?)
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -143,27 +143,6 @@ private Properties prop = new Properties();
 	}
 
 
-	public int deleteOrderDetail(Connection conn, int proNo) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("deleteOrderDetail");
-		// 
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, proNo);
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
-	
 	public ArrayList<ProductFile> selectFList(Connection conn) {
 		Statement stmt = null;
 		ResultSet rset = null;
