@@ -107,7 +107,7 @@ h2{
 </head>
 <body>
 	<div class="humanBody">
-		<h2>신체부위별 영양소 추천</h2>
+		<h2>신체부위별 영양제 추천</h2>
 		<div id="mainBody" align="center">
 			<div class="supplements1">
 				<div class="supplementsImg1">
