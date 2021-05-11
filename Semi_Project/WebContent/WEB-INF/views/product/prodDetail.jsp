@@ -284,7 +284,7 @@ ArrayList<Cart> cartlist = (ArrayList<Cart>)request.getAttribute("cartlist");
 				<input type ="submit" class="btn2" onClick="this.form.action='getcart'" value="장바구니">
 			</div>
 			<div class="btns">
-				<input type ="submit" class="btn3" onClick="this.form.action='gocart'" value="즉시 구매하기">
+				<input type ="hidden" class="btn3" onClick="this.form.action='gocart'" value="즉시 구매하기">
 			</div>
 		</div>
 		<!-- product_view 끝 -->
