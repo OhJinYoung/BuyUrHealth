@@ -15,6 +15,7 @@ import Cart.model.service.CartService;
 import Cart.model.vo.Cart;
 import member.model.service.MemberService;
 import member.model.vo.Member;
+import product.model.vo.ProductFile;
 
 /**
  * Servlet implementation class CartFromServlet
@@ -48,11 +49,15 @@ public class CartServlet extends HttpServlet {
 		
 		ArrayList<Cart> cartlist = new CartService().selectList(userNo); 
 		
+		ArrayList<ProductFile> fList = new CartService().selectTList(1);
+		System.out.println(fList);
+		
 		String page = null;
 		if(cartlist != null) {
 			page = "WEB-INF/views/cart/cartView.jsp";
 			request.setAttribute("cartlist", cartlist);
 			request.setAttribute("userId", member);
+			request.setAttribute("fList",  fList);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
 			request.setAttribute("msg", "회원 조회에 실패하였습니다.");

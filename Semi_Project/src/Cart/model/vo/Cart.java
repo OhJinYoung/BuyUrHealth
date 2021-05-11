@@ -60,6 +60,13 @@ public class Cart {
 		this.userNo = userNo;
 	}
 	
+	public Cart(int cartVolume, int userNo, int productNo) {
+		super();
+		this.cartVolume = cartVolume;
+		this.userNo = userNo;
+		this.productNo = productNo;
+	}
+	
 	public Cart(int cartNo, String productName, int productVolume, int cartVolume, int productPrice, int userNo,
 			int productNo) {
 		super();

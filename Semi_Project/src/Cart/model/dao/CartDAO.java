@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import Cart.model.vo.Cart;
+import product.model.vo.ProductFile;
 
 
 public class CartDAO {
@@ -37,7 +38,7 @@ private Properties prop = new Properties();
 		int result = 0;
 		
 		String query = prop.getProperty("insertCart");
-		// InsertCart=INSERT INTO CART VALUES(co_seq.NEXTVAL, ?, ?, ?)
+		// insertCart=INSERT INTO CART VALUES(co_seq.NEXTVAL, ?, ?, ?)
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -142,25 +143,31 @@ private Properties prop = new Properties();
 	}
 
 
-	public int deleteOrderDetail(Connection conn, int proNo) {
-		PreparedStatement pstmt = null;
-		int result = 0;
+	public ArrayList<ProductFile> selectFList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<ProductFile> list = null;
 		
-		String query = prop.getProperty("deleteOrderDetail");
-		// 
-		
+		String query = prop.getProperty("selectFList");
+		// selectFList=SELECT * FROM ADDFILE WHERE F_YN ='Y'
+
 		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, proNo);
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
 			
-			result = pstmt.executeUpdate();
+			list = new ArrayList<ProductFile>();
+			while(rset.next()) {
+				list.add(new ProductFile( 
+						rset.getInt("PRODUCT_NO"),
+						rset.getString("CHANGE_NAME")));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(pstmt);
+			close(rset);
+			close(stmt);
 		}
-		
-		return result;
+		return list;
 	}
 
 

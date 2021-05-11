@@ -17,14 +17,14 @@ import product.model.vo.ProductFile;
 /**
  * Servlet implementation class ProductListServlet
  */
-@WebServlet("/goProduct")
-public class ProductListServlet extends HttpServlet {
+@WebServlet("/goProduct2")
+public class ProductListServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductListServlet() {
+    public ProductListServlet2() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,7 +45,9 @@ public class ProductListServlet extends HttpServlet {
 		int startPage;		// 페이징 된 페이지 중 시작 페이지
 		int endPage; 		// 페이징 된 페이지 중 마지막 페이지
 
-		listCount = pService.getlistCount1();
+		
+		
+		listCount = pService.getlistCount2();
 		System.out.println(listCount);
 		
 		currentPage = 1;
@@ -67,14 +69,14 @@ public class ProductListServlet extends HttpServlet {
 
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 
-		int pcategory = 1;
+		int pcategory = 2;
 		ArrayList<Product> pList = pService.selectTList(pi, 1, pcategory);
 		ArrayList<ProductFile> fList = pService.selectTList(pi, 2, pcategory);
 		
 		
 		String page = null;
 		if(pList != null && fList != null) {
-			page = "WEB-INF/views/product/prodList.jsp";
+			page = "WEB-INF/views/product/prodList2.jsp";
 			request.setAttribute("pList",  pList);
 			request.setAttribute("fList",  fList);
 			request.setAttribute("pi",  pi);
