@@ -234,7 +234,6 @@
 			$("input[name=checking]:checked").each(function(){
 				var pNo = $('#pNo').val();
 				location.href="<%= request.getContextPath() %>/addCartMypage?pNo="+pNo;
-				
             });  
 		});
 	</script>
