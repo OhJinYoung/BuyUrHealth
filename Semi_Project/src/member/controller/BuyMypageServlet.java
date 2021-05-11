@@ -63,8 +63,6 @@ public class BuyMypageServlet extends HttpServlet {
 			orderRequest.add(ro);
 		}
 		
-//		int userNo = member.getUserNo();
-		
 		String page = null;
 		if(id != null) {
 			page = "WEB-INF/views/mypage/buyMyPage.jsp";
