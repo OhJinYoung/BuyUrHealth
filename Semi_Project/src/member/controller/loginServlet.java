@@ -47,7 +47,7 @@ public class loginServlet extends HttpServlet {
 				response.sendRedirect(request.getContextPath()); 
 				
 		}else {
-			request.setAttribute("msg", "·Î±×ÀÎ ½ÇÆÐÇÏ¿´½À´Ï´Ù.");
+			request.setAttribute("msg", "ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 
 			RequestDispatcher view =
 					request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
