@@ -34,7 +34,7 @@
 </style>
 <div class="customerCenter-menubar">
 	<hr>
-        <h2 id="customerCenter-menubar-name">마이페이지</h2>
+        <h2 id="customerCenter-menubar-name">고객센터</h2>
     <hr>
         <ul>
           <li class="link" id="goNotice">공지사항</li>
