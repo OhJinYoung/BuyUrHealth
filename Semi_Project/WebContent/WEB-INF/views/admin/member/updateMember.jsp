@@ -39,6 +39,7 @@ tr td:first-child {
 
 input {
 	width: 160px;
+	outline: none;
 }
 
 #contents {
@@ -93,6 +94,17 @@ select {
 
 #btns button:last-child:hover {
 	background: #ffa500d9;
+}
+
+input[type=text]:hover {
+	-webkit-box-shadow: inset 0 0 2px 0 rgb(115 128 150/ 20%);
+	box-shadow: inset 0 0 2px 0 rgb(115 128 150/ 20%);
+	z-index: 2;
+	outline: none;
+}
+
+input{
+	outline: none;
 }
 </style>
 </head>
