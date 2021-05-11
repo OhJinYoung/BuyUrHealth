@@ -178,7 +178,7 @@ h2{
 				location.href="<%=request.getContextPath()%>/goProduct2";
 			});
 			$(".supplementsImg5 img").attr("src", hairArr[hairRandn]).on("click", function(){
-				location.href="<%=request.getContextPath()%>/goProduct1";
+				location.href="<%=request.getContextPath()%>/goProduct";
 			});
 			$(".supplementsImg6 img").attr("src", brainArr[brainRandn]).on("click", function(){
 				location.href="<%=request.getContextPath()%>/goProduct4";
