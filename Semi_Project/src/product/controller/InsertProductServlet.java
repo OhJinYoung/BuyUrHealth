@@ -125,8 +125,7 @@ public class InsertProductServlet extends HttpServlet {
 			int result = new ProductService().insertProduct(p, fileList);
 			
 			if(result > 0 ) {
-				response.sendRedirect("goProduct");
-				
+				response.sendRedirect("productList.do");
 			} else {
 				request.setAttribute("msg", "제품 등록에 실패하였습니다.");
 			

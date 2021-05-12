@@ -9,22 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.PageInfo;
-import common.PagingTemplate;
 import product.model.service.ProductService;
 import product.model.vo.Product;
+import product.model.vo.ProductFile;
 
 /**
- * Servlet implementation class ProductListServlet
+ * Servlet implementation class AdminProductDetailServlet
  */
-@WebServlet("/goProduct")
-public class ProductListServlet extends HttpServlet {
+@WebServlet("/productDetail.do")
+public class AdminProductDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ProductListServlet() {
+	public AdminProductDetailServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,20 +34,23 @@ public class ProductListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String page = request.getParameter("page");
-		String cate = request.getParameter("cate");
-		if(cate==null||cate.equals(""))
-			cate="기초영양";
-		ProductService pService = new ProductService();
+		int pNo = Integer.parseInt(request.getParameter("product_no"));
 
-		int listCount = pService.listCount(cate);
-		PageInfo pi = new PagingTemplate().getPageInfo(page, listCount);
+		ProductService service = new ProductService();
 
-		ArrayList<Product> list = pService.productList(pi, cate);
+		Product product = service.selectProduct(pNo);
+		ArrayList<ProductFile> fileList = service.selectProductFiles(pNo);
 
-		request.setAttribute("page", pi);
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("WEB-INF/views/product/prodList.jsp").forward(request, response);
+		String page = null;
+		if (fileList != null) {
+			request.setAttribute("product", product);
+			request.setAttribute("fileList", fileList);
+			page = "WEB-INF/views/admin/product/prodDetail.jsp";
+		} else {
+			request.setAttribute("msg", "제품 상세조회에 실패했습니다");
+			page = "WEB-INF/views/common/errorPage.jsp";
+		}
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**
