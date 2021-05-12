@@ -372,7 +372,7 @@ public class ProductDAO {
 		try {
 			int startRow = (pi.getCurrentPage() - 1) * pi.getPageLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
-
+			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, cate);
 			pstmt.setInt(2, startRow);
