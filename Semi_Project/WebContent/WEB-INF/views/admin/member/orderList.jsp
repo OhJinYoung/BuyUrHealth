@@ -231,7 +231,7 @@ input{
 	<%@include file="../header.jsp"%>
 	<div id="container">
 		<div id="container-wrap">
-			<%@include file="memberNav.jsp"%>
+			<%@include file="orderNav.jsp"%>
 			<div id="contents">
 				<div id="contents-wrap">
 					<div id="top">
