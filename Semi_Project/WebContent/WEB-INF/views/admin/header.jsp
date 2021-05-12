@@ -53,7 +53,7 @@ hr {
 	<div class="wrap">
 		<nav>
 			<div>
-				<a href="<%=request.getContextPath()%>"><img class="mainLogo"
+				<a href="memberList.do"><img class="mainLogo"
 					src="<%=request.getContextPath()%>/images/mainlogo.png"
 					width="100px" height="50px" alt="My Image"></a>
 			</div>
