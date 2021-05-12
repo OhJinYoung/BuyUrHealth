@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, member.model.vo.Member, product.model.vo.Product, product.model.vo.ProductFile,  product.model.vo.PageInfo, common.MyFileRenamePolicy"%>
+	import="java.util.ArrayList, member.model.vo.Member, product.model.vo.*, common.PageInfo, common.MyFileRenamePolicy"%>
 <%
 Member authority = (Member) session.getAttribute("loginUser");
 
-ArrayList<Product> pList = (ArrayList<Product>) request.getAttribute("pList");
-ArrayList<ProductFile> fList = (ArrayList<ProductFile>) request.getAttribute("fList");
-PageInfo paging = (PageInfo) request.getAttribute("pi");
+ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("list");
+PageInfo paging = (PageInfo) request.getAttribute("page");
 %>
 <!DOCTYPE html>
 <html>
@@ -151,20 +150,20 @@ padding: 5px 0;
 				<div id="contents-wrap">
 					<div id="top">
 						<div>
-							<h4><%=pList.get(0).getProductDetail()%></h4>
+							<h4><%=list.get(0).getCateName()%></h4>
 						</div>
 					</div>
 					<div id="productlist">
 						<div class="list">
 							<table>
 								<%
-								for (int i = 0; i < pList.size(); i++) {
+								for (int i = 0; i < list.size(); i++) {
 									if (i == 0 || (i - 2 > 0 && ((i - 2) % 3) == 0)) {
 								%>
 								<tr>
 									<%
 									}
-									Product p = pList.get(i);
+									Product p = list.get(i);
 									%>
 									<td>
 										<div class="cell">
@@ -172,23 +171,8 @@ padding: 5px 0;
 														value="<%=p.getProductNo()%>">
 											<div>
 												<div class="img-box">
-													<%
-													for (int j = 0; j < fList.size(); j++) {
-													%>
-													<%
-													ProductFile f = fList.get(j);
-													%>
-													<%
-													if (p.getProductNo() == f.getProductNo()) {
-													%>
 													<img
-														src="<%=request.getContextPath()%>/uploadFiles/productUpload/<%=f.getChangeName()%>">
-													<%
-													}
-													%>
-													<%
-													}
-													%>
+														src="<%=p.getFilePath()+p.getFileName()%>">
 												</div>
 												<div id="product-info">
 													<div class="product-name"><%=p.getProductName()%></div>
