@@ -239,19 +239,6 @@ input {
 						<div>
 							<h4>상품 관리</h4>
 						</div>
-						<div id="top-right">
-							<div>
-								<select id="filter">
-									<option value="Id">아이디</option>
-									<option value="Name">이름</option>
-								</select>
-							</div>
-							<div id="searchBox">
-								<input type="search" id="inputSearch" name="inputSearch"
-									placeholder="검색어를 입력해주세요." value="">
-								<button id="searchBtn">검색</button>
-							</div>
-						</div>
 					</div>
 					<div id="table">
 						<table>
