@@ -81,7 +81,7 @@ public class EmailFormServlet extends HttpServlet {
 			msg.setFrom(new InternetAddress(sender));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
 			
-			msg.setSubject("BUH 계정을 인증해주세요");
+			msg.setSubject("BUH | 계정을 인증해주세요");
 			msg.setText(AuthenticationKey, "UTF-8", "html");
 			
 			Transport.send(msg);

@@ -228,12 +228,12 @@ ArrayList<Cart> cartlist = (ArrayList<Cart>)request.getAttribute("cartlist");
 </style>
 </head>
 <body>
-<% if(authority == null) {%>
-		<%@include file="../title_header.jsp"  %>
-	<% } else if(authority != null && authority.getUserId().equals("admin")) {%>
-		<%@include file="../admin/header.jsp"%>
-	<% } else if(authority != null && !authority.getUserId().equals("admin")) {%>
-		<%@include file="../title_header.jsp"  %>
+	<% if(authority == null) {%>
+	<%@include file="../title_header.jsp"%>
+	<% } else if(authority.getAuthority() == 'Y') {%>
+	<%@include file="../admin/header.jsp"%>
+	<% } else if(authority.getAuthority() == 'N') {%>
+	<%@include file="../title_header.jsp"%>
 	<% } %>
 		<%@include file="productNav.jsp"%>
 
