@@ -21,17 +21,10 @@ import member.model.vo.Member;
 public class loginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public loginServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String id  = request.getParameter("userId"); 
@@ -51,7 +44,7 @@ public class loginServlet extends HttpServlet {
 				}
 	
 		}else {
-			request.setAttribute("msg", "로그인에 실패하셨습니다.");
+			request.setAttribute("msg", "로그인에 실패하였습니다.");
 
 			RequestDispatcher view =
 					request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");

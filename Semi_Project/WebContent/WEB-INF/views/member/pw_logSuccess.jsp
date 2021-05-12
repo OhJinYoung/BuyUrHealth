@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.*"%>
-<% 
-	Member member = (Member)request.getAttribute("UserInfo"); 
-	request.setCharacterEncoding("UTF-8");
-%>   
+ <%
+ 	String key = (String)request.getAttribute("key");
+ 	String email = (String)request.getAttribute("email");
+ 
+ %>
     
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 찾기 성공</title>
+<title>비밀번호 찾기 성공</title>
 <style>
 
 .btn:hover{color:#fff;}
@@ -135,11 +136,15 @@ input::placeholder{
 			<div class="area">
 				
 			<div class="harea">
-					<h4>비밀번호 찾기</h4>
+					<h4>등록된 이메일로 인증</h4>
 			</div>
 				<div class="ediv">
 					<div id="userInfo"> 
-						<p>'<%=member.getUserName()%>'님의</p> 비밀번호는는 <a id="acolor"><%=member.getPassword()%></a> 입니다
+						<p>인증번호를 입력하세요</p>
+						<form action="<%= request.getContextPath() %>/sendtrue.do" method="post">  
+							<input type="text"name="AuthenticationUser">
+							<input type="submit" value="전 송">
+						</form>
 					</div>
 								 
 					<br> 

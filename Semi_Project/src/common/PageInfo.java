@@ -80,4 +80,11 @@ public class PageInfo {
 		this.endPage = endPage;
 	}
 
+	@Override
+	public String toString() {
+		return "PageInfo [currentPage=" + currentPage + ", listCount=" + listCount + ", pageLimit=" + pageLimit
+				+ ", boardLimit=" + boardLimit + ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage="
+				+ endPage + "]";
+	}
+
 }
