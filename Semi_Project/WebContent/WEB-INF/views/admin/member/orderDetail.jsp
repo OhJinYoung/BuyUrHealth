@@ -205,14 +205,9 @@ button:disabled:hover {
 }
 
 #trackingNo:hover {
-	-webkit-box-shadow: inset 0 0 2px 0 rgb(115 128 150/ 20%);
-	box-shadow: inset 0 0 2px 0 rgb(115 128 150/ 20%);
-	z-index: 2;
-}
-
-input{
 	outline: none;
 }
+
 </style>
 </head>
 <body>
