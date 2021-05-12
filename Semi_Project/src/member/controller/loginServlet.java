@@ -21,17 +21,10 @@ import member.model.vo.Member;
 public class loginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public loginServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String id  = request.getParameter("userId"); 
@@ -43,11 +36,15 @@ public class loginServlet extends HttpServlet {
 		if(loginUser !=null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUser", loginUser);
-				session.setMaxInactiveInterval(600);
-				response.sendRedirect(request.getContextPath()); 
-				
+				session.setMaxInactiveInterval(1800);
+				if(loginUser.getAuthority() == 'Y') {
+					response.sendRedirect("memberList.do"); 
+				} else {
+					response.sendRedirect(request.getContextPath()); 
+				}
+	
 		}else {
-			request.setAttribute("msg", "·Î±×ÀÎ ½ÇÆĞÇÏ¿´½À´Ï´Ù.");
+			request.setAttribute("msg", "ë¡œê·¸ì¸ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
 
 			RequestDispatcher view =
 					request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");

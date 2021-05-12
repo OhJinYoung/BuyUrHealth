@@ -166,31 +166,31 @@ h2{
 			var boneArr = ["<%=request.getContextPath()%>/uploadFiles/productUpload/21.png", "<%=request.getContextPath()%>/uploadFiles/productUpload/7.png"];
 			
 			$(".supplementsImg1 img").attr("src", eyesArr[eyesRandn]).on("click", function(){
-				location.href="<%=request.getContextPath()%>/goProduct5";
+				location.href="<%=request.getContextPath()%>/goProduct?cate=눈건강";
 			});
 			$(".supplementsImg2 img").attr("src", skinArr[skinRandn]).on("click", function(){
-				location.href="<%=request.getContextPath()%>/goProduct7";
+				location.href="<%=request.getContextPath()%>/goProduct?cate=피부건강";
 			});
 			$(".supplementsImg3 img").attr("src", muscleArr[muscleRandn]).on("click", function(){
-				location.href="<%=request.getContextPath()%>/goProduct3";
+				location.href="<%=request.getContextPath()%>/goProduct?cate=뼈/관절";
 			});
 			$(".supplementsImg4 img").attr("src", lungsArr[lungsRandn]).on("click", function(){
-				location.href="<%=request.getContextPath()%>/goProduct2";
+				location.href="<%=request.getContextPath()%>/goProduct?cate=항산화";
 			});
 			$(".supplementsImg5 img").attr("src", hairArr[hairRandn]).on("click", function(){
-				location.href="<%=request.getContextPath()%>/goProduct";
+				location.href="<%=request.getContextPath()%>/goProduct?cate=기초영양";
 			});
 			$(".supplementsImg6 img").attr("src", brainArr[brainRandn]).on("click", function(){
-				location.href="<%=request.getContextPath()%>/goProduct4";
+				location.href="<%=request.getContextPath()%>/goProduct?cate=면역력";
 			});
 			$(".supplementsImg7 img").attr("src", heartArr[heartRandn]).on("click", function(){
-				location.href="<%=request.getContextPath()%>/goProduct6";
+				location.href="<%=request.getContextPath()%>/goProduct?cate=장건강";
 			});
 			$(".supplementsImg8 img").attr("src", stomachArr[stomachRandn]).on("click", function(){
-				location.href="<%=request.getContextPath()%>/goProduct7";
+				location.href="<%=request.getContextPath()%>/goProduct?cate=피부건강";
 			});
 			$(".supplementsImg9 img").attr("src", boneArr[boneRandn]).on("click", function(){
-				location.href="<%=request.getContextPath()%>/goProduct3";
+				location.href="<%=request.getContextPath()%>/goProduct?cate=뼈/관절";
 			});
 		});
 	</script>

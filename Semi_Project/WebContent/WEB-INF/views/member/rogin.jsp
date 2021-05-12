@@ -74,7 +74,9 @@ text-align:center; cursor: pointer; color:#333; transition:all 0.9s, color 0.3;
 						<input type="submit" id="btn" class="btn hover1" value="로그인">
 					</div>
 					<div class="caption">
-						<input type="button" id="InfoFind" onclick="infoFind();" class="btn hover2" value="아이디 / 비밀번호 찾기">
+						
+						<input type="button" id="UserFind" onclick="userIdFind();" class="btn hover1" value="아이디 찾기 ">
+						<input type="button" id="UserFind"  onclick="userPwFind();" class="btn hover2" value="비밀번호 찾기">
 						<input type="button" id="JoinBtn"  onclick="joinBtn();"  class="btn hover3" value="회원가입">
 					</div>
 
@@ -84,9 +86,14 @@ text-align:center; cursor: pointer; color:#333; transition:all 0.9s, color 0.3;
 	
 	<script>
 	
-		function infoFind(){
-			location.href='<%= request.getContextPath() %>/infoFind.me';
+		function userIdFind(){
+			location.href='<%= request.getContextPath() %>/find.id';
 		}
+		function userPwFind(){
+			location.href='<%= request.getContextPath() %>/find.pw';
+		}
+	
+	
 		function joinBtn(){
 			location.href='<%= request.getContextPath() %>/signUpForm.me';
 		}

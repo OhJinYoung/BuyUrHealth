@@ -36,17 +36,17 @@ Member loginUserNav = (Member) session.getAttribute("loginUser");
 <div class="product-menubar">
 	<h2 id="product-menubar-name">제품보기</h2>
 	<ul>
-		<li class="link" id="goProduct">기초영양</li>
-		<li class="link" id="goProduct2">항산화</li>
-		<li class="link" id="goProduct3">뼈/관절</li>
-		<li class="link" id="goProduct4">면역</li>
-		<li class="link" id="goProduct5">눈건강</li>
-		<li class="link" id="goProduct6">장건강</li>
-		<li class="link" id="goProduct7">피부건강</li>
+		<li class="link">기초영양</li>
+		<li class="link">항산화</li>
+		<li class="link">뼈/관절</li>
+		<li class="link">면역력</li>
+		<li class="link">눈건강</li>
+		<li class="link">장건강</li>
+		<li class="link">피부건강</li>
 	</ul>
 </div>
 <script>
 $('.link').on('click', function() {
-	location.href='<%=request.getContextPath()%>/' + $(this).attr('id');
+	location.href='<%=request.getContextPath()%>/goProduct?cate=' + $(this).text();
 });
 </script>
