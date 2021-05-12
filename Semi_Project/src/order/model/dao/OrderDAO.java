@@ -279,7 +279,8 @@ public class OrderDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, trackingNo);
-			pstmt.setInt(2, orderNo);
+			pstmt.setString(2, "배송중");
+			pstmt.setInt(3, orderNo);
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
