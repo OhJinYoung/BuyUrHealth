@@ -247,7 +247,7 @@ input{
 				<div id="contents-wrap">
 					<div id="top">
 						<div>
-							<h4>사용자 관리</h4>
+							<h4>회원 관리</h4>
 						</div>
 						<div id="top-right">
 							<div>

@@ -308,8 +308,10 @@ button:disabled:hover {
 					},
 					success : function(data) {
 						alert(data);
-						if (data != '')
+						if (data != ''){
 							window.location.reload();
+							opener.parent.location.reload();
+						}
 						else
 							$('#trackingNo').focus();
 					}
