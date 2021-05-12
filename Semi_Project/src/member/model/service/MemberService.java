@@ -272,4 +272,20 @@ public class MemberService {
 		return result;
 	}
 
+	public int newPwInfo(String email,String newPwd) {
+		Connection conn = getConnection();
+
+		int result = new MemberDAO().newPwInfo(conn,email,newPwd);
+
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+
+		close(conn);
+
+		return result;
+	}
+
 }
