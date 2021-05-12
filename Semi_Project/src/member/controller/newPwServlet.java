@@ -41,7 +41,7 @@ public class newPwServlet extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/changePw.jsp");
 			view.forward(request, response);
 		}else {
-			request.setAttribute("msg", "È¸¿øÁ¤º¸ ¼öÁ¤¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+			request.setAttribute("msg", "ì¸ì¦ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 			
 		}

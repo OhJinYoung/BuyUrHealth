@@ -137,7 +137,6 @@ color: red;
 						
 						이메일 <br>
 							<input id="receive" placeholder="이메일을 입력해주세요"type="text" name="email" required>
-							<!-- <input type="button" value="인증번호" id="mailCheck" class="btn hover1"> -->
 						
 
 						<br><br><br>
@@ -192,8 +191,7 @@ color: red;
 					<br><br>
 						<hr>
 					<br><br>
-					<input type="checkbox" name="category" value="이용약관" id="comp" onclick="selectOne();" required><a> 이용약관 동의 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					
+					<input type="checkbox" name="category" value="이용약관" id="comp" onclick="selectOne();" required><a> 이용약관 동의 </a>&nbsp;&nbsp;
 					<input type="button" value="전문보기" id="look1" class="btn1">
 					
 					<br>

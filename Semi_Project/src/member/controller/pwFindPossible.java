@@ -83,7 +83,7 @@ public class pwFindPossible extends HttpServlet {
 			msg.setFrom(new InternetAddress(sender));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 			
-			msg.setSubject("BUH ÀÌ¸ŞÀÏÀ» ÀÎÁõÇØÁÖ¼¼¿ä");
+			msg.setSubject("BUH | ê³„ì •ì„ ì¸ì¦í•´ì£¼ì„¸ìš”");
 			msg.setText(AuthenticationKey, "UTF-8", "html");
 			
 			Transport.send(msg);
