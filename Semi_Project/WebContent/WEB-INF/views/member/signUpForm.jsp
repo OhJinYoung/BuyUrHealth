@@ -137,7 +137,7 @@ color: red;
 						
 						이메일 <br>
 							<input id="receive" placeholder="이메일을 입력해주세요"type="text" name="email" required>
-							<input type="button" value="인증번호" id="mailCheck" class="btn hover1">
+							<!-- <input type="button" value="인증번호" id="mailCheck" class="btn hover1"> -->
 						
 
 						<br><br><br>
@@ -148,7 +148,8 @@ color: red;
                         
                         
                         <br><br><br>
-						
+						생년월일
+						<br>
                          <input type="text" name="birthyy" maxlength="4" placeholder="년(4자)" size="6" >
                         <select name="birthmm">
                             <option value="">월</option>
