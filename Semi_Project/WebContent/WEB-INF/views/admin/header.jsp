@@ -54,7 +54,7 @@ hr {
 		<nav>
 			<div>
 				<a href="<%=request.getContextPath()%>"><img class="mainLogo"
-					src="<%=request.getContextPath()%>/images/mainlogo.png"
+					src="<%=request.getContextPath()%>/memberList.do"
 					width="100px" height="50px" alt="My Image"></a>
 			</div>
 			<div class="mainMenu" id="memberList.do">사용자 관리</div>
