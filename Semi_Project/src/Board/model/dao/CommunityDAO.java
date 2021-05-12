@@ -43,7 +43,9 @@ public class CommunityDAO {
 			pstmt.setString(1, c.getCommTitle());
 			pstmt.setString(2, c.getCommContent());
 //			pstmt.setInt(3, c.getUserNo());   
-			pstmt.setInt(3, c.getCtgNo());
+//			pstmt.setInt(3, c.getCtgNo());
+			pstmt.setDate(3, c.getCommDate());
+			pstmt.setString(4, c.getUserName());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
