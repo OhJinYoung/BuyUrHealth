@@ -139,7 +139,7 @@ input::placeholder{
 						<form action="<%= request.getContextPath() %>/newPw.me" id="findForm" name="findForm" method="post"> 
 						<input type="text" id="newPwd" name="newPwd"placeholder="새로운 비밀번호를 입력해주세요"required>
 						<br>
-						<input type="submit" value="비밀번호 찾기" id="ebtn"> 
+						<input type="submit" value="비밀번호 수정" id="ebtn"> 
 						</form>
 
 					</div>
