@@ -35,27 +35,71 @@ public class pwFindPossible extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		 
-		String userId	= request.getParameter("userId");
-		String userName = request.getParameter("userName");
-		String email	= request.getParameter("email");
-		String phone	= request.getParameter("phone");
+	request.setCharacterEncoding("UTF-8"); 
 		
-		Member member = new Member(userId,userName,email,phone);
-		Member UserInfo = new MemberService().pwFindInfoMember(member); 
+		String email = request.getParameter("email");
+		
+		StringBuffer temp =new StringBuffer();
+        Random rnd = new Random();
+        for(int i=0;i<10;i++)
+        {
+            int rIndex = rnd.nextInt(3);
+            switch (rIndex) {
+            case 0:
+                // a-z
+                temp.append((char) ((int) (rnd.nextInt(26)) + 97));
+                break;
+            case 1:
+                // A-Z
+                temp.append((char) ((int) (rnd.nextInt(26)) + 65));
+                break;
+            case 2:
+                // 0-9
+                temp.append((rnd.nextInt(10)));
+                break;
+            }
+        }
+        String AuthenticationKey = temp.toString();
+        System.out.println(AuthenticationKey);
+
+		String host = "smtp.naver.com";
+		String sender = "buyurhealth@naver.com";
+		String password = "zz11z1!!";
+		
+		Properties prop = new Properties();
+		prop.put("mail.smtp.host", host);
+		prop.put("mail.smtp.auth", true);
+
+		Session session = Session.getDefaultInstance(prop, new Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(sender, password);
+				
+			}
+		});
+		
+		try {
+			MimeMessage msg = new MimeMessage(session);
+			msg.setFrom(new InternetAddress(sender));
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 			
+			msg.setSubject("BUH | 계정을 인증해주세요");
+			msg.setText(AuthenticationKey, "UTF-8", "html");
 			
-		if(UserInfo !=null) {
-			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/pw_logSuccess.jsp");
-			request.setAttribute("UserInfo", UserInfo);
-			view.forward(request, response); 
-		}else {
-			request.setAttribute("msg", "비밀번호 찾기에 실패하셨습니다.");
-			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
-			view.forward(request, response); 
+			Transport.send(msg);
+		} catch (AddressException e) {
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			e.printStackTrace();
 		}
-	}
+		HttpSession key = request.getSession();
+		key.setAttribute("AuthenticationKey", AuthenticationKey);
+		key.setAttribute("email",email);
+		
+		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/pw_logSuccess.jsp");
+		view.forward(request, response);
+		}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

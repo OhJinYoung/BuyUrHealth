@@ -119,11 +119,12 @@ table {
 .cell {
 	padding: 20px 0 10px 0;
 	border: 1px solid #9a9a9a;
+	width: 302px;
 }
 
 .img-box {
 	padding-bottom: 20px;
-	width:300px;
+	width: 300px;
 }
 
 #product-info {
@@ -136,10 +137,9 @@ table {
 	padding-bottom: 15px;
 }
 
-.product-name{
-padding: 5px 0;
+.product-name {
+	padding: 5px 0;
 }
-
 </style>
 <body>
 	<%@include file="../title_header.jsp"%>
@@ -150,7 +150,7 @@ padding: 5px 0;
 				<div id="contents-wrap">
 					<div id="top">
 						<div>
-							<h4><%=list.get(0).getCateName()%></h4>
+							<h4 id="cate_name"><%=list.get(0).getCateName()%></h4>
 						</div>
 					</div>
 					<div id="productlist">
@@ -158,7 +158,7 @@ padding: 5px 0;
 							<table>
 								<%
 								for (int i = 0; i < list.size(); i++) {
-									if (i == 0 || (i - 2 > 0 && ((i - 2) % 3) == 0)) {
+									if (i == 0 || i==3) {
 								%>
 								<tr>
 									<%
@@ -167,12 +167,11 @@ padding: 5px 0;
 									%>
 									<td>
 										<div class="cell">
-										<input type="hidden" id="pNo" name="pNo"
-														value="<%=p.getProductNo()%>">
+											<input type="hidden" id="pNo" name="pNo"
+												value="<%=p.getProductNo()%>">
 											<div>
 												<div class="img-box">
-													<img
-														src="<%=p.getFilePath()+p.getFileName()%>">
+													<img src="<%=p.getFilePath()+p.getFileName()%>">
 												</div>
 												<div id="product-info">
 													<div class="product-name"><%=p.getProductName()%></div>
@@ -182,13 +181,24 @@ padding: 5px 0;
 										</div>
 									</td>
 									<%
-									if (((i - 2) % 3) == 0) {
+									if (i==2||i==5) {
 									%>
 								</tr>
 								<%
 								}
-								}
+								}if(list.size()%3!=0){
+									int count = 1;
+									if(list.size()==1||list.size()==4)
+										count=2;
+									while(count>0){
 								%>
+								<td width="302px">
+								</td>
+								<%
+								count--;
+								}
+									%></tr>
+									<%} %>
 							</table>
 
 						</div>
@@ -232,21 +242,33 @@ padding: 5px 0;
 </body>
 <script>
 	$('#pagingBtns button').on('click', function(){
-		location.href = '<%=request.getContextPath()%>/goProduct?currentPage='+ page;
+		var page = $(this).val();
+		location.href = '<%=request.getContextPath()%>/goProduct?cate='+$('#cate_name').text()+'&&currentPage='+ page;
 	});
 	
 	$('.cell').click(function(){
 			var pNo = $(this).children().eq(0).val();
 			console.log(pNo);
-			location.href='<%= request.getContextPath() %>/detail.pro?pNo='+pNo;
-	});
-	
-	$('.cell').on('mouseover',function(){
-		$(this).css({"background":"#f2f2f2","cursor":"pointer"});
-		$(this).children().find('img').css({"filter":"brightness(0.95)"});
-	}).on('mouseout',function(){
-		$(this).css({"background":"","color":"","cursor":""});
-		$(this).children().find('img').css({"filter":""});
+			location.href='<%= request.getContextPath() %>/detail.pro?pNo='+ pNo;
+					});
+
+	$('.cell').on('mouseover', function() {
+		$(this).css({
+			"background" : "#f2f2f2",
+			"cursor" : "pointer"
+		});
+		$(this).children().find('img').css({
+			"filter" : "brightness(0.95)"
+		});
+	}).on('mouseout', function() {
+		$(this).css({
+			"background" : "",
+			"color" : "",
+			"cursor" : ""
+		});
+		$(this).children().find('img').css({
+			"filter" : ""
+		});
 	});
 </script>
 </html>

@@ -39,9 +39,9 @@ public class productDeleteServlet extends HttpServlet {
 
 		String msg = "";
 		if (result > 0) {
-			msg = result + "명의 회원을 삭제했습니다.";
+				response.sendRedirect("productList.do");
 		} else {
-			msg = "회원 삭제 중 오류가 발생했습니다.";
+			msg = "제품 삭제 중 오류가 발생했습니다.";
 		}
 
 		response.setContentType("application/json; charset=UTF-8");

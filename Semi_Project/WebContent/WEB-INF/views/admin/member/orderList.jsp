@@ -231,7 +231,7 @@ input{
 	<%@include file="../header.jsp"%>
 	<div id="container">
 		<div id="container-wrap">
-			<%@include file="memberNav.jsp"%>
+			<%@include file="orderNav.jsp"%>
 			<div id="contents">
 				<div id="contents-wrap">
 					<div id="top">
@@ -325,9 +325,7 @@ input{
 								<option>결제완료</option>
 								<option>주문취소</option>
 								<option>배송준비중</option>
-								<option>배송중</option>
 								<option>배송완료</option>
-								<option>반품요청</option>
 								<option>반품완료</option>
 								<option>교환완료</option>
 							</select>
@@ -430,7 +428,7 @@ input{
 	});
 	
 	function orderDetail(order_no){
-		var option='width=670px, height=330px';
+		var option='width=670px, height=600px';
 		var url = '<%=request.getContextPath()%>/orderDetail.do?no=' + order_no;
 		window.open(url,'orderDetail',option);
 	}

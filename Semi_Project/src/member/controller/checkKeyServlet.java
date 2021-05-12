@@ -32,14 +32,15 @@ public class checkKeyServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
-		String AuthenticationKey = (String)request.getSession().getAttribute("AuthenticationKey");
+		String AuthenticationKey  = (String)request.getSession().getAttribute("AuthenticationKey");
+		String email 			  = (String)request.getSession().getAttribute("email");
 		String AuthenticationUser = request.getParameter("AuthenticationUser");
-		
-		if(!AuthenticationKey.equals(AuthenticationUser))
+		System.out.println(email);
+	 	System.out.println(AuthenticationKey);
+		if(!AuthenticationKey.equals(AuthenticationUser) || email == null)
 		{
-			PrintWriter writer = response.getWriter(); 
-			writer.println("<script>alert('BUH계정을 입력해주세요.');</script>"); 
-			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/errorFail.jsp");
+			request.setAttribute("msg", "인증에 실패하였습니다.");
+			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
 			view.forward(request, response);
 			
 		}else {
