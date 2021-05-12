@@ -35,7 +35,7 @@ public class idFindPossible extends HttpServlet {
 			request.setAttribute("UserInfo", UserInfo);
 			view.forward(request, response); 
 		}else {
-			request.setAttribute("msg", "인증에 실패하였습니다.");
+			request.setAttribute("msg", "아이디 찾기를 실패하였습니다.");
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
 			view.forward(request, response); 
 		}

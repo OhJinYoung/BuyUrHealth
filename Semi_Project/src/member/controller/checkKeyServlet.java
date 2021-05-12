@@ -39,7 +39,7 @@ public class checkKeyServlet extends HttpServlet {
 	 	System.out.println(AuthenticationKey);
 		if(!AuthenticationKey.equals(AuthenticationUser) || email == null)
 		{
-			request.setAttribute("msg", "ÀÎÁõ¿¡ ½ÇÆĞÇÏ¼Ì½À´Ï´Ù.");
+			request.setAttribute("msg", "ì¸ì¦ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
 			view.forward(request, response);
 			
