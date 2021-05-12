@@ -36,7 +36,7 @@ public class DeleteCommunityServlet extends HttpServlet {
 		if(result > 0) {
 			response.sendRedirect("qalist.bo");
 		} else {
-			request.setAttribute("msg", "게시글 삭제에 실패했습니다");
+			request.setAttribute("msg", "삭제에 실패했습니다");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
 	}

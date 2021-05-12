@@ -14,6 +14,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	html, body {
+	    height: 100%; 
+	    overflow-y: auto;
+	    overflow-x: hidden;
+	    margin: 0px auto;
+	    letter-spacing: -1px;
+	}
+	
+	.community.head{
+		width: 98%; float: left; margin-left: 30px; 
+		margin-top: 15px;	
+		}
 
     #updateBtn{
     	background-color: #FFC83D;
@@ -82,27 +94,34 @@
         font-size: 0.9375em;
         float: center;
         text-align: center;
-    }      
-        
+    }    
+   
+	 textarea {
+	border-radius: 5px;
+	}  
+  
 </style>
 </head>
 <body>
 	<%@include file="../title_header.jsp"  %>
 		
-	<div class="community body">
+	<div class="community head" align="center">
+		<h3 align="center">상세내용</h3>
 		<br>
-		<h2 align="center">상세보기</h2>
-		<div class="tableArea">
+	</div>	
+		<div class="tableArea" align="center">
 			<form action="<%= request.getContextPath() %>/communityUpdateForm.co" id="detailForm" method="post">
-			
+			<div class="community body" align="center">
 				<table>
 					<tr>
 						<th>제목</th>
-						<td align="center"colspan="3"><%= c.getCommTitle() %></td>
+						<td colspan="3"><%= c.getCommTitle() %></td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td><%= c.getUserName()%></td>
+						<td><%= c.getUserName()%></td> 
+					</tr>
+					<tr>	
 						<th>작성일</th>
 						<td><%= c.getCommDate() %></td>
 					</tr>
@@ -121,14 +140,14 @@
 						</td>
 					</tr>
 				</table>
-				
+			</div>	
 				
 				<div align="center">
 					<% if(loginUser != null){ %>
 					<input type="submit" id="updateBtn" value="수정">
 					<input type="button" onclick="deleteBoard();" id="deleteBtn" value="삭제">
 					<% } %>
-					<input type="button" onclick="location.href='<%= request.getContextPath() %>/list.bo'" id="menuBtn" value="메뉴로">
+					<input type="button" onclick="location.href='<%= request.getContextPath() %>/goCommunity'" id="menuBtn" value="목록으로">
 				</div>
 			</form>
 		</div>
@@ -138,7 +157,7 @@
 				<table>
 					<tr>
 						<td>댓글 작성</td>
-						<td><textarea rows="3" cols="80" id="replyContent" style="resize:none;"></textarea>
+						<td><textarea rows="3" cols="70" id="replyContent" style="resize:none;"></textarea>
 						<td><button id="addReply">댓글 등록</button></td>
 					</tr>
 				</table>
