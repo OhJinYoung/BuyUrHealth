@@ -396,7 +396,6 @@ int sum = 0;
 					msg += '휴대폰 번호 : ' + rsp.buyer_tel + '\n';
 					msg += '이메일 : ' + rsp.buyer_email + '\n';
 					msg += '주소 : ' + rsp.buyer_addr + '\n';
-					msg += '결제 금액 : ' + rsp.paid_amount;
 					
 					/* 필수 */
 					

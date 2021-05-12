@@ -51,7 +51,7 @@ public class pwFindPossible extends HttpServlet {
 			request.setAttribute("UserInfo", UserInfo);
 			view.forward(request, response); 
 		}else {
-			request.setAttribute("msg", "ÀÎÁõ¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.");
+			request.setAttribute("msg", "ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°ì— ì‹¤íŒ¨í•˜ì…¨ìŠµë‹ˆë‹¤.");
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
 			view.forward(request, response); 
 		}

@@ -43,11 +43,11 @@ public class loginServlet extends HttpServlet {
 		if(loginUser !=null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUser", loginUser);
-				session.setMaxInactiveInterval(600);
+				session.setMaxInactiveInterval(6000);
 				response.sendRedirect(request.getContextPath()); 
 				
 		}else {
-			request.setAttribute("msg", "�α��� �����Ͽ����ϴ�.");
+			request.setAttribute("msg", "로그인에 실패하였습니다.");
 
 			RequestDispatcher view =
 					request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");

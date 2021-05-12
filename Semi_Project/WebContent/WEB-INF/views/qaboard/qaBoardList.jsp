@@ -145,6 +145,11 @@
 	
 	
 	li:hover {background: beige; color:orangered; font-weight:bold; cursor:pointer;}
+	button {
+	border: 0px;
+	border-radius: 2px;
+	}
+	
 	
 	.pagingArea button{width: 30px; height: 30px;}
 	#pagingArea button:hover {
@@ -167,6 +172,36 @@
 	
 	.none{
 		display: none;
+	}
+	
+	#pagingBtns {
+		padding-bottom: 30px;
+	}
+	
+	#pagingBtns button {
+		background: #efefef;
+		width: 30px;
+		height: 30px;
+	}
+	
+	#pagingBtns button:hover {
+		cursor: pointer;
+		background: #d6d6d6;
+	}
+	
+	#pagingBtns button:disabled:hover {
+		cursor: default;
+		background: #efefef;
+	}
+	
+	#currentPage {
+		background: orange !important;
+		color: white;
+		cursor: default !important;
+	}
+	
+	#currentPage:hover {
+		background: orange !important
 	}
 	
 </style>

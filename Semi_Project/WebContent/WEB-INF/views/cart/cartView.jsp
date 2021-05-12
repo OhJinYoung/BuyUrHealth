@@ -26,6 +26,7 @@ int sum = 0;
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
 	html, body {
+		height: 100%; 
 	    overflow-y: auto;
 	    overflow-x: hidden;
 	    margin: 0px auto;
@@ -33,9 +34,11 @@ int sum = 0;
 	}	
 	
 	#cartTitle{
+		width: 80%;
 		color: red; 
-		padding-left: 180px; 
-		padding-top: 30px;
+		padding-top: 50px;
+		padding-bottom: 20px;
+		margin: 0px auto;
 		font-size: 24px;
 	}
 	

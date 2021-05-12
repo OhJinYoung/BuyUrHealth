@@ -36,7 +36,7 @@ public class InsertMemberServlet extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       request.setCharacterEncoding("UTF-8"); 
 
-      // »ıÀÏÀÇ °æ¿ì <select>·Î µÇ¾î ÀÖ´Âµ¥ ÆÄ¶ó¹ÌÅÍ °ªÀ» ¹ŞÀ» ½Ã ¹è¿­ÇüÅÂ·Î ³Ñ°Ü ¹Ş´Â´Ù.
+      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ <select>ï¿½ï¿½ ï¿½Ç¾ï¿½ ï¿½Ö´Âµï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ï¿½Â·ï¿½ ï¿½Ñ°ï¿½ ï¿½Ş´Â´ï¿½.
 //      String[] birthmm = request.getParameterValues("birth_mm");
 //      String birthdd = request.getParameter("birth_dd");
      
@@ -57,12 +57,12 @@ public class InsertMemberServlet extends HttpServlet {
       String phone		= request.getParameter("phone");
       String email		= request.getParameter("email");
 //      String userDate	= request.getParameter("userDate");
-      // º¸³»±â Èûµå´Ï member¿¡ ´ã¾Æ º¸³½´Ù
+      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ memberï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
       Member member = new Member(passWord,gender,userId,userName,birth,phone,email,null,'Y',null);
       
 //      Member member = new Member(passWord,gender,userId,userName,null,phone,email,null);
-      // ¹Ş¾Æ¿Â µ¥ÀÌÅÍ¸¦ db¿¡ º¸³»±â À§ÇØ ¾îµğ·Î º¸³»¾ßÇÏ´Â°¡? ±×°ÍÀº ¹Ù·Î ¼­ºñ½ººÎºĞ!
-      //¼º°øÇÑ ÇàÀÇ °¹¼ö¸¦ ¹Ş¾Æ¿À´Ï±ñ int
+      // ï¿½Ş¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ dbï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Â°ï¿½? ï¿½×°ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ñ½ººÎºï¿½!
+      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¾Æ¿ï¿½ï¿½Ï±ï¿½ int
       
       int result = new MemberService().insertMember(member);
       
@@ -70,11 +70,11 @@ public class InsertMemberServlet extends HttpServlet {
       if(result > 0) {
 //         response.sendRedirect(request.getContextPath());
 //         request.getRequestDispatcher("WEB-INF/views/common/mainView.jsp");
-         request.setAttribute("msg", "È¸¿ø°¡ÀÔ¿¡ ¼º°øÇÏ¼Ì½À´Ï´Ù.");
+         request.setAttribute("msg", "íšŒì›ê°€ì…ì— ì„±ê³µí•˜ì…¨ìŠµë‹ˆë‹¤.");
          RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/signupSuccess.jsp");
          view.forward(request, response);
       }else {
-         request.setAttribute("msg", "È¸¿ø°¡ÀÔ¿¡ ½ÇÆĞÇÏ¼Ì½À´Ï´Ù.");
+         request.setAttribute("msg", "íšŒì›ê°€ì…ì— ì‹¤íŒ¨í•˜ì…¨ìŠµë‹ˆë‹¤.");
          RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
          view.forward(request, response);
          }
