@@ -83,14 +83,14 @@ input::placeholder{
 				<br>
 					<div class="ediv">
 						<span class="espan">
-						<input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요"required>
+						<!-- <input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요"required>
 						<br>
 						<input type="text" id="nameArea" name="userName" placeholder="이름을 입력해주세요"required>
-						<br>
+						<br> -->
 						<input type="text" id="emailArea" name="email"placeholder="이메일을 입력해주세요"required>
 						<br>
-						<input type="text" placeholder="연락처('-'제외)를 입력해 주세요" name="phone" required>
-						<br>
+					<!-- 	<input type="text" placeholder="연락처('-'제외)를 입력해 주세요" name="phone" required>
+						<br> -->
 						<br>
 						<input type="submit" value="비밀번호 찾기" id="ebtn" class="btn hover1"> 
 						

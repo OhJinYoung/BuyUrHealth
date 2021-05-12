@@ -20,7 +20,7 @@ System.out.println(p);
 </style>
 </head>
 <body>
-	<%@include file="../admin/header.jsp"%>
+	<%@include file="../header.jsp"%>
 		<%@include file="productNav.jsp"%>
 
 	<div class="product-list">

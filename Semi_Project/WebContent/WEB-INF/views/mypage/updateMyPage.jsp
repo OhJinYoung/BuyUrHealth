@@ -184,6 +184,15 @@
 			location.href='<%= request.getContextPath() %>/checkmail.me';
 		});
 		
+		$('.numCheck').on('click', function(){
+			$('.myPage-pwd').css("pointer-events", "none");
+			$('.myPage-email').css("opacity",  "1");
+			$('.myPage-email').css("pointer-events", "auto");
+			$('.myPageBtns').css("opacity", "1");
+			$('.outer').css("opacity", "1");
+			$('.myPageBtns').css("pointer-events", "auto");
+		});
+		
 	</script>
 </body>
 </html>

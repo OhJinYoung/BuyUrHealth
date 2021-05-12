@@ -430,7 +430,7 @@ input{
 	});
 	
 	function orderDetail(order_no){
-		var option='width=670px, height=330px';
+		var option='width=670px, height=600px';
 		var url = '<%=request.getContextPath()%>/orderDetail.do?no=' + order_no;
 		window.open(url,'orderDetail',option);
 	}

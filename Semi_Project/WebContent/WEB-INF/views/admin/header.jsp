@@ -53,13 +53,13 @@ hr {
 	<div class="wrap">
 		<nav>
 			<div>
-				<a href="<%=request.getContextPath()%>"><img class="mainLogo"
+				<a href="memberList.do"><img class="mainLogo"
 					src="<%=request.getContextPath()%>/images/mainlogo.png"
 					width="100px" height="50px" alt="My Image"></a>
 			</div>
 			<div class="mainMenu" id="memberList.do">사용자 관리</div>
 			<div class="mainMenu" id="orderList.do">주문 관리</div>
-			<div class="mainMenu" id="goProduct">제품 관리</div>
+			<div class="mainMenu" id="productList.do">제품 관리</div>
 			<div class="mainMenu" id="goNotice">고객센터</div>
 			<%
 			if (loginUser == null) {

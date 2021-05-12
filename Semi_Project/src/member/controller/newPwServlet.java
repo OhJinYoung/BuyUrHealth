@@ -8,52 +8,43 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
-
 /**
- * Servlet implementation class loginServlet
+ * Servlet implementation class newPwServlet
  */
-@WebServlet("/login.me")
-public class loginServlet extends HttpServlet {
+@WebServlet("/newPw.me")
+public class newPwServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public loginServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public newPwServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String id  = request.getParameter("userId"); 
-		String pwd = request.getParameter("userPwd");
-
-		Member member = new Member(id,pwd);
-		Member loginUser = new MemberService().loginMember(member); 
-		System.out.println(loginUser);
-		if(loginUser !=null) {
-				HttpSession session = request.getSession();
-				session.setAttribute("loginUser", loginUser);
-				session.setMaxInactiveInterval(6000);
-				response.sendRedirect(request.getContextPath()); 
-				
+		request.setCharacterEncoding("UTF-8"); 
+		String email  = (String)request.getSession().getAttribute("email");
+		String newPwd = request.getParameter("newPwd");
+		
+		int UserInfo = new MemberService().newPwInfo(email,newPwd); 
+		
+		if(UserInfo > 0) {
+			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/changePw.jsp");
+			view.forward(request, response);
 		}else {
-			request.setAttribute("msg", "ë¡œê·¸ì¸ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
-
-			RequestDispatcher view =
-					request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
-			view.forward(request, response); 
+			request.setAttribute("msg", "È¸¿øÁ¤º¸ ¼öÁ¤¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+			
 		}
-
 	}
 
 	/**

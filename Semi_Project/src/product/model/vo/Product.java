@@ -7,8 +7,23 @@ public class Product {
 	private int productVolume;
 	private String productDetail;
 	private int productPrice;
+	private String cateName;
+	private String filePath;
+	private String fileName;
 
 	public Product() {
+	}
+
+	public Product(int productNo, String productName, int productPrice, int productVolume,String cateName, String filePath,
+			String fileName) {
+		super();
+		this.productNo = productNo;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		this.productVolume = productVolume;
+		this.cateName = cateName;
+		this.filePath = filePath;
+		this.fileName = fileName;
 	}
 
 	public Product(int productNo, String productName, int categoryNo, int productVolume, String productDetail,
@@ -70,13 +85,28 @@ public class Product {
 		this.productPrice = productPrice;
 	}
 
-	@Override
-	public String toString() {
-		return "Product [productNo=" + productNo + ", productName=" + productName + ", categoryNo=" + categoryNo
-				+ ", productVolume=" + productVolume + ", productDetail=" + productDetail + ", productPrice="
-				+ productPrice + "]";
+	public String getCateName() {
+		return cateName;
 	}
 
-	
-	
+	public void setCateName(String cateName) {
+		this.cateName = cateName;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 }

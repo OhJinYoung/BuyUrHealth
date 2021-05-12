@@ -82,7 +82,7 @@
 					</div>
 						<div class="product-content">
 						<img src="<%= request.getContextPath() %>/uploadFiles/productUpload/<%=pf.getFileNo()%>.png" width="130px" height="100px" alt="My Image">
-						<h1><%= p.getProductName() %></h1>
+						<h1><%= p.getProductName() %>...외 2개</h1>
 							<p>가격 : <%=p.getProductPrice() %></p><p style="float: right; margin-right: 50px;">개수 : <%= od.getVolume() %></p>
 		
 						</div>
@@ -126,7 +126,7 @@
 		});
 		
 		$('#goBuy-review').on('click', function(){
-			location.href="<%= request.getContextPath() %>/goReview.me";
+			location.href="<%= request.getContextPath() %>/goCommunity";
 		});
 	</script>
 </body>

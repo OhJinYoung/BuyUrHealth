@@ -16,7 +16,7 @@
 		margin-left:auto; margin-right:auto; margin-top:50px;
 	}
 	.thumbnailArea {width:760px; height:550px; margin-left:auto; margin-right:auto;}
-	.buttonArea {width:80px; margin-left:auto; margin-right:auto;}
+	.buttonArea {width:80px; margin-left:auto; margin-right:auto; position: bottom;}
 	.thumb-list {width:220px; border:1px solid white; display:inline-block; margin:10px; align:center;}
 	.thumb-list:hover {opacity:0.8; cursor:pointer;}
 	#insertBtn{background: #FFC83D;border: 1px solid white;  color: white; font-weight: bold; cursor: pointer;  letter-spacing: -1px;  padding: 10px 30px;
