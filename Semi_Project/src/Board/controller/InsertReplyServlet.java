@@ -52,7 +52,6 @@ public class InsertReplyServlet extends HttpServlet {
 		
 		GsonBuilder gb = new GsonBuilder();
 		GsonBuilder gbDate = gb.setDateFormat("yyyy-MM-dd"); 
-		// Gson은 날짜형식이 좀 다름, 날짜형식을 내가 원하는대로 바꿔줌  / 반환값도 GsonBuilder임
 		Gson gson = gbDate.create();  // GsonBuilde를 가지고  create()하면 gson객체를 만들 수 있음
 		gson.toJson(list, response.getWriter());  // toJson해서 보내주기
 		

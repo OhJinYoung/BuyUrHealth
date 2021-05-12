@@ -76,6 +76,10 @@
     	padding: 10px;
     }
     
+    #category{
+    border-radius: 5px;
+    }
+    
     #title{
     	width: 50%;
 		height: 43px;
@@ -152,6 +156,7 @@
         text-decoration: none;
         font-size: 0.9375em;
     }
+
 </style>
 </head>
 <body>
@@ -169,7 +174,7 @@
 			<div class="line"></div>
 		</div>
 		
-		<div class="community body">
+		<div class="community body" >
 			<table>
 				<tr>
 					<td>
@@ -192,7 +197,7 @@
 				<tr>
 					<td class="td1">
 						<div class="image-container">
-						<h2>첨부파일</h2>
+						<h3>첨부파일</h3>
 						    <input style="display: block;" type="file" id="input-image" name="upfile">
 						    <img style="width: 500px;" id="preview-image">
 						</div>
