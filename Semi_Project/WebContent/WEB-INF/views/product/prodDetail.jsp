@@ -245,7 +245,7 @@ ArrayList<Cart> cartlist = (ArrayList<Cart>)request.getAttribute("cartlist");
 			<span>제품상세보기</span>
 			<input type="hidden" name="pcategoryNo" value="<%= p.getCategoryNo() %>">
 			<%  if(authority != null && authority.getUserId().equals("admin")) {  %> 
-			<input type="submit" id="test_btn1" class="updateBtn" value="수정" onClick="this.form.action='productUpdateForm.pro'" value="수정">
+			<input type="hidden" id="test_btn1" class="updateBtn" value="수정" onClick="this.form.action='productUpdateForm.pro'" value="수정">
 			<input type="button" id="test_btn1" class="deleteBtn" value="삭제">
 			<%   }  %>  
 			<hr>
