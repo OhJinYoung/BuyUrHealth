@@ -325,9 +325,7 @@ input{
 								<option>결제완료</option>
 								<option>주문취소</option>
 								<option>배송준비중</option>
-								<option>배송중</option>
 								<option>배송완료</option>
-								<option>반품요청</option>
 								<option>반품완료</option>
 								<option>교환완료</option>
 							</select>
