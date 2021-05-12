@@ -114,7 +114,13 @@
 		<div class="company">
 			<label><%=product.getProductName() %></label><br>
 			<label>xx택배</label><br>
-			<label>송장번호 - <%=order.getTrackingNo() %></label>
+			<label>송장번호  
+			<% if(order.getTrackingNo() != null){ %>
+				<%=order.getTrackingNo() %>
+			<% } else {%>
+				-
+			<% } %>
+			</label>
 		</div>
 		<div class="orderlistDetail">
 			<label>받는사람 : <%=order.getName() %></label><br>

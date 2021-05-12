@@ -98,8 +98,6 @@
 		});
 		
 		function subProductReturn(){
-			console.log('hi');
-			
 			var requestType = $('input[name=requestSelect]:checked').val();
 			var requestResult = $('input[name=requestResult]:checked').children().text();
 			

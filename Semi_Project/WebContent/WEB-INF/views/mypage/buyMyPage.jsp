@@ -89,7 +89,7 @@
 						<% if(ro.getType() == null) { %>
 						
 						<% } else { %>
-								<h2 id="requestCheck" style="color: red;"><%=ro.getType()%></h2>
+								<h2 id="requestCheck" style="color: red;"><%=ro.getType() %></h2>
 						<% } %>
 					</div>
 			

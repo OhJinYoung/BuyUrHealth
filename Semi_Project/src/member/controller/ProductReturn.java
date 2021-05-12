@@ -52,11 +52,10 @@ public class ProductReturn extends HttpServlet {
 		ro.setInfo(requestResult);
 		
 		int updateRequest = new OrderService().insertRequest(order.getNo(), ro);
-		
-		System.out.println(updateRequest);
+		int updateOrderState = new OrderService().updateRequest(order.getNo(), order.getState());
 		
 		String page = null;
-		if(updateRequest > 0) {
+		if(updateRequest > 0 && updateOrderState > 0) {
 			PrintWriter writer = response.getWriter(); 
 			writer.println("<script>alert('요청이 처리되었습니다.');</script>");
 			response.sendRedirect("buyMyPage.me");
