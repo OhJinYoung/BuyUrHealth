@@ -30,8 +30,8 @@
 	.myPage-pwd button{float: right; position: relative; top: -30px;}
 	.myPage-email{width: 600px; margin-top: -20px; float: right; 
 				  margin-left: 50px; opacity: 0.5; pointer-events: none;}
-	.myPage-email input{width: 400px; height: 30px;}
-	.myPage-email button{float: right; position: relative; top: -30px; margin-left: 20px;}
+	.myPage-email input{width: 400px; height: 30px; margin-top: 10px;}
+	.myPage-email button{float: right; position: relative; margin-left: 20px;}
 	
 	.outer{
 		width: 500px; height: 450px; margin-top: 300px; margin-left: 50px; 
@@ -66,7 +66,6 @@
     	
     	<div class="myPage-email">
     		<h2>이메일 인증</h2>
-	    	<input id="emailCert" type="text"><br>
 	    	<button class="numCheck">확인</button>
 	    	<input id="certNum" type="text">
     		<button class="emailCheck" onkeyup="emailEnterKey();">인증번호 발송</button>
@@ -170,7 +169,7 @@
 				$('.myPage-pwd').css("pointer-events", "none");
 				$('.myPage-email').css("opacity",  "1");
 				$('.myPage-email').css("pointer-events", "auto");
-				$('.myPageBtns').css("opacity", "0.5");
+				$('.myPageBtns').css("opacity", "1");
 				$('.outer').css("opacity", "1");
 				$('.myPageBtns').css("pointer-events", "auto");
 			} else {

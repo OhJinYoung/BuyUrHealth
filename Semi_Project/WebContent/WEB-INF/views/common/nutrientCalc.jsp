@@ -4,7 +4,7 @@
 <html>
 <head>
 <style>
-	.nutrientCalc{text-align: center;}
+	.nutrientCalc{text-align: center; padding-top:40px;}
 	select[name=calcSelect]{width:20%; height:40px; margin:10px; cursor:pointer;}
 	
 </style>
