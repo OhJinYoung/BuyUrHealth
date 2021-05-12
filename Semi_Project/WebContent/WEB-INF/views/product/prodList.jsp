@@ -173,7 +173,7 @@
 			
 			if(<%=currentPage%> <= 1 ) {
 					var before = $('#beforeBtn');
-					before.attr('disabled', ture);
+					before.attr('disabled', true);
 				}
 			</script>
 				<!-- 숫자 버튼 -->
