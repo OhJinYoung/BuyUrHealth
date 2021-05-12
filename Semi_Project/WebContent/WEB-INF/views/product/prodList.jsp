@@ -150,7 +150,7 @@ padding: 5px 0;
 				<div id="contents-wrap">
 					<div id="top">
 						<div>
-							<h4><%=list.get(0).getCateName()%></h4>
+							<h4 id="cate_name"><%=list.get(0).getCateName()%></h4>
 						</div>
 					</div>
 					<div id="productlist">
@@ -158,7 +158,7 @@ padding: 5px 0;
 							<table>
 								<%
 								for (int i = 0; i < list.size(); i++) {
-									if (i == 0 || (i - 2 > 0 && ((i - 2) % 3) == 0)) {
+									if (i == 0 || i==3||i==6) {
 								%>
 								<tr>
 									<%
@@ -182,7 +182,7 @@ padding: 5px 0;
 										</div>
 									</td>
 									<%
-									if (((i - 2) % 3) == 0) {
+									if (i==2||i==5||i==8) {
 									%>
 								</tr>
 								<%
@@ -232,7 +232,8 @@ padding: 5px 0;
 </body>
 <script>
 	$('#pagingBtns button').on('click', function(){
-		location.href = '<%=request.getContextPath()%>/goProduct?currentPage='+ page;
+		var page = $(this).val();
+		location.href = '<%=request.getContextPath()%>/goProduct?cate='+$('#cate_name').text()+'&&currentPage='+ page;
 	});
 	
 	$('.cell').click(function(){

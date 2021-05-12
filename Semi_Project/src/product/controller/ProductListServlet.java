@@ -35,14 +35,14 @@ public class ProductListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String page = request.getParameter("page");
+		String page = request.getParameter("currentPage");
 		String cate = request.getParameter("cate");
 		if(cate==null||cate.equals(""))
 			cate="기초영양";
 		ProductService pService = new ProductService();
 
 		int listCount = pService.listCount(cate);
-		PageInfo pi = new PagingTemplate().getPageInfo(page, listCount);
+		PageInfo pi = new PagingTemplate().getPageInfo(page, listCount, 6);
 
 		ArrayList<Product> list = pService.productList(pi, cate);
 
