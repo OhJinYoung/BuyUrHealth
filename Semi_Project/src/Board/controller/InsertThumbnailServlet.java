@@ -50,9 +50,9 @@ public class InsertThumbnailServlet extends HttpServlet {
 			
 			String savePath = root + "uploadFiles\\communityUpload/";
 			
-			File f = new File(savePath); // io하면서 배웠던거
-			if(!f.exists()) { // 존재하지 않는다면
-				f.mkdirs();  // 폴더만들어주는것
+			File f = new File(savePath); 
+			if(!f.exists()) { 
+				f.mkdirs();  
 			}
 
 			MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
@@ -105,7 +105,7 @@ public class InsertThumbnailServlet extends HttpServlet {
 			int result = new CommunityService().insertThumbnail(c, fileList);
 			
 			if(result > 0) {
-				response.sendRedirect("goCommunity");
+				response.sendRedirect("insert.th");
 			} else {
 				request.setAttribute("msg", "등록에 실패하였습니다.");
 				

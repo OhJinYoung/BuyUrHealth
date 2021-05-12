@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="Board.model.dao.CommunityDAO, Board.model.vo.AddFile, java.util.ArrayList" %>
-
+    pageEncoding="UTF-8" import="Board.model.vo.Community"%>
+    <%@ page import="java.util.ArrayList, Board.model.vo.Community, java.io.*, Board.model.dao.CommunityDAO," %>
+<%
+    ArrayList<Community> list = (ArrayList<Community>)request.getAttribute("list");
+   	 Community c = (Community)request.getAttribute("c");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -9,7 +12,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
-<style>
 <style>
 	html, body {
 	    height: 100%; 
@@ -75,6 +77,10 @@
     
     td{
     	padding: 10px;
+    }
+    
+    #category{
+    border-radius: 5px;
     }
     
     #title{
@@ -153,14 +159,13 @@
         text-decoration: none;
         font-size: 0.9375em;
     }
-</style>
-</style>
 
+</style>
 </head>
 <body>
 	<%@include file="../title_header.jsp" %>
 	
-<form action="<%= request.getContextPath() %>/insert.th" method="post" enctype="multipart/form-data">
+	<form action="<%= request.getContextPath() %>/communityUpdateForm.co" method="post" enctype="multipart/form-data">
 
 	<div class="community data">
 	
@@ -200,7 +205,7 @@
 						    <img style="width: 500px;" id="preview-image">
 						</div>
 						<input type="submit" id="enterBtn" onclick="checkConfirm();" value="등록">
-						<button id="cancelBtn" onclick="location.href='<%= request.getContextPath() %>/qalist.bo'" >취소</button>
+						<button id="cancelBtn" onclick="location.href='<%= request.getContextPath() %>/clist.bo'" >취소</button> 
 					</td>
 				</tr>
 			</table>
@@ -236,6 +241,19 @@
 			var id = $(this).attr('id');
 			location.href='<%=request.getContextPath()%>/' + id;
 		});
+		
+		$('.servicemenu').on('click', function() {
+			var id = $(this).attr('id');
+			location.href='<%=request.getContextPath()%>/' + id;
+		});
+		
+		function deleteCommunity(){
+			var bool = confirm("정말로 삭제하시겠습니까?");
+			
+		<%--	if(bool){
+				location.href='<%= request.getContextPath() %>/Commdelete.bo?bId=' + <%= c.getCommNo() %>;
+			} --%>
+		};
 		</script>
 	</div>
 	</form>

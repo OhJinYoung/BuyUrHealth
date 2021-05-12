@@ -4,8 +4,7 @@
 <% 
 	Community c = (Community)request.getAttribute("community"); 
 	ArrayList<AddFile> fileList = (ArrayList<AddFile>)request.getAttribute("fileList");
-	AddFile titleImg = fileList.get(0);
-
+	
 %>
 
 <!DOCTYPE html>
@@ -14,6 +13,21 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	.outer {
+		width:1000px; height:735px; background: rgba(255, 255, 255, 0.4); border: 5px solid white;
+		margin-left:auto; margin-right:auto; margin-top:50px;
+	}
+	.detail{text-align:center;}
+	.detail th, .detail td{width: 1000px; padding: 10px; background: rgba(255, 255, 255, 0.4);}
+	.detail th{background: white;}
+	#titleImgArea{width:500px; height:300px; margin-left:auto; margin-right:auto;}
+	#contentArea{height:30px;}
+	.detailImgArea{width:250px; height:210px; margin-left:auto; margin-right:auto;}
+	#titleImg{width:500px; height:300px;}
+	.detailImg{width:250px; height:180px;}
+	.downBtn{background: #D1B2FF;}
+	#thumbTable{margin: auto;}
+
 	html, body {
 	    height: 100%; 
 	    overflow-y: auto;
@@ -26,7 +40,6 @@
 		width: 98%; float: left; margin-left: 30px; 
 		margin-top: 15px;	
 		}
-
     #updateBtn{
     	background-color: #FFC83D;
         border: 1px solid white;
@@ -129,16 +142,8 @@
 						<th>내용</th>
 					</tr>
 					<tr>
-						<td colspan="6">
-							<img src="<%= request.getContextPath() %>/uploadFiles/communityUpload/<%= titleImg.getChangeName() %>" 
-							width="400px" height="350px" id="image" alt="My Image">
-						</td>
-					</tr>
-					<tr>
-						<td colspan="6">
-							<textarea cols="60" rows="15" style="resize:none;" readonly><%= c.getCommContent() %></textarea>
-						</td>
-					</tr>
+						<td colspan="4"><textarea name="content" rows="20" cols="80"
+							readonly><%=c.getCommContent()%></textarea></td>
 				</table>
 			</div>	
 				
@@ -151,8 +156,8 @@
 				</div>
 			</form>
 		</div>
-	</div> 
-			<div align="center" class="replyArea">
+
+		<div align="center" class="replyArea">
 			<div class="replyWriterArea"><!-- 댓글 작성 부분 -->
 				<table>
 					<tr>
@@ -162,40 +167,6 @@
 					</tr>
 				</table>
 			</div>
-			
 		</div> 
-	<script>
-		$(function(){
-			$('#addReply').on('click', function(){
-				var writer = '<%= loginUser.getUserId() %>';
-				var bId = <%= c.getCommNo() %>;
-				var content = $('#replyContent').val();
-				
-				$.ajax({
-					url: 'insertReply.bo',
-					data:{writer:writer, bId:bId, content:content},
-					success: function(data){
-						console.log(data);
-						$replyTable = $('#replySelectTable');
-						$replyTable.html('');  // 이어져서 나오지 않도록, 비워두는 역할
-						
-						for(var key in data){
-							var $tr = $('<tr>');
-							var $writerTd = $('<td>').text(data[key].nickName).css('width', '100px');
-							var $contentTd = $('<td>').text(data[key].replyContent).css('width', '400px');
-							var $dateTd = $('<td>').text(data[key].createDate).css('width', '200px');
-							
-							$tr.append($writerTd);
-							$tr.append($contentTd);
-							$tr.append($dateTd);
-							$replyTable.append($tr); // tr을 eplyTable에 붙이기
-						}
-						
-						$('#replyContent').val('');  // 다 적었으면 댓글작성부분 없앰
-					}
-				});
-			});
-		});
-	</script>
 </body>
 </html>
