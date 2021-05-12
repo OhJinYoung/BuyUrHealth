@@ -1,7 +1,6 @@
 package member.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,44 +9,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.service.MemberService;
+import member.model.vo.Member;
+
 /**
- * Servlet implementation class checkKeyServlet
+ * Servlet implementation class newPwServlet
  */
-@WebServlet("/sendtrue.do")
-public class checkKeyServlet extends HttpServlet {
+@WebServlet("/newPw.me")
+public class newPwServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public checkKeyServlet() {
+    public newPwServlet() {
         super();
-        // TODO Auto-generated constructor stub 
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-
-		String AuthenticationKey  = (String)request.getSession().getAttribute("AuthenticationKey");
-		String email 			  = (String)request.getSession().getAttribute("email");
-		String AuthenticationUser = request.getParameter("AuthenticationUser");
-		System.out.println(email);
-	 	System.out.println(AuthenticationKey);
-		if(!AuthenticationKey.equals(AuthenticationUser) || email == null)
-		{
-			request.setAttribute("msg", "인증에 실패하셨습니다.");
-			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
-			view.forward(request, response);
-			
-		}else {
-			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/mailSuccess.jsp");
-			view.forward(request, response);
-		}
+		request.setCharacterEncoding("UTF-8"); 
+		String email  = (String)request.getSession().getAttribute("email");
+		String newPwd = request.getParameter("newPwd");
 		
+		int UserInfo = new MemberService().newPwInfo(email,newPwd); 
+		
+		if(UserInfo > 0) {
+			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/member/changePw.jsp");
+			view.forward(request, response);
+		}else {
+			request.setAttribute("msg", "회원정보 수정에 실패했습니다.");
+			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+			
+		}
 	}
 
 	/**

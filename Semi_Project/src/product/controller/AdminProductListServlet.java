@@ -15,16 +15,16 @@ import product.model.service.ProductService;
 import product.model.vo.Product;
 
 /**
- * Servlet implementation class ProductListServlet
+ * Servlet implementation class AdminProductListServlet
  */
-@WebServlet("/goProduct")
-public class ProductListServlet extends HttpServlet {
+@WebServlet("/productList.do")
+public class AdminProductListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ProductListServlet() {
+	public AdminProductListServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -36,19 +36,17 @@ public class ProductListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String page = request.getParameter("page");
-		String cate = request.getParameter("cate");
-		if(cate==null||cate.equals(""))
-			cate="기초영양";
 		ProductService pService = new ProductService();
 
-		int listCount = pService.listCount(cate);
+		int listCount = pService.listCount("");
+
 		PageInfo pi = new PagingTemplate().getPageInfo(page, listCount);
 
-		ArrayList<Product> list = pService.productList(pi, cate);
+		ArrayList<Product> list = pService.allProductList(pi);
 
 		request.setAttribute("page", pi);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("WEB-INF/views/product/prodList.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/views/admin/product/productList.jsp").forward(request, response);
 	}
 
 	/**

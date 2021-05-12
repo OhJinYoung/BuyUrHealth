@@ -1,88 +1,19 @@
 package product.model.service;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import product.model.dao.ProductDAO;
-import product.model.vo.PageInfo;
+import common.PageInfo;
 import product.model.vo.Product;
 import product.model.vo.ProductFile;
 
 public class ProductService {
-
-	public int getlistCount1() {
-		Connection conn = getConnection();
-
-		int listCount = new ProductDAO().getListCount1(conn);
-
-		close(conn);
-
-		return listCount;
-	}
-	
-	public int getlistCount2() {
-		Connection conn = getConnection();
-
-		int listCount = new ProductDAO().getListCount2(conn);
-
-		close(conn);
-
-		return listCount;
-	}
-	
-	public int getlistCount3() {
-		Connection conn = getConnection();
-
-		int listCount = new ProductDAO().getListCount3(conn);
-
-		close(conn);
-
-		return listCount;
-	}
-	
-	public int getlistCount4() {
-		Connection conn = getConnection();
-
-		int listCount = new ProductDAO().getListCount4(conn);
-
-		close(conn);
-
-		return listCount;
-	}
-	
-	public int getlistCount5() {
-		Connection conn = getConnection();
-
-		int listCount = new ProductDAO().getListCount5(conn);
-
-		close(conn);
-
-		return listCount;
-	}
-	
-	public int getlistCount6() {
-		Connection conn = getConnection();
-
-		int listCount = new ProductDAO().getListCount6(conn);
-
-		close(conn);
-
-		return listCount;
-	}
-	
-	public int getlistCount7() {
-		Connection conn = getConnection();
-
-		int listCount = new ProductDAO().getListCount7(conn);
-
-		close(conn);
-
-		return listCount;
-	}
-
-
 	
 	public ArrayList selectTList(PageInfo pi, int i, int pcategory) {
 		Connection conn = getConnection();
@@ -187,5 +118,33 @@ public class ProductService {
 		return result;
 	}
 
+	public int listCount(String cate) {
+		Connection conn = getConnection();
 
+		int result = new ProductDAO().listCount(conn, cate);
+
+		close(conn);
+
+		return result;
+	}
+
+	public ArrayList<Product> productList(PageInfo pi, String cate) {
+		Connection conn = getConnection();
+
+		ArrayList<Product> list = new ProductDAO().productList(conn, pi, cate);
+
+		close(conn);
+
+		return list;
+	}
+
+	public ArrayList<Product> allProductList(PageInfo pi) {
+		Connection conn = getConnection();
+
+		ArrayList<Product> list = new ProductDAO().allProductList(conn, pi);
+
+		close(conn);
+
+		return list;
+	}
 }

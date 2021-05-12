@@ -583,4 +583,23 @@ public class MemberDAO {
 		
 		return result;
 	}
+	public int newPwInfo(Connection conn, String email, String newPwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateMyPwNew");
+		
+		System.out.println(email);
+		System.out.println(newPwd);
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, email);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

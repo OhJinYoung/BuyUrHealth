@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.*"%>
- <%
- 	String key = (String)request.getAttribute("key");
- 	String email = (String)request.getAttribute("email");
- 
- %>
+<% 
+	request.setCharacterEncoding("UTF-8");
+%>   
     
 <!DOCTYPE html>
 <html>
@@ -12,6 +10,11 @@
 <meta charset="UTF-8">
 <title>아이디 찾기 성공</title>
 <style>
+	input{
+  width:300px;
+  height:70px;
+  font-size:20px;
+}
 
 .btn:hover{color:#fff;}
 .hover1:hover{ box-shadow: 0 80px 0 0 rgba(0,0,0,0.25) inset, 0 -80px 0 0 rgba(0,0,0,0.25) inset; }
@@ -22,17 +25,6 @@ input::placeholder{
 #acolor{
 	color: red;
 }
-
-
-	input{
-  width:300px;
-  height:70px;
-  font-size:20px;
-}
-input::placeholder{
-	font-size: 25px;
-}
-
 
 #ebtn{
 	background-color: #e4a127;
@@ -75,47 +67,20 @@ input::placeholder{
 	width:  600px; 
 	
 }
-.wrap {
-	background: white;
-	width: 100%;
-}
 
-.mainMenu {
-	background: white;
-	color: gray;
-	text-align: center;
-	font-weight: bold;
-	vertical-align: middle;
-	width: 150px;
-	height: 50px;
-	display: table-cell;
-}
-
-.mainMenu:hover {
-	background: beige;
-	color: orangered;
-	font-weight: bold;
-	cursor: pointer;
-}
-
-.mainLogo {
-	float: left;
-	margin-right: 150px;
-	margin-left: 30px;
-	clear: both;
-}
 
 	#button{
+		background-color: #e4a127;
 		margin-left: 150px;
 		margin-top: 70px;
 		font-size: 20px;
 		border: none;
 		width:300px;
 		height: 60px;
-		border-radius: 20%;
+		border-radius: 12px;
 		float: left;
+		color: white;
 	}
-	
 	
 	#userInfo{
 		text-align: center;
@@ -127,7 +92,7 @@ input::placeholder{
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-	<%@include file="../title_header.jsp"%>
+<%@include file="../title_header.jsp"%>
 	
 	
 	<div class="log_find">
@@ -136,19 +101,14 @@ input::placeholder{
 			<div class="area">
 				
 			<div class="harea">
-					<h4>등록된 이메일로 인증</h4>
 			</div>
 				<div class="ediv">
 					<div id="userInfo"> 
-						<p>인증번호를 입력하세요</p>
-						<form action="<%= request.getContextPath() %>/sendtrue.do" method="post">  
-							<input type="text"name="AuthenticationUser">
-							<input type="submit" value="전 송">
-						</form>
 					</div>
 								 
+					<h4>비밀번호 수정에 성공하였습니다.</h4>
 					<br> 
-						<button id="button" class="btnArea" onclick="goHome();">메인으로 돌아가기</button>
+						<button id="button" class="btn hover1" onclick="goHome();">메인으로 돌아가기</button>
 				</div>
 			</div>
 	</div>

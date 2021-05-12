@@ -51,7 +51,7 @@ public class productUpdateServlet extends HttpServlet {
 			Product p = new Product(productNo, productName, categoryNo, productVolume, productDetail, productPrice);
 			
 			request.setAttribute("p", p);
-			request.getRequestDispatcher("WEB-INF/views/product/prodChange.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/views/admin/product/prodChange.jsp").forward(request, response);
 	}
 
 	/**

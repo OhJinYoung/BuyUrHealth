@@ -19,8 +19,8 @@ public class Member {
 	public Member() {
 	}
 	
-	public Member(String password) {
-		this.password = password;
+	public Member(String email) {
+		this.email = email;
 	}
 	public Member(String userId, String password) {
 		this.userId = userId;
