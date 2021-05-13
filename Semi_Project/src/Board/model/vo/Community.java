@@ -14,6 +14,14 @@ public class Community {
 	private String coContent;
 	
 	public Community() {}
+	
+	public Community(int commNo, String commTitle, Date commDate, int userNo, int ctgNo) {
+		super();
+		this.commNo = commNo;
+		this.commTitle = commTitle;
+		this.commDate = commDate;
+		this.userNo = userNo;
+	}
 
 	public Community(int commNo, String commTitle, String commContent, Date commDate, int userNo, int ctgNo) {
 		super();

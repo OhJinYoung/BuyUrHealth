@@ -123,8 +123,8 @@
 		<br>
 	</div>	
 		<div class="tableArea" align="center">
-			<form action="<%= request.getContextPath() %>/communityUpdateForm.co" id="detailForm" method="post">
-			<div class="community body" align="center">
+			<form action="<%= request.getContextPath() %>/communityUpdateForm.co" id="detailForm" method="post" enctype="multipart/form-data" ></form>
+			<div align="center">
 				<table>
 					<tr>
 						<th>제목</th>
@@ -142,11 +142,11 @@
 						<th>내용</th>
 					</tr>
 					<tr>
-						<td colspan="4"><textarea name="content" rows="20" cols="80"
-							readonly><%=c.getCommContent()%></textarea></td>
+						<td colspan="4">
+						<textarea name="content" rows="20" cols="80" readonly><%=c.getCommContent()%></textarea></td>
 				</table>
 			</div>	
-				
+		</div>	
 				<div align="center">
 					<% if(loginUser != null){ %>
 					<input type="submit" id="updateBtn" value="수정">
