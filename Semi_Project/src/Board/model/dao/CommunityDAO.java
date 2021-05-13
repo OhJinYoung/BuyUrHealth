@@ -45,7 +45,7 @@ public class CommunityDAO {
 //			pstmt.setInt(3, c.getUserNo());   
 //			pstmt.setInt(3, c.getCtgNo());
 			pstmt.setDate(3, c.getCommDate());
-			pstmt.setString(4, c.getUserName());
+			pstmt.setString(4, c.getUserName()); 
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -157,7 +157,6 @@ public class CommunityDAO {
 		ArrayList<AddFile> list = null;
 		
 		String query = prop.getProperty("selectThumbnail");
-//selectThumbnail=SELECT * FROM ATTACHMENT WHERE BOARD_ID = ? AND STATUS='Y' ORDER BY FILE_ID		
 	
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -186,7 +185,6 @@ public class CommunityDAO {
 	}
 
 	public ArrayList<Reply> selectReplyList(Connection conn, int bId) {  // ajax하면서 댓글 추가한 부분
-		//dao구현하는데, 먼저 쿼리부터 생각하기  / vo에서 nickname을 집어넛었는데 reply엔 없으니까 member랑 조인해야 함
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -249,18 +247,14 @@ public class CommunityDAO {
 		ArrayList<AddFile> list = null;
 		
 		String query = prop.getProperty("selectfList");
-// selectFList=SELECT * FROM ATTACHMENT WHERE STATUS='Y' AND FILE_LEVEL=0
-// selectFList조회 -> 사진게시판의 목록을 불러온다는 건 :		
-// FILE_LEVEL=0 -> 0으로 두는 이유 :	썸네일로 비춰질 사진인지, 내용안에 	들어갈 사진인지 구분해주는것 -> 0: 썸네일/ 1:내용 사진
-// => 썸네일만 가져오겠다는 Flist가 필요한 것		
  
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
 			
 			list = new ArrayList<AddFile>();
-			while(rset.next()) { // 게시글의 리스트를 조회해오는 것이기 때문에, 사진이 여러개일 수 잇으니 while사용 
-								// (전체 게시글의 썸네일을 가져오는 것이기에 여러개 일 수 있음)
+			while(rset.next()) { 
+								
 				list.add(new AddFile(rset.getInt("COMM_NO"), // BOARD_ID : 어떤 게시글에 속했는지 
 										rset.getString("CHANGE_NAME"))); 
 			}
