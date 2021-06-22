@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, product.model.vo.Product, common.PageInfo"%>
+	import="java.util.ArrayList, product.model.vo.Product, common.PageInfo,java.text.DecimalFormat"%>
 <%
 ArrayList<Product> list = (ArrayList) request.getAttribute("list");
 PageInfo paging = (PageInfo) request.getAttribute("page");
@@ -227,6 +227,11 @@ input[type=search]:hover {
 input {
 	outline: none;
 }
+
+.click img {
+width:50px;
+height: 50px;
+}
 </style>
 <body>
 	<%@include file="../header.jsp"%>
@@ -243,8 +248,8 @@ input {
 					<div id="table">
 						<table>
 							<tr id="firstTr">
-								<th>선택</th>
 								<th>카테고리</th>
+								<th></th>
 								<th>상품명</th>
 								<th>가격</th>
 								<th>재고</th>
@@ -253,13 +258,13 @@ input {
 								<%
 								if (list != null && list.size() > 0) {
 									for (Product p : list) {
+										String price = new DecimalFormat("###,###").format(p.getProductPrice());
 								%>
 								<tr class="click">
-									<td><input type="checkbox" name="checkbox"
-										value="<%=p.getProductNo()%>"></td>
 									<td onclick="productInfo(<%=p.getProductNo()%>)"><%=p.getCateName()%></td>
+									<td><img src="<%=p.getFilePath()%>/<%=p.getFileName()%>"></td>
 									<td onclick="productInfo(<%=p.getProductNo()%>)"><%=p.getProductName()%></td>
-									<td onclick="productInfo(<%=p.getProductNo()%>)"><%=p.getProductPrice() %></td>
+									<td onclick="productInfo(<%=p.getProductNo()%>)"><%=price %>원</td>
 									<td onclick="productInfo(<%=p.getProductNo()%>)"><%=p.getProductVolume() %></td>
 								</tr>
 								<%
@@ -307,7 +312,7 @@ input {
 						</script>
 						<div id="btns">
 							<button id="updateBtn">등록</button>
-							<button id="deleteBtn">삭제</button>
+							<!-- <button id="deleteBtn">삭제</button> -->
 						</div>
 					</div>
 				</div>
@@ -324,7 +329,7 @@ input {
 	$('#updateBtn').on('click', function() {
 		location.href='<%=request.getContextPath()%>/writeProductForm.pro'; 
 	});
-
+/* 
 	$('#deleteBtn').on('click', function() {
 		var checkArr = [];
 		$('input[name="checkbox"]:checked').each(function() {
@@ -344,7 +349,7 @@ input {
 				}		
 			});
 		}
-	});
+	}); */
 	
 	$('#pagingBtns button').on('click', function(){
 		var page = $(this).val();

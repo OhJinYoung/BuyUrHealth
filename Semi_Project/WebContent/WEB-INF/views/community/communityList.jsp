@@ -1,17 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, Board.model.vo.*, member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, Board.model.vo.*, member.model.vo.Member, Board.model.vo.Community, Board.model.vo.PageInfo"%>
+   
 <%
-	ArrayList<Community> cList = (ArrayList<Community>)request.getAttribute("cList");
-	ArrayList<AddFile> fList = (ArrayList<AddFile>)request.getAttribute("fList");
+    Member authority = (Member) session.getAttribute("loginUser");
+    ArrayList<Community> cList = (ArrayList<Community>)request.getAttribute("cList");
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
+<title>커뮤니티</title>
+<script type="text/javascript"
+	src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
+
+.listArea {
+	margin: auto;
+	border-collapse: collapse;
+	float: center;
+}
+
+.listArea tr {
+	height: 40px;
+	border-bottom: 1px solid #ccc;
+}
+
+.listArea th {
+	font-size: 18px;
+}
+
+.listArea td {
+	font-size: 15px;
+	text-align: center;
+}
+
 	.outer{width:1000px; height:700px; background: rgba(255, 255, 255, 0.4); border: 5px solid white;
 		margin-left:auto; margin-right:auto; margin-top:50px;
 	}
@@ -22,37 +45,39 @@
 	#insertBtn{background: #FFC83D;border: 1px solid white;  color: white; font-weight: bold; cursor: pointer;  letter-spacing: -1px;  padding: 10px 30px;
 	margin: 2px 3px; width: auto; word-break: keep-all; border-radius: 5px; text-decoration: none; font-size: 0.9375em;}
 </style>
+
 </head>
 <body>
 	<%@include file="../title_header.jsp"  %>
 	<div class="outer">
-		<br>
+		
 		<h2 align="center">커뮤니티</h2>
+		<br>
 		<div class="thumbnailArea">
 		
-	 <% if(cList.isEmpty()){ %>  
-			등록된 사진이 없습니다.
-			<% } else { %>
-				<% for(int i = 0; i < cList.size(); i++){ %>
-				<% Community c = cList.get(i); %> 
-					<div class="thumb-list" align="center">
-						<div>
-							<input type="hidden" name="bId" value="<%= c.getCommNo() %>">
-							<% for(int j = 0; j < fList.size(); j++){ %>
-								<% AddFile a = fList.get(j); %>
-								<% if(c.getCommNo() == a.getCommNo()){ %>
-									<img src="<%= request.getContextPath() %>/uploadFiles/communityUpload/<%= a.getChangeName() %>" width="200px" height="150px">
-								<% }  %>
-							<% } %>
-						</div>
-						 
-						<p>
-							No. <%= c.getCommNo()%> <%= c.getCommTitle() %><br>
-						</p>
-					</div>
-				<% } %>
-			<% } %> 
-		</div> 
+		<table class="listArea" id="listArea">
+			<tr>
+				<th width="300px">글번호</th>
+				<th width="300px">글제목</th>
+				<th width="100px">작성자</th>
+				<th width="100px">작성일</th>
+			</tr>
+			<% if(cList.isEmpty()) {%>
+			<tr>
+				<td colspan="4">존재하는 게시글이 없습니다.</td>
+			</tr>
+			<% } else {
+					for(Community c : cList) {%>
+			<tr>
+				<td><%= c.getCommNo() %></td>
+				<td><%= c.getCommTitle() %></td>
+				<td><%= c.getUserNo() %></td>
+				<td><%= c.getCommDate() %></td>
+			</tr>
+			<% } 
+				  } %>
+		</table>
+		<br>
 		
 		<!--  로그인 했을때 '글쓰기작성하기' 버튼 나타남 -->
 		<div class="buttonArea">
@@ -76,6 +101,18 @@
 				}
 			});
 		});
+		
+		$(function(){
+			$('#listArea td').on({'mouseenter':function(){
+				$(this).parent().css({'background':'darkgray', 'cursor':'pointer'});
+			}, 'mouseout':function(){
+				$(this).parent().css('background', 'none');
+			}, 'click':function(){
+				var num = $(this).parent().children().eq(0).text();
+				location.href='<%= request.getContextPath() %>/detail.th?bId='+num;
+			}});
+		});
+		
 	</script>
 </body>
 </html>

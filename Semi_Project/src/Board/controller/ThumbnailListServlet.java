@@ -17,7 +17,6 @@ import Board.model.vo.Community;
  * Servlet implementation class ThumbnailListServlet
  */
 
-/*사진게시판은 어려셔워 따로 페이징처리 안함, 사진게시판만 순수하게 보는걸로 , 사진게시판은 -> 게시판정보, 사진정보 두가지를 각각 불러와야한다*/
 @WebServlet("/goCommunity")
 public class ThumbnailListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

@@ -13,7 +13,7 @@ import QABoard.model.service.QABoardService;
 /**
  * Servlet implementation class DeleteCommunityServlet
  */
-@WebServlet("/CommDelest.cd")
+@WebServlet("/CommDelete.bo")
 public class DeleteCommunityServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,7 +34,7 @@ public class DeleteCommunityServlet extends HttpServlet {
 		int result = new CommunityService().deleteCommunity(bId);
 		
 		if(result > 0) {
-			response.sendRedirect("qalist.bo");
+			response.sendRedirect("goCommunity");
 		} else {
 			request.setAttribute("msg", "삭제에 실패했습니다");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
