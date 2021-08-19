@@ -32,7 +32,7 @@
 + 게시판 관리 : 모든 게시판 조회, 수정, 삭제 / 공지사항 추가, 수정, 삭제
          
 ## 핵심 특징
-<img src ="https://user-images.githubusercontent.com/82019175/129986560-1d8d9475-5e74-4ef7-ae3b-ecb0eb4f2a80.png" width="50%" height="50%">
+<img src ="https://user-images.githubusercontent.com/82019175/129987135-1a4bd433-17a4-4436-a93a-b970ee1c328c.png" width="50%" height="50%">
 
 * 사이트의 메인페이지 
   * 회원이 아니더라도 이용할 수 있음 
